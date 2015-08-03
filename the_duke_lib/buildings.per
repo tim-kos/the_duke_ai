@@ -1072,7 +1072,7 @@
 	(building-type-count-total blacksmith < 2)
  	(current-age >= feudal-age)
  	(can-build blacksmith)
-	(not (starting-age == post-imperial-age))
+	(not (current-age == post-imperial-age))
 =>
  	(build blacksmith)
 ;	(chat-local-to-self "build BLACKSMITH")
@@ -1102,7 +1102,7 @@
  	(current-age >= feudal-age)
  	(can-build blacksmith)
 	(building-type-count-total market > 0)
-	(not (starting-age == post-imperial-age))
+	(not (current-age == post-imperial-age))
 =>
  	(build blacksmith)
 ;	(chat-local-to-self "build BLACKSMITH")
@@ -1192,7 +1192,7 @@
  	(current-age >= castle-age)
  	(building-type-count-total university < 1)
  	(can-build university)
-	(not (starting-age == post-imperial-age))
+	(not (current-age == post-imperial-age))
 =>
  	(build university)
 ;	(chat-local-to-self "build UNIVERSITY")
@@ -1214,7 +1214,7 @@
 	(building-type-count-total monastery > 0)
  	(can-build university)
 	(goal RUSH-CONTROL NO)
-	(not (starting-age == post-imperial-age))
+	(not (current-age == post-imperial-age))
 =>
  	(build university)
 ;	(chat-local-to-self "build UNIVERSITY")

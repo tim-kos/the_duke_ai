@@ -1,3 +1,10 @@
+(defrule
+	(current-age <= feudal-age)
+=>
+	(chat-local-to-self "in age advancement2")
+	(disable-self)
+)
+
 #load-if-not-defined WONDER-RACE
 #load-if-not-defined DEATH-MATCH
 ;***********************************************
@@ -28,13 +35,11 @@
 ;FEUDAL-AGE
 
 
-
 ;Rule5: define the "Middle-Feudal" -Strategy
 
 (defrule
 	(game-time > 14)
-	(starting-age == dark-age)
-	(goal RESEARCHING-FEUDAL NOTICE)
+	(current-age == dark-age)
 	(or
 		(and
 			(random-number >= 5)
@@ -42,7 +47,6 @@
 		)
 		(goal RUSH-CONTROL FEUDAL)
 	)
-	(starting-age == dark-age)
 =>
 	(set-goal RESEARCHING-FEUDAL MIDDLE-FEUDAL)
 	(chat-local-to-self "MIDDLE-FEUDAL")
@@ -51,9 +55,8 @@
 
 (defrule
 	(game-time > 14)
-	(starting-age == dark-age)
+	(current-age == dark-age)
 	(goal RUSH-CONTROL CASTLE)
-	(goal RESEARCHING-FEUDAL NOTICE)
 =>
 	(set-goal RESEARCHING-FEUDAL LATE-FEUDAL)
 	(chat-local-to-self "LATE-FEUDAL")
@@ -63,9 +66,8 @@
 (defrule
 	(game-time > 14)
 	(goal RUSH-CONTROL NO)
-	(goal RESEARCHING-FEUDAL NOTICE)
 	(random-number < 5)
-	(starting-age == dark-age)
+	(current-age == dark-age)
 =>
 	(set-goal RESEARCHING-FEUDAL LATE-FEUDAL)
 	(chat-local-to-self "LATE-FEUDAL")
@@ -90,8 +92,7 @@
 			(not (goal RUSH-CONTROL FEUDAL))
 		)
 	)
-	(starting-age <= feudal-age)
-	(goal RESEARCHING-CASTLE NOTICE)
+	(current-age <= feudal-age)
 =>
 	(set-goal RESEARCHING-CASTLE FAST-CASTLE)
 	(chat-local-to-self "FAST-CASTLE")
@@ -101,10 +102,8 @@
 (defrule
 	(game-time > 14)
 	(goal RUSH-CONTROL NO)
-	(starting-age <= feudal-age)
-	(goal RESEARCHING-CASTLE NOTICE)
+	(current-age <= feudal-age)
 	(random-number < 6)
-	(starting-age <= feudal-age)
 =>
 	(set-goal RESEARCHING-CASTLE FAST-CASTLE)
 	(chat-local-to-self "FAST-CASTLE")
@@ -115,9 +114,7 @@
 	(game-time > 14)
 	(goal RUSH-CONTROL NO)
 	(random-number >= 6)
-	(starting-age <= feudal-age)
-	(goal RESEARCHING-CASTLE NOTICE)
-	(starting-age <= feudal-age)
+	(current-age <= feudal-age)
 =>
 	(set-goal RESEARCHING-CASTLE MIDDLE-CASTLE)
 	(chat-local-to-self "MIDDLE-CASTLE")
@@ -127,8 +124,7 @@
 (defrule
 	(game-time > 14)
 	(goal RUSH-CONTROL FEUDAL)
-	(starting-age <= feudal-age)
-	(goal RESEARCHING-CASTLE NOTICE)
+	(current-age <= feudal-age)
 =>
 	(set-goal RESEARCHING-CASTLE LATE-CASTLE)
 	(chat-local-to-self "LATE-CASTLE")
@@ -148,9 +144,7 @@
 		(goal RUSH-CONTROL NO	)
 		(goal RUSH-CONTROL FEUDAL)
 	)
-	(starting-age <= castle-age)
-	(goal RESEARCHING-IMPERIAL NOTICE)
-	(starting-age <= castle-age)
+	(current-age <= castle-age)
 =>
 	(set-goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL)
 	(chat-local-to-self "MIDDLE-IMPERIAL")
@@ -172,9 +166,7 @@
 		)
 		(goal RUSH-CONTROL CASTLE)
 	)
-	(starting-age <= castle-age)
-	(goal RESEARCHING-IMPERIAL NOTICE)
-	(starting-age <= castle-age)
+	(current-age <= castle-age)
 =>
 	(set-goal RESEARCHING-IMPERIAL LATE-IMPERIAL)
 	(chat-local-to-self "LATE-IMPERIAL")

@@ -15,34 +15,6 @@
 )
 
 
-
-(defrule
-	(game-time > 12)
-	(game-time < 20)
-	(nor
-		(or
-			(or
-				(goal RUSH-CONTROL FEUDAL)
-				(goal RUSH-CONTROL CASTLE)
-			)
-			(or
-				(goal RUSH-CONTROL DEFINE-UNITS-FLUSH)
-				(goal RUSH-CONTROL DEFINE-UNITS-CASTLE-RUSH)
-			)
-		)
-		(or
-			(goal RUSH-CONTROL RUSHING)
-			(goal RUSH-CONTROL PRIVILEGED)
-		)
-	)
-=>
-	(set-goal RUSH-CONTROL NO)
-	(chat-local-to-self "RUSH CONTROL NO")
-)
-;-----------------------------
-
-
-
 (defrule
 	(current-age >= feudal-age)
 	(town-under-attack)

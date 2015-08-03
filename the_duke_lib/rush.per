@@ -2,32 +2,15 @@
 ;			RUSH-CONTROLING
 ;===========================================================================
 
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-
-;Rule1: initialisation of rushing
-
 (defrule
 	(true)
 =>
 	(set-goal RUSH-CONTROL NO)
-	(chat-local-to-self "Low difficulty -> no rushing")
 	(disable-self)
 )
 
-#end-if		;if difficulty != hardest
-#end-if		;if difficulty != hard
-#end-if		;if difficulty != moderate
-
-
-
 #load-if-not-defined DIFFICULTY-EASIEST
 #load-if-not-defined DIFFICULTY-EASY
-
-;Rule1: initialisation of rushing
 
 (defrule
 	(true)
@@ -37,10 +20,19 @@
 	(disable-self)
 )
 
-#end-if		;if difficulty != easy
-#end-if		;if difficulty != easiest
+#end-if
+#end-if
 
 
+(defrule
+	(game-time > 12)
+	(game-time < 20)
+	(goal RUSH-CONTROL ENABLE)
+=>
+	(set-goal RUSH-CONTROL NO)
+	(chat-local-to-self "RUSH-CONTROL NO")
+	(disable-self)
+)
 
 ;*******************************************************
 ;*******************************************************
@@ -159,7 +151,7 @@
 	(goal HOW-MANY-PLAYERS FIVE)
 	(goal RUSH-CONTROL ENABLE)
 =>
-;	(chat-local-to-self "five players in game, no ally -> no rush")
+	(chat-local-to-self "five players in game, no ally -> no rush")
 	(set-goal RUSH-CONTROL NO)
 	(disable-self)
 )
@@ -180,7 +172,7 @@
 	(goal HOW-MANY-PLAYERS SIX)
 	(goal RUSH-CONTROL ENABLE)
 =>
-;	(chat-local-to-self "six players in game ->no rush")
+	(chat-local-to-self "six players in game ->no rush")
 	(set-goal RUSH-CONTROL NO)
 	(disable-self)
 )
@@ -191,7 +183,7 @@
 	(goal HOW-MANY-PLAYERS SEVEN)
 	(goal RUSH-CONTROL ENABLE)
 =>
-;	(chat-local-to-self "seven players in game -> no rush")
+	(chat-local-to-self "seven players in game -> no rush")
 	(set-goal RUSH-CONTROL NO)
 	(disable-self)
 )
@@ -202,7 +194,7 @@
 	(goal HOW-MANY-PLAYERS EIGHT)
 	(goal RUSH-CONTROL ENABLE)
 =>
-;	(chat-local-to-self "eight players in game -> no rush")
+	(chat-local-to-self "eight players in game -> no rush")
 	(set-goal RUSH-CONTROL NO)
 	(disable-self)
 )
@@ -1054,6 +1046,7 @@
 =>
 	(set-goal RUSH-CONTROL NO)
 	(chat-local-to-self "Water Map -> No Rush")
+	(disable-self)
 )
 
 
@@ -1065,6 +1058,7 @@
 =>
 	(chat-local-to-self "Regicide: no rushes (player's castle)")
 	(set-goal RUSH-CONTROL NO)
+	(disable-self)
 )
 
 #end-if		;if game-type == regicide
@@ -1081,10 +1075,7 @@
 (defrule
 	(goal RUSH-CONTROL FEUDAL)
 	(current-age == feudal-age)
-	(or
-		(starting-age < castle-age)
-		(game-time > 60)
-	)
+	(game-time > 60)
 =>
 	(set-goal RUSH-CONTROL RUSHING)
 )
@@ -1092,10 +1083,7 @@
 (defrule
 	(goal RUSH-CONTROL CASTLE)
 	(current-age == castle-age)
-	(or
-		(starting-age < castle-age)
-		(game-time > 60)
-	)
+	(game-time > 60)
 =>
 	(set-goal RUSH-CONTROL RUSHING)
 )

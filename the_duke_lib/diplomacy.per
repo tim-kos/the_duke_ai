@@ -1997,8 +1997,8 @@
 
 (defrule
  	(current-age == feudal-age)
-	(starting-age < feudal-age)
-	(current-age-time > 2)
+	(current-age-time < 5)
+	(game-time > 20)
 =>
 	(chat-to-player every-ally "39 We have researched to the feudal-age!")
  	(disable-self)
@@ -2008,8 +2008,8 @@
 
 (defrule
  	(current-age == castle-age)
-	(starting-age <= feudal-age)
-	(current-age-time > 2)
+	(current-age-time < 5)
+	(game-time > 20)
 =>
 	(chat-to-player every-ally "39 We have researched to the castle-age!")
  	(disable-self)
@@ -2019,8 +2019,8 @@
 
 (defrule
  	(current-age == imperial-age)
-	(starting-age < imperial-age)
-	(current-age-time > 2)
+	(current-age-time < 5)
+	(game-time > 20)
 =>
 	(chat-to-player every-ally "39 We have researched to the glorious imperial-age!")
  	(disable-self)
