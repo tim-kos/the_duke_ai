@@ -75,56 +75,56 @@ Press enter and send the number (listed below) to your allies. Make sure you are
 
 For example: Press enter and write 51. This will cause your ally duke to cheat some resources.
 
-31  The AI will launch an attack, or if it won’t, it will tell you the reason.
-32  The AI ceases creating extra villagers.
-33  The AI creates extra villagers.
-34  The AI will build a navy.
-35  The AI will stop building a navy.
-36  The AI will only attack when you give a sign.
-37  The AI will try to build a wonder.
-38  The AI will give you its spared resources.
-42  The AI will tell you to which age it is.
-47  The AI will try to advance to the next age.
-48  The AI will build more forward buildings and will attack more frequently.
-49  It won’t build any forward-buildings anymore and will be very passive.
-50  The AI stops cheating.
-51  The AI enables cheating resources (all resources!).
-52  The AI will only cheat food.
-53  The AI will only cheat wood.
-54  The AI will only cheat gold.
-55  The AI will only cheat stone.
-56  The AI will primary train infantry (swordsmen + spearmen).
-57  The AI will primary train swordsmen.
-58  The AI will primary train spearmen.
-59  The AI will primary train archers.
-60  The AI will primary train skirmishers.
-61  The AI will primary train cavalry-archers.
-62  The AI will primary train light cavalry.
-63  The AI will primary train knights.
-64  The AI will primary train camels.
-65  The AI will primary train its unque-unit.
-66  The AI will secondary train infantry (swordsmen + spearmen).
-67  The AI will secondary train swordsmen.
-68  The AI will secondary train spearmen.
-69  The AI will secondary train archers.
-70  The AI will secondary train skirmishers.
-71  The AI will secondary train cavalry-archers.
-72  The AI will secondary train light cavalry.
-73  The AI will secondary train knights.
-74  The AI will secondary train camels.
-75  The AI will secondary train its unique unit.
-76  The AI’s primary combat siege unit is the ram.
-77  The AI’s primary combat siege unit is the mangonel.
-78  The AI’s primary combat siege unit is the scorpion.
-79  The AI’s primary combat siege unit is the bombard-cannon.
-80  The AI’s primary combat siege unit is the trebuchet.
-81  The AI’s secondary combat siege unit is the ram.
-82  The AI’s secondary combat siege unit is the mangonel.
-83  The AI’s secondary combat siege unit is the scorpion.
-84  The AI’s secondary combat siege unit is the bombard-cannon.
-85  The AI’s secondary combat siege unit is the trebuchet.
-86  The AI will scatter its units when it attacks.
-87  The AI will group its units when it attacks.
+* 31  The AI will launch an attack, or if it won’t, it will tell you the reason.
+* 32  The AI ceases creating extra villagers.
+* 33  The AI creates extra villagers.
+* 34  The AI will build a navy.
+* 35  The AI will stop building a navy.
+* 36  The AI will only attack when you give a sign.
+* 37  The AI will try to build a wonder.
+* 38  The AI will give you its spared resources.
+* 42  The AI will tell you to which age it is.
+* 47  The AI will try to advance to the next age.
+* 48  The AI will build more forward buildings and will attack more frequently.
+* 49  It won’t build any forward-buildings anymore and will be very passive.
+* 50  The AI stops cheating.
+* 51  The AI enables cheating resources (all resources!).
+* 52  The AI will only cheat food.
+* 53  The AI will only cheat wood.
+* 54  The AI will only cheat gold.
+* 55  The AI will only cheat stone.
+* 56  The AI will primary train infantry (swordsmen + spearmen).
+* 57  The AI will primary train swordsmen.
+* 58  The AI will primary train spearmen.
+* 59  The AI will primary train archers.
+* 60  The AI will primary train skirmishers.
+* 61  The AI will primary train cavalry-archers.
+* 62  The AI will primary train light cavalry.
+* 63  The AI will primary train knights.
+* 64  The AI will primary train camels.
+* 65  The AI will primary train its unque-unit.
+* 66  The AI will secondary train infantry (swordsmen + spearmen).
+* 67  The AI will secondary train swordsmen.
+* 68  The AI will secondary train spearmen.
+* 69  The AI will secondary train archers.
+* 70  The AI will secondary train skirmishers.
+* 71  The AI will secondary train cavalry-archers.
+* 72  The AI will secondary train light cavalry.
+* 73  The AI will secondary train knights.
+* 74  The AI will secondary train camels.
+* 75  The AI will secondary train its unique unit.
+* 76  The AI’s primary combat siege unit is the ram.
+* 77  The AI’s primary combat siege unit is the mangonel.
+* 78  The AI’s primary combat siege unit is the scorpion.
+* 79  The AI’s primary combat siege unit is the bombard-cannon.
+* 80  The AI’s primary combat siege unit is the trebuchet.
+* 81  The AI’s secondary combat siege unit is the ram.
+* 82  The AI’s secondary combat siege unit is the mangonel.
+* 83  The AI’s secondary combat siege unit is the scorpion.
+* 84  The AI’s secondary combat siege unit is the bombard-cannon.
+* 85  The AI’s secondary combat siege unit is the trebuchet.
+* 86  The AI will scatter its units when it attacks.
+* 87  The AI will group its units when it attacks.
 
 ## Supported difficulties
 
