@@ -21,7 +21,7 @@ If you did this you would have to start a new game and you must choose "The Duke
 * Boar cheating
 
 The AI gets some wood after 5min (amount of wood is dependant on the difficulty level), because the AI cannot hunt boar (due to the buggy game engine) and that's why
-a human player can advance to feudal age earlier and pretty stronger than an AI. To remove boar cheating, please go into the Main Files folder and open The Duke Boar Cheating.per with a text editor. There you find this:
+a human player can advance to feudal age earlier and pretty stronger than an AI. To remove boar cheating, please go into the Main Files folder and open boar_cheating.per with a text editor. There you find this:
 
 
 ```
