@@ -6,146 +6,105 @@
 	(set-strategic-number sn-number-explore-groups 1)
 )
 
-
-
-;Rule2: make sure which side we are (attacker)
-
 (defrule
-	(cc-players-building-type-count any-enemy wonder > 0);any enemy has got the wonder
+	(cc-players-building-type-count any-enemy wonder > 0)
 =>
-	(set-goal WONDER-ATTEMPT ATTACK)	;the AI sets goal WONDER-ATTEMPT to ATTACK (constant)
-	(disable-self)				;only once <- initialisation
+	(set-goal WONDER-ATTEMPT ATTACK)
+	(disable-self)
 )
-
-
-
-;Rule3: make sure which side we are (defender)
 
 (defrule
 	(or
-		(building-type-count wonder > 0)	;we've got the wonder
-		(cc-players-building-type-count any-ally wonder > 0)	;or any ally has got the wonder
+		(building-type-count wonder > 0)
+		(cc-players-building-type-count any-ally wonder > 0)
 	)
 =>
-	(set-goal WONDER-ATTEMPT DEFEND)	;the AI sets goal WONDER-ATTEMPT to DEFEND
-	(disable-self)				;only once <0 initialisation
+	(set-goal WONDER-ATTEMPT DEFEND)
+	(disable-self)
 )
-
-
-
-;**********************************************************
-;DEFEND-THE-WONDER REQUIRES SOME SPECIAL STUFF OF ATTACKING
 
 
 
 ;Rule4: initialisation of the attack timer if we are attacker
 
 (defrule
-	(goal WONDER-ATTEMPT ATTACK)	;goal WONDER-ATTEMPT to ATTACK (constant)
+	(goal WONDER-ATTEMPT ATTACK)
 =>
-	(enable-timer T-ATTACK 30)		;the AI enables the timer with id T-ATTACK with 30 seconds (constant)
-	(disable-self)				;only once
+	(enable-timer T-ATTACK 30)
+	(disable-self)
 )
 
-
-
-;Rule5: set the attack-goal we've arrived on the pop cap
-
 (defrule
-	(goal WONDER-ATTEMPT ATTACK)	;goal WONDER-ATTEMPT to ATTACK (constant)
-	(timer-triggered T-ATTACK)		;the timer with id T-ATTACK is over
-	(population >= pop-cap)			;with arrived at our pop-cap
+	(goal WONDER-ATTEMPT ATTACK)
+	(timer-triggered T-ATTACK)
+	(population >= pop-cap)
 =>
-	(set-goal MILITARY-PARITY YES)	;the AI sets goal MILITARY-PARITY to YES (constant)
+	(set-goal MILITARY-PARITY YES)
 )
 
-
-
-;Rule6: set the attack-goal if our military is strong unlike the soldiers of our enemies
-
 (defrule
-	(goal WONDER-ATTEMPT ATTACK)	;goal WONDER-ATTEMPT to ATTACK (constant)
-	(timer-triggered T-ATTACK)		;the timer with id T-ATTACK is over
+	(goal WONDER-ATTEMPT ATTACK)
+	(timer-triggered T-ATTACK)
 	(or
-		(military-population >= TWENTY-PERCENT-POP);we have got at least TWENTY-PERCENT-POP soldiers (constant)
+		(military-population >= TWENTY-PERCENT-POP)
 		(or
 			(and
-				(players-military-population any-enemy < FIFTEEN-PERCENT-POP);or any enemy has got less than FIFTEEN-PERCENT-POP (constant)
-				(military-population >= FIFTEEN-PERCENT-POP);and we've got at least FIFTEEN-PERCENT-POP soldiers (constant)
+				(players-military-population any-enemy < FIFTEEN-PERCENT-POP)
+				(military-population >= FIFTEEN-PERCENT-POP)
 			)
 			(and
-				(players-military-population any-enemy < TEN-PERCENT-POP);or any enemy has got less than TEN-PERCENT-POP soldiers (constant)
-				(military-population >= TEN-PERCENT-POP);and we've got at least TEN-PERCENT-POP soldiers (constant)
+				(players-military-population any-enemy < TEN-PERCENT-POP)
+				(military-population >= TEN-PERCENT-POP)
 			)
 		)
 	)
 =>
-	(set-goal MILITARY-PARITY YES)	;the AI sets goal MILITARY-PARITY to YES (constant)
+	(set-goal MILITARY-PARITY YES)
 )
 
-
-
-;Rule7: don't attack if we haven't got any siege-unit, it would be stupid, because probably we haven't  got any change to kill the wonder
-
 (defrule
-	(goal MILITARY-PARITY YES)	;goal MILITARY-PARITY to YES (constant)
-	(unit-type-count-total trebuchet == 0)	;we haven't got any trebuchet
-	(unit-type-count-total battering-ram-line == 0);we haven't got any ram
-	(unit-type-count-total mangonel-line == 0)	;we haven't got any onager
-	(unit-type-count-total bombard-cannon == 0);we haven't got any bombard-cannon
-	(unit-type-count-total elite-tarkan < 10)	;we haven't got at least 10 tarkans
-	(unit-type-count-total petard < 3)		;number of petards less than 3
-	(military-population < TWENTY-PERCENT-POP);number of soldiers less than TWENTY-PERCENT-POP
+	(goal MILITARY-PARITY YES)
+	(unit-type-count-total trebuchet == 0)
+	(unit-type-count-total battering-ram-line == 0)
+	(unit-type-count-total mangonel-line == 0)
+	(unit-type-count-total bombard-cannon == 0)
+	(unit-type-count-total elite-tarkan < 10)
+	(unit-type-count-total petard < 3)
+	(military-population < TWENTY-PERCENT-POP)
 =>
-	(set-goal MILITARY-PARITY NO)	;the AI sets goal MILITARY-PARITY to NO (constant)
+	(set-goal MILITARY-PARITY NO)
 )
 
-
-
-;Rule8: attack if an ally sent us the tactical command
-
 (defrule
-	(taunt-detected any-ally 201)		;the tactical AI sent us taunt with id 201
+	(taunt-detected any-ally 201)
 =>
-	(acknowledge-taunt this-any-ally 201)	;the AI acknoldges this taunt (sets the flag back)
-	(attack-now)				;the AI attacks an enemy
-	(chat-local-to-self "attack now!")		;the AI sends the chat as a local one to itselfs
-	(set-goal MILITARY-PARITY YES)	;the AI sets goal MILITARY-PARITY to YES (constant)
+	(acknowledge-taunt this-any-ally 201)
+	(attack-now)
+	(chat-local-to-self "attack now!")
+	(set-goal MILITARY-PARITY YES)
 )
 
-
-
-;Rule9: attack if our military is strong unlike the soldiers of our enemies
-
 (defrule
-	(goal MILITARY-PARITY YES)	;goal MILITARY-PARITY to YES (constant)
+	(goal MILITARY-PARITY YES)
 =>
-	(set-strategic-number sn-percent-attack-soldiers 100);the AI attacks with all soldiers
-	(attack-now)				;the AI attacks an enemy
-	(chat-to-player-using-id every-ally 22406)	;the AI sends this chat to every ally, so that the rule above will become true and the AI that are ally will do a combinated attack
-	(chat-to-player every-ally "39 I attack an enemy now!");the AI sends the chat as a local one to all its allies
-	(chat-to-player every-ally "Hopefully you can reinforce my units!");the AI sends the chat as a local one to all its allies
+	(set-strategic-number sn-percent-attack-soldiers 100)
+	(attack-now)
+	(chat-to-player-using-id every-ally 22406)
+	(chat-to-player every-ally "39 I attack an enemy now!")
+	(chat-to-player every-ally "Hopefully you can reinforce my units!")
 )
 
-
-
-;Rule10: restart the attack-timer-loop
-
 (defrule
-	(timer-triggered T-ATTACK)		;the timer with id T-ATTACK is over (constant)
+	(timer-triggered T-ATTACK)
 =>
-	(set-goal MILITARY-PARITY NO)	;the AI sets goal MILITARY-PARITY to NO 8constant)
-	(disable-timer T-ATTACK)		;the AI disables (sets the flag back) the timer with id T-ATTACK (constant)
-	(enable-timer T-ATTACK 30)		;the AI enables timer with id T-ATTACK with 30 seconds 8constant)
+	(set-goal MILITARY-PARITY NO)
+	(disable-timer T-ATTACK)
+	(enable-timer T-ATTACK 30)
 )
 
-
-
-;Rule11: make sure we only attack wonders (prefered)
-
 (defrule
-	(goal WONDER-ATTEMPT ATTACK)	;goal WONDER-ATTEMPT to ATTACK (constant)
+	(goal WONDER-ATTEMPT ATTACK)
 =>
-	(set-strategic-number sn-special-attack-type3 wonder);the AI considers attacking wonders
-	(disable-self)				;only initialisation
+	(set-strategic-number sn-special-attack-type3 wonder)
+	(disable-self)
 )

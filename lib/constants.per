@@ -11,8 +11,6 @@
 		(defconst LONG 9)
 		(defconst FIRST 10)
 		(defconst IN-TWENTY-MINUTES 11)
-
-	;Constants used for building farms
 		(defconst DEER 65)
 		(defconst SHEEP 594)
 		(defconst BERRY-BUSH 59)
@@ -25,8 +23,6 @@
 		(defconst MESJID 655)
 		(defconst MONUMENT 526)
 		(defconst SNOWPINETREE 413)
-
-	;Constants used to define the time when the AI researches a new age
 #load-if-not-defined DEATH-MATCH
 		(defconst FEUDAL-RESEARCH-TIME-EASIEST-EASY 600)
 		(defconst FEUDAL-RESEARCH-TIME-MODERATE 540)
@@ -68,203 +64,127 @@
 #end-if
 
 ;GOALS (VALID IDs: 1-40)
-;-----------------------------------
 
 ;goal 1 = RESOURCE-NEEDED - it helps to show which resource-type is needed at the moment
 		(defconst RESOURCE-NEEDED 1)
-	;valid values
 		;(defconst NO 0)
 		(defconst FOOD 1)
 		(defconst WOOD 2)
 		(defconst GOLD 3)
-
-;goal 2 = CAN-CHANGE-RESOURCE-NEEDED-GOAL - used in conjunktion with the resource-need - goal for a better resource control
 		(defconst CAN-CHANGE-RESOURCE-NEEDED-GOAL 2)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 3 = TRAIN-NEXT-FIRESHIP - checks whether we should train a fire ship
 		(defconst TRAIN-NEXT-FIRESHIP 3)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		(defconst NEVER 3)
-
-;goal 4 = TRAIN-VILLAGERS - it helps to make the decision of training villagers when an ally sent taunt 32 or 33 to us
 		(defconst TRAIN-VILLAGERS 4)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		(defconst EXTRA 3)
-
-;goal 5 = RESEARCHING-FEUDAL - shows with which time we'll research to the feudal-age when we're playing on difficulty-type hard or -hardest
 	;goal 5 1: research the feudal-age very fast ; goal 5 2: research feudal-age with an average time ; goal 5 3: research feudal-age very slowly
 		(defconst RESEARCHING-CASTLE 5)
-	;valid values
 		(defconst FAST-FEUDAL 1)
 		(defconst MIDDLE-FEUDAL 2)
 		(defconst LATE-FEUDAL 3)
-
-;goal 6 = RESEARCHING-CASTLE - shows with which time we'll research to the castle-age when we're playing on difficulty-type hard or -hardest
 	;goal 6 1: research the castle-age very fast ; goal 6 2: research castle-age with an average time ; goal 6 3: research castle-age very slowly
 		(defconst RESEARCHING-FEUDAL 6)
-	;valid values
 		(defconst FAST-CASTLE 1)
 		(defconst MIDDLE-CASTLE 2)
 		(defconst LATE-CASTLE 3)
-
-;goal 7 = RESEARCHING-IMPERIAL - shows with which time we'll research to the imperial-age when we're playing on difficulty-type hard or -hardest
 	;goal 7 1: research the imperial-age very fast ; goal 7 2: research imperial-age with an average time ; goal 7 3: research imperial-age very slowly
 		(defconst RESEARCHING-IMPERIAL 7)
-	;valid values
 		(defconst FAST-IMPERIAL 1)
 		(defconst MIDDLE-IMPERIAL 2)
 		(defconst LATE-IMPERIAL 3)
-
-;goal 8 = ADVANCING-TO-AGE - helps the commodity-file buy those resources that the AI needs
 		(defconst ADVANCING-TO-AGE 8)
-	;valid values
 		;(defconst NO 0)
 		(defconst FEUDAL-AGE 1)
 		(defconst CASTLE-AGE 2)
 		(defconst IMPERIAL-AGE 3)
-
-;goal 9 = ADVANCE-TO-THE-NEXT-AGE - shows whether any ally want us to advance to the next age
 		(defconst ADVANCE-TO-THE-NEXT-AGE 9)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 10 = HUMAN-DIPLOMACY - it is used to change the stance to an human-ally
 		(defconst HUMAN-DIPLOMACY 10)
-	;valid values
 		(defconst ANGRY 3)
 		(defconst ANGRIER 4)
 		(defconst ANGRIEST 5)
-
-;goal 11 = GET-NEW-FRIEND
 		(defconst GET-NEW-FRIEND 11)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		;(defconst POSSIBLE 3)
-		;(defconst NOT-POSSIBLE 4)
 		(defconst RESOURCES 5)
 		(defconst RESOURCES-FOOD 6)
 		(defconst RESOURCES-WOOD 7)
 		(defconst RESOURCES-GOLD 8)
 		(defconst RESOURCES-STONE 9)
 		(defconst DONE 10)
-		;(defconst IN-TWENTY-MINUTES 11)
 
 ;goal 12 = ABLE-TO-BUILD-BARRACKS - it shows whether we can build barracks as a forward building
 		(defconst ABLE-TO-BUILD-BARRACKS 12)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 13 = ABLE-TO-BUILD-ARCHERY-RANGE - it shows whether we can build archery-range as a forward building
 		(defconst ABLE-TO-BUILD-ARCHERY-RANGE 13)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 14 = ABLE-TO-BUILD-STABLE - it shows whether we can build stable as a forward building
 		(defconst ABLE-TO-BUILD-STABLE 14)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 15 = ABLE-TO-UPGRADE-INFANTRY - shows whether the conditions of upgrading the infantry in the different ages are full-filled
 		(defconst ABLE-TO-UPGRADE-INFANTRY 15)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		(defconst LOW 2)
 		(defconst MIDDLE 3)
-
-;goal 16 = ABLE-TO-UPGRADE-ARCHERS - shows whether the conditions of upgrading the archers in the different ages are full-filled
 		(defconst ABLE-TO-UPGRADE-ARCHERS 16)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		;(defconst LOW 2)
-		;(defconst MIDDLE 3)
 
 ;goal 17 = ABLE-TO-UPGRADE-CAVALRY - shows whether the conditions of upgrading the cavalry in the different ages are full-filled
 		(defconst ABLE-TO-UPGRADE-CAVALRY 17)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		;(defconst LOW 2)
-		;(defconst MIDDLE 3)
 
 ;goal 18 = TOWN-SIZE-ATTACK - checks if we use a tsa or not
 		(defconst TOWN-SIZE-ATTACK 18)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 19 = ABLE-TO-TRAIN-LAND-UNITS - helps the ai to limit land soldiers to have enough population headroom to train a fleet on water maps
 		(defconst ABLE-TO-TRAIN-LAND-UNITS 19)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 20 = DO-WE-HAVE-WOOD - used for the camp distance
 		(defconst DO-WE-HAVE-WOOD 20)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 21 = BOAR-CHEATING - checks if the AI should cheat resources, because it cannot hunt boars (fault in the game engine)
 		(defconst BOAR-CHEATING 21)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 22 = ATTACK-PERSONALITY - used to define whether the AI is an attacker or a defender
 		(defconst ATTACK-PERSONALITY 22)
-	;valid values
 		(defconst ATTACKER 1)
 		(defconst DEFENDER 2)
-
-;goal 23 = ATTACK - shows if we're ready to attack (uses 0 = NO, 1 = YES, 2 = ALLY-WANT-US-TO-ATTACK)
 		(defconst ATTACK 23)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		(defconst ALLY-WANT-US-TO-ATTACK 2)
-
-;goal 24 = ABLE-TO-RESEARCH-WHEN-RUSH - checks whether we launched the rush already so that we can use our resources to research economic technologies
 		(defconst ABLE-TO-RESEARCH-WHEN-RUSH 24)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 25 = MILITARY-PARITY - it checks the number of enemy units to inform our allies
 		(defconst MILITARY-PARITY 25)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		(defconst VASTLY-INFERIOR 2)
 		(defconst INFERIOR 3)
 		(defconst PARITY 4)
 		(defconst SUPERIOR 5)
 		(defconst VASTLY-SUPERIOR 6)
-
-;goal 26 = MAIN-SHIP-BUILDER - checks whether we are the main ship builder, so that we build more ships than the other players
 		(defconst MAIN-SHIP-BUILDER 26)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 27 = RUSH-CONTROL - it shows whether we'll do a rush and if yes in which age ;; this goal is also used to check the resign conditions
 		(defconst RUSH-CONTROL 27)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		(defconst FEUDAL 2)
 		(defconst CASTLE 3)
 		(defconst RUSHING 6)
@@ -274,37 +194,21 @@
 		(defconst DEFINE-UNITS-FLUSH 10)
 		(defconst DEFINE-UNITS-CASTLE-RUSH 11)
 		(defconst PRIVILEGED 12)
-
-;goal 28 - ABLE-TO-TRAIN-UNITS - checks whether we should train units in relation to the age time
 		(defconst ABLE-TO-TRAIN-UNITS 28)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 ;goal 29 = WONDER-ATTEMPT - shows whether we are able to build a wonder or we play defend-the wonder (than make sure if we are attacker or defender)
-;(uses 0 = NO, 1 = YES,  3 = MAYBE, 4 = POSSIBLE, 5 = ATTACKER, 6 = DEFENDER )
 		(defconst WONDER-ATTEMPT 29)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 		;(defconst MAYBE 3)
-		;(defconst POSSIBLE 4)
 		(defconst ATTACK 23)
 		(defconst DEFEND 6)
-
-;goal 30 = COMBAT-COMBO-PARITY - used to disable the problems with overloading different random-numbers
 		(defconst COMBAT-COMBO-PARITY 30)
-	;valid values
 		(defconst NDEFINED 0)
 		(defconst DEFINED 1)
-		;(defconst NOTICE 5)
 		;(defconst FIRST 10)
-
-;goal 31 = PRIMARY-COMBAT-UNIT - shows from which unit-type the AI will train most of the units to attack another player
 		(defconst PRIMARY-COMBAT-UNIT 31)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 		(defconst EAGLEMAN 2)
 		(defconst INFANTRY 3)
@@ -338,61 +242,37 @@
 		(defconst UNIQUE-UNIT 30)
 
 		(defconst SPEARMAN 31)
-
-;goal 32= PRIMARY-COMBAT-UNIT2 - shows from which unit-type the AI will train most of the units to attack another player; used for the feature that the duke-ai useer can tell the ai which units it should train
 		(defconst PRIMARY-COMBAT-UNIT2 32)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 		;(defconst EAGLEMAN 2)
-		;(defconst INFANTRY 3)
 		;(defconst CROSSBOW 4)
-		;(defconst INFANTRY1 5)
 		;(defconst SKIRMISHER 6)
-		;(defconst KNIGHT 7)
 		;(defconst CAMEL 8)
-		;(defconst CAVARCHER 9)
 		;(defconst LCAVALRY 10)
-		;(defconst MISSIONARY 11)
 
 		;(defconst JAGUAR 12)
-		;(defconst LONGBOW 13)
 		;(defconst CATAPHRACT 14)
-		;(defconst WOAD-RAIDER 15)
 		;(defconst CHU-KO-NU 16)
-		;(defconst THROWING-AXEMAN 17)
 		;(defconst TARKAN 18)
-		;(defconst HUSKARL 19)
 		;(defconst SAMURAI 20)
-		;(defconst MANGUDAI 21)
 		;(defconst MAMELUKE 22)
-		;(defconst WAR-ELEPHANT 23)
 		;(defconst TEUTONIC-KNIGHT 24)
-		;(defconst JANISSARY 25)
 		;(defconst BERSERK 26)
-		;(defconst PLUMED-ARCHER 27)
 		;(defconst WAR-WAGON 28)
-		;(defconst CONQUISTADOR 29)
 
 		;(defconst SPEARMAN 30)
-
-;goal 33 = SECONDARY-COMBAT-UNIT - shows from which unit-type the AI will train much of the units to attack another player
 		(defconst SECONDARY-COMBAT-UNIT 33)
-	;valid values
 		;uses the same values that the goal PRIMARY-COMBAT-UNIT uses
 
 ;goal 34 = SECONDARY-COMBAT-UNIT2 - shows from which unit-type the AI will train much of the units to attack another player; used for the feature that the duke-ai useer can tell the ai which units it should train
 		(defconst SECONDARY-COMBAT-UNIT2 34)
-	;valid values
 		;uses the same values that the goal PRIMARY-COMBAT-UNIT uses
 
 ;goal 35 = PRIMARY-COMBAT-SIEGE-UNIT - shows from which siege the AI will train plenty
 
 		(defconst PRIMARY-COMBAT-SIEGE-UNIT 35)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 		(defconst MANGONEL 2)
 		(defconst SCORPION 3)
@@ -400,34 +280,23 @@
 		(defconst BOMBARD-CANNON 5)
 		(defconst TREBUCHET 6)
 
-;goal 36 = PRIMARY-COMBAT-SIEGE-UNIT2 - shows from which siege the AI will train plenty; used for the feature that the duke-ai useer can tell the ai which units it should train
-
 		(defconst PRIMARY-COMBAT-SIEGE-UNIT2 36)
-	;valid values
 		;(defconst NO 0)
-		;(defconst YES 1)
 
 		;(defconst MANGONEL 2)
-		;(defconst SCORPION 3)
 		;(defconst RAM 4)
-		;(defconst BOMBARD-CANNON 5)
 		;(defconst TREBUCHET 6)
-
-;goal 37 = SECONDARY-COMBAT-SIEGE-UNIT - shows from which siege the AI will train only a few
 		(defconst SECONDARY-COMBAT-SIEGE-UNIT 37)
-	;valid values
 		;uses the same values that the goal PRIMARY-COMBAT-SIEGE-UNIT uses
 
 ;goal 38 = SECONDARY-COMBAT-SIEGE-UNIT2 - shows from which siege the AI will train only a few; used for the feature that the duke-ai useer can tell the ai which units it should train
 
 		(defconst SECONDARY-COMBAT-SIEGE-UNIT2 38)
-	;valid values
 		;uses the same values that the goal PRIMARY-COMBAT-SIEGE-UNIT uses
 
 
 ;goal 39 = HOW-MANY-PLAYERS - counts how many players are in the game, used to make the rushes dependent on the number of players in the game
 		(defconst HOW-MANY-PLAYERS 39)
-	;valid values
 		(defconst TWO 2)
 		(defconst THREE 3)
 		(defconst FOUR 4)
@@ -435,17 +304,11 @@
 		(defconst SIX 6)
 		(defconst SEVEN 7)
 		(defconst EIGHT 8)
-
-;goal 40 = MAP-KIND - shows on which type of map we are playing (water map, rivers map, island map, land map)
 		(defconst MAP-KIND 40)
-	;valid values
 		(defconst WATER-MAP 1)
 		(defconst RIVERS-MAP 2)
 		(defconst ISLAND-MAP 3)
 		(defconst LAND-MAP 4)
-
-
-;TIMERS (VALID IDS: 1-10)
 ;-------------------------------------
 
 (defconst T-TRIBUTE 1)
@@ -458,10 +321,6 @@
 (defconst T-GET-RESOURCE 8)
 (defconst T-COMBAT-COMBOS 9)
 (defconst T-RESIGN 10)
-
-
-
-;POPULATION-LIMIT-LOAD
 ;---------------------------------------
 
 
@@ -479,12 +338,8 @@
 (defconst IMPERIAL-AGE-VILLAGER-MODERATE 11)
 (defconst IMPERIAL-AGE-VILLAGER-HARD 12)
 (defconst IMPERIAL-AGE-VILLAGER-HARDEST 12)
-
-;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 9)
 ;(defconst IMPERIAL-AGE-VILLAGER-EASY-ALLY 10)
-;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 11)
 ;(defconst IMPERIAL-AGE-VILLAGER-HARD-ALLY 12)
-;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 12)
 
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 12)
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE 14)
@@ -662,12 +517,8 @@
 (defconst IMPERIAL-AGE-VILLAGER-MODERATE 23)
 (defconst IMPERIAL-AGE-VILLAGER-HARD 25)
 (defconst IMPERIAL-AGE-VILLAGER-HARDEST 27)
-
-;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 12)
 ;(defconst IMPERIAL-AGE-VILLAGER-EASY-ALLY 15)
-;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 20)
 ;(defconst IMPERIAL-AGE-VILLAGER-HARD-ALLY 22)
-;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 24)
 
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 20)
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE 26)
@@ -845,12 +696,8 @@
 (defconst IMPERIAL-AGE-VILLAGER-MODERATE 36)
 (defconst IMPERIAL-AGE-VILLAGER-HARD 40)
 (defconst IMPERIAL-AGE-VILLAGER-HARDEST 40)
-
-;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 24)
 ;(defconst IMPERIAL-AGE-VILLAGER-EASY-ALLY 28)
-;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 32)
 ;(defconst IMPERIAL-AGE-VILLAGER-HARD-ALLY 36)
-;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 36)
 
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 35)
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE 40)
@@ -1028,12 +875,8 @@
 (defconst IMPERIAL-AGE-VILLAGER-MODERATE 47)
 (defconst IMPERIAL-AGE-VILLAGER-HARD 54)
 (defconst IMPERIAL-AGE-VILLAGER-HARDEST 54)
-
-;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 28)
 ;(defconst IMPERIAL-AGE-VILLAGER-EASY-ALLY 35)
-;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 42)
 ;(defconst IMPERIAL-AGE-VILLAGER-HARD-ALLY 49)
-;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 49)
 
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 42)
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE 52)
@@ -1212,12 +1055,8 @@
 (defconst IMPERIAL-AGE-VILLAGER-MODERATE 61)
 (defconst IMPERIAL-AGE-VILLAGER-HARD 69)
 (defconst IMPERIAL-AGE-VILLAGER-HARDEST 69)
-
-;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 36)
 ;(defconst IMPERIAL-AGE-VILLAGER-EASY-ALLY 45)
-;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 55)
 ;(defconst IMPERIAL-AGE-VILLAGER-HARD-ALLY 63)
-;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 63)
 
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 52)
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE 65)
@@ -1395,12 +1234,8 @@
 (defconst IMPERIAL-AGE-VILLAGER-MODERATE 72)
 (defconst IMPERIAL-AGE-VILLAGER-HARD 81)
 (defconst IMPERIAL-AGE-VILLAGER-HARDEST 81)
-
-;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 47)
 ;(defconst IMPERIAL-AGE-VILLAGER-EASY-ALLY 55)
-;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 65)
 ;(defconst IMPERIAL-AGE-VILLAGER-HARD-ALLY 74)
-;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 74)
 
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 65)
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE 80)
@@ -1590,9 +1425,7 @@
 #end-if
 
 ;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 52)
-;(defconst IMPERIAL-AGE-VILLAGER-EASY-ALLY 58)
 ;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 68)
-;(defconst IMPERIAL-AGE-VILLAGER-HARD-ALLY 75)
 ;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 75)
 
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 70)
@@ -1797,9 +1630,7 @@
 #end-if
 
 ;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 55)
-;(defconst IMPERIAL-AGE-VILLAGER-EASY-ALLY 64)
 ;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 72)
-;(defconst IMPERIAL-AGE-VILLAGER-HARD-ALLY 80)
 ;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 80)
 
 (defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 78)
@@ -1972,7 +1803,6 @@
 (defconst EIGHTY-PERCENT-POP 160)
 (defconst EIGHTY-FIVE-PERCENT-POP 170)
 (defconst NINTY-PERCENT-POP 180)
-;(defconst NINTY-FIVE-PERCENT-POP 190)
 
 (defconst HUNDRED-PERCENT-POP 200)
 

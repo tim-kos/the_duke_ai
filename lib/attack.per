@@ -1,6 +1,5 @@
 ;========================================================================
 ;			ATTACK-CONTROLING (ATTACKER)
-;========================================================================
 
 
 
@@ -40,10 +39,6 @@
 	(set-goal RUSH-CONTROL NO)
 	(chat-local-to-self "RUSH CONTROL NO")
 )
-
-
-
-;INFORM ALLIES IF WE NEED HELP
 ;-----------------------------
 
 
@@ -93,10 +88,6 @@
 	(attack-now)
 	(chat-to-player this-any-human-ally "OK, I will help you!")
 )
-
-
-
-;ATTACK IF ENEMY BUILT A WONDER
 ;------------------------------
 
 #load-if-not-defined VICTORY-CONQUEST
@@ -129,9 +120,6 @@
 	(set-strategic-number sn-special-attack-type3 0)
 	(set-strategic-number sn-percent-attack-soldiers 100)
 )
-
-
-;ATTACK IF ENEMIES CAPTURED THE RELICS
 ;-------------------------------------
 
 (defrule
@@ -185,8 +173,6 @@
 	(set-goal MILITARY-PARITY PARITY)
 )
 
-;*****************************************************************
-
 
 (defrule
 	(military-population >= SIXTY-PERCENT-POP)
@@ -223,10 +209,6 @@
 =>
 	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
 )
-
-
-
-;*****************************************************************
 ;*****************************************************************
 
 
@@ -269,10 +251,6 @@
 =>
 	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
 )
-
-
-
-;*****************************************************************
 ;*****************************************************************
 
 
@@ -316,10 +294,6 @@
 =>
 	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
 )
-
-
-
-;*****************************************************************
 ;*****************************************************************
 
 
@@ -363,10 +337,6 @@
 =>
 	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
 )
-
-
-
-;*****************************************************************
 ;*****************************************************************
 
 
@@ -410,10 +380,6 @@
 =>
 	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
 )
-
-
-
-;*****************************************************************
 ;*****************************************************************
 
 
@@ -474,10 +440,6 @@
 =>
 	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
 )
-
-
-
-;*****************************************************************
 ;*****************************************************************
 
 
@@ -528,10 +490,6 @@
 =>
 	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
 )
-
-
-
-;ATTACK IF FLUSH
 ;---------------------------
 
 
@@ -543,7 +501,7 @@
 	(players-building-count any-enemy > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
-	(not (goal MILITARY-PARITY INFERIOR)) ;if VASTLY-INFERIOR then we will reset the RUSH-CONTROL goal to NO
+	(not (goal MILITARY-PARITY INFERIOR))
 =>
 	(enable-timer T-ATTACK 180)
 	(enable-timer T-TOWN-SIZE-ATTACK 60)
@@ -572,10 +530,6 @@
 	(set-strategic-number sn-enemy-sighted-response-distance 144)
 	(set-strategic-number sn-maximum-town-size 230)
 )
-
-
-
-;ATTACK IF CASTLE-RUSH
 ;--------------------------------------------------------
 
 
@@ -596,7 +550,6 @@
 	(enable-timer T-TOWN-SIZE-ATTACK 60)
 	(set-strategic-number sn-enemy-sighted-response-distance 144)
 	(set-strategic-number sn-maximum-town-size 230)
-	;(chat-local-to-self "CASTLE-RUSH")
 	(chat-to-player every-ally "39 I rush the enemy now! Please protect my town, I have no units in there!")
 	(set-goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
 	(disable-self)
@@ -618,7 +571,6 @@
 	(enable-timer T-TOWN-SIZE-ATTACK 60)
 	(set-strategic-number sn-enemy-sighted-response-distance 144)
 	(set-strategic-number sn-maximum-town-size 230)
-	;(chat-local-to-self "CASTLE-RUSH")
 	(chat-to-player every-ally "39 I rush the enemy now! Please protect my town, I have no units in there!")
 	(set-goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
 	(disable-self)
@@ -641,10 +593,6 @@
 	(set-strategic-number sn-enemy-sighted-response-distance 144)
 	(set-strategic-number sn-maximum-town-size 230)
 )
-
-
-
-;END OFF TOWN-SIZE-ATTACK
 ;------------------------
 
 
@@ -656,10 +604,6 @@
 	(set-strategic-number sn-maximum-town-size 16)
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
 )
-
-
-
-;BUILD FORWARD WATCH-TOWERS WHEN WE DO A RUSH
 ;---------------------------------------------
 
 
@@ -673,10 +617,6 @@
 =>
 	(build-forward watch-tower)
 )
-
-
-
-;WHEN SHOULD WE ATTACK ?
 ;-----------------------------------
 
 
@@ -716,10 +656,6 @@
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
 	(set-goal ATTACK NO)
 )
-
-
-
-;TOWN-SIZE-ATTACK
 ;-------------------
 
 (defrule
@@ -864,10 +800,6 @@
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
 	(set-goal ATTACK NO)
 )
-
-
-
-;TOWN-SIZE-ATTACK
 ;-------------------
 
 (defrule
@@ -930,7 +862,6 @@
 	(set-strategic-number sn-enemy-sighted-response-distance 250)
 	(set-strategic-number sn-maximum-town-size 230)
 	(chat-to-allies "39 I send new troops into battle! Hopefully you can reinforce my units!")
-	;no chat-to-player every-ally because rule would be too long
 
 	(set-goal ATTACK NO)
 )
@@ -998,10 +929,6 @@
 
 
 
-;****************************************
-
-
-
 (defrule
 	(military-population >= FIVE-PERCENT-POP)
 	(cc-players-unit-count every-enemy < 5)
@@ -1024,10 +951,6 @@
 	(set-strategic-number sn-percent-attack-soldiers 0)
 	(set-strategic-number sn-number-attack-groups 0)
 )
-
-
-
-;ATTACK WITH TIMERS
 ;----------------------------------
 
 
@@ -1218,7 +1141,6 @@
 
 ;TAUNTS 48 and 49 (be more aggressive and be more defensive)
 ;************************************************************************************************************
-;************************************************************************************************************
 
 
 
@@ -1230,13 +1152,13 @@
 	(not (goal ATTACK-PERSONALITY ATTACKER))
 	(or
 		(or
-			(taunt-detected any-ally 48);any ally want us to be agressive
-			(taunt-detected any-neutral 48);or any neutral want us to be agressive
+			(taunt-detected any-ally 48)
+			(taunt-detected any-neutral 48)
 		)
-		(taunt-detected any-enemy 48)	;or any enemy want us to be agressive
+		(taunt-detected any-enemy 48)
 	)
 =>
-	(set-goal ATTACK-PERSONALITY ATTACKER);the AI sets goal ATTACK-PERSONALITY to ATTACKER (constant)
+	(set-goal ATTACK-PERSONALITY ATTACKER)
 	(set-goal ATTACK NO)
 )
 
@@ -1245,37 +1167,33 @@
 (defrule
 	(or
 		(or
-			(taunt-detected any-ally 48);any ally want us to be agressive
-			(taunt-detected any-neutral 48);or any neutral want us to be agressive
+			(taunt-detected any-ally 48)
+			(taunt-detected any-neutral 48)
 		)
-		(taunt-detected any-enemy 48)	;or any enemy want us to be agressive
+		(taunt-detected any-enemy 48)
 	)
 =>
-	(acknowledge-taunt this-any-ally 48)	;the AI acknowledges this taunt
-	(acknowledge-taunt this-any-neutral 48)	;the AI acknowledges this taunt
-	(acknowledge-taunt this-any-enemy 48)	;the AI acknowledges this taunt
-	(chat-to-player this-any-ally "Okay, you'll have a more agressive friend!");the AI sends the chat as a local one to this ally
-	(chat-to-player this-any-neutral "Okay, you'll have a more agressive neutral!");the AI sends the chat as a local one to this neutral
-	(chat-to-player this-any-enemy "Okay, you'll have a more agressive enemy!");the AI sends the chat as a local one to this enemy
+	(acknowledge-taunt this-any-ally 48)
+	(acknowledge-taunt this-any-neutral 48)
+	(acknowledge-taunt this-any-enemy 48)
+	(chat-to-player this-any-ally "Okay, you'll have a more agressive friend!")
+	(chat-to-player this-any-neutral "Okay, you'll have a more agressive neutral!")
+	(chat-to-player this-any-enemy "Okay, you'll have a more agressive enemy!")
 )
-
-
-
-;Taunt 49 == BE MORE DEFENSIVE!
 ;*****************************************
 ;*****************************************
 
 (defrule
 	(or
 		(or
-			(taunt-detected any-ally 49);any ally want us to be agressive
-			(taunt-detected any-neutral 49);or any neutral want us to be agressive
+			(taunt-detected any-ally 49)
+			(taunt-detected any-neutral 49)
 		)
-		(taunt-detected any-enemy 49)	;or any enemy want us to be agressive
+		(taunt-detected any-enemy 49)
 	)
 	(not (goal ATTACK-PERSONALITY DEFENDER))
 =>
-	(set-goal ATTACK-PERSONALITY DEFENDER);the AI sets goal ATTACK-PERSONALITY to DEFENDER (constant)
+	(set-goal ATTACK-PERSONALITY DEFENDER)
 	(set-goal ATTACK NO)
 )
 
@@ -1284,23 +1202,19 @@
 (defrule
 	(or
 		(or
-			(taunt-detected any-ally 49);any ally want us to be agressive
-			(taunt-detected any-neutral 49);or any neutral want us to be agressive
+			(taunt-detected any-ally 49)
+			(taunt-detected any-neutral 49)
 		)
-		(taunt-detected any-enemy 49)	;or any enemy want us to be agressive
+		(taunt-detected any-enemy 49)
 	)
 =>
-	(acknowledge-taunt this-any-ally 49)	;the AI acknowledges this taunt
-	(acknowledge-taunt this-any-neutral 49)	;the AI acknowledges this taunt
-	(acknowledge-taunt this-any-enemy 49)	;the AI acknowledges this taunt
-	(chat-to-player this-any-ally "Okay, you'll have a more defensive friend!");the AI sends the chat as a local one to this ally
-	(chat-to-player this-any-neutral "Okay, you'll have a more defensive neutral, so that you can practice attacking!");the AI sends the chat as a local one to this neutral
-	(chat-to-player this-any-enemy "Okay, you'll have a more defensive enemy, so that you can practise attacking!");the AI sends the chat as a local one to this enemy
+	(acknowledge-taunt this-any-ally 49)
+	(acknowledge-taunt this-any-neutral 49)
+	(acknowledge-taunt this-any-enemy 49)
+	(chat-to-player this-any-ally "Okay, you'll have a more defensive friend!")
+	(chat-to-player this-any-neutral "Okay, you'll have a more defensive neutral, so that you can practice attacking!")
+	(chat-to-player this-any-enemy "Okay, you'll have a more defensive enemy, so that you can practise attacking!")
 )
-
-
-
-;ATTACK WITH TIMERS
 ;-----------------------------------
 
 

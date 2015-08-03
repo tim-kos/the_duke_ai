@@ -14,13 +14,11 @@
 ;***********************************************
 
 (defrule
-	(true)						;this condition is always true -> the rule always gets executed
+	(true)
 =>					;then
-	(set-goal BOAR-CHEATING NO)			;the AI sets goal BOAR-CHEATING to NO (constant)
-	(disable-self)					;only initialisation
+	(set-goal BOAR-CHEATING NO)
+	(disable-self)
 )
-
-;***********************************************
 ;***********************************************
 #end-if		;if not difficulty == hardest
 #end-if		;if not difficulty == hard
@@ -34,13 +32,11 @@
 ;***********************************************
 
 (defrule
-	(true)						;this condition is always true -> the rule always gets executed
+	(true)
 =>					;then
-	(set-goal BOAR-CHEATING YES)			;the AI sets goal BOAR-CHEATING to YES (constant)
-	(disable-self)					;only initialisation
+	(set-goal BOAR-CHEATING YES)
+	(disable-self)
 )
-
-;***********************************************
 ;***********************************************
 #end-if		;if not difficulty == easy
 #end-if		;if not difficulty == easiest
@@ -75,9 +71,9 @@
 
 
 (defrule
-	(goal BOAR-CHEATING YES)			;goal BOAR-CHEATING to YES (constant)
-	(game-time > BOAR-CHEATING-TIME)		;we played BOAR-CHEATING-TIME already (see constants above)
+	(goal BOAR-CHEATING YES)
+	(game-time > BOAR-CHEATING-TIME)
 =>					;then
-	(cc-add-resource wood BOAR-CHEATING-AMOUNT)	;the AI gets BOAR-CHEATING-AMOUNT wood (see constants above)
-	(disable-self)					;only initialisation
+	(cc-add-resource wood BOAR-CHEATING-AMOUNT)
+	(disable-self)
 )

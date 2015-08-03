@@ -22,15 +22,15 @@
 	(current-age >= castle-age)
 	(wood-amount >= 200)
 	(or
-		(building-type-count-total town-center > 1);number of town centers greater than 1
-		(wood-amount > 400)			;or the amount of wood is greater than 400
+		(building-type-count-total town-center > 1)
+		(wood-amount > 400)
 	)
 	(goal RUSH-CONTROL NO)
 	(military-population >= EIGHT-PERCENT-POP)
 	(can-train trade-cart)
 	(players-building-type-count any-ally market >= 1)
 	(unit-type-count-total trade-cart < TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES)
-	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
+	(civilian-population < POPULATION-MAX)
 =>
 	(train trade-cart)
 )
@@ -46,15 +46,15 @@
 	(current-age >= castle-age)
 	(wood-amount >= 200)
 	(or
-		(building-type-count-total town-center > 1);number of town centers greater than 1
-		(wood-amount > 400)			;or the amount of wood is greater than 400
+		(building-type-count-total town-center > 1)
+		(wood-amount > 400)
 	)
 	(can-train trade-cog)
 	(goal RUSH-CONTROL NO)
 	(military-population >= TEN-PERCENT-POP)
 	(players-building-type-count any-ally market >= 1)
 	(unit-type-count-total trade-cog < TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES)
-	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
+	(civilian-population < POPULATION-MAX)
 =>
 	(train trade-cog)
 )
@@ -89,31 +89,31 @@
 
 
 (defrule
-	(taunt-detected any-ally 31)		;any ally want us to attack
+	(taunt-detected any-ally 31)
 	(military-population < FIVE-PERCENT-POP)
 =>
 	(chat-to-player this-any-ally "39 Sorry, I don't attack! I have got only a few units and I need them to defend!")
-	(acknowledge-taunt this-any-ally 31)	;the AI acknoldges this taunt (sets the flag back)
-	(set-goal ATTACK NO)			;the AI sets goal ATTACK to NO (constant)
+	(acknowledge-taunt this-any-ally 31)
+	(set-goal ATTACK NO)
 )
 
 
 
 (defrule
-	(taunt-detected any-ally 31)		;any ally want us to attack
+	(taunt-detected any-ally 31)
 	(town-under-attack)
 	(players-unit-count any-enemy >= FIVE-PERCENT-POP)
-	(goal TOWN-SIZE-ATTACK NO)		;goal TOWN-SIZE-ATTACK to NO (constant)
+	(goal TOWN-SIZE-ATTACK NO)
 =>
 	(chat-to-player this-any-ally "39 Sorry, I attack the enemy now already... because he is in my town!")
-	(acknowledge-taunt this-any-ally 31)	;the AI acknoldges this taunt (sets the flag back)
-	(set-goal ATTACK NO)			;the AI sets goal ATTACK to NO (constant)
+	(acknowledge-taunt this-any-ally 31)
+	(set-goal ATTACK NO)
 )
 
 
 
 (defrule
-	(taunt-detected any-ally 31)		;any ally want us to attack
+	(taunt-detected any-ally 31)
 	(military-population >= FIVE-PERCENT-POP)
 	(not (town-under-attack))
 =>
@@ -123,44 +123,32 @@
 	(attack-now)
 	(chat-local-to-self "Ok, I will attack an enemy!")
 	(chat-to-player this-any-ally "Ok, I will attack an enemy!")
-	(acknowledge-taunt this-any-ally 31)	;the AI acknoldges this taunt (sets the flag back)
-	(set-goal ATTACK NO)			;the AI sets goal ATTACK to NO (constant)
+	(acknowledge-taunt this-any-ally 31)
+	(set-goal ATTACK NO)
 )
-
-
-
-;32 == STOP TRAINING VILLAGERS
 ;*****************************************
 ;*****************************************
 (defrule
- 	(taunt-detected any-ally 32)		;any ally want us to cease traning villagers
+ 	(taunt-detected any-ally 32)
 =>
- 	(acknowledge-taunt this-any-ally 32)	;the AI acknoldges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 32)
  	(chat-to-player this-any-ally "39 Ok, I won't train more villagers!")
 	(set-goal TRAIN-VILLAGERS NO)
 )
-
-
-
-;33 == CREATE MORE VILAGERS
 ;*****************************************
 ;*****************************************
 (defrule
- 	(taunt-detected any-ally 33)		;any ally want us to train as much villagers as possible
+ 	(taunt-detected any-ally 33)
 =>
- 	(acknowledge-taunt this-any-ally 33)	;the AI acknoldges this taunt (sets the flag back)
-	(chat-to-player this-any-ally "39 Well, I shall train as many villagers as possible!");the AI sends the chat to this ally
+ 	(acknowledge-taunt this-any-ally 33)
+	(chat-to-player this-any-ally "39 Well, I shall train as many villagers as possible!")
 	(set-goal TRAIN-VILLAGERS EXTRA)
 )
-
-
-
-;34 == BUILD NAVY
 ;*****************************************
 ;*****************************************
 (defrule
- 	(taunt-detected any-ally 34)		;any ally want us to build a navy
-	(goal MAP-KIND LAND-MAP)		;goal MAP-KIND to LAND-MAP (constant)
+ 	(taunt-detected any-ally 34)
+	(goal MAP-KIND LAND-MAP)
 =>
  	(acknowledge-taunt this-any-ally 34)
  	(chat-to-player this-any-ally "39 But sir, this map is dry as a desert! Are you still sure you want me to build a navy?")
@@ -169,13 +157,13 @@
 
 
 (defrule
- 	(taunt-detected any-ally 34)		;any ally want us to build a navy
+ 	(taunt-detected any-ally 34)
 	(or
 		(or
-			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
-			(goal MAP-KIND WATER-MAP);or goal MAP-KIND to WATER-MAP (constant)
+			(goal MAP-KIND RIVERS-MAP)
+			(goal MAP-KIND WATER-MAP)
 		)
-		(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		(goal MAP-KIND ISLAND-MAP)
 	)
 =>
  	(acknowledge-taunt this-any-ally 34)
@@ -183,59 +171,48 @@
 	(set-goal MAIN-SHIP-BUILDER YES)
 	(set-goal TRAIN-NEXT-FIRESHIP YES)
 )
-
-
-
-;35 == STOP BUILDING NAVY
 ;*****************************************
 ;*****************************************
 (defrule
- 	(taunt-detected any-ally 35)		;any ally want us to stop building navy
-	(goal MAP-KIND LAND-MAP)		;goal MAP-KIND to LAND-MAP (constant)
+ 	(taunt-detected any-ally 35)
+	(goal MAP-KIND LAND-MAP)
 =>
- 	(acknowledge-taunt this-any-ally 35)	;the AI acknoldges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 35)
  	(chat-to-player this-any-ally "39 Er ... sir, I didn't plan building a navy, because of the dryness of this map!")
 )
 
 
 
 (defrule
- 	(taunt-detected any-ally 35)		;any ally want us to stop building navy
+ 	(taunt-detected any-ally 35)
 	(or
 		(or
-			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
-			(goal MAP-KIND WATER-MAP);or goal MAP-KIND to WATER-MAP (constant)
+			(goal MAP-KIND RIVERS-MAP)
+			(goal MAP-KIND WATER-MAP)
 		)
-		(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		(goal MAP-KIND ISLAND-MAP)
 	)
 =>
- 	(acknowledge-taunt this-any-ally 35)	;the AI acknoldges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 35)
  	(chat-to-player this-any-ally "39 Okay sir, I will stop building a navy!")
 	(set-goal MAIN-SHIP-BUILDER NOTICE)
 	(set-goal TRAIN-NEXT-FIRESHIP NEVER)
 )
-
-
-;36 == ONLY ATTACK IF SIGN IS GIVEN
 ;*****************************************
 ;*****************************************
 (defrule
- 	(taunt-detected any-ally 36)		;any ally want us to attack when he gives a sign only
+ 	(taunt-detected any-ally 36)
 =>
- 	(acknowledge-taunt this-any-ally 36)	;the AI acknoldges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 36)
  	(chat-to-player this-any-ally "39 Ok, I'll attack, when you give me a sign only!")
 	(set-goal ATTACK ALLY-WANT-US-TO-ATTACK)
 )
-
-
-
-;37 == BUILDING A WONDER
 ;*****************************************
 ;*****************************************
 (defrule
- 	(taunt-detected any-enemy 37)		;any ally want us to build a wonder
+ 	(taunt-detected any-enemy 37)
 =>
- 	(acknowledge-taunt this-any-enemy 37)	;the AI acknoldges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-enemy 37)
  	(set-goal WONDER-ATTEMPT POSSIBLE)
  	(chat-to-player this-any-enemy "40 You can't give me any commands, because you aren't my ally!")
 )
@@ -245,20 +222,20 @@
 #load-if-not-defined VICTORY-CONQUEST
 
 (defrule
- 	(taunt-detected any-ally 37)		;any ally want us to build a wonder
+ 	(taunt-detected any-ally 37)
 	(current-age < imperial-age)
 =>
- 	(acknowledge-taunt this-any-ally 37)	;the AI acknoldges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 37)
  	(chat-to-player this-any-ally "39 Sir, I didn't research the imperial-age yet!")
 )
 
 
 
 (defrule
- 	(taunt-detected any-ally 37)		;any ally want us to build a wonder
+ 	(taunt-detected any-ally 37)
 	(current-age >= imperial-age)
 =>
- 	(acknowledge-taunt this-any-ally 37)	;the AI acknoldges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 37)
  	(set-goal WONDER-ATTEMPT POSSIBLE)
  	(chat-to-player this-any-ally "39 Okay sir, I'll build a wonder when I can do so!")
 )
@@ -270,9 +247,9 @@
 #load-if-defined VICTORY-CONQUEST
 
 (defrule
- 	(taunt-detected any-ally 37)		;any ally want us to build a wonder
+ 	(taunt-detected any-ally 37)
 =>
- 	(acknowledge-taunt this-any-ally 37)	;the AI acknoledges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 37)
  	(chat-to-player this-any-ally "39 But sir, it would be silly to build a wonder, because we are playing on victory-conquest!")
 )
 
@@ -284,7 +261,7 @@
 ;*****************************************
 ;*****************************************
 (defrule
- 	(taunt-detected any-ally 38)		;any allyy want us to send all our extra resources to him
+ 	(taunt-detected any-ally 38)
 =>
  	(tribute-to-player this-any-ally food 2000)
  	(chat-to-player this-any-ally "39 Here is the rest of my food-resources!")
@@ -292,7 +269,7 @@
 
 
 (defrule
- 	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
+ 	(taunt-detected any-ally 38)
 =>
  	(tribute-to-player this-any-ally wood 2000)
  	(chat-to-player this-any-ally "39 Here is the rest of my wood-resources!")
@@ -300,7 +277,7 @@
 
 
 (defrule
- 	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
+ 	(taunt-detected any-ally 38)
 =>
  	(tribute-to-player this-any-ally gold 2000)
  	(chat-to-player this-any-ally "39 Here is the rest of my gold-resources!")
@@ -309,7 +286,7 @@
 
 
 (defrule
- 	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
+ 	(taunt-detected any-ally 38)
 =>
  	(tribute-to-player this-any-ally gold 2000)
  	(chat-to-player this-any-ally "39 Here is the rest of my stone-resources!")
@@ -318,212 +295,200 @@
 
 
 (defrule
-	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
+	(taunt-detected any-ally 38)
 =>
 	(acknowledge-taunt this-any-ally 38)
 )
-
-
-
-;42 == WHAT AGE ARE YOU IN?
 ;*****************************************
 ;*****************************************
 (defrule
- 	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
+ 	(taunt-detected any-ally 42)
  	(current-age == dark-age)
 =>
- 	(acknowledge-taunt this-any-ally 42	)	;the AI acknowledges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 42	)
  	(chat-to-player this-any-ally "39 Sire, I'm still in dark-age!")
 )
 
 
 
 (defrule
- 	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
+ 	(taunt-detected any-ally 42)
  	(current-age == feudal-age)
 =>
- 	(acknowledge-taunt this-any-ally 42)	;the AI acknowledges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 42)
  	(chat-to-player this-any-ally "39 Sire, I didn't advance to the glorious castle-age!")
 )
 
 
 
 (defrule
- 	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
+ 	(taunt-detected any-ally 42)
  	(current-age == castle-age)
 =>
- 	(acknowledge-taunt this-any-ally 42)	;the AI acknowledges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 42)
  	(chat-to-player this-any-ally "39 Sir, I've researched o the age of castles, the CASTLE_AGE!")
 )
 
 
 
 (defrule
- 	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
+ 	(taunt-detected any-ally 42)
  	(current-age == imperial-age)
 =>
- 	(acknowledge-taunt this-any-ally 42)	;the AI acknowledges this taunt (sets the flag back)
+ 	(acknowledge-taunt this-any-ally 42)
  	(chat-to-player this-any-ally "39 Sir, I've researched to the glorious IMPERIAL-AGE!")
 )
-
-
-
-;47 == ADVANCE TO THE NEXT AGE!
 ;*****************************************
 ;*****************************************
 
 
 
 (defrule
-	(true)					;this condition is always true
+	(true)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE (constant)
-	(disable-self)				;initialisation -> only once
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
+	(disable-self)
 )
 
 
 
 (defrule
-	(taunt-detected any-ally 47)		;any ally wants us advance to the next age
+	(taunt-detected any-ally 47)
 =>
-	(acknowledge-taunt this-any-ally 47)	;the AI acknowledges this taunt (sets the flag back)
-	(set-goal ADVANCE-TO-THE-NEXT-AGE YES);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+	(acknowledge-taunt this-any-ally 47)
+	(set-goal ADVANCE-TO-THE-NEXT-AGE YES)
 )
 
 
 
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
-	(current-age == dark-age)			;the age, the AI is in, is feudal-age
-	(goal ADVANCING-TO-AGE CASTLE-AGE);goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)
+	(current-age == dark-age)
+	(goal ADVANCING-TO-AGE CASTLE-AGE)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
 	(chat-to-player every-ally "39 Sir, I am advancing to the castle-age already!")
 )
 
 
 
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
-	(current-age == castle-age)			;the age, the AI is in, is castle-age
-	(goal ADVANCING-TO-AGE IMPERIAL-AGE);goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)
+	(current-age == castle-age)
+	(goal ADVANCING-TO-AGE IMPERIAL-AGE)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
 	(chat-to-player every-ally "39 Sir, I am advancing to the imperial-age already!")
 )
 
 
 
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
-	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)
+	(current-age == imperial-age)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
 	(chat-to-player every-ally "39 Sir, I cannot advance anymore, because I am in the imperial-age!")
 )
 
 
 
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
-	(current-age == dark-age)			;the age, the AI is in, is dark-age
-	(goal ADVANCING-TO-AGE FEUDAL-AGE);goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)
+	(current-age == dark-age)
+	(goal ADVANCING-TO-AGE FEUDAL-AGE)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
 	(chat-to-player every-ally "39 Sir, I am advancing to the feudal-age already!")
 )
 
 
 
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
-	(current-age == dark-age)			;the age, the AI is in, is dark age
-	(not (can-research-with-escrow feudal-age))	;the AI is not able to advance to the feudal age (with escrow-resources)
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)
+	(current-age == dark-age)
+	(not (can-research-with-escrow feudal-age))
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
-	(set-goal TRAIN-VILLAGERS NO)		;the AI sets goal TRAIN-VILLAGERS to NO (constant)
-	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!");the AI sends the chat to this ally
-	(chat-to-player every-ally "But I'll do so when it's possible!");the AI sends the chat to this ally
+	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
+	(set-goal TRAIN-VILLAGERS NO)
+	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!")
+	(chat-to-player every-ally "But I'll do so when it's possible!")
 )
 
 
 
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)
 	(or
 		(and
-			(current-age == feudal-age);the age, the AI is in, is feudal age
-			(not (can-research-with-escrow castle-age));and the AI is not able to advance to the castle age (with escrow-resources)
+			(current-age == feudal-age)
+			(not (can-research-with-escrow castle-age))
 		)
 		(and
-			(current-age == castle-age);or the age, the AI is in, is feudal age
-			(not (can-research-with-escrow imperial-age));and the AI is not able to advance to the imperial age (with escrow-resources)
+			(current-age == castle-age)
+			(not (can-research-with-escrow imperial-age))
 		)
 	)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
-	(set-goal TRAIN-VILLAGERS NO)		;the AI sets goal TRAIN-VILLAGERS to NO (constant)
-	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!");the AI sends the chat to this ally
-	(chat-to-player every-ally "But I'll do so when it's possible!");the AI sends the chat to this ally
+	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
+	(set-goal TRAIN-VILLAGERS NO)
+	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!")
+	(chat-to-player every-ally "But I'll do so when it's possible!")
 )
 
 
 
 (defrule
 	(or
-		(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
-		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE);or goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
+		(goal ADVANCE-TO-THE-NEXT-AGE YES)
+		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
 	)
-	(current-age == dark-age)			;the age, the AI is in, is dark age
-	(can-research-with-escrow feudal-age)	;the AI is able to advance to the feudal age (with escrow-resources)
+	(current-age == dark-age)
+	(can-research-with-escrow feudal-age)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
-	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the feudal-age now!");the AI sends the chat to this ally
-	(chat-to-player every-ally "I'll do so!")	;the AI sends the chat to this ally
-	(release-escrow food)			;the AI releases its food-escrow-resources
-	(research feudal-age)			;the AI advances to the feudal age
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
+	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the feudal-age now!")
+	(chat-to-player every-ally "I'll do so!")
+	(release-escrow food)
+	(research feudal-age)
 )
 
 
 
 (defrule
 	(or
-		(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
-		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE);or goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
+		(goal ADVANCE-TO-THE-NEXT-AGE YES)
+		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
 	)
-	(current-age == feudal-age)		;the age, the AI is in, is dark age
-	(can-research-with-escrow castle-age)	;the AI is able to advance to the feudal age (with escrow-resources)
+	(current-age == feudal-age)
+	(can-research-with-escrow castle-age)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
-	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the castle-age now!");the AI sends the chat to this ally
-	(chat-to-player every-ally "I'll do so!")	;the AI sends the chat to this ally
-	(release-escrow food)			;the AI releases its food-escrow-resources
-	(release-escrow gold)			;the AI releases its gold-escrow-resources
-	(research castle-age)			;the AI advances to the castle age
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
+	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the castle-age now!")
+	(chat-to-player every-ally "I'll do so!")
+	(release-escrow food)
+	(release-escrow gold)
+	(research castle-age)
 )
 
 
 
 (defrule
 	(or
-		(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
-		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE);or goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
+		(goal ADVANCE-TO-THE-NEXT-AGE YES)
+		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
 	)
 
-	(current-age == castle-age)			;the age, the AI is in, is castle age
-	(can-research-with-escrow imperial-age)	;the AI is able to advance to the imperial age (with escrow-resources)
+	(current-age == castle-age)
+	(can-research-with-escrow imperial-age)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
-	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the imperial-age now!");the AI sends the chat to this ally
-	(chat-to-player every-ally "I'll do so!")	;the AI sends the chat to this ally
-	(release-escrow food)			;the AI releases its food-escrow-resources
-	(release-escrow gold)			;the AI releases its gold-escrow-resources
-	(research imperial-age)			;the AI advances to the imperial age
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
+	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the imperial-age now!")
+	(chat-to-player every-ally "I'll do so!")
+	(release-escrow food)
+	(release-escrow gold)
+	(research imperial-age)
 )
-
-
-
-;The taunts 48 and 49 do you find in the attack.per - file
 
 
 
@@ -534,21 +499,21 @@
 		(or
 			(or
 				(or
-					(taunt-detected any-enemy 31);any enemy want us to attack
-					(taunt-detected any-enemy 32);or any enemy want us to cease creating villagers
+					(taunt-detected any-enemy 31)
+					(taunt-detected any-enemy 32)
 				)
-				(taunt-detected any-enemy 33);or any enemy want us to train as much villagers as possible
+				(taunt-detected any-enemy 33)
 			)
-			(taunt-detected any-enemy 34);or any enemy want us to go navy
+			(taunt-detected any-enemy 34)
 		)
-		(taunt-detected any-enemy 35)	;or any enemy want us to stop building navy
+		(taunt-detected any-enemy 35)
 	)
 =>
-	(acknowledge-taunt this-any-enemy 31)	;the AI acknoldges this taunt (sets the flag back)
-	(acknowledge-taunt this-any-enemy 32)	;the AI acknoldges this taunt (sets the flag back)
-	(acknowledge-taunt this-any-enemy 33)	;the AI acknoldges this taunt (sets the flag back)
-	(acknowledge-taunt this-any-enemy 34)	;the AI acknoldges this taunt (sets the flag back)
-	(acknowledge-taunt this-any-enemy 35)	;the AI acknoldges this taunt (sets the flag back)
+	(acknowledge-taunt this-any-enemy 31)
+	(acknowledge-taunt this-any-enemy 32)
+	(acknowledge-taunt this-any-enemy 33)
+	(acknowledge-taunt this-any-enemy 34)
+	(acknowledge-taunt this-any-enemy 35)
 	(chat-to-player this-any-enemy "40 You can't command me, you aren't my ally!")
 )
 
@@ -558,24 +523,20 @@
 	(or
 		(or
 			(or
-				(taunt-detected any-enemy 36);any enemy want us to attack only when he gives us sign
-				(taunt-detected any-enemy 37);or any enemy want us to build a wonder
+				(taunt-detected any-enemy 36)
+				(taunt-detected any-enemy 37)
 			)
-			(taunt-detected any-enemy 38);or any enemy want us to send all our extra resources to him
+			(taunt-detected any-enemy 38)
 		)
-		(taunt-detected any-enemy 42)	;or any enemy want us to inform him in which we are
+		(taunt-detected any-enemy 42)
 	)
 =>
-	(acknowledge-taunt this-any-enemy 36)	;the AI acknoldges this taunt (sets the flag back)
-	(acknowledge-taunt this-any-enemy 37)	;the AI acknoldges this taunt (sets the flag back)
-	(acknowledge-taunt this-any-enemy 38)	;the AI acknoldges this taunt (sets the flag back)
-	(acknowledge-taunt this-any-enemy 42)	;the AI acknoldges this taunt (sets the flag back)
+	(acknowledge-taunt this-any-enemy 36)
+	(acknowledge-taunt this-any-enemy 37)
+	(acknowledge-taunt this-any-enemy 38)
+	(acknowledge-taunt this-any-enemy 42)
 	(chat-to-player this-any-enemy "40 You can't command me, you aren't my ally!")
 )
-
-
-
-;===============================================
 ;===============================================
 ;IF ENEMY SENT TRIBUTE TO US
 
@@ -597,10 +558,6 @@
 	(clear-tribute-memory this-any-enemy stone)
 	(chat-to-player this-any-enemy "40 Don't think that you will get a new friend!")
 )
-
-
-
-;CHOOSING THE DIPLOMATIC STANCE
 ;--------------------------------------------------------
 
 
@@ -619,10 +576,6 @@
 	(set-goal HUMAN-DIPLOMACY NO)
 	(disable-self)
 )
-
-
-
-;BASIC DIPLOMACY VERSUS OTHER AIs
 ;----------------------------------------------------------
 (defrule
 	(current-age >= feudal-age)
@@ -675,10 +628,6 @@
 =>
 	(set-stance this-any-computer-enemy neutral)
 )
-
-
-
-;BASIC DIPLOMACY VERSUS HUMANS
 ;-------------------------------------------------------
 
 
@@ -904,10 +853,6 @@
 	(set-goal HUMAN-DIPLOMACY YES)
 	(disable-self)
 )
-
-
-
-;IF AN ALLY CHANGED HIS STANCE (TO NEUTRAL OR TO ENEMY)
 ;------------------------------------------------------------------------------------------------
 
 
@@ -922,7 +867,6 @@
 	)
 =>
 	(chat-to-player-using-id this-any-human-neutral 22027)
-		;"41 I am Neutral to thee. Set thy diplomacy to Neutral to me."
 	(disable-timer T-DIPLOMACY)
 	(enable-timer T-DIPLOMACY 30)
 	(set-goal HUMAN-DIPLOMACY ANGRY)
@@ -945,7 +889,6 @@
 =>
 	(chat-to-player-using-id this-any-human-neutral 22028)
 	(chat-to-player-using-id this-any-human-neutral 22029)
-		;"39 Thou art wise to be a potential friend."
 		;"Thou shalt hear from me again."
 	(disable-timer T-DIPLOMACY)
 	(enable-timer T-DIPLOMACY 30)
@@ -964,7 +907,6 @@
 	(enable-timer T-DIPLOMACY 30)
 	(chat-to-player-using-id this-any-human-neutral 22030)
 	(chat-to-player-using-id this-any-human-neutral 22031)
-		;"41 Thou hast ignored my generous invitation. I am merciful, and give you another chance."
 		;"Set thy diplomacy to Neutral to me. Now."
 )
 
@@ -980,7 +922,6 @@
 	(enable-timer T-DIPLOMACY 30)
 	(chat-to-player-using-id this-any-human-neutral 22032)
 	(chat-to-player-using-id this-any-human-neutral 22033)
-		;"41 How unwise. Thou art still hostile to me. Set to Neutral at once versus me!"
 		;"This is thy last opportunity."
 )
 
@@ -995,7 +936,6 @@
 	(set-goal HUMAN-DIPLOMACY YES)
 	(chat-to-player-using-id this-any-human-neutral 22025)
 	(chat-to-player-using-id this-any-human-neutral 22026)
-		;"40 So! Thou has chosen to defy me."
 		;"It shall be war to the knife!"
 	(chat-to-player this-any-human-ally "**********************************************************")
 	(chat-to-player this-any-human-ally "DarkAngelBGE: Perhaps in thirty minutes the AI could ally with you again..")
@@ -1003,8 +943,6 @@
 	(set-goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
 	(enable-timer T-GET-NEW-FRIEND 1800)
 )
-
-;***********************************************
 ;***********************************************
 
 (defrule
@@ -1015,7 +953,6 @@
 	)
 =>
 	(chat-to-player-using-id this-any-human-ally 22147)
-		;"39 I am thine Ally, friend. Pray set thyself to Ally, too."
 	(enable-timer T-DIPLOMACY 30)
 	(set-goal HUMAN-DIPLOMACY ANGRY)
 )
@@ -1033,7 +970,6 @@
 	(players-stance any-human-ally ally)
 =>
 	(chat-to-player-using-id this-any-human-ally 22148)
-		;"39 Thou art gracious to remain mine friend."
 	(disable-timer T-DIPLOMACY)
 	(enable-timer T-DIPLOMACY 30)
 	(set-goal HUMAN-DIPLOMACY NO)
@@ -1054,7 +990,6 @@
 	(enable-timer T-DIPLOMACY 30)
 	(chat-to-player-using-id this-any-human-ally 22149)
 	(chat-to-player-using-id this-any-human-ally 22150)
-		;"41 What evil is this? Thou art still not friendly?!"
 		;"Perhaps thou did not understand? Be mine Ally, for I am thine."
 )
 
@@ -1073,7 +1008,6 @@
 	(enable-timer T-DIPLOMACY 30)
 	(chat-to-player-using-id this-any-human-ally 22151)
 	(chat-to-player-using-id this-any-human-ally 22152)
-		;"41 Oh, falsest of friends. This is thy last chance!"
 		;"If thou wilt have me for Ally, thou must do likewise."
 )
 
@@ -1092,7 +1026,6 @@
 	(set-goal HUMAN-DIPLOMACY YES)
 	(chat-to-player-using-id this-any-human-ally 22025)
 	(chat-to-player-using-id this-any-human-ally 22026)
-		;"40 So! Thou has chosen to defy me."
 		;"It shall be war to the knife!"
 	(chat-to-player this-any-human-ally "**********************************************************")
 	(chat-to-player this-any-human-ally "DarkAngelBGE: Perhaps in thirty minutes the AI could ally with you again..")
@@ -1116,7 +1049,6 @@
 	(set-goal HUMAN-DIPLOMACY YES)
 	(chat-to-player-using-id this-any-human 22034)
 	(chat-to-player-using-id this-any-human 22035)
-		;"40 I have thought better of mine previous merciful plan."
 		;"Thou must be exterminated, and I shall forever be thine foe."
 	(set-stance this-any-human enemy)
 	(set-stance every-computer ally)
@@ -1160,10 +1092,6 @@
 	(set-stance every-computer ally)
 	(disable-self)
 )
-
-
-
-;********************************************************************************
 ;********************************************************************************
 ;IF A NEUTRAL OR AN ENEMY WANT US TO BE HIS FRIEND
 ;--------------------------------------------------------------------------------------
@@ -1229,10 +1157,6 @@
 	(chat-to-player this-any-human-enemy "40 Sorry, you didn't answer! You will not get a new friend!")
 	(enable-timer T-DIPLOMACY 5)
 )
-
-
-
-;*******************************************
 ;*******************************************
 ;ANSWERS
 
@@ -1247,8 +1171,6 @@
 	(acknowledge-taunt this-any-human-enemy 1)
 	(chat-to-player this-any-human-neutral "41 Okay, if you want to have a new friend, you must")
 	(chat-to-player this-any-human-neutral "give me some tribute so that I can be sure you want a new friend..")
-
-;***************
 
 	(chat-to-player this-any-human-enemy "40 Okay, if you want to have a new friend, you must")
 	(chat-to-player this-any-human-enemy "give me some tribute so that I can be sure you want a new friend..")
@@ -1270,8 +1192,6 @@
 	(chat-to-player this-any-human-neutral "Please do not disturb me again! I have to build up a dukedom!")
 	(chat-to-player this-any-human-neutral "DarkAngelBGE: Perhaps in twenty minutes the AI could ally with you again..")
 
-;***************
-
 	(chat-to-player this-any-human-enemy "40 Okay, if you don't want a new friend, you will not get any!")
 	(chat-to-player this-any-human-enemy "Please do not disturb me again! I have to build up a dukedom!")
 	(chat-to-player this-any-human-enemy "DarkAngelBGE: Perhaps in twenty minutes the AI could ally with you again..")
@@ -1279,10 +1199,6 @@
 	(enable-timer T-DIPLOMACY 5)
 	(enable-timer T-GET-NEW-FRIEND 1200)
 )
-
-
-
-;*******************************************
 ;*******************************************
 ;WAIT FOR RESOURCES
 
@@ -1773,10 +1689,6 @@
 	(disable-timer T-GET-NEW-FRIEND)
 	(set-goal GET-NEW-FRIEND NO)
 )
-
-
-
-;****************************************
 ;****************************************
 ;IF THE PLAYER  GAVE THE RIGHT RESOURCES BUT NOT ENOUGH
 
@@ -1859,10 +1771,6 @@
 	(chat-to-player this-any-human-enemy "40 You must send me more stone!")
 	(enable-timer T-GET-NEW-FRIEND 90)
 )
-
-
-
-;****************************************
 ;****************************************
 ;IF THE PLAYER  DIDN'T GIVE THE RIGHT RESOURCES
 
@@ -1902,10 +1810,6 @@
 	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have food, but I don't tell you that..")
 	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have food, but I don't tell you that..")
 )
-
-
-
-;WOOD
 ;--------
 
 (defrule
@@ -1941,10 +1845,6 @@
 	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have wood, but I don't tell you that..")
 	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have wood, but I don't tell you that..")
 )
-
-
-
-;GOLD
 ;--------
 
 (defrule
@@ -1980,10 +1880,6 @@
 	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have food, but I don't tell you that..")
 	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have food, but I don't tell you that..")
 )
-
-
-
-;STONE
 ;----------
 
 (defrule
@@ -2019,10 +1915,6 @@
 	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have food, but I don't tell you that..")
 	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have food, but I don't tell you that..")
 )
-
-
-
-;****************************************
 ;****************************************
 ;IF THE TIME IS OVER
 
@@ -2046,8 +1938,6 @@
 	(enable-timer T-GET-NEW-FRIEND 1200)
 	(set-goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
 )
-
-;***********
 
 (defrule
 	(or
@@ -2106,37 +1996,34 @@
 
 
 (defrule
- 	(current-age == feudal-age)		;The age, the AI is in, is feudal-age
-	(starting-age < feudal-age)			;the age, the players start with is dark-age
-	(current-age-time > 2)			;time in the current-age greater than 2
+ 	(current-age == feudal-age)
+	(starting-age < feudal-age)
+	(current-age-time > 2)
 =>
-	(chat-to-player every-ally "39 We have researched to the feudal-age!");the AI sends the chat to its allies
- 	(disable-self)				;but only one-time
+	(chat-to-player every-ally "39 We have researched to the feudal-age!")
+ 	(disable-self)
 )
 
 
 
 (defrule
- 	(current-age == castle-age)			;The age, the AI is in, is castle-age
-	(starting-age <= feudal-age)		;the age, the players start with, is dark-age or feudal-age
-	(current-age-time > 2)			;time in the current-age greater than 2
+ 	(current-age == castle-age)
+	(starting-age <= feudal-age)
+	(current-age-time > 2)
 =>
-	(chat-to-player every-ally "39 We have researched to the castle-age!");the AI sends the chat to its allies
- 	(disable-self)				;but only one-time
+	(chat-to-player every-ally "39 We have researched to the castle-age!")
+ 	(disable-self)
 )
 
 
 
 (defrule
- 	(current-age == imperial-age)		;The age, the AI is in, is imperial-age
-	(starting-age < imperial-age)		;the age, the players start with is imperial-age
-	(current-age-time > 2)			;time in the current-age greater than 2
+ 	(current-age == imperial-age)
+	(starting-age < imperial-age)
+	(current-age-time > 2)
 =>
-	(chat-to-player every-ally "39 We have researched to the glorious imperial-age!");the AI sends the chat to its allies
- 	(disable-self)				;but only one-time
+	(chat-to-player every-ally "39 We have researched to the glorious imperial-age!")
+ 	(disable-self)
 )
-
-
-;*************************************
 ;*************************************
 #end-if		;if game-type != wonder-race

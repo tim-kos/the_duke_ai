@@ -29,13 +29,11 @@ a human player can advance to feudal age earlier and pretty stronger than an AI.
 ;***********************************************
 
 (defrule        ;if
-  (true)            ;this condition is always true -> the rule always gets executed
+  (true)
 =>          ;then
-  (set-goal BOAR-CHEATING NO)     ;LINE X !! ;the AI sets goal BOAR-CHEATING to NO (constant)
-  (disable-self)          ;only initialisation
+  (set-goal BOAR-CHEATING NO)
+  (disable-self)
 )
-
-;***********************************************
 ;***********************************************
 #end-if
 #end-if
@@ -49,13 +47,11 @@ a human player can advance to feudal age earlier and pretty stronger than an AI.
 ;***********************************************
 
 (defrule        ;if
-  (true)            ;this condition is always true -> the rule always gets executed
+  (true)
 =>          ;then
-  (set-goal BOAR-CHEATING YES)      ;LINE Y !! ;the AI sets goal BOAR-CHEATING to YES (constant)
-  (disable-self)          ;only initialisation
+  (set-goal BOAR-CHEATING YES)
+  (disable-self)
 )
-
-;***********************************************
 ;***********************************************
 #end-if
 #end-if
