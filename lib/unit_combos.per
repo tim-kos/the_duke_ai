@@ -1,8 +1,8 @@
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
 	(current-age-time > 10)			;time in the current age is greater than 10 seconds
-=>				;then
+=>
 	(enable-timer T-COMBAT-COMBOS 1)	;the AI enables the timer with id T-COMBAT-COMBOS (constant) with 1 seconds
 	(set-goal COMBAT-COMBO-PARITY FIRST);the AI sets goal COMBAT-COMBO-PARITY to FIRST (constant)
 ;	(chat-local-to-self "military-initialisation")	;the AI sends the chat as a local one to itselfs
@@ -15,14 +15,14 @@
 ;***************************************************************************************
 
 
-(defrule				;If
+(defrule
 	(timer-triggered T-COMBAT-COMBOS)	;the timer with id T-COMBAT-COMBOS (constant) is over
 	(or
 		(game-time > 4500)		;time greater than 4600 seconds (75 min)
 		(goal COMBAT-COMBO-PARITY FIRST);or goal COMBAT-COMBO-PARITY to FIRST (constant)
 	)
 	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
-=>				;then
+=>
 	(disable-timer T-COMBAT-COMBOS)	;the AI acknoledges this timer
 	(set-goal COMBAT-COMBO-PARITY NOTICE);the AI sets goal COMBAT-COMBO-PARITY NOTICE
 	(enable-timer T-COMBAT-COMBOS 1800)	;the AI enables the timer with id T-COMBAT-COMBOS (constant) with 1800 seconds
@@ -37,9 +37,9 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(generate-random-number 6)		;the AI generates a random number (values 1 to 6)
 )
 
@@ -47,10 +47,10 @@
 
 #load-if-defined AZTEC-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -68,10 +68,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -89,10 +89,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)		;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -110,10 +110,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -131,10 +131,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -152,10 +152,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-SIEGE-UNIT to (constant)
@@ -178,10 +178,10 @@
 
 #load-if-defined BRITON-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -199,10 +199,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE)
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -220,10 +220,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -241,10 +241,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -262,10 +262,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -283,10 +283,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-SIEGE-UNIT to (constant)
@@ -308,10 +308,10 @@
 
 #load-if-defined BYZANTINE-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -329,10 +329,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -350,10 +350,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -371,10 +371,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CAMEL)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -392,10 +392,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -413,10 +413,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED);the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -438,10 +438,10 @@
 
 #load-if-defined CELTIC-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT NO)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -459,10 +459,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT NO)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -480,10 +480,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -501,10 +501,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -522,10 +522,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -543,10 +543,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -568,10 +568,10 @@
 
 #load-if-defined CHINESE-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -589,10 +589,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -610,10 +610,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -631,10 +631,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -652,10 +652,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -673,10 +673,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -698,10 +698,10 @@
 
 #load-if-defined FRANKISH-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -719,10 +719,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -740,10 +740,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -761,10 +761,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -782,10 +782,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -801,10 +801,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED);the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -826,10 +826,10 @@
 
 #load-if-defined GOTHIC-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -847,10 +847,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -868,10 +868,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -889,10 +889,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -910,10 +910,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -931,10 +931,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -956,10 +956,10 @@
 
 #load-if-defined HUN-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -977,10 +977,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -998,10 +998,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1019,10 +1019,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1040,10 +1040,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1061,10 +1061,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED);the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1086,10 +1086,10 @@
 
 #load-if-defined JAPANESE-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1107,10 +1107,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1128,10 +1128,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1149,10 +1149,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1170,10 +1170,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1191,10 +1191,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1217,10 +1217,10 @@
 
 #load-if-defined MONGOL-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1238,10 +1238,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY1)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1259,10 +1259,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1280,10 +1280,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1301,10 +1301,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1322,10 +1322,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1348,10 +1348,10 @@
 
 #load-if-defined KOREAN-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1369,10 +1369,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1390,10 +1390,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1411,10 +1411,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1432,10 +1432,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1453,10 +1453,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1478,10 +1478,10 @@
 
 #load-if-defined MAYAN-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1499,10 +1499,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1520,10 +1520,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1541,10 +1541,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1562,10 +1562,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1583,10 +1583,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1608,10 +1608,10 @@
 
 #load-if-defined PERSIAN-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1629,10 +1629,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1650,10 +1650,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1671,10 +1671,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1692,10 +1692,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1713,10 +1713,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED);the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1738,10 +1738,10 @@
 
 #load-if-defined SARACEN-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1759,10 +1759,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1780,10 +1780,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1801,10 +1801,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1822,10 +1822,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1843,10 +1843,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1868,10 +1868,10 @@
 
 #load-if-defined SPANISH-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY1)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1889,10 +1889,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1910,10 +1910,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1931,10 +1931,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1952,10 +1952,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1973,10 +1973,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -1998,10 +1998,10 @@
 
 #load-if-defined TEUTONIC-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2019,10 +2019,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2040,10 +2040,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2061,10 +2061,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2082,10 +2082,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2103,10 +2103,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED);the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2128,10 +2128,10 @@
 
 #load-if-defined TURKISH-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2149,10 +2149,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2170,10 +2170,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2191,10 +2191,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2212,10 +2212,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2233,10 +2233,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2258,10 +2258,10 @@
 
 #load-if-defined VIKING-CIV
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 1)			;the value of the random number is equal 1
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY1)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2279,10 +2279,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 2)			;the value of the random number is equal 2
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2300,10 +2300,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 3)			;the value of the random number is equal 3
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2321,10 +2321,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 4)			;the value of the random number is equal 4
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT NO)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2342,10 +2342,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 5)			;the value of the random number is equal 5
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT NO)	;the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2363,10 +2363,10 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
 	(random-number == 6)			;the value of the random number is equal 6
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2395,7 +2395,7 @@
 #load-if-not-defined AZTEC-CIV
 #load-if-not-defined MAYAN-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
 	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT) ;goal PRIMARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
 	(not (goal PRIMARY-COMBAT-UNIT KNIGHT)) ;goal PRIMARY-COMBAT-UNIT is not set to KNIGHT (constant)
@@ -2406,7 +2406,7 @@
 	(chat-to-player every-ally "until I have one!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
 	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT) ;goal SECONDARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
 	(not (goal SECONDARY-COMBAT-UNIT KNIGHT)) ;goal SECONDARY-COMBAT-UNIT is not set to KNIGHT (constant)
@@ -2419,7 +2419,7 @@
 
 #else		;if civ != mayan-civ
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
 	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT) ;goal PRIMARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
 	(not (goal PRIMARY-COMBAT-UNIT EAGLEMAN)) ;goal PRIMARY-COMBAT-UNIT is not set to KNIGHT (constant)
@@ -2432,7 +2432,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
 	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT) ;goal SECONDARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
 	(not (goal SECONDARY-COMBAT-UNIT EAGLEMAN)) ;goal SECONDARY-COMBAT-UNIT is not set to KNIGHT (constant)
@@ -2448,7 +2448,7 @@
 
 #else		;if civ != aztec-civ
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
 	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT) ;goal PRIMARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
 	(not (goal PRIMARY-COMBAT-UNIT EAGLEMAN)) ;goal PRIMARY-COMBAT-UNIT is not set to KNIGHT (constant)
@@ -2461,7 +2461,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
 	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT) ;goal SECONDARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
 	(not (goal SECONDARY-COMBAT-UNIT EAGLEMAN)) ;goal SECONDARY-COMBAT-UNIT is not set to KNIGHT (constant)
@@ -2476,7 +2476,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
 	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT) ;goal PRIMARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
 	(not (goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)) ;goal PRIMARY-COMBAT-UNIT is not set to UNIQUE-UNIT (constant)
@@ -2487,7 +2487,7 @@
 	(chat-to-player every-ally "I can train my unique-unit as primary-combat-unit!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
 	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT) ;goal SECONDARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
 	(not (goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)) ;goal SECONDARY-COMBAT-UNIT is not set to UNIQUE-UNIT (constant)
@@ -2512,9 +2512,9 @@
 
 ;trains jaguarmen, eaglemen, champs, arbalests, rams, onagers
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT EAGLEMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2531,25 +2531,25 @@
 
 ;Rule5: train swordsmen when we play the aztecs in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
 	(unit-type-count-total militiaman-line < FIFTY-PERCENT-POP);or number of militiamen less than FIFTY-PERCENT-POP (constant)
 	(can-train militiaman-line)				;the AI can train militiamen
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train militiaman-line)				;the AI trains the militiamen
 )
 
 ;Rule5: train arbalests when we play the aztecs in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)			;number of archery-ranges greater or equal than 1
 	(unit-type-count-total archer-line < FIFTY-PERCENT-POP);or number of archers less than FIFTY-PERCENT-POP (constant)
 	(can-train archer-line)				;the AI can train archers
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train archer-line)				;the AI trains the archers
 )
 
@@ -2566,9 +2566,9 @@
 
 ;trains longbows, champs, light cavalry, trebuchets, rams
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2585,13 +2585,13 @@
 
 ;Rule65: train light cavalry when we play the britons in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
 	(can-train scout-cavalry-line)			;the AI can train light-cavalry
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train scout-cavalry-line)				;the AI trains the light-cavalry
 )
 
@@ -2608,9 +2608,9 @@
 
 ;trains cataphracts, cavarchers, paladins, handgunners, rams, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2627,25 +2627,25 @@
 
 ;Rule80: train knights when we play the byzantines in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total knight-line < FIFTY-PERCENT-POP);or number of knights less than FIFTY-PERCENT-POP (constant)
 	(can-train knight-line)				;the AI can train knights
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train knight-line)					;the AI trains the knights
 )
 
 ;Rule80: train hand gunners when we play the byzantines in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
 	(unit-type-count-total hand-cannoneer < FIFTY-PERCENT-POP);or number of handgunners less than FIFTY-PERCENT-POP (constant)
 	(can-train hand-cannoneer)				;the AI can train handgunners
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train hand-cannoneer)					;the AI trains the handgunners
 )
 
@@ -2662,9 +2662,9 @@
 
 ;trains woad raiders, paladins, light cavalry, cavarchers, scorps, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2681,25 +2681,25 @@
 
 ;Rule65: train light cavalry when we play the celts in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
 	(can-train scout-cavalry-line)			;the AI can train light-cavalry
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train scout-cavalry-line)				;the AI trains the light-cavalry
 )
 
 ;Rule50: train cavarchers when we play the celts in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)		;number of archery-ranges greater or equal than 1
 	(unit-type-count-total cavalry-archer-line < FIFTY-PERCENT-POP);or number of cavalry-archers less than FIFTY-PERCENT-POP (constant)
 	(can-train cavalry-archer-line)			;the AI can train cavalry-archers
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train cavalry-archer-line)				;the AI trains the cavalry-archers
 )
 
@@ -2716,9 +2716,9 @@
 
 ;trains chu-ko-nus, champs, light cavalry, scorps, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2735,13 +2735,13 @@
 
 ;Rule65: train light cavalry when we play the chineses in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
 	(can-train scout-cavalry-line)			;the AI can train light-cavalry
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train scout-cavalry-line)				;the AI trains the light-cavalry
 )
 
@@ -2758,9 +2758,9 @@
 
 ;trains throwing-axemen, paladins, light cavalry, cavarchers, rams, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2777,25 +2777,25 @@
 
 ;Rule65: train light cavalry when we play the frankishes in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
 	(can-train scout-cavalry-line)			;the AI can train light-cavalry
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train scout-cavalry-line)				;the AI trains the light-cavalry
 )
 
 ;Rule5: train cavarchers when we play the frankishes in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)			;number of archery-ranges greater or equal than 1
 	(unit-type-count-total cavalry-archer-line < FIFTY-PERCENT-POP);or number of cavarchers less than FIFTY-PERCENT-POP (constant)
 	(can-train cavalry-archer-line)				;the AI can train cavarchers
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train cavalry-archer-line)				;the AI trains the cavarchers
 )
 
@@ -2809,9 +2809,9 @@
 #load-if-defined HUN-CIV
 ;trains tarkans, paladins, light cavalry, cavarchers, rams,  trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT TARKAN)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2828,25 +2828,25 @@
 
 ;Rule65: train light cavalry when we play the huns in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
 	(can-train scout-cavalry-line)			;the AI can train light-cavalry
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train scout-cavalry-line)				;the AI trains the light-cavalry
 )
 
 ;Rule5: train cavarchers when we play the huns in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)			;number of archery-ranges greater or equal than 1
 	(unit-type-count-total cavalry-archer-line < FIFTY-PERCENT-POP);or number of cavarchers less than FIFTY-PERCENT-POP (constant)
 	(can-train cavalry-archer-line)				;the AI can train cavarchers
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train cavalry-archer-line)				;the AI trains the cavarchers
 )
 
@@ -2863,9 +2863,9 @@
 
 ;trains huskarls, light cavalry, cavarchers, scorps, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2882,13 +2882,13 @@
 
 ;Rule5: train cavarchers when we play the goths in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)			;number of archery-ranges greater or equal than 1
 	(unit-type-count-total cavalry-archer-line < FIFTY-PERCENT-POP);or number of cavarchers less than FIFTY-PERCENT-POP (constant)
 	(can-train cavalry-archer-line)				;the AI can train cavarchers
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train cavalry-archer-line)				;the AI trains the cavarchers
 )
 
@@ -2905,9 +2905,9 @@
 
 ;trains samurais, cavarchers, hand-cannoneers, scorps, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2924,13 +2924,13 @@
 
 ;Rule80: train hand gunners when we play the byzantines in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
 	(unit-type-count-total hand-cannoneer < FIFTY-PERCENT-POP);or number of handgunners less than FIFTY-PERCENT-POP (constant)
 	(can-train hand-cannoneer)				;the AI can train handgunners
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train hand-cannoneer)					;the AI trains the handgunners
 )
 
@@ -2947,9 +2947,9 @@
 
 ;trains war-wagons, cavarchers, hand-cannoneers, mangonels, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -2966,13 +2966,13 @@
 
 ;Rule80: train hand gunners when we play the koreans in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
 	(unit-type-count-total hand-cannoneer < FIFTY-PERCENT-POP);or number of handgunners less than FIFTY-PERCENT-POP (constant)
 	(can-train hand-cannoneer)				;the AI can train handgunners
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train hand-cannoneer)					;the AI trains the handgunners
 )
 
@@ -2989,9 +2989,9 @@
 
 ;trains plumed archers, eagle-warriors, champs, rams, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT EAGLEMAN);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -3008,13 +3008,13 @@
 
 ;Rule5: train swordsmen when we play the mayans in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
 	(unit-type-count-total militiaman-line < FIFTY-PERCENT-POP);or number of militiamen less than FIFTY-PERCENT-POP (constant)
 	(can-train militiaman-line)				;the AI can train militiamen
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train militiaman-line)				;the AI trains the militiamen
 )
 
@@ -3031,9 +3031,9 @@
 
 ;trains mangudais, champs, light cav, rams, onagers
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -3050,13 +3050,13 @@
 
 ;Rule65: train light cavalry when we play the mongols in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
 	(can-train scout-cavalry-line)			;the AI can train light-cavalry
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train scout-cavalry-line)				;the AI trains the light-cavalry
 )
 
@@ -3073,9 +3073,9 @@
 
 ;trains elephants, cavarchers, paladins, rams, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -3092,13 +3092,13 @@
 
 ;Rule80: train knights when we play the persians in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total knight-line < FIFTY-PERCENT-POP);or number of knights less than FIFTY-PERCENT-POP (constant)
 	(can-train knight-line)				;the AI can train knights
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train knight-line)					;the AI trains the knights
 )
 
@@ -3115,9 +3115,9 @@
 
 ;trains mamelukes, cavarchers, hand cannoneers, rams, onagers
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -3134,13 +3134,13 @@
 
 ;Rule80: train hand gunners when we play the saracens in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
 	(unit-type-count-total hand-cannoneer < FIFTY-PERCENT-POP);or number of handgunners less than FIFTY-PERCENT-POP (constant)
 	(can-train hand-cannoneer)				;the AI can train handgunners
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train hand-cannoneer)					;the AI trains the handgunners
 )
 
@@ -3157,9 +3157,9 @@
 
 ;trains conquistadors, champs, paladins, hussars, handgunners, cavarchers, rams, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -3176,49 +3176,49 @@
 
 ;Rule65: train light cavalry when we play the spanishes in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
 	(can-train scout-cavalry-line)			;the AI can train light-cavalry
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train scout-cavalry-line)				;the AI trains the light-cavalry
 )
 
 ;Rule80: train knights when wer play the spanishes in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total knight-line < FIFTY-PERCENT-POP);or number of knights less than FIFTY-PERCENT-POP (constant)
 	(can-train knight-line)				;the AI can train knights
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train knight-line)					;the AI trains the knights
 )
 
 ;Rule80: train hand gunners when we play the spanishes in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
 	(unit-type-count-total hand-cannoneer < FIFTY-PERCENT-POP);or number of handgunners less than FIFTY-PERCENT-POP (constant)
 	(can-train hand-cannoneer)				;the AI can train handgunners
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train hand-cannoneer)					;the AI trains the handgunners
 )
 
 ;Rule5: train cavarchers when we play the spanishes in a deathmatch game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)			;number of archery-ranges greater or equal than 1
 	(unit-type-count-total cavalry-archer-line < FIFTY-PERCENT-POP);or number of cavarchers less than FIFTY-PERCENT-POP (constant)
 	(can-train cavalry-archer-line)				;the AI can train cavarchers
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train cavalry-archer-line)				;the AI trains the cavarchers
 )
 
@@ -3235,9 +3235,9 @@
 
 ;trains teutonic-knights, paladins, hand gunners, scorps, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -3254,13 +3254,13 @@
 
 ;Rule80: train hand gunners when we play the teutons in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
 	(unit-type-count-total hand-cannoneer < FIFTY-PERCENT-POP);or number of handgunners less than FIFTY-PERCENT-POP (constant)
 	(can-train hand-cannoneer)				;the AI can train handgunners
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train hand-cannoneer)					;the AI trains the handgunners
 )
 
@@ -3277,9 +3277,9 @@
 
 ;trains janissaries, champs, light cavalry, scorps, bombard-cannons
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -3296,13 +3296,13 @@
 
 ;Rule65: train light cavalry when we play the turkishes in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
 	(can-train scout-cavalry-line)			;the AI can train light-cavalry
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train scout-cavalry-line)				;the AI trains the light-cavalry
 )
 
@@ -3319,9 +3319,9 @@
 
 ;trains berserks, arbalests, light cavalry, scorps, trebuchets
 
-(defrule				;If
+(defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)	;goal COMBAT-COMBO-PARITY to NOTICE
-=>				;then
+=>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)	;the AI sets goal COMBAT-COMBO-PARITY to DEFINED (constant)
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;the AI sets goal PRIMARY-COMBAT-UNIT to (constant)
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW);the AI sets goal SECONDARY-COMBAT-UNIT to (constant)
@@ -3338,13 +3338,13 @@
 
 ;Rule65: train light cavalry when we play the vikings in a deathmatch-game
 
-(defrule				;If
+(defrule
 	(building-type-count stable >= 1)			;number of stables greater or equal than 1
 	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
 	(can-train scout-cavalry-line)			;the AI can train light-cavalry
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
-=>				;then
+=>
 	(train scout-cavalry-line)				;the AI trains the light-cavalry
 )
 
@@ -3368,9 +3368,9 @@
 
 #load-if-not-defined DEATH-MATCH
 
-(defrule				;If
+(defrule
 	(not (current-age == imperial-age))			;the AI is not in the imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO 8constant)
 )
 
@@ -3381,29 +3381,29 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age == feudal-age)			;the age, the AI is in, is feudal age
 	(goal ADVANCING-TO-AGE NO)			;goal ADVANCING-TO-AGE to NO (constant)
 	(military-population < MILITARY-POPULATION-MAX);number of soldiers less than MILITARY-POPULATION-MAX (constant)
 	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)		;the AI sets goal ABLE-TO-TRAIN-UNITS to YES (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age == feudal-age)			;the age, the AI is in, is feudal age
 	(goal ADVANCING-TO-AGE NO)			;goal ADVANCING-TO-AGE to NO (constant)
 	(game-time > 2100)				;we played at least 35 min
 	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age == castle-age)				;the age, the AI is in, is castle age
 	(or
 		(or
@@ -3423,13 +3423,13 @@
 	)
 	(military-population < MILITARY-POPULATION-MAX);number of soldiers less than MILITARY-POPULATION-MAX (constant)
 	(goal ADVANCING-TO-AGE NO)			;goal ADVANCING-TO-AGE to NO (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(goal PRIMARY-COMBAT-UNIT SPEARMAN)	;goal PRIMARY-COMBAT-UNIT to SPEARMAN (constant)
 		(goal SECONDARY-COMBAT-UNIT SPEARMAN)	;or goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
@@ -3442,13 +3442,13 @@
 		(building-type-count-total archery-range > 0)	;number of archery-ranges greater than 0
 		(building-type-count-total stable > 0)	;or number of stables greater than 0
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(goal PRIMARY-COMBAT-UNIT SKIRMISHER)	;goal PRIMARY-COMBAT-UNIT to SPEARMAN (constant)
 		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)	;or goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
@@ -3461,13 +3461,13 @@
 		(building-type-count-total archery-range > 0)	;number of archery-ranges greater than 0
 		(building-type-count-total stable > 0)	;or number of stables greater than 0
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL);goal RESEARCHING-IMPERIAL to MIDDLE-IMPERIAL (constant)
 		(goal RESEARCHING-IMPERIAL LATE-IMPERIAL);or goal RESEARCHING-IMPERIAL to LATE-IMPERIAL (constant)
@@ -3475,29 +3475,29 @@
 	(game-time > 2100)				;we've played 35 min already
 	(goal ADVANCING-TO-AGE NO)			;goal ADVANCING-TO-AGE to NO (constant)
 	(current-age == castle-age)				;the age, the AI is in, is castle age
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
 	(game-time <= 3000)				;we've played 50 min already
 	(goal ADVANCING-TO-AGE NO)			;goal ADVANCING-TO-AGE to NO (constant)
 	(current-age == castle-age)				;the age, the AI is in, is castle age
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)		;the AI sets goal ABLE-TO-TRAIN-UNITS to YES (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age == castle-age)				;the age, the AI is in, is castle age
 	(goal ADVANCING-TO-AGE IMPERIAL-AGE)	;goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
 	;(timer-triggered T-ABLE-TO-PAY-RESOURCES)	;timer triggered with id T-ABLE-TO-PAY-RESOURCES (constant)
 	(military-population < FIVE-PERCENT-POP);number of soldiers less than FIVE-PERCENT-POP (constant)
-=>				;then
+=>
 	;(disable-timer T-ABLE-TO-PAY-RESOURCES)	;the AI disables the timer with id T-ABLE-TO-PAY-RESOURCES (constant)
 	(set-goal ABLE-TO-TRAIN-UNITS YES)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO (constant)
 )
@@ -3508,18 +3508,18 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age == imperial-age)		;the age, the AI is in, is imperial age
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)		;the AI sets goal ABLE-TO-TRAIN-UNITS to YES (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age == imperial-age)			;the age, the AI is in, is imperial age
 	(military-population >= MILITARY-POPULATION-MAX);number of soldiers greater or equal than MILITARY-POPULATION-MAX (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO (constant)
 )
 
@@ -3529,9 +3529,9 @@
 #load-if-not-defined DIFFICULTY-HARD
 #load-if-not-defined DIFFICULTY-HARDEST
 
-(defrule				;If
+(defrule
 	(true)
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)		;the AI sets goal ABLE-TO-TRAIN-UNITS to YES (constant)
 )
 
@@ -3541,30 +3541,30 @@
 
 
 
-(defrule				;If
+(defrule
 	(true)
 	(military-population >= MILITARY-POPULATION-MAX);number of soldiers greater or equal than MILITARY-POPULATION-MAX (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO (constant)
 )
 
 #else		;if not game-type == death-match
 
 
-(defrule				;If
+(defrule
 	(true)						;this rule is always executed
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)		;the AI sets goal ABLE-TO-TRAIN-UNITS to YES (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(military-population >= MILITARY-POPULATION-MAX);number of soldiers greater or equal than MILITARY-POPULATION-MAX (constant)
 		(food-amount < 180)			;or amount of food less than 180
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)		;the AI sets goal ABLE-TO-TRAIN-UNITS to NO (constant)
 )
 
@@ -3573,7 +3573,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(not (goal MAIN-SHIP-BUILDER YES))		;goal MAIN-SHIP-BUILDER is not set to YES (constant)
 	(goal MAP-KIND LAND-MAP)			;goal MAP-KIND to LAND-MAP (constant)
 	(soldier-count < SOLDIER-COUNT)			;number of land-based-units less than SOLDIER-COUNT (constant)
@@ -3583,7 +3583,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(not (goal MAIN-SHIP-BUILDER YES))		;goal MAIN-SHIP-BUILDER is not set to YES (constant)
 	(goal MAP-KIND LAND-MAP)			;goal MAP-KIND to LAND-MAP (constant)
 	(soldier-count >= SOLDIER-COUNT)		;number of land-based-units greater or equal than SOLDIER-COUNT (constant)
@@ -3593,7 +3593,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(not (goal MAIN-SHIP-BUILDER YES))		;goal MAIN-SHIP-BUILDER is not set to YES (constant)
 	(goal MAP-KIND RIVERS-MAP)			;goal MAP-KIND to RIVERS-MAP (constant)
 	(soldier-count < FOURTY-PERCENT-POP)		;number of land-based-units less than FOURTY-PERCENT-POP (constant)
@@ -3603,7 +3603,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(not (goal MAIN-SHIP-BUILDER YES))		;goal MAIN-SHIP-BUILDER is not set to YES (constant)
 	(goal MAP-KIND RIVERS-MAP)			;goal MAP-KIND to RIVERS-MAP (constant)
 	(soldier-count >= FOURTY-PERCENT-POP)		;number of land-based-units greater or equal than FOURTY-PERCENT-POP (constant)
@@ -3613,7 +3613,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(not (goal MAIN-SHIP-BUILDER YES))		;goal MAIN-SHIP-BUILDER is not set to YES (constant)
 	(or
 		(goal MAP-KIND WATER-MAP)		;goal MAP-KIND to WATER-MAP (constant)
@@ -3626,7 +3626,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(not (goal MAIN-SHIP-BUILDER YES))		;goal MAIN-SHIP-BUILDER is not set to YES (constant)
 	(or
 		(goal MAP-KIND WATER-MAP)		;goal MAP-KIND to WATER-MAP (constant)
@@ -3639,7 +3639,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal MAIN-SHIP-BUILDER YES)			;goal MAIN-SHIP-BUILDER to YES (constant)
 	(soldier-count < THIRTY-PERCENT-POP)		;number of land-based-units less than THIRTY-PERCENT-POP (constant)
 =>
@@ -3648,7 +3648,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal MAIN-SHIP-BUILDER YES)			;goal MAIN-SHIP-BUILDER to YES (constant)
 	(soldier-count >= THIRTY-PERCENT-POP)		;number of land-based-units greater or equal than THIRTY-PERCENT-POP (constant)
 =>
@@ -3676,10 +3676,10 @@
 
 #load-if-not-defined TURKISH-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 56)			;any ally sent us the taunt with id 56
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 56)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the swordsman and the spearman!")
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to INFANTRY (constant)
@@ -3687,10 +3687,10 @@
 
 #else		;if civ != turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 56)			;any ally sent us the taunt with id 56
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 56)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the swordsman and the spearman!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the pikeman!")
@@ -3699,10 +3699,10 @@
 
 #end-if		;if civ == turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 57)			;any ally sent us the taunt with id 57
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 57)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the swordsman!")
 	(set-goal PRIMARY-COMBAT-UNIT INFANTRY1)	;the AI sets goal PRIMARY-COMBAT-UNIT to INFANTRY1 (constant)
@@ -3710,10 +3710,10 @@
 
 #load-if-not-defined TURKISH-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 58)			;any ally sent us the taunt with id 58
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 58)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the spearman!")
 	(set-goal PRIMARY-COMBAT-UNIT SPEARMAN)	;the AI sets goal PRIMARY-COMBAT-UNIT to SPEARMAN (constant)
@@ -3721,10 +3721,10 @@
 
 #else		;if civ != turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 58)			;any ally sent us the taunt with id 58
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 58)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the spearman!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the pikeman!")
@@ -3733,10 +3733,10 @@
 
 #end-if		;if civ == turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 59)			;any ally sent us the taunt with id 59
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 59)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the archer!")
 	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal PRIMARY-COMBAT-UNIT to CROSSBOW (constant)
@@ -3744,10 +3744,10 @@
 
 #load-if-not-defined TURKISH-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 60)			;any ally sent us the taunt with id 60
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 60)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the skirmisher!")
 	(set-goal PRIMARY-COMBAT-UNIT SKIRMISHER)	;the AI sets goal PRIMARY-COMBAT-UNIT to SKIRMISHER (constant)
@@ -3755,10 +3755,10 @@
 
 #else		;if civ != turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 60)			;any ally sent us the taunt with id 60
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 60)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the skirmisher!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the elite-skirmisher!")
@@ -3770,10 +3770,10 @@
 #load-if-not-defined AZTEC-CIV
 #load-if-not-defined MAYAN-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 61)			;any ally sent us the taunt with id 61
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 61)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the cavarcher!")
 	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)	;the AI sets goal PRIMARY-COMBAT-UNIT to CAVARCHER (constant)
@@ -3781,10 +3781,10 @@
 
 #load-if-not-defined TEUTONIC-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 62)			;any ally sent us the taunt with id 62
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 62)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the light cavalry!")
 	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal PRIMARY-COMBAT-UNIT to LCAVALRY (constant)
@@ -3792,10 +3792,10 @@
 
 #else		;if civ != teutonic
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 62)			;any ally sent us the taunt with id 62
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 62)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the light cavalry!")
 	(chat-to-player this-any-ally "But please consider that I cannot research light cavalry!")
@@ -3804,10 +3804,10 @@
 
 #end-if		;if civ == teutonic
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 63)			;any ally sent us the taunt with id 63
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 63)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the knight!")
 	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
@@ -3824,10 +3824,10 @@
 #load-if-not-defined KOREAN-CIV
 #load-if-not-defined HUN-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 64)			;any ally sent us the taunt with id 64
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 64)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the camel!")
 	(set-goal PRIMARY-COMBAT-UNIT CAMEL)	;the AI sets goal PRIMARY-COMBAT-UNIT to CAMEL (constant)
@@ -3852,10 +3852,10 @@
 #load-if-not-defined TURKISH-CIV
 #load-if-not-defined MONGOL-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 64)			;any ally sent us the taunt with id 64
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 64)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Sorry sir, but the camel is not in my tech tree!")
 )
@@ -3869,42 +3869,42 @@
 
 #else		;if civ != mayan
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 64)			;any ally sent us the taunt with id 64
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 64)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Sorry sir, but the camel is not in my tech tree!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 61)			;any ally sent us the taunt with id 61
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 61)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am a mayan duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 62)			;any ally sent us the taunt with id 62
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 62)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am a mayan duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 63)			;any ally sent us the taunt with id 63
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 63)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am a mayan duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 64)			;any ally sent us the taunt with id 64
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 64)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am a mayan duke, I cannot train horse units!")
 )
@@ -3913,52 +3913,52 @@
 
 #else		;if civ != aztec
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 64)			;any ally sent us the taunt with id 64
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 64)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Sorry sir, but the camel is not in my tech tree!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 61)			;any ally sent us the taunt with id 61
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 61)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am an aztec duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 62)			;any ally sent us the taunt with id 62
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 62)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am an aztec duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 63)			;any ally sent us the taunt with id 63
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 63)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am an aztec duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 64)			;any ally sent us the taunt with id 64
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 64)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am an aztec duke, I cannot train horse units!")
 )
 
 #end-if		;if civ == aztec
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 65)			;any ally sent us the taunt with id 65
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 65)		;the AI sets the flag of this taunt back
 	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal PRIMARY-COMBAT-UNIT to UNIQUE-UNIT (constant)
 )
@@ -3973,10 +3973,10 @@
 
 #load-if-not-defined TURKISH-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 66)			;any ally sent us the taunt with id 66
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 66)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the swordsman and the spearman!")
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)	;the AI sets goal SECONDARY-COMBAT-UNIT to INFANTRY (constant)
@@ -3984,10 +3984,10 @@
 
 #else		;if civ != turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 66)			;any ally sent us the taunt with id 66
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 66)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the swordsman and the spearman!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the pikeman!")
@@ -3996,10 +3996,10 @@
 
 #end-if		;if civ == turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 67)			;any ally sent us the taunt with id 67
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 67)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the swordsman!")
 	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)	;the AI sets goal SECONDARY-COMBAT-UNIT to INFANTRY1 (constant)
@@ -4007,10 +4007,10 @@
 
 #load-if-not-defined TURKISH-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 68)			;any ally sent us the taunt with id 68
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 68)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the spearman!")
 	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)	;the AI sets goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
@@ -4018,10 +4018,10 @@
 
 #else		;if civ != turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 68)			;any ally sent us the taunt with id 68
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 68)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the spearman!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the pikeman!")
@@ -4030,10 +4030,10 @@
 
 #end-if		;if civ == turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 69)			;any ally sent us the taunt with id 69
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 69)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the archer!")
 	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)	;the AI sets goal SECONDARY-COMBAT-UNIT to CROSSBOW (constant)
@@ -4041,10 +4041,10 @@
 
 #load-if-not-defined TURKISH-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 70)			;any ally sent us the taunt with id 70
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 70)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the skirmisher!")
 	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)	;the AI sets goal SECONDARY-COMBAT-UNIT to SKIRMISHER (constant)
@@ -4052,10 +4052,10 @@
 
 #else		;if civ != turkish
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 70)			;any ally sent us the taunt with id 70
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 70)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the skirmisher!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the elite-skirmisher!")
@@ -4067,10 +4067,10 @@
 #load-if-not-defined AZTEC-CIV
 #load-if-not-defined MAYAN-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 71)			;any ally sent us the taunt with id 71
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 71)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the cavarcher!")
 	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)	;the AI sets goal SECONDARY-COMBAT-UNIT to CAVARCHER (constant)
@@ -4078,10 +4078,10 @@
 
 #load-if-not-defined TEUTONIC-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 72)			;any ally sent us the taunt with id 72
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 72)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the light cavalry!")
 	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)	;the AI sets goal SECONDARY-COMBAT-UNIT to LCAVALRY (constant)
@@ -4089,10 +4089,10 @@
 
 #else		;if civ != teutonic
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 72)			;any ally sent us the taunt with id 72
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 72)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the light cavalry!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the light cavalry!")
@@ -4101,10 +4101,10 @@
 
 #end-if		;if civ == teutonic
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 73)			;any ally sent us the taunt with id 73
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 73)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the knight!")
 	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)	;the AI sets goal SECONDARY-COMBAT-UNIT to KNIGHT (constant)
@@ -4121,10 +4121,10 @@
 #load-if-not-defined KOREAN-CIV
 #load-if-not-defined HUN-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 74)			;any ally sent us the taunt with id 74
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 74)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the camel!")
 	(set-goal SECONDARY-COMBAT-UNIT CAMEL)	;the AI sets goal SECONDARY-COMBAT-UNIT to CAMEL (constant)
@@ -4149,10 +4149,10 @@
 #load-if-not-defined TURKISH-CIV
 #load-if-not-defined MONGOL-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 74)			;any ally sent us the taunt with id 74
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 74)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Sorry sir, but the camel is not in my tech tree!")
 )
@@ -4166,42 +4166,42 @@
 
 #else		;if civ != mayan
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 74)			;any ally sent us the taunt with id 74
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 74)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Sorry sir, but the camel is not in my tech tree!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 71)			;any ally sent us the taunt with id 71
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 71)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am a mayan duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 72)			;any ally sent us the taunt with id 72
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 72)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am a mayan duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 73)			;any ally sent us the taunt with id 73
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 73)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am a mayan duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 74)			;any ally sent us the taunt with id 74
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 74)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am a mayan duke, I cannot train horse units!")
 )
@@ -4210,52 +4210,52 @@
 
 #else		;if civ != aztec
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 74)			;any ally sent us the taunt with id 74
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 74)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Sorry sir, but the camel is not in my tech tree!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 71)			;any ally sent us the taunt with id 71
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 71)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am an aztec duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 72)			;any ally sent us the taunt with id 72
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 72)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am an aztec duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 73)			;any ally sent us the taunt with id 73
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 73)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am an aztec duke, I cannot train horse units!")
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 74)			;any ally sent us the taunt with id 74
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 74)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 As I am an aztec duke, I cannot train horse units!")
 )
 
 #end-if		;if civ == aztec
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 75)			;any ally sent us the taunt with id 75
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 75)		;the AI sets the flag of this taunt back
 	(chat-to-player every-ally "39 My primary-combat-unit is my unique-unit now!")
 	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT);the AI sets goal SECONDARY-COMBAT-UNIT to UNIQUE-UNIT (constant)
@@ -4269,28 +4269,28 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 76)			;any ally sent us the taunt with id 76
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 76)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the ram now!")
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)	;the AI sets goal PRIMARY-COMBAT-SIEGE-UNIT to RAM (constant)
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 77)			;any ally sent us the taunt with id 77
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 77)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the mangonel now!")
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL);the AI sets goal PRIMARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 78)			;any ally sent us the taunt with id 78
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 78)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the scorpion now!")
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION);the AI sets goal PRIMARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
@@ -4306,10 +4306,10 @@
 #load-if-not-defined KOREAN-CIV
 #load-if-not-defined SPANISH-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 79)			;any ally sent us the taunt with id 79
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 79)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Sir, the bombard-cannon is not in my techtree!")
 )
@@ -4334,10 +4334,10 @@
 #load-if-not-defined MONGOL-CIV
 #load-if-not-defined VIKING-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 79)			;any ally sent us the taunt with id 79
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 79)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the bombard-cannon!")
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON);the AI sets goal PRIMARY-COMBAT-SIEGE-UNIT to BOMBARD-CANNON (constant)
@@ -4353,10 +4353,10 @@
 #end-if		;if civ != briton
 #end-if		;if civ != aztec
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 80)			;any ally sent us the taunt with id 80
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 80)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the trebuchet now!")
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET);the AI sets goal PRIMARY-COMBAT-SIEGE-UNIT to TREBUCHET (constant)
@@ -4364,28 +4364,28 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 81)			;any ally sent us the taunt with id 81
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 81)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the ram now!")
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT RAM);the AI sets goal SECONDARY-COMBAT-SIEGE-UNIT to RAM (constant)
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 82)			;any ally sent us the taunt with id 82
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 82)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the mangonel now!")
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL);the AI sets goal SECONDARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 83)			;any ally sent us the taunt with id 83
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 83)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the scorpion now!")
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION);the AI sets goal SECONDARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
@@ -4401,10 +4401,10 @@
 #load-if-not-defined KOREAN-CIV
 #load-if-not-defined SPANISH-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 84)			;any ally sent us the taunt with id 84
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 84)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Sir, the bombard-cannon is not in my techtree!")
 )
@@ -4429,10 +4429,10 @@
 #load-if-not-defined MONGOL-CIV
 #load-if-not-defined VIKING-CIV
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 84)			;any ally sent us the taunt with id 84
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 84)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the bombard-cannon!")
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON);the AI sets goal SECONDARY-COMBAT-SIEGE-UNIT to BOMBARD-CANNON (constant)
@@ -4448,17 +4448,17 @@
 #end-if		;if civ != briton
 #end-if		;if civ != aztec
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 85)			;any ally sent us the taunt with id 85
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 85)		;the AI sets the flag of this taunt back
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the trebuchet now!")
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET);the AI sets goal SECONDARY-COMBAT-SIEGE-UNIT to TREBUCHET (constant)
 )
 
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(taunt-detected any-ally 86)	;any ally sent us the taunt with id 86
@@ -4476,7 +4476,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(taunt-detected any-ally 87)	;any ally sent us the taunt with id 87
@@ -4503,7 +4503,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 =>					;then
@@ -4518,7 +4518,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 EAGLEMAN)		;goal PRIMARY-COMBAT-UNIT2 to EAGLEMAN (constant)
@@ -4526,7 +4526,7 @@
 	(chat-to-allies "My primary combat unit is the eagle-warrior!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 INFANTRY)		;goal PRIMARY-COMBAT-UNIT2 to INFANTRY (constant)
@@ -4534,7 +4534,7 @@
 	(chat-to-allies "My primary combat unit is infantry!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 INFANTRY1)		;goal PRIMARY-COMBAT-UNIT2 to INFANTRY1 (constant)
@@ -4542,7 +4542,7 @@
 	(chat-to-allies "My primary combat unit is the swordsman!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 SPEARMAN)		;goal PRIMARY-COMBAT-UNIT2 to SPEARMAN (constant)
@@ -4550,7 +4550,7 @@
 	(chat-to-allies "My primary combat unit is the spearman!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
@@ -4559,7 +4559,7 @@
 	(chat-to-allies "My primary combat unit is the archer!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 SKIRMISHER)		;goal PRIMARY-COMBAT-UNIT2 to SKIRMISHER (constant)
@@ -4567,7 +4567,7 @@
 	(chat-to-allies "My primary combat unit is the skirmisher!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 CAVARCHER)		;goal PRIMARY-COMBAT-UNIT2 to CAVARCHER (constant)
@@ -4575,7 +4575,7 @@
 	(chat-to-allies "My primary combat unit is the cavalry-archer!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 LCAVALRY)		;goal PRIMARY-COMBAT-UNIT2 to LCAVALRY (constant)
@@ -4583,7 +4583,7 @@
 	(chat-to-allies "My primary combat unit is the light-cavalry!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 KNIGHT)		;goal PRIMARY-COMBAT-UNIT2 to KNIGHT (constant)
@@ -4591,7 +4591,7 @@
 	(chat-to-allies "My primary combat unit is the knight!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 CAMEL)		;goal PRIMARY-COMBAT-UNIT2 to CAMEL (constant)
@@ -4601,7 +4601,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)		;goal PRIMARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
@@ -4617,7 +4617,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 EAGLEMAN)		;goal SECONDARY-COMBAT-UNIT2 to EAGLEMAN (constant)
@@ -4625,7 +4625,7 @@
 	(chat-to-allies "My secondary combat unit is the eagle-warrior!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 INFANTRY)		;goal SECONDARY-COMBAT-UNIT2 to INFANTRY (constant)
@@ -4633,7 +4633,7 @@
 	(chat-to-allies "My secondary combat unit is infantry!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 INFANTRY1)		;goal SECONDARY-COMBAT-UNIT2 to INFANTRY1 (constant)
@@ -4641,7 +4641,7 @@
 	(chat-to-allies "My secondary combat unit is the swordsman!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 SPEARMAN)		;goal SECONDARY-COMBAT-UNIT2 to SPEARMAN (constant)
@@ -4649,7 +4649,7 @@
 	(chat-to-allies "My secondary combat unit is the spearman!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 CROSSBOW)		;goal SECONDARY-COMBAT-UNIT2 to CROSSBOW (constant)
@@ -4657,7 +4657,7 @@
 	(chat-to-allies "My secondary combat unit is the archer!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 SKIRMISHER)		;goal SECONDARY-COMBAT-UNIT2 to SKIRMISHER (constant)
@@ -4665,7 +4665,7 @@
 	(chat-to-allies "My secondary combat unit is the skirmisher!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 CAVARCHER)		;goal SECONDARY-COMBAT-UNIT2 to CAVARCHER (constant)
@@ -4673,7 +4673,7 @@
 	(chat-to-allies "My secondary combat unit is the cavalry-archer!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 LCAVALRY)		;goal SECONDARY-COMBAT-UNIT2 to LCAVALRY (constant)
@@ -4681,7 +4681,7 @@
 	(chat-to-allies "My secondary combat unit is the light-cavalry!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 KNIGHT)		;goal SECONDARY-COMBAT-UNIT2 to KNIGHT (constant)
@@ -4689,7 +4689,7 @@
 	(chat-to-allies "My secondary combat unit is the knight!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 CAMEL)		;goal SECONDARY-COMBAT-UNIT2 to CAMEL (constant)
@@ -4699,7 +4699,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)		;goal SECONDARY-COMBAT-UNIT2 to UNIQUE-UNIT (constant)
@@ -4715,7 +4715,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)	;goal PRIMARY-COMBAT-UNIT2 to EAGLEMAN (constant)
@@ -4723,7 +4723,7 @@
 	(chat-to-allies "My primary combat siege unit is the mangonel!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)		;goal PRIMARY-COMBAT-UNIT2 to RAM (constant)
@@ -4731,7 +4731,7 @@
 	(chat-to-allies "My primary combat siege unit is the ram!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)	;goal PRIMARY-COMBAT-UNIT2 to SCORPION (constant)
@@ -4739,7 +4739,7 @@
 	(chat-to-allies "My primary combat siege unit is the scorpion!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON);goal PRIMARY-COMBAT-UNIT2 to BONVARD-CANNON (constant)
@@ -4747,7 +4747,7 @@
 	(chat-to-allies "My primary combat siege unit is the bombard-cannon!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)	;goal PRIMARY-COMBAT-UNIT2 to TREBUCHET (constant)
@@ -4763,7 +4763,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-SIEGE-UNIT2 MANGONEL)	;goal SECONDARY-COMBAT-UNIT2 to EAGLEMAN (constant)
@@ -4771,7 +4771,7 @@
 	(chat-to-allies "My secondary combat siege unit is the mangonel!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-SIEGE-UNIT2 RAM)		;goal SECONDARY-COMBAT-UNIT2 to RAM (constant)
@@ -4779,7 +4779,7 @@
 	(chat-to-allies "My secondary combat siege unit is the ram!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-SIEGE-UNIT2 SCORPION)	;goal SECONDARY-COMBAT-UNIT2 to SCORPION (constant)
@@ -4787,7 +4787,7 @@
 	(chat-to-allies "My secondary combat siege unit is the scorpion!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON);goal SECONDARY-COMBAT-UNIT2 to BONVARD-CANNON (constant)
@@ -4795,7 +4795,7 @@
 	(chat-to-allies "My secondary combat siege unit is the bombard-cannon!");the AI sends the chat to all its allies
 )
 
-(defrule				;If
+(defrule
 	(current-age >= castle-age)				;the age, the AI is in, is greater or equal than castle-age
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 	(goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)	;goal SECONDARY-COMBAT-UNIT2 to TREBUCHET (constant)
@@ -4810,7 +4810,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(taunt-detected any-ally 88)			;any ally sent us the taunt with id 88
 =>					;then
 	(acknowledge-taunt this-any-ally 88)		;the AI sets the flag of this taunt back
@@ -4830,7 +4830,7 @@
 
 
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -4841,7 +4841,7 @@
 ;		)
 ;		(taunt-detected any-neutral 59)		;a neutral sent taunt with id 59 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 56)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 57)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 58)		;the AI acknowledges the taunt with the given id
@@ -4849,7 +4849,7 @@
 ;	(chat-to-player this-any-neutral "41 You cannot tell me my units, you are a neutral!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -4860,7 +4860,7 @@
 ;		)
 ;		(taunt-detected any-neutral 63)		;a neutral sent taunt with id 63 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 60)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 61)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 62)		;the AI acknowledges the taunt with the given id
@@ -4868,7 +4868,7 @@
 ;	(chat-to-player this-any-neutral "41 You cannot tell me my units, you are a neutral!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -4879,7 +4879,7 @@
 ;		)
 ;		(taunt-detected any-neutral 67)		;a neutral sent taunt with id 67 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 64)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 65)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 66)		;the AI acknowledges the taunt with the given id
@@ -4887,7 +4887,7 @@
 ;	(chat-to-player this-any-neutral "41 You cannot tell me my units, you are a neutral!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -4898,7 +4898,7 @@
 ;		)
 ;		(taunt-detected any-neutral 71)		;a neutral sent taunt with id 71 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 68)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 69)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 70)		;the AI acknowledges the taunt with the given id
@@ -4906,7 +4906,7 @@
 ;	(chat-to-player this-any-neutral "41 You cannot tell me my units, you are a neutral!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -4917,7 +4917,7 @@
 ;		)
 ;		(taunt-detected any-neutral 75)		;a neutral sent taunt with id 75 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 72)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 73)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 74)		;the AI acknowledges the taunt with the given id
@@ -4925,7 +4925,7 @@
 ;	(chat-to-player this-any-neutral "41 You cannot tell me my units, you are a neutral!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -4936,7 +4936,7 @@
 ;		)
 ;		(taunt-detected any-neutral 79)		;a neutral sent taunt with id 79 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 76)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 77)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 78)		;the AI acknowledges the taunt with the given id
@@ -4944,7 +4944,7 @@
 ;	(chat-to-player this-any-neutral "41 You cannot tell me my units, you are a neutral!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -4955,7 +4955,7 @@
 ;		)
 ;		(taunt-detected any-neutral 83)		;a neutral sent taunt with id 83 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 80)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 81)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 82)		;the AI acknowledges the taunt with the given id
@@ -4963,18 +4963,18 @@
 ;	(chat-to-player this-any-neutral "41 You cannot tell me my units, you are a neutral!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(taunt-detected any-neutral 84)		;a neutral sent taunt with id 84 to us
 ;		(taunt-detected any-neutral 85)		;a neutral sent taunt with id 85 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 84)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 85)		;the AI acknowledges the taunt with the given id
 ;	(chat-to-player this-any-neutral "40 You cannot tell me my units, you are a neutral!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(taunt-detected any-neutral 86);a neutral sent taunt with id 86 to us
@@ -4982,7 +4982,7 @@
 ;		)
 ;		(taunt-detected any-neutral 88)		;or a neutral sent taunt with id 88 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 86)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 87)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 88)		;the AI acknowledges the taunt with the given id
@@ -4997,7 +4997,7 @@
 
 
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -5008,7 +5008,7 @@
 ;		)
 ;		(taunt-detected any-enemy 57)		;an enemy sent taunt with id 57 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-neutral 72)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-neutral 73)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 56)		;the AI acknowledges the taunt with the given id
@@ -5017,7 +5017,7 @@
 ;	(chat-to-player this-any-enemy "40 You cannot tell me my units, you are an enemy!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -5028,7 +5028,7 @@
 ;		)
 ;		(taunt-detected any-enemy 61)		;an enemy sent taunt with id 61 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-enemy 58)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 59)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 60)		;the AI acknowledges the taunt with the given id
@@ -5036,7 +5036,7 @@
 ;	(chat-to-player this-any-enemy "40 You cannot tell me my units, you are an enemy!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -5047,7 +5047,7 @@
 ;		)
 ;		(taunt-detected any-enemy 65)		;an enemy sent taunt with id 65 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-enemy 62)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 63)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 64)		;the AI acknowledges the taunt with the given id
@@ -5055,7 +5055,7 @@
 ;	(chat-to-player this-any-enemy "40 You cannot tell me my units, you are an enemy!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -5066,7 +5066,7 @@
 ;		)
 ;		(taunt-detected any-enemy 69)		;an enemy sent taunt with id 69 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-enemy 66)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 67)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 68)		;the AI acknowledges the taunt with the given id
@@ -5074,7 +5074,7 @@
 ;	(chat-to-player this-any-enemy "40 You cannot tell me my units, you are an enemy!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -5085,7 +5085,7 @@
 ;		)
 ;		(taunt-detected any-enemy 73)		;an enemy sent taunt with id 73 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-enemy 70)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 71)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 72)		;the AI acknowledges the taunt with the given id
@@ -5093,7 +5093,7 @@
 ;	(chat-to-player this-any-enemy "40 You cannot tell me my units, you are an enemy!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -5104,7 +5104,7 @@
 ;		)
 ;		(taunt-detected any-enemy 77)		;an enemy sent taunt with id 77 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-enemy 74)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 75)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 76)		;the AI acknowledges the taunt with the given id
@@ -5112,7 +5112,7 @@
 ;	(chat-to-player this-any-enemy "40 You cannot tell me my units, you are an enemy!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -5123,7 +5123,7 @@
 ;		)
 ;		(taunt-detected any-enemy 81)		;an enemy sent taunt with id 81 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-enemy 78)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 79)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 80)		;the AI acknowledges the taunt with the given id
@@ -5131,7 +5131,7 @@
 ;	(chat-to-player this-any-enemy "40 You cannot tell me my units, you are an enemy!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(or
@@ -5142,7 +5142,7 @@
 ;		)
 ;		(taunt-detected any-enemy 85)		;an enemy sent taunt with id 85 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-enemy 82)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 83)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 84)		;the AI acknowledges the taunt with the given id
@@ -5150,7 +5150,7 @@
 ;	(chat-to-player this-any-enemy "40 You cannot tell me my units, you are an enemy!")
 ;)
 
-;(defrule				;If
+;(defrule
 ;	(or
 ;		(or
 ;			(taunt-detected any-enemy 86);an enemy sent taunt with id 86 to us
@@ -5158,7 +5158,7 @@
 ;		)
 ;		(taunt-detected any-enemy 88)	;or an enemy sent taunt with id 88 to us
 ;	)
-;=>				;then
+;=>
 ;	(acknowledge-taunt this-any-enemy 86)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 87)		;the AI acknowledges the taunt with the given id
 ;	(acknowledge-taunt this-any-enemy 88)		;the AI acknowledges the taunt with the given id

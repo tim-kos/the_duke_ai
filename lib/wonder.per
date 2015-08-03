@@ -9,9 +9,9 @@
 
 ;Rule1: INITIALISATION
 
-(defrule				;If
+(defrule
 	(difficulty <= moderate)			;we are playing on moderate, hard or hardest - difficulty
-=>				;then
+=>
 	(set-goal WONDER-ATTEMPT MAYBE)	;the AI sets goal WONDER-ATTEMPT to MAYBE (constant)
 	(disable-self)				;but only one-time
 )
@@ -19,10 +19,10 @@
 
 ;Rule2: do not build the wonder when an ally sent us the chat "200"
 
-(defrule				;If
+(defrule
 	(goal WONDER-ATTEMPT MAYBE)	;goal WONDER-ATTEMPT to MAYBE (constant)
 	(taunt-detected any-ally 200)
-=>				;then
+=>
 	(set-goal WONDER-ATTEMPT NO)	;the AI sets goal WONDER-ATTEMPT to NO (constant)
 	(acknowledge-taunt this-any-ally 200)	;the AI acknoledges this taunt
 )
@@ -31,7 +31,7 @@
 
 ;Rule3: initialisation of goal WONDER-ATTEMPT POSSIBLE
 
-(defrule				;If
+(defrule
 	(goal WONDER-ATTEMPT MAYBE)	;goal WONDER-ATTEMPT to MAYBE (constant)
 	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-age
 	(military-population > TEN-PERCENT-POP)	;number of military units greather than TEN-PERCENT-POP (constant)
@@ -41,7 +41,7 @@
 	(cc-players-building-type-count every-ally wonder == 0);there aren't any wonders in the game
 	(cc-players-building-type-count every-enemy wonder == 0)
 	(cc-players-building-type-count every-neutral wonder == 0)
-=>				;then
+=>
 	(set-goal WONDER-ATTEMPT POSSIBLE)	;the AI sets goal WONDER-ATTEMPT to POSSIBLE (constant)
 	(disable-self)				;but only one-time
 )
@@ -50,9 +50,9 @@
 
 ;Rule4: enable the timer T-WONDER-POSSIBLE (initialisation)
 
-(defrule				;If
+(defrule
 	(goal WONDER-ATTEMPT POSSIBLE)	;goal WONDER-ATTEMPT to POSSIBLE (constant)
-=>				;then
+=>
 	(disable-timer T-TRIBUTE)	;the AI disables (sets the flag back) the timer with id T-TRIBUTE (constant)
 	(enable-timer T-TRIBUTE 1)	;the AI enables the timer with id T-TRIBUTE with 1 second
 	(disable-self)				;but only one-time
@@ -62,11 +62,11 @@
 
 ;Rule5: ask our allies for WOOD when we are going to build a wonder but haven't got all the wood resources to do it
 
-(defrule				;If
+(defrule
 	(timer-triggered T-TRIBUTE)	;timer with id T-TRIBUTE is over (constant)
 	(goal WONDER-ATTEMPT POSSIBLE)	;goal WONDER-ATTEMPT to POSSIBLE (constant)
 	(wood-amount < 1000)
-=>				;then
+=>
 	(chat-to-allies "4 I need some wood to build a wonder!");the AI sends the chat as a local one to its allies
 	(disable-timer T-TRIBUTE)	;the AI disables (sets the flag back) the timer with id T-TRIBUTE (constant)
 	(enable-timer T-TRIBUTE 120)	;the AI enables the timer with id T-TRIBUTE with 120 seconds
@@ -77,11 +77,11 @@
 
 ;Rule6: ask our allies for GOLD when we are going to build a wonder but haven't got all the gold resources to do it
 
-(defrule				;If
+(defrule
 	(timer-triggered T-TRIBUTE)	;timer with id T-TRIBUTE is over (constant)
 	(goal WONDER-ATTEMPT POSSIBLE)	;goal WONDER-ATTEMPT to POSSIBLE (constant)
 	(gold-amount < 1000)
-=>				;then
+=>
 	(chat-to-allies "5 I need some gold to build a wonder!");the AI sends the chat as a local one to its allies
 	(disable-timer T-TRIBUTE)	;the AI disables (sets the flag back) the timer with id T-TRIBUTE (constant)
 	(enable-timer T-TRIBUTE 120)	;the AI enables the timer with id T-TRIBUTE with 120 seconds
@@ -92,11 +92,11 @@
 
 ;Rule7: ask our allies for STONE when we are going to build a wonder but haven't got all the stone resources to do it
 
-(defrule				;If
+(defrule
 	(timer-triggered T-TRIBUTE)	;timer with id T-TRIBUTE is over (constant)
 	(goal WONDER-ATTEMPT POSSIBLE)	;goal WONDER-ATTEMPT to POSSIBLE (constant)
 	(stone-amount < 1000)
-=>				;then
+=>
 	(chat-to-allies "6 I need some stones to build a wonder!");the AI sends the chat as a local one to its allies
 	(disable-timer T-TRIBUTE)	;the AI disables (sets the flag back) the timer with id T-TRIBUTE (constant)
 	(enable-timer T-TRIBUTE 120)	;the AI enables the timer with id T-TRIBUTE with 120 seconds
@@ -106,10 +106,10 @@
 
 ;Rule8: initialisation of the goal WONDER-ATTEMPT to YES (for building the wonder)
 
-(defrule				;If
+(defrule
 	(goal WONDER-ATTEMPT POSSIBLE)	;goal WONDER-ATTEMPT to POSSIBLE (constant)
 	(can-build-with-escrow wonder)
-=>				;then
+=>
 	(set-strategic-number sn-maximum-town-size 12);the AI won't build the wonder out of the radius of 12
 	(set-strategic-number sn-percent-civilian-builders 90)
 	(set-strategic-number sn-cap-civilian-builders 50)
@@ -124,10 +124,10 @@
 
 ;Rule9: building the WONDER
 
-(defrule				;If
+(defrule
 	(goal WONDER-ATTEMPT YES)		;goal WONDER-ATTEMPT to YES (constant)
 	(can-build-with-escrow wonder)		;the AI can build a wonder (with escrow-resources)
-=>				;then
+=>
 	(release-escrow wood)			;the AI releases the wood-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
 	(release-escrow stone)			;the AI releases the stone-escrow-resources
@@ -140,10 +140,10 @@
 
 ;Rule10: don't build any wonder when the goal WONDER-ATTEMPT has got the value YES but we can't build a wonder this time
 
-(defrule				;If
+(defrule
 	(goal WONDER-ATTEMPT YES)		;goal WONDER-ATTEMPT to YES (constant)
 	(not (can-build-with-escrow wonder))	;the AI can't build a wonder (with escrow-resources)
-=>				;then
+=>
 	(set-goal WONDER-ATTEMPT MAYBE)	;the AI sets goal WONDER-ATTEMPT to MAYBE (constant)
 	(chat-to-player every-ally "39 I can't build a wonder yet!");the AI sends the chat as a local one to its allies
 )
@@ -152,9 +152,9 @@
 
 ;Rule11: initialisation of the goal WONDER-ATTEMPT with the value POSSIBLE when an ally want us to build a wonder
 
-(defrule				;If
+(defrule
 	(taunt-detected any-ally 37)		;any ally send the taunt with the id 37 to the AI
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 37);the AI acknowledges this taunt
 	(chat-to-player this-any-ally "Okay, I'll build a wonder!");the AI sends the chat to this ally
 	(set-goal WONDER-ATTEMPT POSSIBLE)	;the AI sets goal WONDER-ATTEMPT to POSSIBLE (constant)
@@ -164,9 +164,9 @@
 
 ;Rule12: build the WONDER with as many villagers as we can use for that
 
-(defrule				;If
+(defrule
 	(building-type-count wonder > 0)		;the AI started to build a wonder or finished it already
-=>				;then
+=>
 	(set-strategic-number sn-percent-civilian-builders 15);15 percent of our villagers are now builders
 	(set-strategic-number sn-cap-civilian-builders 8);number of builders is 8
 	(set-strategic-number sn-percent-civilian-gatherers 85);there is a very good description of all SNs in the cpsb.doc
@@ -177,7 +177,7 @@
 
 ;Rule13: deleting the wonder when someone else has built a wonder
 
-(defrule				;If
+(defrule
 	(building-type-count wonder == 0)		;the AI didn't finish building the wonder
 	(building-type-count-total wonder > 0)	;but the AI started to build it
 	(cc-players-building-type-count any-ally wonder > 0);any ally is building a wonder too
@@ -188,7 +188,7 @@
 			(cc-players-building-type-count any-neutral wonder > 0);or any neutral started building a wonder
 		)
 	)
-=>				;then
+=>
 	(delete-building wonder)			;the AI deletes its wonder
 	(set-strategic-number sn-percent-civilian-builders 15)
 	(set-strategic-number sn-cap-civilian-builders 8)

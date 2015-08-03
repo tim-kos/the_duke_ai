@@ -13,7 +13,7 @@
 
 #load-if-not-defined WONDER-RACE
 
-(defrule				;If
+(defrule
 	(or
 		(goal MAP-KIND LAND-MAP)
 		(goal MAP-KIND RIVERS-MAP)
@@ -31,13 +31,13 @@
 	(players-building-type-count any-ally market >= 1)
 	(unit-type-count-total trade-cart < TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES)
 	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
-=>				;then
+=>
 	(train trade-cart)
 )
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(goal MAP-KIND WATER-MAP)
 		(goal MAP-KIND ISLAND-MAP)
@@ -55,19 +55,19 @@
 	(players-building-type-count any-ally market >= 1)
 	(unit-type-count-total trade-cog < TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES)
 	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
-=>				;then
+=>
 	(train trade-cog)
 )
 
 
 
-(defrule				;If
+(defrule
 	(cc-players-building-type-count every-ally market == 0)
 	(or
 		(unit-type-count-total trade-cart > 0)
 		(unit-type-count-total trade-cog > 0)
 	)
-=>				;then
+=>
 	(delete-unit trade-cart)
 	(delete-unit trade-cog)
 )
@@ -132,9 +132,9 @@
 ;32 == STOP TRAINING VILLAGERS
 ;*****************************************
 ;*****************************************
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 32)		;any ally want us to cease traning villagers
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 32)	;the AI acknoldges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 Ok, I won't train more villagers!")
 	(set-goal TRAIN-VILLAGERS NO)
@@ -145,9 +145,9 @@
 ;33 == CREATE MORE VILAGERS
 ;*****************************************
 ;*****************************************
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 33)		;any ally want us to train as much villagers as possible
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 33)	;the AI acknoldges this taunt (sets the flag back)
 	(chat-to-player this-any-ally "39 Well, I shall train as many villagers as possible!");the AI sends the chat to this ally
 	(set-goal TRAIN-VILLAGERS EXTRA)
@@ -158,17 +158,17 @@
 ;34 == BUILD NAVY
 ;*****************************************
 ;*****************************************
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 34)		;any ally want us to build a navy
 	(goal MAP-KIND LAND-MAP)		;goal MAP-KIND to LAND-MAP (constant)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 34)
  	(chat-to-player this-any-ally "39 But sir, this map is dry as a desert! Are you still sure you want me to build a navy?")
 )
 
 
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 34)		;any ally want us to build a navy
 	(or
 		(or
@@ -177,7 +177,7 @@
 		)
 		(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
 	)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 34)
  	(chat-to-player this-any-ally "39 Okay sir, I will build up a strong navy!")
 	(set-goal MAIN-SHIP-BUILDER YES)
@@ -189,17 +189,17 @@
 ;35 == STOP BUILDING NAVY
 ;*****************************************
 ;*****************************************
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 35)		;any ally want us to stop building navy
 	(goal MAP-KIND LAND-MAP)		;goal MAP-KIND to LAND-MAP (constant)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 35)	;the AI acknoldges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 Er ... sir, I didn't plan building a navy, because of the dryness of this map!")
 )
 
 
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 35)		;any ally want us to stop building navy
 	(or
 		(or
@@ -208,7 +208,7 @@
 		)
 		(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
 	)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 35)	;the AI acknoldges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 Okay sir, I will stop building a navy!")
 	(set-goal MAIN-SHIP-BUILDER NOTICE)
@@ -219,9 +219,9 @@
 ;36 == ONLY ATTACK IF SIGN IS GIVEN
 ;*****************************************
 ;*****************************************
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 36)		;any ally want us to attack when he gives a sign only
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 36)	;the AI acknoldges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 Ok, I'll attack, when you give me a sign only!")
 	(set-goal ATTACK ALLY-WANT-US-TO-ATTACK)
@@ -232,9 +232,9 @@
 ;37 == BUILDING A WONDER
 ;*****************************************
 ;*****************************************
-(defrule				;If
+(defrule
  	(taunt-detected any-enemy 37)		;any ally want us to build a wonder
-=>				;then
+=>
  	(acknowledge-taunt this-any-enemy 37)	;the AI acknoldges this taunt (sets the flag back)
  	(set-goal WONDER-ATTEMPT POSSIBLE)
  	(chat-to-player this-any-enemy "40 You can't give me any commands, because you aren't my ally!")
@@ -244,20 +244,20 @@
 
 #load-if-not-defined VICTORY-CONQUEST
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 37)		;any ally want us to build a wonder
 	(current-age < imperial-age)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 37)	;the AI acknoldges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 Sir, I didn't research the imperial-age yet!")
 )
 
 
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 37)		;any ally want us to build a wonder
 	(current-age >= imperial-age)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 37)	;the AI acknoldges this taunt (sets the flag back)
  	(set-goal WONDER-ATTEMPT POSSIBLE)
  	(chat-to-player this-any-ally "39 Okay sir, I'll build a wonder when I can do so!")
@@ -269,9 +269,9 @@
 
 #load-if-defined VICTORY-CONQUEST
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 37)		;any ally want us to build a wonder
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 37)	;the AI acknoledges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 But sir, it would be silly to build a wonder, because we are playing on victory-conquest!")
 )
@@ -283,43 +283,43 @@
 ;38 == GIVING AWAY EXTRA RESOURCES
 ;*****************************************
 ;*****************************************
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 38)		;any allyy want us to send all our extra resources to him
-=>				;then
+=>
  	(tribute-to-player this-any-ally food 2000)
  	(chat-to-player this-any-ally "39 Here is the rest of my food-resources!")
 )
 
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
-=>				;then
+=>
  	(tribute-to-player this-any-ally wood 2000)
  	(chat-to-player this-any-ally "39 Here is the rest of my wood-resources!")
 )
 
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
-=>				;then
+=>
  	(tribute-to-player this-any-ally gold 2000)
  	(chat-to-player this-any-ally "39 Here is the rest of my gold-resources!")
 )
 
 
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
-=>				;then
+=>
  	(tribute-to-player this-any-ally gold 2000)
  	(chat-to-player this-any-ally "39 Here is the rest of my stone-resources!")
 )
 
 
 
-(defrule				;If
+(defrule
 	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 38)
 )
 
@@ -328,40 +328,40 @@
 ;42 == WHAT AGE ARE YOU IN?
 ;*****************************************
 ;*****************************************
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
  	(current-age == dark-age)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 42	)	;the AI acknowledges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 Sire, I'm still in dark-age!")
 )
 
 
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
  	(current-age == feudal-age)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 42)	;the AI acknowledges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 Sire, I didn't advance to the glorious castle-age!")
 )
 
 
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
  	(current-age == castle-age)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 42)	;the AI acknowledges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 Sir, I've researched o the age of castles, the CASTLE_AGE!")
 )
 
 
 
-(defrule				;If
+(defrule
  	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
  	(current-age == imperial-age)
-=>				;then
+=>
  	(acknowledge-taunt this-any-ally 42)	;the AI acknowledges this taunt (sets the flag back)
  	(chat-to-player this-any-ally "39 Sir, I've researched to the glorious IMPERIAL-AGE!")
 )
@@ -374,72 +374,72 @@
 
 
 
-(defrule				;If
+(defrule
 	(true)					;this condition is always true
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE (constant)
 	(disable-self)				;initialisation -> only once
 )
 
 
 
-(defrule				;If
+(defrule
 	(taunt-detected any-ally 47)		;any ally wants us advance to the next age
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 47)	;the AI acknowledges this taunt (sets the flag back)
 	(set-goal ADVANCE-TO-THE-NEXT-AGE YES);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 	(current-age == dark-age)			;the age, the AI is in, is feudal-age
 	(goal ADVANCING-TO-AGE CASTLE-AGE);goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
 	(chat-to-player every-ally "39 Sir, I am advancing to the castle-age already!")
 )
 
 
 
-(defrule				;If
+(defrule
 	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 	(current-age == castle-age)			;the age, the AI is in, is castle-age
 	(goal ADVANCING-TO-AGE IMPERIAL-AGE);goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
 	(chat-to-player every-ally "39 Sir, I am advancing to the imperial-age already!")
 )
 
 
 
-(defrule				;If
+(defrule
 	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
 	(chat-to-player every-ally "39 Sir, I cannot advance anymore, because I am in the imperial-age!")
 )
 
 
 
-(defrule				;If
+(defrule
 	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 	(current-age == dark-age)			;the age, the AI is in, is dark-age
 	(goal ADVANCING-TO-AGE FEUDAL-AGE);goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
 	(chat-to-player every-ally "39 Sir, I am advancing to the feudal-age already!")
 )
 
 
 
-(defrule				;If
+(defrule
 	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 	(current-age == dark-age)			;the age, the AI is in, is dark age
 	(not (can-research-with-escrow feudal-age))	;the AI is not able to advance to the feudal age (with escrow-resources)
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
 	(set-goal TRAIN-VILLAGERS NO)		;the AI sets goal TRAIN-VILLAGERS to NO (constant)
 	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!");the AI sends the chat to this ally
@@ -448,7 +448,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 	(or
 		(and
@@ -460,7 +460,7 @@
 			(not (can-research-with-escrow imperial-age));and the AI is not able to advance to the imperial age (with escrow-resources)
 		)
 	)
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
 	(set-goal TRAIN-VILLAGERS NO)		;the AI sets goal TRAIN-VILLAGERS to NO (constant)
 	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!");the AI sends the chat to this ally
@@ -469,14 +469,14 @@
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE);or goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
 	)
 	(current-age == dark-age)			;the age, the AI is in, is dark age
 	(can-research-with-escrow feudal-age)	;the AI is able to advance to the feudal age (with escrow-resources)
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
 	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the feudal-age now!");the AI sends the chat to this ally
 	(chat-to-player every-ally "I'll do so!")	;the AI sends the chat to this ally
@@ -486,14 +486,14 @@
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE);or goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
 	)
 	(current-age == feudal-age)		;the age, the AI is in, is dark age
 	(can-research-with-escrow castle-age)	;the AI is able to advance to the feudal age (with escrow-resources)
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
 	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the castle-age now!");the AI sends the chat to this ally
 	(chat-to-player every-ally "I'll do so!")	;the AI sends the chat to this ally
@@ -504,7 +504,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
 		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE);or goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
@@ -512,7 +512,7 @@
 
 	(current-age == castle-age)			;the age, the AI is in, is castle age
 	(can-research-with-escrow imperial-age)	;the AI is able to advance to the imperial age (with escrow-resources)
-=>				;then
+=>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
 	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the imperial-age now!");the AI sends the chat to this ally
 	(chat-to-player every-ally "I'll do so!")	;the AI sends the chat to this ally
@@ -529,7 +529,7 @@
 
 ;*********IF ENEMY WANT TO COMMAND US*********
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(or
@@ -554,7 +554,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(or
@@ -590,7 +590,7 @@
 		)
 		(players-tribute-memory any-enemy stone >= 1)
 	)
-=>				;then
+=>
 	(clear-tribute-memory this-any-enemy food)
 	(clear-tribute-memory this-any-enemy wood)
 	(clear-tribute-memory this-any-enemy gold)
@@ -612,9 +612,9 @@
 
 #load-if-not-defined TEAMS-LOCKED
 
-(defrule				;If
+(defrule
 	(true)
-=>				;then
+=>
 	(enable-timer T-DIPLOMACY 1)
 	(set-goal HUMAN-DIPLOMACY NO)
 	(disable-self)
@@ -624,55 +624,55 @@
 
 ;BASIC DIPLOMACY VERSUS OTHER AIs
 ;----------------------------------------------------------
-(defrule				;If
+(defrule
 	(current-age >= feudal-age)
 	(players-stance any-computer-ally neutral)
-=>				;then
+=>
 	(set-stance this-any-computer-ally neutral)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= feudal-age)
 	(players-stance any-computer-ally enemy)
-=>				;then
+=>
 	(set-stance this-any-computer-ally enemy)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= feudal-age)
 	(players-stance any-computer-neutral ally)
-=>				;then
+=>
 	(set-stance this-any-computer-neutral ally)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= feudal-age)
 	(players-stance any-computer-neutral enemy)
-=>				;then
+=>
 	(set-stance this-any-computer-neutral enemy)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= feudal-age)
 	(players-stance any-computer-enemy ally)
-=>				;then
+=>
 	(set-stance this-any-computer-enemy ally)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age >= feudal-age)
 	(players-stance any-computer-enemy neutral)
-=>				;then
+=>
 	(set-stance this-any-computer-enemy neutral)
 )
 
@@ -683,7 +683,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(player-human 1)
 	(or
 		(or
@@ -704,14 +704,14 @@
 			(player-human 8)
 		)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY YES)
 	(disable-self)
 )
 
 
 
-(defrule				;If
+(defrule
 	(player-human 2)
 	(or
 		(or
@@ -732,14 +732,14 @@
 			(player-human 8)
 		)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY YES)
 	(disable-self)
 )
 
 
 
-(defrule				;If
+(defrule
 	(player-human 3)
 	(or
 		(or
@@ -760,14 +760,14 @@
 			(player-human 8)
 		)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY YES)
 	(disable-self)
 )
 
 
 
-(defrule				;If
+(defrule
 	(player-human 4)
 	(or
 		(or
@@ -788,14 +788,14 @@
 			(player-human 8)
 		)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY YES)
 	(disable-self)
 )
 
 
 
-(defrule				;If
+(defrule
 	(player-human 5)
 	(or
 		(or
@@ -816,14 +816,14 @@
 			(player-human 8)
 		)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY YES)
 	(disable-self)
 )
 
 
 
-(defrule				;If
+(defrule
 	(player-human 6)
 	(or
 		(or
@@ -844,14 +844,14 @@
 			(player-human 8)
 		)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY YES)
 	(disable-self)
 )
 
 
 
-(defrule				;If
+(defrule
 	(player-human 7)
 	(or
 		(or
@@ -872,14 +872,14 @@
 			(player-human 8)
 		)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY YES)
 	(disable-self)
 )
 
 
 
-(defrule				;If
+(defrule
 	(player-human 8)
 	(or
 		(or
@@ -900,7 +900,7 @@
 			(player-human 1)
 		)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY YES)
 	(disable-self)
 )
@@ -912,7 +912,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal HUMAN-DIPLOMACY NO)
 	(timer-triggered T-DIPLOMACY)
 	(players-stance any-human-neutral enemy)
@@ -920,7 +920,7 @@
 		(difficulty <= moderate)
 		(current-age > dark-age)
 	)
-=>				;then
+=>
 	(chat-to-player-using-id this-any-human-neutral 22027)
 		;"41 I am Neutral to thee. Set thy diplomacy to Neutral to me."
 	(disable-timer T-DIPLOMACY)
@@ -930,7 +930,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(goal HUMAN-DIPLOMACY ANGRY)
 		(or
@@ -942,7 +942,7 @@
 		(players-stance any-human-neutral neutral)
 		(players-stance any-human-neutral ally)
 	)
-=>				;then
+=>
 	(chat-to-player-using-id this-any-human-neutral 22028)
 	(chat-to-player-using-id this-any-human-neutral 22029)
 		;"39 Thou art wise to be a potential friend."
@@ -954,11 +954,11 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal HUMAN-DIPLOMACY ANGRY)
 	(timer-triggered T-DIPLOMACY)
 	(players-stance any-human-neutral enemy)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY ANGRIER)
 	(disable-timer T-DIPLOMACY)
 	(enable-timer T-DIPLOMACY 30)
@@ -970,11 +970,11 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal HUMAN-DIPLOMACY ANGRIER)
 	(timer-triggered T-DIPLOMACY)
 	(players-stance any-human-neutral enemy)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY ANGRIEST)
 	(disable-timer T-DIPLOMACY)
 	(enable-timer T-DIPLOMACY 30)
@@ -986,11 +986,11 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal HUMAN-DIPLOMACY ANGRIEST)
 	(timer-triggered T-DIPLOMACY)
 	(players-stance any-human-neutral enemy)
-=>				;then
+=>
 	(disable-timer T-DIPLOMACY)
 	(set-goal HUMAN-DIPLOMACY YES)
 	(chat-to-player-using-id this-any-human-neutral 22025)
@@ -1007,13 +1007,13 @@
 ;***********************************************
 ;***********************************************
 
-(defrule				;If
+(defrule
 	(goal HUMAN-DIPLOMACY NO)
 	(or
 		(players-stance any-human-ally neutral)
 		(players-stance any-human-ally enemy)
 	)
-=>				;then
+=>
 	(chat-to-player-using-id this-any-human-ally 22147)
 		;"39 I am thine Ally, friend. Pray set thyself to Ally, too."
 	(enable-timer T-DIPLOMACY 30)
@@ -1022,7 +1022,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(goal HUMAN-DIPLOMACY ANGRY)
 		(or
@@ -1031,7 +1031,7 @@
 		)
 	)
 	(players-stance any-human-ally ally)
-=>				;then
+=>
 	(chat-to-player-using-id this-any-human-ally 22148)
 		;"39 Thou art gracious to remain mine friend."
 	(disable-timer T-DIPLOMACY)
@@ -1041,14 +1041,14 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal HUMAN-DIPLOMACY ANGRY)
 	(timer-triggered T-DIPLOMACY)
 	(or
 		(players-stance any-human-ally neutral)
 		(players-stance any-human-ally enemy)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY ANGRIER)
 	(disable-timer T-DIPLOMACY)
 	(enable-timer T-DIPLOMACY 30)
@@ -1060,14 +1060,14 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal HUMAN-DIPLOMACY ANGRIER)
 	(timer-triggered T-DIPLOMACY)
 	(or
 		(players-stance any-human-ally neutral)
 		(players-stance any-human-ally enemy)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY ANGRIEST)
 	(disable-timer T-DIPLOMACY)
 	(enable-timer T-DIPLOMACY 30)
@@ -1079,14 +1079,14 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal HUMAN-DIPLOMACY ANGRIEST)
 	(timer-triggered T-DIPLOMACY)
 	(or
 		(players-stance any-human-ally neutral)
 		(players-stance any-human-ally enemy)
 	)
-=>				;then
+=>
 	(disable-timer T-DIPLOMACY)
 	(enable-timer T-DIPLOMACY 2)
 	(set-goal HUMAN-DIPLOMACY YES)
@@ -1103,7 +1103,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(stance-toward any-human neutral)
 	(nor
 		(player-in-game any-computer-ally)
@@ -1112,7 +1112,7 @@
 			(player-in-game any-computer-neutral)
 		)
 	)
-=>				;then
+=>
 	(set-goal HUMAN-DIPLOMACY YES)
 	(chat-to-player-using-id this-any-human 22034)
 	(chat-to-player-using-id this-any-human 22035)
@@ -1128,7 +1128,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(stance-toward any-human ally)
 	(nor
 		(or
@@ -1142,7 +1142,7 @@
 	)
 	(player-in-game any-computer-ally)
 	(goal GET-NEW-FRIEND DONE)
-=>				;then
+=>
 	(chat-to-player this-any-human "Sorry, I have only allies! That's why  you must feel the terror of my army!")
 	(chat-to-player this-any-human "That's the terror of this AI, you think you've got a new friend,")
 	(chat-to-player this-any-human "gave tribute to him and a few seconds later .. he is your enemy!!! Ha, Ha, Ha!")
@@ -1153,9 +1153,9 @@
 
 
 
-(defrule				;If
+(defrule
 	(goal HUMAN-DIPLOMACY YES)
-=>				;then
+=>
 	(set-stance every-human enemy)
 	(set-stance every-computer ally)
 	(disable-self)
@@ -1168,14 +1168,14 @@
 ;IF A NEUTRAL OR AN ENEMY WANT US TO BE HIS FRIEND
 ;--------------------------------------------------------------------------------------
 
-(defrule				;If
+(defrule
 	(timer-triggered T-DIPLOMACY)
 	(goal GET-NEW-FRIEND NO)
 	(or
 		(players-stance any-human-neutral ally)
 		(players-stance any-human-enemy ally)
 	)
-=>				;then
+=>
 	(disable-timer T-DIPLOMACY)
 	(set-goal GET-NEW-FRIEND POSSIBLE)
 	(chat-to-player this-any-human-neutral "41 Do you want to ally with me ?")
@@ -1183,14 +1183,14 @@
 	(enable-timer T-DIPLOMACY 5)
 )
 
-(defrule				;If
+(defrule
 	(timer-triggered T-GET-NEW-FRIEND)
 	(goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
 	(or
 		(players-stance any-human-neutral ally)
 		(players-stance any-human-enemy ally)
 	)
-=>				;then
+=>
 	(disable-timer T-GET-NEW-FRIEND)
 	(set-goal GET-NEW-FRIEND POSSIBLE)
 	(chat-to-player this-any-human-neutral "41 Do you want to ally with me ?")
@@ -1198,14 +1198,14 @@
 	(enable-timer T-DIPLOMACY 5)
 )
 
-(defrule				;If
+(defrule
 	(timer-triggered T-DIPLOMACY)
 	(goal GET-NEW-FRIEND POSSIBLE)
 	(or
 		(players-stance any-human-neutral ally)
 		(players-stance any-human-enemy ally)
 	)
-=>				;then
+=>
 	(disable-timer T-DIPLOMACY)
 	(set-goal GET-NEW-FRIEND YES)
 	(chat-to-player this-any-human-neutral "DarkAngelBGE: Please answer with 1 for YES or 2 for NO.")
@@ -1215,14 +1215,14 @@
 	(enable-timer T-DIPLOMACY 60)
 )
 
-(defrule				;If
+(defrule
 	(timer-triggered T-DIPLOMACY)
 	(goal GET-NEW-FRIEND YES)
 	(or
 		(players-stance any-human-neutral ally)
 		(players-stance any-human-enemy ally)
 	)
-=>				;then
+=>
 	(disable-timer T-DIPLOMACY)
 	(set-goal GET-NEW-FRIEND NO)
 	(chat-to-player this-any-human-neutral "41 Sorry, you didn't answer! You will not get a new friend!")
@@ -2086,9 +2086,9 @@
 
 
 
-(defrule				;If
+(defrule
 	(player-resigned any-enemy)
-=>				;then
+=>
 	(chat-to-player every-enemy "40 That was the first and now I'll defeat you!")
 	(chat-to-player every-enemy "11")
 	(disable-self)
@@ -2096,42 +2096,42 @@
 
 
 
-(defrule				;If
+(defrule
  	(players-building-count any-enemy >= 1)
-=>				;then
+=>
 	(chat-to-player every-ally "16 Enemy sighted!")
 	(disable-self)
 )
 
 
 
-(defrule				;If
+(defrule
  	(current-age == feudal-age)		;The age, the AI is in, is feudal-age
 	(starting-age < feudal-age)			;the age, the players start with is dark-age
 	(current-age-time > 2)			;time in the current-age greater than 2
-=>				;then
+=>
 	(chat-to-player every-ally "39 We have researched to the feudal-age!");the AI sends the chat to its allies
  	(disable-self)				;but only one-time
 )
 
 
 
-(defrule				;If
+(defrule
  	(current-age == castle-age)			;The age, the AI is in, is castle-age
 	(starting-age <= feudal-age)		;the age, the players start with, is dark-age or feudal-age
 	(current-age-time > 2)			;time in the current-age greater than 2
-=>				;then
+=>
 	(chat-to-player every-ally "39 We have researched to the castle-age!");the AI sends the chat to its allies
  	(disable-self)				;but only one-time
 )
 
 
 
-(defrule				;If
+(defrule
  	(current-age == imperial-age)		;The age, the AI is in, is imperial-age
 	(starting-age < imperial-age)		;the age, the players start with is imperial-age
 	(current-age-time > 2)			;time in the current-age greater than 2
-=>				;then
+=>
 	(chat-to-player every-ally "39 We have researched to the glorious imperial-age!");the AI sends the chat to its allies
  	(disable-self)				;but only one-time
 )

@@ -1226,7 +1226,7 @@
 ;*****************************************
 ;*****************************************
 
-(defrule				;If
+(defrule
 	(not (goal ATTACK-PERSONALITY ATTACKER))
 	(or
 		(or
@@ -1242,7 +1242,7 @@
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(taunt-detected any-ally 48);any ally want us to be agressive
@@ -1250,7 +1250,7 @@
 		)
 		(taunt-detected any-enemy 48)	;or any enemy want us to be agressive
 	)
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 48)	;the AI acknowledges this taunt
 	(acknowledge-taunt this-any-neutral 48)	;the AI acknowledges this taunt
 	(acknowledge-taunt this-any-enemy 48)	;the AI acknowledges this taunt
@@ -1265,7 +1265,7 @@
 ;*****************************************
 ;*****************************************
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(taunt-detected any-ally 49);any ally want us to be agressive
@@ -1274,14 +1274,14 @@
 		(taunt-detected any-enemy 49)	;or any enemy want us to be agressive
 	)
 	(not (goal ATTACK-PERSONALITY DEFENDER))
-=>				;then
+=>
 	(set-goal ATTACK-PERSONALITY DEFENDER);the AI sets goal ATTACK-PERSONALITY to DEFENDER (constant)
 	(set-goal ATTACK NO)
 )
 
 
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(taunt-detected any-ally 49);any ally want us to be agressive
@@ -1289,7 +1289,7 @@
 		)
 		(taunt-detected any-enemy 49)	;or any enemy want us to be agressive
 	)
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 49)	;the AI acknowledges this taunt
 	(acknowledge-taunt this-any-neutral 49)	;the AI acknowledges this taunt
 	(acknowledge-taunt this-any-enemy 49)	;the AI acknowledges this taunt

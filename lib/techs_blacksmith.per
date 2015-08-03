@@ -33,9 +33,9 @@
 
 ;Rule66: define when can we upgrade our CAVALRY in feudal-age
 
-(defrule				;If
+(defrule
 	(true)					;this condition is always true
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY NO);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to NO (constant)
 )
 
@@ -43,7 +43,7 @@
 
 ;Rule67: upgrade cavalry if needed and we've got enough resources; we do not do any rush
 
-(defrule				;If
+(defrule
 	(or
 		(goal PRIMARY-COMBAT-UNIT LCAVALRY);goal PRIMARY-COMBAT-UNIT to LCAVALRY (constant)
 		(goal SECONDARY-COMBAT-UNIT LCAVALRY);or goal SECONDARY-COMBAT-UNIT to LCAVALRY (constant)
@@ -53,7 +53,7 @@
 	(gold-amount >= 300)			;the aI has got at least 300 gold-units
 	(current-age == feudal-age)		;the age, the AI is in, is equal feudal-age
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY YES);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 )
 
@@ -61,11 +61,11 @@
 
 ;Rule68: upgrade cavalry if needed and we've got enough resources; we do a rush
 
-(defrule				;If
+(defrule
 	(unit-type-count-total scout-cavalry-line >= FOUR-PERCENT-POP);number of light cavalries greater or equal than FOUR-PERCENT-POP (constant)
 	(current-age == feudal-age)		;the age, the AI is in, is equal feudal-age
 	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY YES);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 )
 
@@ -79,7 +79,7 @@
 
 ;Rule70: define when can we upgrade our CAVALRY in castle-age part 2; we do not do any rush (upgrading)
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total scout-cavalry-line >= TWO-PERCENT-POP);number of light cavalries greater or equal than TWO-PERCENT-POP (constant)
@@ -89,7 +89,7 @@
 	)
 	(current-age == castle-age)			;the age, the AI is in, is castle-age
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY LOW);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to LOW (constant)
 )
 
@@ -97,7 +97,7 @@
 
 ;Rule70: define when can we upgrade our CAVALRY in castle-age part 2; we do not do any rush (upgrading)
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total scout-cavalry-line >= FIVE-PERCENT-POP);number of light cavalries greater or equal than FIVE-PERCENT-POP (constant)
@@ -107,7 +107,7 @@
 	)
 	(current-age == castle-age)			;the age, the AI is in, is castle-age
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY YES);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 )
 
@@ -115,7 +115,7 @@
 
 ;Rule71: define when can we upgrade our CAVALRY in castle-age part 2; we do not do any rush (upgrading)
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total scout-cavalry-line >= TWO-PERCENT-POP);number of light cavalries greater or equal than FOUR-PERCENT-POP (constant)
@@ -126,7 +126,7 @@
 	(current-age == castle-age)			;the age, the AI is in, is castle-age
 	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY LOW);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to LOW (constant)
 )
 
@@ -134,7 +134,7 @@
 
 ;Rule71: define when can we upgrade our CAVALRY in castle-age part 2; we do not do any rush (upgrading)
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total scout-cavalry-line >= THREE-PERCENT-POP);number of light cavalries greater or equal than THREE-PERCENT-POP (constant)
@@ -145,7 +145,7 @@
 	(current-age == castle-age)			;the age, the AI is in, is castle-age
 	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY YES);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 )
 
@@ -159,7 +159,7 @@
 
 ;Rule70: define when can we upgrade our CAVALRY in castle-age part 2; we do not do any rush (upgrading)
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total scout-cavalry-line >= TWO-PERCENT-POP);number of light cavalries greater or equal than TWO-PERCENT-POP (constant)
@@ -169,7 +169,7 @@
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is equal imperial-age
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY LOW);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to LOW (constant)
 )
 
@@ -177,7 +177,7 @@
 
 ;Rule70: define when can we upgrade our CAVALRY in castle-age part 2; we do not do any rush (upgrading)
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total scout-cavalry-line >= THREE-PERCENT-POP);number of light cavalries greater or equal than THREE-PERCENT-POP (constant)
@@ -187,7 +187,7 @@
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is equal imperial-age
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY MIDDLE);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to MIDDLE (constant)
 )
 
@@ -195,7 +195,7 @@
 
 ;Rule70: define when can we upgrade our CAVALRY in castle-age part 2; we do not do any rush (upgrading)
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total scout-cavalry-line >= FOUR-PERCENT-POP);number of light cavalries greater or equal than FOUR-PERCENT-POP (constant)
@@ -205,7 +205,7 @@
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is equal imperial-age
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY YES);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 )
 
@@ -219,7 +219,7 @@
 
 ;Rule74 thru 76: upgrade cavalry if our unique unit is rider unit and we're going ot train it
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-CAVALRY NO)		;goal ABLE-TO-UPGRADE-CAVALRY to NO (constant)
 	(or
 		(or
@@ -232,11 +232,11 @@
 		)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY LOW)	;the AI sets goal ABLE-TO-UPGRADE-CAVALRY to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-CAVALRY LOW)	;goal ABLE-TO-UPGRADE-CAVALRY to LOW (constant)
 	(or
 		(or
@@ -249,11 +249,11 @@
 		)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)	;the AI sets goal ABLE-TO-UPGRADE-CAVALRY to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-CAVALRY NO)		;goal ABLE-TO-UPGRADE-CAVALRY to NO (constant)
 	(or
 		(or
@@ -266,11 +266,11 @@
 		)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY LOW)	;the AI sets goal ABLE-TO-UPGRADE-CAVALRY to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-CAVALRY LOW)	;goal ABLE-TO-UPGRADE-CAVALRY to LOW (constant)
 	(or
 		(or
@@ -283,11 +283,11 @@
 		)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)	;the AI sets goal ABLE-TO-UPGRADE-CAVALRY to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)	;goal ABLE-TO-UPGRADE-CAVALRY to MIDDLE (constant)
 	(or
 		(or
@@ -300,7 +300,7 @@
 		)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY YES)	;the AI sets goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 )
 
@@ -319,9 +319,9 @@
 
 ;Rule43: start the lopp of upgrading our infantry
 
-(defrule				;If
+(defrule
 	(true)					;this condition is always true
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY NO);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to NO (constant)
 )
 
@@ -329,7 +329,7 @@
 
 ;Rule44: upgrade infantry in feudal-age if we need upgrades and have got enough resources and do not do any rush
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(or
@@ -346,7 +346,7 @@
 		(unit-type-count-total spearman-line >= THREE-PERCENT-POP);or number of spearmen greater or equal than THREE-PERCENT-POP (constant)
 	)
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY YES);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -354,7 +354,7 @@
 
 ;Rule44: upgrade infantry in feudal-age if we need upgrades and have got enough resources and do not do any rush
 
-(defrule				;If
+(defrule
 	(or
 		(goal PRIMARY-COMBAT-UNIT INFANTRY1);the goal PRIMARY-COMBAT-UNIT is set to INFANTRY1 (constant)
 		(goal SECONDARY-COMBAT-UNIT INFANTRY1);or the goal SECONDARY-COMBAT-UNIT is set to INFANTRY1 (constant)
@@ -362,7 +362,7 @@
 	(current-age == feudal-age)		;the age, the AI is in, is equal feudal-age
 	(unit-type-count-total militiaman-line >= THREE-PERCENT-POP);number of swordsmen greater or equal than THREE-PERCENT-POP 8constant)
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY YES);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -370,14 +370,14 @@
 
 ;Rule45: upgrade infantry in feudal-age if we need upgrades and do a rush
 
-(defrule				;If
+(defrule
 	(current-age == feudal-age)		;the age, the AI is in, is equal feudal-age
 	(or
 		(unit-type-count-total militiaman-line >= FIVE-PERCENT-POP);number of swordsmen greater or equal than FIVE-PERCENT-POP 8constant)
 		(unit-type-count-total spearman-line >= FIVE-PERCENT-POP);or number of spearmen greater or equal than FIVE-PERCENT-POP (constant)
 	)
 	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY YES);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -391,7 +391,7 @@
 
 ;Rule46: upgrade infantry in castle-age if we need upgrades and have got enough resources and do not do any rush
 
-(defrule				;If
+(defrule
 	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
 	(or
 		(or
@@ -401,13 +401,13 @@
 		(unit-type-count-total spearman-line >= TWO-PERCENT-POP);number of spearmenmen greater or equal than TWO-PERCENT-POP (constant)
 	)
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY LOW);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
 	(or
 		(or
@@ -417,7 +417,7 @@
 		(unit-type-count-total spearman-line >= THREE-PERCENT-POP);number of spearmenmen greater or equal than THREE-PERCENT-POP (constant)
 	)
 	(not (goal RUSH-CONTROL RUSHING))	;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 )
 
@@ -425,7 +425,7 @@
 
 ;Rule47: upgrade infantry in castle-age if we need upgrades and have got enough resources and do a rush
 
-(defrule				;If
+(defrule
 	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
 	(or
 		(or
@@ -436,7 +436,7 @@
 	)
 	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY LOW);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -444,7 +444,7 @@
 
 ;Rule47: upgrade infantry in castle-age if we need upgrades and have got enough resources and do a rush
 
-(defrule				;If
+(defrule
 	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
 	(or
 		(or
@@ -455,7 +455,7 @@
 	)
 	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 )
 
@@ -469,7 +469,7 @@
 
 ;Rule46: upgrade infantry in castle-age if we need upgrades and have got enough resources and do not do any rush
 
-(defrule				;If
+(defrule
 	(current-age == imperial-age)			;the age, the AI is in, is equal imperial-age
 	(or
 		(or
@@ -478,13 +478,13 @@
 		)
 		(unit-type-count-total spearman-line >= ONE-PERCENT-POP);number of spearmenmen greater or equal than ONE-PERCENT-POP (constant)
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY LOW);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age == imperial-age)			;the age, the AI is in, is equal imperial-age
 	(or
 		(or
@@ -493,13 +493,13 @@
 		)
 		(unit-type-count-total spearman-line >= TWO-PERCENT-POP);number of spearmenmen greater or equal than TWO-PERCENT-POP (constant)
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 )
 
 
 
-(defrule				;If
+(defrule
 	(current-age == imperial-age)			;the age, the AI is in, is equal imperial-age
 	(or
 		(or
@@ -508,7 +508,7 @@
 		)
 		(unit-type-count-total spearman-line >= THREE-PERCENT-POP);number of spearmenmen greater or equal than THREE-PERCENT-POP (constant)
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY YES);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -523,7 +523,7 @@
 
 ;Rule49 thru 51: do infantry upgrades if our unique unit is infantry unit and we are going to train it
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY NO)	;goal ABLE-TO-UPGRADE-INFANTRY to NO (constant)
 	(or
 		(or
@@ -536,11 +536,11 @@
 		)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY LOW);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY LOW);goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 	(or
 		(or
@@ -553,11 +553,11 @@
 		)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY NO)	;goal ABLE-TO-UPGRADE-INFANTRY to NO (constant)
 	(or
 		(or
@@ -570,11 +570,11 @@
 		)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY LOW);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY LOW);goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 	(or
 		(or
@@ -587,11 +587,11 @@
 		)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 	(or
 		(or
@@ -604,7 +604,7 @@
 		)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY YES);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -612,7 +612,7 @@
 
 ;Rule49 thru 51: do infantry upgrades if our unique unit is infantry unit and we are going to train it
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY NO)	;goal ABLE-TO-UPGRADE-INFANTRY to NO (constant)
 	(or
 		(or
@@ -622,11 +622,11 @@
 		(unit-type-count-total throwing-axeman-line >= THREE-PERCENT-POP);number of throwing-axemen greater than THREE-PERCENT-POP (constant)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY LOW);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY LOW);goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 	(or
 		(or
@@ -636,11 +636,11 @@
 		(unit-type-count-total throwing-axeman >= FOUR-PERCENT-POP);number of throwing-axemen greater than FOUR-PERCENT-POP (constant)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY NO)	;goal ABLE-TO-UPGRADE-INFANTRY to NO (constant)
 	(or
 		(or
@@ -650,11 +650,11 @@
 		(unit-type-count-total throwing-axeman-line >= ONE-PERCENT-POP);number of throwing-axemen greater than ONE-PERCENT-POP (constant)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY LOW);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY LOW);goal ABLE-TO-UPGRADE-INFANTRY to LOW (constant)
 	(or
 		(or
@@ -664,11 +664,11 @@
 		(unit-type-count-total throwing-axeman-line >= TWO-PERCENT-POP);number of throwing-axemen greater than TWO-PERCENT-POP (constant)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 	(or
 		(or
@@ -678,7 +678,7 @@
 		(unit-type-count-total throwing-axeman-line >= THREE-PERCENT-POP);number of throwing-axemen greater than THREE-PERCENT-POP (constant)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY YES);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -744,14 +744,14 @@
 
 ;Rule55: upgrade archers if we need the upgrades and we have got enough resources, we do a rush (feudal-age)
 
-(defrule				;If
+(defrule
 	(or
 		(unit-type-count-total archer-line >= FIVE-PERCENT-POP);number of archers greater or equal than FIVE-PERCENT-POP (constant)
 		(unit-type-count-total skirmisher-line >= FIVE-PERCENT-POP);or number of skirmishers greater or equal than FIVE-PERCENT-POP (constant)
 	)
 	(current-age == feudal-age)		;the age, the AI is in, is equal feudal-age
 	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL is not set to RUSHING (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS YES);the AI sets goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
 )
 
@@ -801,7 +801,7 @@
 
 ;Rule58: do archer upgrades if we have got enough resources and need the upgrades; we don't do any rush
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total archer-line >= TWO-PERCENT-POP);number of archers greater or equal than TWO-PERCENT-POP (constant)
@@ -812,7 +812,7 @@
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
 	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS LOW)	;the AI sets goal ABLE-TO-UPGRADE-ARCHERS to LOW (constant)
 )
 
@@ -820,7 +820,7 @@
 
 ;Rule58: do archer upgrades if we have got enough resources and need the upgrades; we don't do any rush
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total archer-line >= THREE-PERCENT-POP);number of archers greater or equal than TWO-PERCENT-POP (constant)
@@ -831,7 +831,7 @@
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
 	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)	;the AI sets goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
 )
 
@@ -902,7 +902,7 @@
 
 ;Rule61 thru 65: do archer upgrades if our unique unit is ranged unit and we're going to train it
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS NO)	;goal ABLE-TO-UPGRADE-ARCHERS to NO (constant)
 	(or
 		(or
@@ -915,11 +915,11 @@
 		)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS LOW)	;the AI sets goal ABLE-TO-UPGRADE-ARCHERS to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS LOW)	;goal ABLE-TO-UPGRADE-ARCHERS to LOW (constant)
 	(or
 		(or
@@ -932,11 +932,11 @@
 		)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS MIDDLE);the AI sets goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS NO)		;goal ABLE-TO-UPGRADE-ARCHERS to NO (constant)
 	(or
 		(or
@@ -949,11 +949,11 @@
 		)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS LOW);the AI sets goal ABLE-TO-UPGRADE-ARCHERS to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS LOW)	;goal ABLE-TO-UPGRADE-ARCHERS to LOW (constant)
 	(or
 		(or
@@ -966,11 +966,11 @@
 		)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)	;the AI sets goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)	;goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
 	(or
 		(or
@@ -983,7 +983,7 @@
 		)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)	;the AI sets goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
 )
 
@@ -991,7 +991,7 @@
 
 ;Rule61 thru 65: do archer upgrades if our unique unit is ranged unit and we're going to train it
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS NO)	;goal ABLE-TO-UPGRADE-ARCHERS to NO (constant)
 	(or
 		(or
@@ -1001,11 +1001,11 @@
 		(unit-type-count-total conquistador-line >= THREE-PERCENT-POP);number of conquistadors greater than THREE-PERCENT-POP (constant)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS LOW)	;the AI sets goal ABLE-TO-UPGRADE-ARCHERS to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS LOW)	;goal ABLE-TO-UPGRADE-ARCHERS to LOW (constant)
 	(or
 		(or
@@ -1015,11 +1015,11 @@
 		(unit-type-count-total conquistador-line >= FOUR-PERCENT-POP);number of conquistadors greater than FOUR-PERCENT-POP (constant)
 	)
 	(current-age == castle-age)				;the age, the AI is in, is castle-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS MIDDLE);the AI sets goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS NO)		;goal ABLE-TO-UPGRADE-ARCHERS to NO (constant)
 	(or
 		(or
@@ -1029,11 +1029,11 @@
 		(unit-type-count-total conquistador-line >= ONE-PERCENT-POP);number of conquistadors greater than ONE-PERCENT-POP (constant)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS LOW);the AI sets goal ABLE-TO-UPGRADE-ARCHERS to LOW (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS LOW)	;goal ABLE-TO-UPGRADE-ARCHERS to LOW (constant)
 	(or
 		(or
@@ -1043,11 +1043,11 @@
 		(unit-type-count-total conquistador-line >= TWO-PERCENT-POP);number of conquistadors greater than TWO-PERCENT-POP (constant)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)	;the AI sets goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
 )
 
-(defrule				;If
+(defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)	;goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
 	(or
 		(or
@@ -1057,7 +1057,7 @@
 		(unit-type-count-total conquistador-line >= THREE-PERCENT-POP);number of conquistadors greater than THREE-PERCENT-POP (constant)
 	)
 	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)	;the AI sets goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
 )
 
@@ -1076,9 +1076,9 @@
 
 ;Rule43: start the lopp of upgrading our infantry
 
-(defrule				;If
+(defrule
 	(true)					;this condition is always true
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY NO);the AI sets goal ABLE-TO-UPGRADE-INFANTRY to NO (constant)
 )
 
@@ -1086,7 +1086,7 @@
 
 ;Rule48: upgrade our infantry if we need upgrades
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total militiaman-line > 0);number of swordsmen greater than 0
@@ -1094,7 +1094,7 @@
 		)
 		(unit-type-count-total eagle-warrior-line > 0);number of eagle-warriors greater than 0
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY YES);the AI sets goal AblE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -1108,7 +1108,7 @@
 
 ;Rule48: upgrade our infantry if we need upgrades
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(or
@@ -1128,7 +1128,7 @@
 			)
 		)
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY YES);the AI sets goal AblE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -1152,7 +1152,7 @@
 
 ;Rule48: upgrade our archers if we need upgrades
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total archer-line > 0);number if archers greater than 0
@@ -1160,7 +1160,7 @@
 		)
 		(unit-type-count-total cavalry-archer-line > 0);number if cavarchers greater than 0
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-INFANTRY YES);the AI sets goal AblE-TO-UPGRADE-INFANTRY to YES (constant)
 )
 
@@ -1175,7 +1175,7 @@
 
 ;Rule48: upgrade our archers if we need upgrades
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(or
@@ -1195,7 +1195,7 @@
 			)
 		)
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS YES);the AI sets goal AblE-TO-UPGRADE-ARCHERS to YES (constant)
 )
 
@@ -1209,9 +1209,9 @@
 
 ;Rule66: define when can we upgrade our CAVALRY in feudal-age
 
-(defrule				;If
+(defrule
 	(true)					;this condition is always true
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY NO);the AI sets goal ABLE-TO-UPGRADE-CAVALRY to NO (constant)
 )
 
@@ -1219,7 +1219,7 @@
 
 ;Rule48: upgrade our cavalry if we need upgrades
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total scout-cavalry-line > 0);number if light cavalry greater than 0
@@ -1227,7 +1227,7 @@
 		)
 		(unit-type-count-total camel-line > 0);number if camels greater than 0
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-CAVALRY YES);the AI sets goal AblE-TO-UPGRADE-CAVALRY to YES (constant)
 )
 
@@ -1241,7 +1241,7 @@
 
 ;Rule48: upgrade our cavalry if we need upgrades
 
-(defrule				;If
+(defrule
 	(or
 		(or
 			(unit-type-count-total tarkan-line > 0);number of tarkans greater than 0
@@ -1252,7 +1252,7 @@
 			(unit-type-count-total cataphract-line > 0);number of cataphracts greater than 0
 		)
 	)
-=>				;then
+=>
 	(set-goal ABLE-TO-UPGRADE-ARCHERS YES);the AI sets goal AblE-TO-UPGRADE-ARCHERS to YES (constant)
 )
 
@@ -1284,7 +1284,7 @@
 
 ;Rule152b: research FLETCHING- MODERATE, HARD, HARDEST when we don't do the flush
 ;100 FOOD, 50 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-fletching)	;the AI can research the fletching (with escrow-resources)
 	(or
 		(building-type-count castle > 0)	;number of castles greater than 0
@@ -1301,7 +1301,7 @@
 
 ;Rule152b: research FLETCHING- HARD when we do the flush
 ;100 FOOD, 50 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-fletching)	;the AI can research the fletching (with escrow-resources)
 	(or
 		(or
@@ -1327,7 +1327,7 @@
 
 ;Rule155: research FORGING- MODERATE, HARD, HARDEST part 1 (middle or high infantry)
 ;150 FOOD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
  	(can-research-with-escrow ri-forging)	;the AI can research the forging (with escrow-resources)
@@ -1348,7 +1348,7 @@
 
 ;Rule156: research FORGING- MODERATE, HARD, HARDEST part 2 (middle or high cavalry)
 ;150 FOOD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
  	(can-research-with-escrow ri-forging)	;the AI can research the forging (with escrow-resources)
@@ -1369,7 +1369,7 @@
 
 ;Rule156: research FORGING- MODERATE, HARD, HARDEST part 2 (middle or high cavalry)
 ;150 FOOD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-forging)	;the AI can research the forging (with escrow-resources)
 	(or
 		(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
@@ -1403,7 +1403,7 @@
 
 ;Rule159: research SCALE-MAIL- MODERATE, HARD, HARDEST (middle or high infantry)
 ;100 FOOD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
  	(can-research-with-escrow ri-scale-mail)	;the AI can research the scale-mail (with escrow-resources)
@@ -1424,7 +1424,7 @@
 
 ;Rule156: research SCALE-MAIL- MODERATE, HARD, HARDEST part 2 (middle or high cavalry)
 ;100 FOOD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-scale-mail)	;the AI can research the scale-mail (with escrow-resources)
 	(or
 		(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
@@ -1455,7 +1455,7 @@
 
 ;Rule162: research SCALE-BARDING- MODERATE, HARD, HARDEST (middle or high cavalry)
 ;150 FOOD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
  	(can-research-with-escrow ri-scale-barding)	;the AI can research the scale-barding (with escrow-resources)
@@ -1466,7 +1466,7 @@
 		)
 		(goal ABLE-TO-UPGRADE-CAVALRY YES);or goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
  	(research ri-scale-barding)			;the AI researches the scale-barding (with escrow-resources)
 ;               (chat-local-to-self "research SCALE-BARDING");the AI sends the chat as a local chat to itselfs
@@ -1476,7 +1476,7 @@
 
 ;Rule156: research SCALE-BARDING- MODERATE, HARD, HARDEST part 2 (middle or high cavalry)
 ;150 FOOD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-scale-barding)	;the AI can research the scale-barding (with escrow-resources)
 	(or
 		(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
@@ -1508,7 +1508,7 @@
 
 ;Rule165: research PADDED-ARCHER-ARMOR- MODERATE, HARD, HARDEST
 ;100 FOOD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
  	(can-research-with-escrow ri-padded-archer-armor);the AI can research the padded-archer-armor (with escrow-resources)
@@ -1519,7 +1519,7 @@
 		)
 		(goal ABLE-TO-UPGRADE-ARCHERS YES);or goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(research ri-padded-archer-armor)		;the AI researches the padded-archer-armor (with escrow-resources)
 ;               (chat-local-to-self "research PADDED-ARCHER-ARMOR");the AI sends the chat as a local chat to itselfs
@@ -1541,7 +1541,7 @@
 
 ;Rule168: research IRON-CASTING- MODERATE, HARD, HARDEST part 1 (high infantry)
 ;220 FOOD, 120 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
  	(can-research-with-escrow ri-iron-casting)	;the AI can research the iron-casting (with escrow-resources)
@@ -1549,7 +1549,7 @@
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 		(goal ABLE-TO-UPGRADE-INFANTRY YES);or goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-iron-casting)			;the AI researches the iron-casting (with escrow-resources)
@@ -1560,7 +1560,7 @@
 
 ;Rule169: research IRON-CASTING- MODERATE, HARD, HARDEST part 2 (high cavalry)
 ;220 FOOD, 120 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
  	(can-research-with-escrow ri-iron-casting)	;the AI can research the iron-casting (with escrow-resources)
@@ -1568,7 +1568,7 @@
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE);goal ABLE-TO-UPGRADE-CAVALRY to MIDDLE (constant)
 		(goal ABLE-TO-UPGRADE-CAVALRY YES);or goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-iron-casting)			;the AI researches the iron-casting (with escrow-resources)
@@ -1579,7 +1579,7 @@
 
 ;Rule156: research SCALE-BARDING- MODERATE, HARD, HARDEST part 2 (middle or high cavalry)
 ;150 FOOD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-iron-casting)	;the AI can research the iron-casting (with escrow-resources)
 	(or
 		(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
@@ -1613,7 +1613,7 @@
 
 ;Rule172: research BODKIN-ARROW- MODERATE, HARD, HARDEST; part 1
 ;220 FOOD, 120 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
  	(can-research-with-escrow ri-bodkin-arrow)	;the AI can research the bodkin-arrow (with escrow-resources)
@@ -1621,7 +1621,7 @@
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE);goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
 		(goal ABLE-TO-UPGRADE-ARCHERS YES);or goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-bodkin-arrow)			;the AI researches the bodkin-arrow (with escrow-resources)
@@ -1632,7 +1632,7 @@
 
 ;Rule172: research BODKIN-ARROW- MODERATE, HARD, HARDEST; part 3
 ;220 FOOD, 120 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
  	(can-research-with-escrow ri-bodkin-arrow)	;the AI can research the bodkin-arrow (with escrow-resources)
@@ -1640,7 +1640,7 @@
 		(building-type-count castle >= 2)	;number of castles greater or equal than 2
 		(unit-type-count-total galley-line >= THREE-PERCENT-POP);or number of galleys greater or equal than THREE-PERCENT-POP (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-bodkin-arrow)			;the AI researches the bodkin-arrow (with escrow-resources)
@@ -1657,7 +1657,7 @@
 
 ;Rule175: research CHAIN-BARDING- MODERATE, HARD, HARDEST (high cavalry)
 ;250 FOOD, 150 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
  	(can-research-with-escrow ri-chain-barding)	;the AI can research the chain-barding (with escrow-resources)
@@ -1665,7 +1665,7 @@
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE);goal ABLE-TO-UPGRADE-CAVALRY to MIDDLE (constant)
 		(goal ABLE-TO-UPGRADE-CAVALRY YES);or goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
 	(research ri-chain-barding)			;the AI researches the chain-barding (with escrow-resources)
@@ -1682,7 +1682,7 @@
 
 ;Rule178: research LEATHER-ARCHER-ARMOR- MODERATE, HARD, HARDEST
 ;150 FOOD, 150 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
  	(can-research-with-escrow ri-leather-archer-armor);the AI can research the leather-archer-armor (with escrow-resources)
@@ -1690,7 +1690,7 @@
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE);goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
 		(goal ABLE-TO-UPGRADE-ARCHERS YES);or goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-leather-archer-armor)		;the AI researches the leather-archer-armor (with escrow-resources)
@@ -1707,7 +1707,7 @@
 
 ;Rule181: research CHAIN-MAIL- MODERATE, HARD, HARDEST (middle infantry)
 ;200 FOOD, 100 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
  	(can-research-with-escrow ri-chain-mail)	;the AI can research the chain-mail (with escrow-resources)
@@ -1715,7 +1715,7 @@
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
 		(goal ABLE-TO-UPGRADE-INFANTRY YES);or goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-chain-mail)			;the AI researches the chain-mail (with escrow-resources)
@@ -1726,7 +1726,7 @@
 
 ;Rule156: research CHAIN-MAIL- MODERATE, HARD, HARDEST part 2 (EW rush)
 ;200 FOOD, 100 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-chain-mail)	;the AI can research the iron-casting (with escrow-resources)
 	(goal RUSH-CONTROL RUSHING);or goal RUSH-CONTROL to RUSHING (constant)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN);or goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
@@ -1754,7 +1754,7 @@
 
 ;Rule183: research BLAST-FURNACE- MODERATE, HARD, HARDEST
 ;275 FOOD, 225 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
  	(can-research-with-escrow ri-blast-furnace)	;the AI can research the blast-furnace (with escrow-resources)
@@ -1762,7 +1762,7 @@
 		(goal ABLE-TO-UPGRADE-INFANTRY YES);goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
 		(goal ABLE-TO-UPGRADE-CAVALRY YES);or goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-blast-furnace)			;the AI researches the blast-furnace (with escrow-resources)
@@ -1773,7 +1773,7 @@
 
 ;Rule183: research BLAST-FURNACE- MODERATE, HARD, HARDEST
 ;275 FOOD, 225 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-blast-furnace)	;the AI can research the blast-furnace (with escrow-resources)
 	(or
 		(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
@@ -1807,12 +1807,12 @@
 
 ;Rule186: research PLATE-MAIL- MODERATE, HARD, HARDEST
 ;300 FOOD, 150 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-age
  	(can-research-with-escrow ri-plate-mail)	;the AI can research the plate-mail (with escrow-resources)
 	(goal ABLE-TO-UPGRADE-INFANTRY YES);goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-plate-mail)			;the AI researches the plate-mail (with escrow-resources)
@@ -1829,12 +1829,12 @@
 
 ;Rule188: research PLATE-BARDING- MODERATE, HARD, HARDEST
 ;350 FOOD, 200 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-age
  	(can-research-with-escrow ri-plate-barding)	;the AI can research the plate-barding (with escrow-resources)
 	(goal ABLE-TO-UPGRADE-CAVALRY YES)	;goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-plate-barding)			;the AI researches the plate-barding (with escrow-resources)
@@ -1851,7 +1851,7 @@
 
 ;Rule190: research BRACER- MODERATE, HARD, HARDEST
 ;300 FOOD, 200 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
  	(can-research-with-escrow ri-bracer)	;the AI can research the bracer (with escrow-resources)
@@ -1862,7 +1862,7 @@
 		)
 		(unit-type-count-total galley-line >= FIVE-PERCENT-POP);or number of galleys greater or equal than FIVE-PERCENT-POP (constant)
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-bracer)			;the AI researches the bracer (with escrow-resources)
@@ -1879,12 +1879,12 @@
 
 ;Rule192: research RING-ARCHER-ARMOR- MODERATE, HARD, HARDEST
 ;250 FOOD, 250 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-age
  	(can-research-with-escrow ri-ring-archer-armor);the AI can research the ring-archer-armor (with escrow-resources)
 	(goal ABLE-TO-UPGRADE-ARCHERS YES);goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
 	(research ri-ring-archer-armor)		;the AI researches the ring-archer-armor (with escrow-resources)
@@ -1907,7 +1907,7 @@
 
 ;Rule152b: research FLETCHING in death-match-games
 ;100 FOOD, 50 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-fletching)	;the AI can research the fletching (with escrow-resources)
 =>					;then
 	(release-escrow food)			;the AI releases the food-escrow-resources
@@ -1920,7 +1920,7 @@
 
 ;Rule155: research FORGING in death-match-games (infantry)
 ;150 FOOD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-forging)	;the AI can research the forging (with escrow-resources)
 	(or
 		(or
@@ -1939,7 +1939,7 @@
 
 ;Rule156: research FORGING in death-match-games (cavalry)
 ;150 FOOD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-forging)	;the AI can research the forging (with escrow-resources)
 	(or
 		(or
@@ -1958,7 +1958,7 @@
 
 ;Rule159: research SCALE-MAIL in death-match-games
 ;100 FOOD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-scale-mail)	;the AI can research the scale-mail (with escrow-resources)
 	(or
 		(or
@@ -1977,7 +1977,7 @@
 
 ;Rule162: research SCALE-BARDING in death-match-games
 ;150 FOOD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-scale-barding)	;the AI can research the scale-barding (with escrow-resources)
 	(or
 		(or
@@ -1986,7 +1986,7 @@
 		)
 		(unit-type-count-total camel-line > 0);number of camels greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
  	(research ri-scale-barding)			;the AI researches the scale-barding (with escrow-resources)
 ;               (chat-local-to-self "research SCALE-BARDING");the AI sends the chat as a local chat to itselfs
@@ -1996,7 +1996,7 @@
 
 ;Rule165: research PADDED-ARCHER-ARMOR in death-match-games
 ;100 FOOD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
  	(can-research-with-escrow ri-padded-archer-armor);the AI can research the padded-archer-armor (with escrow-resources)
@@ -2007,7 +2007,7 @@
 		)
 		(unit-type-count-total cavalry-archer-line > 0);number of cav-archers greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(research ri-padded-archer-armor)		;the AI researches the padded-archer-armor (with escrow-resources)
 ;               (chat-local-to-self "research PADDED-ARCHER-ARMOR");the AI sends the chat as a local chat to itselfs
@@ -2023,7 +2023,7 @@
 
 ;Rule168: research IRON-CASTING in death-match-games (infantry)
 ;220 FOOD, 120 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-iron-casting)	;the AI can research the iron-casting (with escrow-resources)
 	(or
 		(or
@@ -2032,7 +2032,7 @@
 		)
 		(unit-type-count-total eagle-warrior-line > 0);number of eagle-warriors greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-iron-casting)			;the AI researches the iron-casting (with escrow-resources)
@@ -2043,7 +2043,7 @@
 
 ;Rule169: research IRON-CASTING in death-match-games (cavalry)
 ;220 FOOD, 120 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-iron-casting)	;the AI can research the iron-casting (with escrow-resources)
 	(or
 		(or
@@ -2052,7 +2052,7 @@
 		)
 		(unit-type-count-total camel-line > 0);number of camels greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-iron-casting)			;the AI researches the iron-casting (with escrow-resources)
@@ -2063,9 +2063,9 @@
 
 ;Rule172: research BODKIN-ARROW in death-match-games
 ;220 FOOD, 120 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-bodkin-arrow)	;the AI can research the bodkin-arrow (with escrow-resources)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-bodkin-arrow)			;the AI researches the bodkin-arrow (with escrow-resources)
@@ -2076,7 +2076,7 @@
 
 ;Rule175: research CHAIN-BARDING in death-match-games
 ;250 FOOD, 150 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-chain-barding)	;the AI can research the chain-barding (with escrow-resources)
 	(or
 		(or
@@ -2085,7 +2085,7 @@
 		)
 		(unit-type-count-total camel-line > 0);number of camels greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
 	(research ri-chain-barding)			;the AI researches the chain-barding (with escrow-resources)
@@ -2096,7 +2096,7 @@
 
 ;Rule178: research LEATHER-ARCHER-ARMOR in death-match-games
 ;150 FOOD, 150 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-leather-archer-armor);the AI can research the leather-archer-armor (with escrow-resources)
 	(or
 		(or
@@ -2105,7 +2105,7 @@
 		)
 		(unit-type-count-total cavalry-archer-line > 0);number of cav-archers greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-leather-archer-armor)		;the AI researches the leather-archer-armor (with escrow-resources)
@@ -2116,7 +2116,7 @@
 
 ;Rule181: research CHAIN-MAIL in death-match-games
 ;200 FOOD, 100 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-chain-mail)	;the AI can research the chain-mail (with escrow-resources)
 	(or
 		(or
@@ -2125,7 +2125,7 @@
 		)
 		(unit-type-count-total eagle-warrior-line > 0);number of eagle-warriors greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-chain-mail)			;the AI researches the chain-mail (with escrow-resources)
@@ -2142,7 +2142,7 @@
 
 ;Rule183: research BLAST-FURNACE in death-match-games (infantry)
 ;275 FOOD, 225 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-blast-furnace)	;the AI can research the blast-furnace (with escrow-resources)
 	(or
 		(or
@@ -2151,7 +2151,7 @@
 		)
 		(unit-type-count-total eagle-warrior-line > 0);number of eagle-warriors greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-blast-furnace)			;the AI researches the blast-furnace (with escrow-resources)
@@ -2162,7 +2162,7 @@
 
 ;Rule186: research PLATE-MAIL in death-match-games
 ;300 FOOD, 150 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-plate-mail)	;the AI can research the plate-mail (with escrow-resources)
 	(or
 		(or
@@ -2171,7 +2171,7 @@
 		)
 		(unit-type-count-total eagle-warrior-line > 0);number of eagle-warriors greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-plate-mail)			;the AI researches the plate-mail (with escrow-resources)
@@ -2182,7 +2182,7 @@
 
 ;Rule188: research PLATE-BARDING in death-match-games
 ;350 FOOD, 200 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-plate-barding)	;the AI can research the plate-barding (with escrow-resources)
 	(or
 		(or
@@ -2191,7 +2191,7 @@
 		)
 		(unit-type-count-total camel-line > 0);number of camels greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-plate-barding)			;the AI researches the plate-barding (with escrow-resources)
@@ -2202,11 +2202,11 @@
 
 ;Rule190: research BRACER in death-match-games
 ;300 FOOD, 200 GOLD
-(defrule				;If
+(defrule
 	(building-type-count-total blacksmith >= 1)	;the AI has got at least one blacksmith
  	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
  	(can-research-with-escrow ri-bracer)	;the AI can research the bracer (with escrow-resources)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
  	(research ri-bracer)			;the AI researches the bracer (with escrow-resources)
@@ -2217,7 +2217,7 @@
 
 ;Rule192: research RING-ARCHER-ARMOR in death-match-games
 ;250 FOOD, 250 GOLD
-(defrule				;If
+(defrule
  	(can-research-with-escrow ri-ring-archer-armor);the AI can research the ring-archer-armor (with escrow-resources)
 	(or
 		(or
@@ -2226,7 +2226,7 @@
 		)
 		(unit-type-count-total cavalry-archer-line > 0);number of cav-archers greater than 0
 	)
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
 	(research ri-ring-archer-armor)		;the AI researches the ring-archer-armor (with escrow-resources)

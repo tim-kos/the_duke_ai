@@ -13,7 +13,7 @@
 ;***********************************************
 ;***********************************************
 
-(defrule				;if
+(defrule
 	(true)						;this condition is always true -> the rule always gets executed
 =>					;then
 	(set-goal BOAR-CHEATING NO)			;the AI sets goal BOAR-CHEATING to NO (constant)
@@ -33,7 +33,7 @@
 ;***********************************************
 ;***********************************************
 
-(defrule				;if
+(defrule
 	(true)						;this condition is always true -> the rule always gets executed
 =>					;then
 	(set-goal BOAR-CHEATING YES)			;the AI sets goal BOAR-CHEATING to YES (constant)
@@ -74,7 +74,7 @@
 
 
 
-(defrule				;if
+(defrule
 	(goal BOAR-CHEATING YES)			;goal BOAR-CHEATING to YES (constant)
 	(game-time > BOAR-CHEATING-TIME)		;we played BOAR-CHEATING-TIME already (see constants above)
 =>					;then

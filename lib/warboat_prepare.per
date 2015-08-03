@@ -2,7 +2,7 @@
 
 (defrule			;If
 	(taunt-detected any-ally 202)		;any ally want us not to be the main ship builder
-=>				;then
+=>
 	(acknowledge-taunt this-any-ally 202)	;we acknowledge his request
 	(set-goal MAIN-SHIP-BUILDER NO)		;the AI sets goal MAIN-SHIP-BUILDER to NO (constant)
 	(disable-self)				;only once
@@ -30,7 +30,7 @@
 			(civ-selected saracen)
 		)
 	)
-=>				;then
+=>
 	(chat-to-player-using-id every-ally 22408)	;202
 	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
 	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
@@ -51,7 +51,7 @@
 		)
 		(civ-selected korean)
 	)
-=>				;then
+=>
 	(chat-to-player-using-id every-ally 22408)	;202
 	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
 	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
@@ -84,7 +84,7 @@
 			(civ-selected mayan)
 		)
 	)
-=>				;then
+=>
 	(chat-to-player-using-id every-ally 22408)	;202
 	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
 	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
@@ -114,7 +114,7 @@
 			(civ-selected teutonic)
 		)
 	)
-=>				;then
+=>
 	(chat-to-player-using-id every-ally 22408)	;202
 	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
 	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
@@ -133,7 +133,7 @@
 		(civ-selected aztec)		;we play the aztecs or the huns
 		(civ-selected hun)
 	)
-=>				;then
+=>
 	(chat-to-player-using-id every-ally 22408)	;202
 	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
 	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
@@ -153,7 +153,7 @@
 	(unit-type-count transport-ship == 0)	;number of transport ships is 0
 	(can-afford-unit transport-ship)	;we have the resources to train a transport ship
 	(attack-soldier-count > 0)		;we have got at least 1 soldier that is able to attack
-=>				;then
+=>
 	(delete-unit fishing-ship)		;we delete exact one fishing ship
 )
 
@@ -194,7 +194,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(wood-amount > 400)			;the amount of wood is greater than 400
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
-=>				;then
+=>
 	(train transport-ship)			;the AI trains a transport ship
 )
 
@@ -210,7 +210,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
 	(wood-amount > 500)			;the amount of wood is greater than 500
 	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES
-=>				;then
+=>
 	(train transport-ship)			;the AI trains a transport ship
 )
 

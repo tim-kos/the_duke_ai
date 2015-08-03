@@ -10,7 +10,7 @@
 
 ;Rule1: RESIGN IF EASIEST OR EASY
 
-(defrule				;IF
+(defrule
 	(not (goal RUSH-CONTROL RESIGN))	;goal RUSH-CONTROL is not set to RESIGN (constant)
 	(game-time > 300)				;time greater than 300 seconds
 	(soldier-count < 5)			;number of soldiers less than 5
@@ -20,7 +20,7 @@
 		(hold-koh-ruin)			;and the AI didn't take all koh-ruins
 	)
 	(not (can-train villager))		;the AI can't train a villager
-=>				;then
+=>
 	(chat-to-player every-enemy "40 You're well prepared to play on the next difficulty-level!");the AI sends the chat to all its enemies
 	(chat-to-player every-enemy "-Tim Koschützki, The Duke-AI - developer");the AI sends the chat to all its enemies
 	(set-goal RUSH-CONTROL RESIGN)		;the AI sets goal RUSH-CONTROL to RESIGN (constant)
@@ -36,7 +36,7 @@
 
 ;Rule2: RESIGN IF MODERATE
 
-(defrule				;If
+(defrule
 	(not (goal RUSH-CONTROL RESIGN));goal RUSH-CONTROL is not set to RESIGN (constant)
 	(game-time > 300)				;time greater than 300 seconds
 	(building-type-count wonder < 1)		;number of wonders less than 1 (equal 0)
@@ -47,7 +47,7 @@
 		(hold-koh-ruin)			;and the AI didn't take all koh-ruins
 	)
 	(not (can-train villager))		;the AI can't train a villager
-=>				;then
+=>
 	(chat-to-player every-enemy "40 I think that was not so difficult, wasn't it?");the AI sends the chat to all its enemies
 	(chat-to-player every-enemy "Try to play on difficulty level hard!");the AI sends the chat to all its enemies
 	(chat-to-player every-enemy "-Tim Koschützki, The Duke-AI - developer");the AI sends the chat to all its enemies
@@ -62,7 +62,7 @@
 
 ;Rule3: RESIGN IF HARD
 
-(defrule				;If
+(defrule
 	(not (goal RUSH-CONTROL RESIGN))	;goal RUSH-CONTROL is not set to RESIGN (constant)
 	(game-time > 300)				;time greater than 300 seconds
 	(building-type-count wonder < 1)		;number of wonders less than 1 (equal 0)
@@ -74,7 +74,7 @@
 		(hold-koh-ruin)			;and the AI didn't take all koh-ruins
 	)
 	(not (can-train villager))		;the AI can't train a villager
-=>				;then
+=>
 	(chat-to-player every-enemy "40 If you didn't cheat you're well prepared");the AI sends the chat to all its enemies
 	(chat-to-player every-enemy "to play on the most challenging difficulty-level!");the AI sends the chat to all its enemies
 	(chat-to-player every-enemy "-Tim Koschützki, The Duke-AI - developer");the AI sends the chat to all its enemies
@@ -89,7 +89,7 @@
 
 ;Rule4: RESIGN IF HARDEST
 
-(defrule				;If
+(defrule
 	(not (goal RUSH-CONTROL RESIGN))	;goal RUSH-CONTROL is not set to RESIGN (constant)
 	(game-time > 300)				;time greater than 300 seconds
 	(building-type-count wonder < 1)		;number of wonders less than 1 (equal 0)
@@ -101,7 +101,7 @@
 		(hold-koh-ruin)			;and the AI didn't take all koh-ruins
 	)
 	(not (can-train villager))		;the AI can't train a villager
-=>				;then
+=>
 	(chat-to-player every-enemy "40 The Duke-AI can't be harder than this!");the AI sends the chat to all its enemies
 	(chat-to-player every-enemy "If you didn't cheat you're a really good AoE-player!");the AI sends the chat to all its enemies
 	(chat-to-player every-enemy "-Tim Koschützki, The Duke-AI - developer");the AI sends the chat to all its enemies
@@ -114,11 +114,11 @@
 
 ;Rule5: TRIBUTE TO COMPUTER ALLIES IF WE'LL RESIGN
 
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL RESIGN)		;goal RUSH-CONTROL to RESIGN (constant)
 	(players-population any-ally > 10)		;any ally has got at least 10 villager
 	(difficulty <= moderate)			;the player chose one of these difficulty-types: moderate, hard, hardest
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow wood)			;the AI releases the wood-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
@@ -133,11 +133,11 @@
 
 ;Rule6: TRIBUTE TO HUMAN ALLY IF WE'RE GOING TO RESIGN
 
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL RESIGN)		;goal RUSH-CONTROL to RESIGN (constant)
 	(stance-toward any-human ally)		;our stance towards at least one human is ally
 	(difficulty <= moderate)			;the player chose one of these difficulty-types: moderate, hard, hardest
-=>				;then
+=>
 	(release-escrow food)			;the AI releases the food-escrow-resources
 	(release-escrow wood)			;the AI releases the wood-escrow-resources
 	(release-escrow gold)			;the AI releases the gold-escrow-resources
@@ -152,9 +152,9 @@
 
 ;Rule7: DELETING VILLAGERS
 
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL RESIGN)		;goal RUSH-CONTROL to RESIGN (constant)
-=>				;then
+=>
 	(delete-unit villager)			;the AI deletes all villagers
 )
 
@@ -162,9 +162,9 @@
 
 ;Rule8: DELETING ALL CIVIL BUILDINGS
 
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL RESIGN)		;goal RUSH-CONTROL to RESIGN (constant)
-=>				;then
+=>
 	(delete-building town-center)		;the AI deletes all town-centers
 
 	(delete-building monastery)		;the AI deletes all monasteries
@@ -181,10 +181,10 @@
 
 ;Rule9: DELETING ALL MILITARY BUILDINGS
 
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL RESIGN)		;goal RUSH-CONTROL to RESIGN (constant)
 	(not (stance-toward any-human ally))	;we haven't got any friend, who is an human one
-=>				;then
+=>
  	(delete-building watch-tower)		;the AI deletes all watch-towers
 	(delete-building guard-tower)		;the AI deletes all guard-towers
 	(delete-building keep)			;the AI deletes all keeps
@@ -199,9 +199,9 @@
 ;Rule10: Enable timer, because there could be too much text when we're going to resign so
 ;that the player can't read it
 
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL RESIGN)		;goal RUSH-CONTROL to RESIGN (constant)
-=>				;then
+=>
 	(enable-timer T-RESIGN 10)		;the AI enables the timer with id T-RESIGN with 10 seconds (constant)
 	(disable-self)				;but only once
 )
@@ -210,7 +210,7 @@
 
 ;Rule11: RESIGN IF ALL CIVIL BUILDINGS ARE DELETED
 
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL RESIGN)		;goal RUSH-CONTROL to RESIGN (constant)
 	(timer-triggered T-RESIGN)		;the timer with if T-RESIGN is over
 	(building-type-count blacksmith == 0)	;number of blacksmiths equal 0
@@ -221,7 +221,7 @@
 	(building-type-count archery-range == 0);number of archery-ranges equal 0
 	(building-type-count stable == 0)	;number of stables equal 0
 	(building-type-count siege-workshop == 0);number of siege-workshops equal 0
-=>				;then
+=>
 	(disable-timer T-RESIGN)			;the AI disables (sets the flag back) the timer with id T-RESIGN (constant)
 	(set-goal RUSH-CONTROL RESIGN-NOW)	;the AI sets goal RUSH-CONTROL to RESIGN-NOW (constant)
 )
@@ -230,9 +230,9 @@
 
 ;Rule12: this is the main resign rule
 
-(defrule				;If
+(defrule
 	(goal RUSH-CONTROL RESIGN-NOW)	;goal RUSH-CONTROL to RESIGN-NOW (constant)
-=>				;then
+=>
 	(resign)
 	(chat-local-to-self "Resign")		;the AI sends the chat as a local one to itselfs
 	(chat-to-all-using-range 22300  22)		;the AI sends the chat with an id between 22300 and 22321 to all players
