@@ -201,7 +201,6 @@
 		(defconst WONDER-ATTEMPT 29)
 		;(defconst NO 0)
 		;(defconst MAYBE 3)
-		(defconst ATTACK 23)
 		(defconst DEFEND 6)
 		(defconst COMBAT-COMBO-PARITY 30)
 		(defconst NDEFINED 0)
@@ -1035,7 +1034,7 @@
 (defconst EIGHTY-PERCENT-POP 80)
 (defconst EIGHTY-FIVE-PERCENT-POP 85)
 (defconst NINTY-PERCENT-POP 90)
-(defconst NINTY-FIVE-PERCENT-POP 85)
+(defconst NINTY-FIVE-PERCENT-POP 95)
 (defconst HUNDRED-PERCENT-POP 100)
 
 #end-if		;if POP-CAP 100
@@ -1808,6 +1807,591 @@
 
 #end-if		;if POP-CAP 200
 
+
+
+;CONSTANTS THAT ARE LOADED WHEN WE'RE PLAYING ON POP-CAP 300
+;-----------------------------------------------------------------------------------------------------------
+
+
+
+#load-if-defined POPULATION-CAP-300
+
+
+(defconst IMPERIAL-AGE-VILLAGER-EASIEST 45)
+(defconst IMPERIAL-AGE-VILLAGER-EASY 80)
+(defconst IMPERIAL-AGE-VILLAGER-MODERATE 120)
+
+#load-if-not-defined DEATH-MATCH
+
+(defconst IMPERIAL-AGE-VILLAGER-HARD 135)
+(defconst IMPERIAL-AGE-VILLAGER-HARDEST 135)
+
+#else
+
+(defconst IMPERIAL-AGE-VILLAGER-HARD 130)
+(defconst IMPERIAL-AGE-VILLAGER-HARDEST 130)
+
+#end-if
+
+;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 80)
+;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 107)
+;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 120)
+
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 105)
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE 135)
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND-HARD-HARDEST 145)
+
+(defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-NO 8)
+(defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 23)
+(defconst TRADE-REPLACES-VILLAGER-EASIEST 45)
+(defconst TRADE-REPLACES-VILLAGER-EASY 65)
+(defconst TRADE-REPLACES-VILLAGER-MODERATE 90)
+(defconst TRADE-REPLACES-VILLAGER-HARD 95)
+(defconst TRADE-REPLACES-VILLAGER-HARDEST 95)
+
+(defconst max-dark-farm 18)
+(defconst max-feudal-farm 27)
+(defconst max-castle-farm 55)
+(defconst max-imperial-farm 65)
+(defconst pop-cap 300)
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst POPULATION-MAX 95)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst POPULATION-MAX 110)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst POPULATION-MAX 124)
+#end-if
+
+#load-if-not-defined DEATH-MATCH
+
+#load-if-defined DIFFICULTY-HARD
+(defconst POPULATION-MAX 135)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst POPULATION-MAX 135)
+#end-if
+
+#else
+
+#load-if-defined DIFFICULTY-HARD
+(defconst POPULATION-MAX 200)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst POPULATION-MAX 200)
+#end-if
+
+#end-if
+
+#load-if-not-defined GOTHIC-CIV
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst MILITARY-POPULATION-MAX 30)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst MILITARY-POPULATION-MAX 67)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst MILITARY-POPULATION-MAX 170)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst MILITARY-POPULATION-MAX 165)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst MILITARY-POPULATION-MAX 165)
+#end-if
+
+#else		;if civ != gothic
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst MILITARY-POPULATION-MAX 30)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst MILITARY-POPULATION-MAX 34)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst MILITARY-POPULATION-MAX 192)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst MILITARY-POPULATION-MAX 180)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst MILITARY-POPULATION-MAX 180)
+#end-if
+
+#end-if		;if civ == gothic
+
+
+
+#load-if-not-defined GOTHIC-CIV
+
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst SOLDIER-COUNT 30)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst SOLDIER-COUNT 37)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst SOLDIER-COUNT 190)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst SOLDIER-COUNT 165)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst SOLDIER-COUNT 165)
+#end-if
+
+#else		;if civ != gothic
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst SOLDIER-COUNT 30)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst SOLDIER-COUNT 32)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst SOLDIER-COUNT 190)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst SOLDIER-COUNT 180)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst SOLDIER-COUNT 180)
+#end-if
+
+#end-if		;if civ == gothic
+
+(defconst ZERO-PERCENT-POP 0)
+(defconst ONE-PERCENT-POP 3)
+(defconst TWO-PERCENT-POP 6)
+(defconst THREE-PERCENT-POP 9)
+(defconst FOUR-PERCENT-POP 12)
+(defconst FIVE-PERCENT-POP 15)
+(defconst SIX-PERCENT-POP 18)
+(defconst SEVEN-PERCENT-POP 21)
+(defconst EIGHT-PERCENT-POP 24)
+(defconst NINE-PERCENT-POP 27)
+(defconst TEN-PERCENT-POP 30)
+(defconst ELEVEN-PERCENT-POP 33)
+(defconst TWELVE-PERCENT-POP 36)
+(defconst THIRTEEN-PERCENT-POP 39)
+(defconst FOURTEEN-PERCENT-POP 42)
+(defconst FIFTEEN-PERCENT-POP 45)
+(defconst SIXTEEN-PERCENT-POP 48)
+(defconst SEVENTEEN-PERCENT-POP 51)
+(defconst EIGHTTEEN-PERCENT-POP 54)
+(defconst NINETEEN-PERCENT-POP 57)
+(defconst TWENTY-PERCENT-POP 60)
+(defconst TWENTY-ONE-PERCENT-POP 63)
+(defconst TWENTY-TWO-PERCENT-POP 66)
+(defconst TWENTY-THREE-PERCENT-POP 69)
+(defconst TWENTY-FOUR-PERCENT-POP 72)
+(defconst TWENTY-FIVE-PERCENT-POP 75)
+(defconst TWENTY-SIX-PERCENT-POP 78)
+(defconst TWENTY-SEVEN-PERCENT-POP 81)
+(defconst TWENTY-EIGHT-PERCENT-POP 84)
+(defconst TWENTY-NINE-PERCENT-POP 87)
+(defconst THIRTY-PERCENT-POP 90)
+(defconst THIRTY-FIVE-PERCENT-POP 105)
+(defconst FOURTY-PERCENT-POP 120)
+(defconst FOURTY-FIVE-PERCENT-POP 135)
+(defconst FIFTY-PERCENT-POP 150)
+(defconst FIFTY-FIVE-PERCENT-POP 165)
+(defconst SIXTY-PERCENT-POP 180)
+(defconst SIXTY-FIVE-PERCENT-POP 195)
+(defconst SEVENTY-PERCENT-POP 210)
+(defconst SEVENTY-FIVE-PERCENT-POP 225)
+(defconst EIGHTY-PERCENT-POP 240)
+(defconst EIGHTY-FIVE-PERCENT-POP 255)
+(defconst NINTY-PERCENT-POP 270)
+
+(defconst HUNDRED-PERCENT-POP 300)
+
+#end-if		;if POP-CAP 300
+
+
+;CONSTANTS THAT ARE LOADED WHEN WE'RE PLAYING ON POP-CAP 400
+;-----------------------------------------------------------------------------------------------------------
+
+
+
+#load-if-defined POPULATION-CAP-400
+
+
+(defconst IMPERIAL-AGE-VILLAGER-EASIEST 60)
+(defconst IMPERIAL-AGE-VILLAGER-EASY 110)
+(defconst IMPERIAL-AGE-VILLAGER-MODERATE 164)
+
+#load-if-not-defined DEATH-MATCH
+
+(defconst IMPERIAL-AGE-VILLAGER-HARD 180)
+(defconst IMPERIAL-AGE-VILLAGER-HARDEST 180)
+
+#else
+
+(defconst IMPERIAL-AGE-VILLAGER-HARD 200)
+(defconst IMPERIAL-AGE-VILLAGER-HARDEST 200)
+
+#end-if
+
+;(defconst IMPERIAL-AGE-VILLAGER-EASIEST-ALLY 110)
+;(defconst IMPERIAL-AGE-VILLAGER-MODERATE-ALLY 144)
+;(defconst IMPERIAL-AGE-VILLAGER-HARDEST-ALLY 160)
+
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 156)
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE 180)
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND-HARD-HARDEST 220)
+
+(defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-NO 10)
+(defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 30)
+(defconst TRADE-REPLACES-VILLAGER-EASIEST 60)
+(defconst TRADE-REPLACES-VILLAGER-EASY 90)
+(defconst TRADE-REPLACES-VILLAGER-MODERATE 134)
+(defconst TRADE-REPLACES-VILLAGER-HARD 150)
+(defconst TRADE-REPLACES-VILLAGER-HARDEST 150)
+
+(defconst max-dark-farm 20)
+(defconst max-feudal-farm 36)
+(defconst max-castle-farm 70)
+(defconst max-imperial-farm 90)
+(defconst pop-cap 400)
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst POPULATION-MAX 130)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst POPULATION-MAX 148)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst POPULATION-MAX 164)
+#end-if
+
+#load-if-not-defined DEATH-MATCH
+
+#load-if-defined DIFFICULTY-HARD
+(defconst POPULATION-MAX 160)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst POPULATION-MAX 160)
+#end-if
+
+#else
+
+#load-if-defined DIFFICULTY-HARD
+(defconst POPULATION-MAX 180)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst POPULATION-MAX 180)
+#end-if
+
+#end-if
+
+#load-if-not-defined GOTHIC-CIV
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst MILITARY-POPULATION-MAX 40)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst MILITARY-POPULATION-MAX 90)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst MILITARY-POPULATION-MAX 236)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst MILITARY-POPULATION-MAX 220)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst MILITARY-POPULATION-MAX 220)
+#end-if
+
+#else		;if civ != gothic
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst MILITARY-POPULATION-MAX 40)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst MILITARY-POPULATION-MAX 50)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst MILITARY-POPULATION-MAX 256)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst MILITARY-POPULATION-MAX 240)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst MILITARY-POPULATION-MAX 240)
+#end-if
+
+#end-if		;if civ == gothic
+
+
+
+#load-if-not-defined GOTHIC-CIV
+
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst SOLDIER-COUNT 40)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst SOLDIER-COUNT 50)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst SOLDIER-COUNT 236)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst SOLDIER-COUNT 220)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst SOLDIER-COUNT 220)
+#end-if
+
+#else		;if civ != gothic
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst SOLDIER-COUNT 40)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst SOLDIER-COUNT 50)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst SOLDIER-COUNT 236)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst SOLDIER-COUNT 240)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst SOLDIER-COUNT 240)
+#end-if
+
+#end-if		;if civ == gothic
+
+(defconst ZERO-PERCENT-POP 0)
+(defconst ONE-PERCENT-POP 4)
+(defconst TWO-PERCENT-POP 8)
+(defconst THREE-PERCENT-POP 12)
+(defconst FOUR-PERCENT-POP 16)
+(defconst FIVE-PERCENT-POP 20)
+(defconst SIX-PERCENT-POP 24)
+(defconst SEVEN-PERCENT-POP 28)
+(defconst EIGHT-PERCENT-POP 32)
+(defconst NINE-PERCENT-POP 36)
+(defconst TEN-PERCENT-POP 40)
+(defconst ELEVEN-PERCENT-POP 44)
+(defconst TWELVE-PERCENT-POP 48)
+(defconst THIRTEEN-PERCENT-POP 52)
+(defconst FOURTEEN-PERCENT-POP 56)
+(defconst FIFTEEN-PERCENT-POP 60)
+(defconst SIXTEEN-PERCENT-POP 64)
+(defconst SEVENTEEN-PERCENT-POP 68)
+(defconst EIGHTTEEN-PERCENT-POP 72)
+(defconst NINETEEN-PERCENT-POP 76)
+(defconst TWENTY-PERCENT-POP 80)
+(defconst TWENTY-ONE-PERCENT-POP 84)
+(defconst TWENTY-TWO-PERCENT-POP 88)
+(defconst TWENTY-THREE-PERCENT-POP 92)
+(defconst TWENTY-FOUR-PERCENT-POP 96)
+(defconst TWENTY-FIVE-PERCENT-POP 100)
+(defconst TWENTY-SIX-PERCENT-POP 104)
+(defconst TWENTY-SEVEN-PERCENT-POP 108)
+(defconst TWENTY-EIGHT-PERCENT-POP 112)
+(defconst TWENTY-NINE-PERCENT-POP 116)
+(defconst THIRTY-PERCENT-POP 120)
+(defconst THIRTY-FIVE-PERCENT-POP 140)
+(defconst FOURTY-PERCENT-POP 160)
+(defconst FOURTY-FIVE-PERCENT-POP 180)
+(defconst FIFTY-PERCENT-POP 200)
+(defconst FIFTY-FIVE-PERCENT-POP 220)
+(defconst SIXTY-PERCENT-POP 240)
+(defconst SIXTY-FIVE-PERCENT-POP 260)
+(defconst SEVENTY-PERCENT-POP 280)
+(defconst SEVENTY-FIVE-PERCENT-POP 300)
+(defconst EIGHTY-PERCENT-POP 320)
+(defconst EIGHTY-FIVE-PERCENT-POP 340)
+(defconst NINTY-PERCENT-POP 360)
+
+(defconst HUNDRED-PERCENT-POP 400)
+
+
+;CONSTANTS THAT ARE LOADED WHEN WE'RE PLAYING ON POP-CAP 500
+;-----------------------------------------------------------
+
+
+
+#load-if-defined POPULATION-CAP-500
+
+
+(defconst IMPERIAL-AGE-VILLAGER-EASIEST 125)
+(defconst IMPERIAL-AGE-VILLAGER-EASY 165)
+(defconst IMPERIAL-AGE-VILLAGER-MODERATE 235)
+(defconst IMPERIAL-AGE-VILLAGER-HARD 270)
+(defconst IMPERIAL-AGE-VILLAGER-HARDEST 270)
+;(defconst IMPERIAL-AGE-VILLAGER-EASY-ALLY 165)
+;(defconst IMPERIAL-AGE-VILLAGER-HARD-ALLY 245)
+
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY 210)
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE 260)
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND-HARD-HARDEST 300)
+
+(defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-NO 15)
+(defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 25)
+(defconst TRADE-REPLACES-VILLAGER-EASIEST 125)
+(defconst TRADE-REPLACES-VILLAGER-EASY 175)
+(defconst TRADE-REPLACES-VILLAGER-MODERATE 210)
+(defconst TRADE-REPLACES-VILLAGER-HARD 235)
+(defconst TRADE-REPLACES-VILLAGER-HARDEST 235)
+
+(defconst max-dark-farm 25)
+(defconst max-feudal-farm 40)
+(defconst max-castle-farm 85)
+(defconst max-imperial-farm 125)
+(defconst maximum-builders 50)
+(defconst pop-cap 500)
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst POPULATION-MAX 125)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst POPULATION-MAX 175)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst POPULATION-MAX 235)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst POPULATION-MAX 270)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst POPULATION-MAX 270)
+#end-if
+
+#load-if-not-defined GOTHIC-CIV
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst MILITARY-POPULATION-MAX 100)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst MILITARY-POPULATION-MAX 125)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst MILITARY-POPULATION-MAX 165)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst MILITARY-POPULATION-MAX 230)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst MILITARY-POPULATION-MAX 230)
+#end-if
+
+#else		;if civ != gothic
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst MILITARY-POPULATION-MAX 100)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst MILITARY-POPULATION-MAX 125)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst MILITARY-POPULATION-MAX 315)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst MILITARY-POPULATION-MAX 280)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst MILITARY-POPULATION-MAX 280)
+#end-if
+
+#end-if		;if civ == gothic
+
+
+
+#load-if-not-defined GOTHIC-CIV
+
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst SOLDIER-COUNT 100)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst SOLDIER-COUNT 125)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst SOLDIER-COUNT 165)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst SOLDIER-COUNT 230)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst SOLDIER-COUNT 230)
+#end-if
+
+#else		;if civ != gothic
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst SOLDIER-COUNT 100)
+#end-if
+#load-if-defined DIFFICULTY-EASY
+(defconst SOLDIER-COUNT 125)
+#end-if
+#load-if-defined DIFFICULTY-MODERATE
+(defconst SOLDIER-COUNT 315)
+#end-if
+#load-if-defined DIFFICULTY-HARD
+(defconst SOLDIER-COUNT 280)
+#end-if
+#load-if-defined DIFFICULTY-HARDEST
+(defconst SOLDIER-COUNT 280)
+#end-if
+
+#end-if		;if civ == gothic
+
+(defconst ZERO-PERCENT-POP 0)
+(defconst ONE-PERCENT-POP 5)
+(defconst TWO-PERCENT-POP 10)
+(defconst THREE-PERCENT-POP 15)
+(defconst FOUR-PERCENT-POP 20)
+(defconst FIVE-PERCENT-POP 25)
+(defconst SIX-PERCENT-POP 30)
+(defconst SEVEN-PERCENT-POP 35)
+(defconst EIGHT-PERCENT-POP 40)
+(defconst NINE-PERCENT-POP 45)
+(defconst TEN-PERCENT-POP 50)
+(defconst ELEVEN-PERCENT-POP 55)
+(defconst TWELVE-PERCENT-POP 60)
+(defconst THIRTEEN-PERCENT-POP 65)
+(defconst FOURTEEN-PERCENT-POP 70)
+(defconst FIFTEEN-PERCENT-POP 75)
+(defconst SIXTEEN-PERCENT-POP 80)
+(defconst SEVENTEEN-PERCENT-POP 85)
+(defconst EIGHTTEEN-PERCENT-POP 90)
+(defconst NINETEEN-PERCENT-POP 95)
+(defconst TWENTY-PERCENT-POP 100)
+(defconst TWENTY-ONE-PERCENT-POP 105)
+(defconst TWENTY-TWO-PERCENT-POP 110)
+(defconst TWENTY-THREE-PERCENT-POP 115)
+(defconst TWENTY-FOUR-PERCENT-POP 120)
+(defconst TWENTY-FIVE-PERCENT-POP 125)
+(defconst TWENTY-SIX-PERCENT-POP 130)
+(defconst TWENTY-SEVEN-PERCENT-POP 135)
+(defconst TWENTY-EIGHT-PERCENT-POP 140)
+(defconst TWENTY-NINE-PERCENT-POP 145)
+(defconst THIRTY-PERCENT-POP 150)
+(defconst THIRTY-FIVE-PERCENT-POP 165)
+(defconst FOURTY-PERCENT-POP 200)
+(defconst FOURTY-FIVE-PERCENT-POP 225)
+(defconst FIFTY-PERCENT-POP 250)
+(defconst FIFTY-FIVE-PERCENT-POP 275)
+(defconst SIXTY-PERCENT-POP 300)
+(defconst SIXTY-FIVE-PERCENT-POP 325)
+(defconst SEVENTY-PERCENT-POP 350)
+(defconst SEVENTY-FIVE-PERCENT-POP 375)
+(defconst EIGHTY-PERCENT-POP 400)
+(defconst EIGHTY-FIVE-PERCENT-POP 425)
+(defconst NINTY-PERCENT-POP 450)
+(defconst NINTY-FIVE-PERCENT-POP 475)
+(defconst HUNDRED-PERCENT-POP 500)
+
+#end-if		;if POP-CAP 100
 
 
 ;DIFFICULTY-TYPE-LOAD
