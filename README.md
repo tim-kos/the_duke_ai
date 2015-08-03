@@ -8,17 +8,14 @@ This is the repo revival of my Age of Empires 2 AI computer player.
 
 Feedback is welcome!
 
-
-* Installation
+## Installation
 
 Please put all files with a *.per or an *.ai extension in your AI folder, but please let they stay in there folders.
 All the new taunts that you'll find in the folder "The Duke-AI - media" do you put into your taunt directory.
 
 If you did this you would have to start a new game and you must choose "The Duke-AI" as the player. Then you can play with that AI.
 
-
-
-* Boar cheating
+## Boar cheating
 
 The AI gets some wood after 5min (amount of wood is dependant on the difficulty level), because the AI cannot hunt boar (due to the buggy game engine) and that's why
 a human player can advance to feudal age earlier and pretty stronger than an AI. To remove boar cheating, please go into the Main Files folder and open boar_cheating.per with a text editor. There you find this:
@@ -68,17 +65,13 @@ a human player can advance to feudal age earlier and pretty stronger than an AI.
 If you want the AI to have boar cheating on easiest-, easy- or moderate-difficulty then please change the "NO" into a "YES" in line x (use capital letters, otherwise the game will give an error message).
 If you want the AI not to have boar cheating on hard- or hardest-difficulty, then change the second "YES" in line y into a "NO".
 
-
-
-* Taunts
+## Taunts
 
 Please check "The Duke-AI supported taunts.doc" to have a list of all taunts supported by the AI. It would be helpful if you would print that list.
 
 Put all taunts from the "The Duke-AI Media"-folder into your "taunt"-folder under your Age of Empires II folder.
 
-
-
-* Supported difficulties
+## Supported difficulties
 
 Easiest: something like a whole newbie! I think everybody who has never seen a computer yet is able to win!
 
