@@ -15,23 +15,23 @@
 ;		Load all the files of The Duke-AI
 ;======================================================================
 
-(load "lib\constants")
+(load "the_duke_lib\constants")
 
-(load "lib\buildings")
+(load "the_duke_lib\buildings")
 
-(load "lib\diplomacy")
+(load "the_duke_lib\diplomacy")
 
-(load "lib\resign")
+(load "the_duke_lib\resign")
 
-(load "lib\cheating")
+(load "the_duke_lib\cheating")
 
-(load "lib\commodity")
+(load "the_duke_lib\commodity")
 
 #load-if-not-defined WONDER-RACE
-(load "lib\attack")
+(load "the_duke_lib\attack")
 #end-if
 
-(load "lib\technologies")
+(load "the_duke_lib\technologies")
 
 #load-if-not-defined VICTORY-CONQUEST
 #load-if-not-defined WONDER-RACE
@@ -39,7 +39,7 @@
 #load-if-defined DIFFICULTY-EASIEST
 
 	(load-random
-	  	0 "lib\wonder"
+	  	0 "the_duke_lib\wonder"
 	)
 
 #end-if
@@ -47,7 +47,7 @@
 #load-if-defined DIFFICULTY-EASY
 
 	(load-random
-	  	20 "lib\wonder"
+	  	20 "the_duke_lib\wonder"
 	)
 
 #end-if
@@ -55,7 +55,7 @@
 #load-if-defined DIFFICULTY-MODERATE
 
 	(load-random
-	  	30 "lib\wonder"
+	  	30 "the_duke_lib\wonder"
 	)
 
 #end-if
@@ -63,7 +63,7 @@
 #load-if-defined DIFFICULTY-HARD
 
 	(load-random
-		30 "lib\wonder"
+		30 "the_duke_lib\wonder"
 	)
 
 #end-if
@@ -71,23 +71,23 @@
 #load-if-defined DIFFICULTY-HARDEST
 
 	(load-random
-		30 "lib\wonder"
+		30 "the_duke_lib\wonder"
 	)
 
 #end-if
 #end-if		;if not game type == wonder race
 #end-if		;load if not defined victory conquest
 
-(load "lib\unit_combos")
+(load "the_duke_lib\unit_combos")
 
-(load "lib\military")
+(load "the_duke_lib\military")
 
 
 #load-if-defined DEFEND-WONDER
-(load "lib\wonder_kill")
+(load "the_duke_lib\wonder_kill")
 #end-if		;if defend-wonder
 
-(load "lib\resource_control")
+(load "the_duke_lib\resource_control")
 ;STARTUP
 ;======================================================================
 
@@ -531,7 +531,7 @@
 #end-if
 ;******************************
 #load-if-defined SCANDINAVIA-MAP
-(load "lib\fishingship")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
 #end-if
@@ -540,88 +540,88 @@
 ;----------
 
 #load-if-defined ARCHIPELAGO-MAP
-(load "lib\warboat")
-(load "lib\warboat_prepare")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\warboat_prepare")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined ISLANDS-MAP
-(load "lib\warboat")
-(load "lib\warboat_prepare")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\warboat_prepare")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND ISLAND-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined TEAM-ISLANDS-MAP
-(load "lib\warboat")
-(load "lib\warboat_prepare")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\warboat_prepare")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined BALTIC-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined COASTAL-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined CONTINENTAL-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined CRATER-LAKE-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true)=> (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined MEDITERRANEAN-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined RIVERS-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined NOMAD-MAP
-(load "lib\fishingship")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined SALT-MARSH-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined MIGRATION-MAP
-(load "lib\warboat")
-(load "lib\warboat_prepare")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\warboat_prepare")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
@@ -630,76 +630,76 @@
 ;---------------
 
 #load-if-defined REAL-WORLD-BYZANTIUM-MAP
-(load "lib\warboat")
-(load "lib\warboat_prepare")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\warboat_prepare")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-CARIBBEAN-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-ENGLAND-MAP
-(load "lib\warboat")
-(load "lib\warboat_prepare")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\warboat_prepare")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-FRANCE-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-ITALY-MAP
-(load "lib\warboat")
-(load "lib\warboat_prepare")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\warboat_prepare")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-JUTLAND-MAP
-(load "lib\warboat")
-(load "lib\warboat_prepare")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\warboat_prepare")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-MIDEAST-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-NIPPON-MAP
-(load "lib\warboat")
-(load "lib\warboat_prepare")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\warboat_prepare")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-SPAIN-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-TEXAS-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
@@ -708,8 +708,8 @@
 ;------------
 
 #load-if-defined SCENARIO-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) =>
 	(chat-to-player every-human "Check whether this map has got water or not and then")
@@ -719,8 +719,8 @@
 #end-if
 ;******************************
 #load-if-defined CUSTOM-MAP
-(load "lib\warboat")
-(load "lib\fishingship")
+(load "the_duke_lib\warboat")
+(load "the_duke_lib\fishingship")
 
 (defrule (true) =>
 	(set-goal MAP-KIND NOTICE)
