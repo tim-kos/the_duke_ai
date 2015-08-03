@@ -8,8 +8,8 @@
 	(true)
 =>
 	(set-author-version "The Duke-AI - Version 1.5")
-	(set-author-name "Author name: DarkAngelBGE alias Tim Koschützki")
-	(set-author-email "Author e-mail: DarkAngelBGE@aol.com")
+	(set-author-name "Author name: tim_kos / DarkAngelBGE alias Tim Koschützki")
+	(set-author-email "Author e-mail: tim@transloadit.com")
 	(disable-self)
 )
 
@@ -19,23 +19,23 @@
 ;		Load all the files of The Duke-AI
 ;======================================================================
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Constants")
+(load "lib\The Duke Constants")
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Buildings")
+(load "lib\The Duke Buildings")
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Diplomacy")
+(load "lib\The Duke Diplomacy")
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Resign")
+(load "lib\The Duke Resign")
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Cheating")
+(load "lib\The Duke Cheating")
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Commodity")
+(load "lib\The Duke Commodity")
 
 #load-if-not-defined WONDER-RACE
-(load "The Duke-AI version 1.6 - Main Files\The Duke Attack")
+(load "lib\The Duke Attack")
 #end-if
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Technologies")
+(load "lib\The Duke Technologies")
 
 #load-if-not-defined VICTORY-CONQUEST
 #load-if-not-defined WONDER-RACE
@@ -43,7 +43,7 @@
 #load-if-defined DIFFICULTY-EASIEST
 
 	(load-random
-	  	0 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+	  	0 "lib\The Duke Wonder"
 	)
 
 #end-if
@@ -51,7 +51,7 @@
 #load-if-defined DIFFICULTY-EASY
 
 	(load-random
-	  	20 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+	  	20 "lib\The Duke Wonder"
 	)
 
 #end-if
@@ -59,7 +59,7 @@
 #load-if-defined DIFFICULTY-MODERATE
 
 	(load-random
-	  	30 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+	  	30 "lib\The Duke Wonder"
 	)
 
 #end-if
@@ -67,7 +67,7 @@
 #load-if-defined DIFFICULTY-HARD
 
 	(load-random
-		30 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+		30 "lib\The Duke Wonder"
 	)
 
 #end-if
@@ -75,23 +75,23 @@
 #load-if-defined DIFFICULTY-HARDEST
 
 	(load-random
-		30 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+		30 "lib\The Duke Wonder"
 	)
 
 #end-if
 #end-if		;if not game type == wonder race
 #end-if		;load if not defined victory conquest
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Unit-Combos")
+(load "lib\The Duke Unit-Combos")
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Military")
+(load "lib\The Duke Military")
 
 
 #load-if-defined DEFEND-WONDER
-(load "The Duke-AI version 1.6 - Main Files\The Duke Wonder Kill")
+(load "lib\The Duke Wonder Kill")
 #end-if		;if defend-wonder
 
-(load "The Duke-AI version 1.6 - Main Files\The Duke Resource-Control")
+(load "lib\The Duke Resource-Control")
 
 
 
@@ -543,7 +543,7 @@
 #end-if
 ;******************************
 #load-if-defined SCANDINAVIA-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
 #end-if
@@ -552,88 +552,88 @@
 ;----------
 
 #load-if-defined ARCHIPELAGO-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Warboat-Prepare")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined ISLANDS-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Warboat-Prepare")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND ISLAND-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined TEAM-ISLANDS-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Warboat-Prepare")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined BALTIC-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined COASTAL-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined CONTINENTAL-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined CRATER-LAKE-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true)=> (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined MEDITERRANEAN-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined RIVERS-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;*******************************
 #load-if-defined NOMAD-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined SALT-MARSH-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined MIGRATION-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Warboat-Prepare")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
@@ -642,76 +642,76 @@
 ;---------------
 
 #load-if-defined REAL-WORLD-BYZANTIUM-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Warboat-Prepare")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-CARIBBEAN-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-ENGLAND-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Warboat-Prepare")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-FRANCE-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-ITALY-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Warboat-Prepare")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-JUTLAND-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Warboat-Prepare")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-MIDEAST-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-NIPPON-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Warboat-Prepare")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-SPAIN-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
 #end-if
 ;******************************
 #load-if-defined REAL-WORLD-TEXAS-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
 #end-if
@@ -720,8 +720,8 @@
 ;------------
 
 #load-if-defined SCENARIO-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) =>
 	(chat-to-player every-human "Check whether this map has got water or not and then")
@@ -731,8 +731,8 @@
 #end-if
 ;******************************
 #load-if-defined CUSTOM-MAP
-(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
-(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+(load "lib\The Duke Warboat")
+(load "lib\The Duke Fishingship")
 
 (defrule (true) =>
 	(set-goal MAP-KIND NOTICE)
