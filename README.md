@@ -11,7 +11,7 @@ Feedback is welcome!
 ## Installation
 
 Please put all files with a *.per or an *.ai extension in your AI folder, but please let they stay in there folders.
-All the new taunts that you'll find in the folder "The Duke-AI - media" do you put into your taunt directory.
+Move all .mp3 files in the "media" into your "taunt" folder in your Age of Empires 2 installation path.
 
 If you did this you would have to start a new game and you must choose "The Duke-AI" as the player. Then you can play with that AI.
 
