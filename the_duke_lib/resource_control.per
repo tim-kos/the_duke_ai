@@ -2,9 +2,6 @@
 ;		ALL THE STUFF TO HAVE A NICE ECONOMY
 ;========================================================================
 
-
-
-(load "the_duke_lib\training_villagers")
 ;		stuff for resource-controlling
 ;=============================================================================
 
@@ -14,6 +11,11 @@
 ;*****************************************************
 
 
+(defrule
+  (true)
+=>
+	(set-strategic-number sn-enable-boar-hunting 2)
+)
 
 #load-if-not-defined DEATH-MATCH
 ;***********************************

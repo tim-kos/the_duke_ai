@@ -24,9 +24,16 @@
 
 #load-if-not-defined WONDER-RACE
 (load "the_duke_lib\attack")
+
+#load-if-not-defined DEATH-MATCH
+(load "the_duke_lib\rush")
 #end-if
 
+#end-if
+
+(load "the_duke_lib\age_advancement")
 (load "the_duke_lib\technologies")
+(load "the_duke_lib\techs_blacksmith")
 
 #load-if-not-defined VICTORY-CONQUEST
 #load-if-not-defined WONDER-RACE
@@ -82,6 +89,7 @@
 #end-if		;if defend-wonder
 
 (load "the_duke_lib\resource_control")
+(load "the_duke_lib\training_villagers")
 
 ;STARTUP
 ;======================================================================

@@ -15,52 +15,6 @@ Move all .mp3 files in the "media" into your "taunt" folder in your Age of Empir
 
 If you did this you would have to start a new game and you must choose "The Duke-AI" as the player. Then you can play with that AI.
 
-## Boar cheating
-
-The AI gets some wood after 5min (amount of wood is dependant on the difficulty level), because the AI cannot hunt boar (due to the buggy game engine) and that's why
-a human player can advance to feudal age earlier and pretty stronger than an AI. To remove boar cheating, please go into the Main Files folder and open boar_cheating.per with a text editor. There you find this:
-
-
-```
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-(defrule        ;if
-  (true)
-=>          ;then
-  (set-goal BOAR-CHEATING NO)
-  (disable-self)
-)
-;***********************************************
-#end-if
-#end-if
-#end-if
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-(defrule        ;if
-  (true)
-=>          ;then
-  (set-goal BOAR-CHEATING YES)
-  (disable-self)
-)
-;***********************************************
-#end-if
-#end-if
-```
-
-
-If you want the AI to have boar cheating on easiest-, easy- or moderate-difficulty then please change the "NO" into a "YES" in line x (use capital letters, otherwise the game will give an error message).
-If you want the AI not to have boar cheating on hard- or hardest-difficulty, then change the second "YES" in line y into a "NO".
-
 ## Taunts
 
 Put all taunts from the "The Duke-AI Media"-folder into your "taunt"-folder in your Age of Empires II folder.
