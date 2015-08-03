@@ -66,8 +66,8 @@ Here is a list of all changes, bugfixes and new features I have done for The Duk
 >> Bug fixed that the AI sometimes builds 2 docks in the dark-age nd when it advances to the feudal-age it doesn't have enough wood to build a market and a blacksmith so advances to thecastle-age way more later.
 
 >> Updated navy system: the AI now creates galleys, fire-ships and cannon-galleons instead of sometimes only fire-ships and cannon-galleons.
- 
->> Bug fixed that the AI sometimes does not attack when it should be "defensive" (taunt).  
+
+>> Bug fixed that the AI sometimes does not attack when it should be "defensive" (taunt).
 
 >> New attack system: the AI now only attacks when it is not outnumbered (when it does rushes, then it's clear it uses a different attack system).
 >> The AI now builds forward buildings only if it has enough wood, at least a second town center and some military buildings in its town.
@@ -146,10 +146,7 @@ BOAR CHEATING
 -------------
 
 The AI gets some wood after 5min (amount of wood is dependant on the difficulty level), because the AI cannot hunt boar (due to the buggy game engine) and that's why
-a human player can advance to feudal age earlier and pretty stronger than an AI. To lock boar cheatng, please go into the "The DUke-AI Version 1.5 - Main Files" - folder
-and open The DUke Boar Cheating.per with a text editor (for example notepad).
-
-There you find this:
+a human player can advance to feudal age earlier and pretty stronger than an AI. To remove boar cheating, please go into the Main Files folder and open The Duke Boar Cheating.per with a text editor. There you find this:
 
 
 
@@ -194,7 +191,7 @@ There you find this:
 
 
 If you want the AI to have boar cheating on easiest-, easy- or moderate-difficulty then please change the "NO" into a "YES" in line x (use capital letters, otherwise the game will give an error message).
-If you want the AI not to have boar cheating on hard- or hardest-difficulty, then change the second "YES" in line y into a "NO". 
+If you want the AI not to have boar cheating on hard- or hardest-difficulty, then change the second "YES" in line y into a "NO".
 
 
 
@@ -232,7 +229,7 @@ THIS AI IS COPYRIGHTED (c) BY TIM KOSCHÜTZKI (DarkAngelBGE). YOU MAY NOT CHANGE 
 For opinions, bugreport and new features send me a mail: DarkAngelBGE@aol.com
 
 
-Greetings from Berlin/Germany		
+Greetings from Berlin/Germany
 
 				Tim Koschützki
 
@@ -240,5 +237,3 @@ Greetings from Berlin/Germany
 - Email: DarkAngelBGE@aol.com
 - Zone name: BGE_DarkAngel
 - aok.heavengames.com - forum - name: DarkAngelBGE
-- proud member of Dragon Gaming Design Netwok (http://dragon.gamerznexus.com)
-- please visit the official The Duke-AI website: http://dragon.gamerznexus.com/duke-ai
