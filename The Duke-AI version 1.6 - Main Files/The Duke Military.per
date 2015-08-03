@@ -1,0 +1,3498 @@
+;			The Duke Military.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+(defrule
+	(game-type 7 7)
+=>
+	(chat-to-all "cool")
+)
+
+#load-if-not-defined WONDER-RACE
+
+
+
+;---------------------------
+;BARRACKS UNITS
+;---------------------------
+
+
+
+;SWORDSMEN
+;--------------------
+
+
+
+;Rule5: train swordsmen when the combat number defined that our base-unit or secondary-unit is the swordsman
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT INFANTRY)	;goal PRIMARY-COMBAT-UNIT to INFANTRY (constant)
+		(goal SECONDARY-COMBAT-UNIT INFANTRY)	;or goal SECONDARY-COMBAT-UNIT to INFANTRY (constant)
+	)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total militiaman-line < FIFTY-PERCENT-POP);or number of militiamen less than FIFTY-PERCENT-POP (constant)
+	(can-train militiaman-line)				;the AI can train militiamen
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train militiaman-line)				;the AI trains the militiamen
+)
+
+
+
+;Rule5: train swordsmen when the combat number defined that our base-unit or secondary-unit is the swordsman
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT INFANTRY1)	;goal PRIMARY-COMBAT-UNIT to INFANTRY1 (constant)
+		(goal SECONDARY-COMBAT-UNIT INFANTRY1)	;or goal SECONDARY-COMBAT-UNIT to INFANTRY1 (constant)
+	)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total militiaman-line < FIFTY-PERCENT-POP);or number of militiamen less than FIFTY-PERCENT-POP (constant)
+	(can-train militiaman-line)				;the AI can train militiamen
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train militiaman-line)				;the AI trains the militiamen
+)
+
+
+
+;Rule5: train spearmen when we do the castle-rush; part 2
+
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total militiaman-line < FIFTY-PERCENT-POP);or number of spearmen less than FIFTY-PERCENT-POP (constant)
+	(can-train militiaman-line)				;the AI can train spearmen
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(goal SECONDARY-COMBAT-UNIT INFANTRY1)	;goal SECONDARY-COMBAT-UNIT to INFANTRY1 (constant)
+	(or
+		(and
+			(unit-type-count-total knight-line >= 10);number of knights greater or equal than 10
+			(not (research-available ri-scale-barding));or we researched the scale-barding already
+		)
+		(unit-type-count-total militiaman-line < 7);number of militiamen less than 7
+	)
+=>				;then
+	(train militiaman-line)				;the AI trains the militiamen
+)
+
+
+
+;Rule5: train champions when we have got plenty of military, because it is is a superunit
+
+(defrule				;If
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(military-population >= FOURTY-FIVE-PERCENT-POP);number of military troops greater or equal than FOURTY-FIVE-PERCENT-POP (constant)
+	(can-train champion)				;the AI can train a champion
+	(unit-type-count-total trebuchet > 0)		;number of trebuchets greater than 0
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train champion)				;the AI trains the champions
+)
+
+
+
+;SPEARMEN
+;--------------------
+
+
+
+;Rule5: train spearmen when the combat number defined that our base-unit or secondary-unit is the spearman
+
+(defrule				;If
+	(or
+		(or
+			(goal PRIMARY-COMBAT-UNIT INFANTRY);goal PRIMARY-COMBAT-UNIT to INFANTRY (constant)
+			(goal PRIMARY-COMBAT-UNIT SPEARMAN);or goal PRIMARY-COMBAT-UNIT to SPEARMAN (constant)
+		)
+		(or
+			(goal SECONDARY-COMBAT-UNIT INFANTRY);or goal SECONDARY-COMBAT-UNIT to INFANTRY (constant)
+			(goal SECONDARY-COMBAT-UNIT SPEARMAN);or goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
+		)
+	)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total spearman-line < FIFTY-PERCENT-POP);number of spearmen less than FIFTY-PERCENT-POP (constant)
+	(can-train spearman-line)				;the AI can train spearmen
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train spearman-line)				;the AI trains the spearmen
+)
+
+
+
+;Rule5: train spearmen to look good against riders
+
+(defrule				;If
+	(military-population >= NINE-PERCENT-POP)	;the amount of military troops is greater than NINE-PERCENT-POP (constant)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total spearman-line < EIGHT-PERCENT-POP);number of spearmen less than EIGHT-PERCENT-POP (constant)
+	(can-train spearman-line)				;the AI can train spearmen
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train spearman-line)				;the AI trains the spearmen
+)
+
+
+
+;Rule121: train spearmen to prevent being rushed
+
+(defrule				;If
+ 	(current-age == feudal-age)			;the age, the AI is in, is castle-age
+ 	(unit-type-count-total spearman-line < 5)	;and number of spearmen less than 5
+ 	(can-train spearman-line)			;the AI can train a spearman
+	(players-military-population any-enemy > THREE-PERCENT-POP);any enemy has more then THREE-PERCENT-POP soldiers (constant)
+=>			;then
+ 	(train spearman)				;the AI trains a spearman
+)
+
+
+
+;Rule5: train spearmen when we do the flush
+
+(defrule				;If
+	(current-age == feudal-age)			;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total spearman-line < FIFTY-PERCENT-POP);or number of militiamen less than FIFTY-PERCENT-POP (constant)
+	(can-train spearman-line)				;the AI can train spearmen
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train spearman-line)				;the AI trains the militiamen
+)
+
+
+
+;Rule5: train spearmen when we do the castle-rush; part 2
+
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total spearman-line < FIFTY-PERCENT-POP);or number of spearmen less than FIFTY-PERCENT-POP (constant)
+	(can-train spearman-line)				;the AI can train spearmen
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(goal SECONDARY-COMBAT-UNIT SPEARMAN)	;goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
+	(or
+		(unit-type-count-total knight-line < 8);number of knights less than 8
+		(not (research-available ri-scale-barding));or we researched the scale-barding already
+	)
+=>				;then
+	(train spearman-line)				;the AI trains the spearmen
+)
+
+
+
+;Rule5: train spearmen when we do the castle-rush; part 2
+
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total spearman-line < FIFTY-PERCENT-POP);or number of spearmen less than FIFTY-PERCENT-POP (constant)
+	(can-train spearman-line)				;the AI can train spearmen
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(goal SECONDARY-COMBAT-UNIT SPEARMAN)	;goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
+	(or
+		(unit-type-count-total eagle-warrior-line < 8);number of eagle-warriors less than 8
+		(not (research-available ri-scale-mail));or we researched the scale-mail already
+	)
+=>				;then
+	(train spearman-line)				;the AI trains the militiamen
+)
+
+
+
+;Rule5: train spearmen when we do the castle-rush; part 2
+
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(can-train spearman-line)				;the AI can train spearmen
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(not (goal PRIMARY-COMBAT-UNIT EAGLEMAN));goal PRIMARY-COMBAT-UNIT is not set to EAGLEMAN (constant)
+	(gold-amount < 20)			;the amount of gold is less than 20
+	(food-amount > 300)			;the amount of food is greater than 300
+	(current-age-time > 420)		;we are playing 7min already in castle age
+=>				;then
+	(train spearman-line)				;the AI trains the spearmen
+)
+
+
+
+;EAGLE-WARRIORS
+;----------------------------
+
+
+
+;Rule5: train eagle-warriors when the combat number defined that our base-unit or secondary-unit is the eagle-warrior
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+		(goal SECONDARY-COMBAT-UNIT EAGLEMAN)	;goal SECONDARY-COMBAT-UNIT to EAGLEMAN (constant)
+	)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total eagle-warrior-line < FIFTY-PERCENT-POP);or number of eagle-warriors less than FIFTY-PERCENT-POP (constant)
+	(can-train eagle-warrior-line)			;the AI can train eagle-warriors
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train eagle-warrior-line)				;the AI trains the eagle-warriors
+)
+
+
+
+;Rule5: train eagle-warriors if we do the flush
+
+(defrule				;If´
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)		;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count barracks >= 1)	;number of barrackses greater or equal than 1
+	(or
+		(and
+			(food-amount > 300)		;the amount of food is greater than 400
+			(gold-amount > 400)		;the amount of gold is greater than 400
+		)
+		(unit-type-count-total eagle-warrior-line < 12);or number of eagle-warriors less than 12
+	)
+	(can-train eagle-warrior-line)			;the AI can train an eagle-warrior
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train eagle-warrior-line)		;the AI trains the eagle-warrior
+)
+
+
+
+;Rule5: train eagle-warriors if we do the flush
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)		;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	;(building-type-count barracks >= 1)	;number of barrackses greater or equal than 1
+	(unit-type-count-total eagle-warrior-line < FIFTY-PERCENT-POP);or number of eagle-warriors less than FIFTY-PERCENT-POP (constant)
+	(can-train eagle-warrior-line)			;the AI can train an eagle-warrior
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(not (research-available ri-scale-mail));we researched the scale-mail already
+	(not (research-available ri-chain-mail));we researched the scale-mail already
+	(not (research-available ri-forging));we researched the forging already
+	(not (research-available ri-iron-casting));we researched the iron-casting already
+=>				;then
+	(train eagle-warrior-line)		;the AI trains the eagle-warrior
+)
+
+
+;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+;//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+;------------------------------------
+;ARCHERY-RANGE UNITS
+;------------------------------------
+
+
+
+;ARCHERS
+;--------------
+
+
+
+;Rule20: train archers when the combat number defined that our base-unit or secondary-unit is the archer
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT CROSSBOW)	;goal PRIMARY-COMBAT-UNIT to CROSSBOW (constant)
+		(goal SECONDARY-COMBAT-UNIT CROSSBOW)	;or goal SECONDARY-COMBAT-UNIT to CROSSBOW (constant)
+	)
+	(building-type-count archery-range >= 1)		;number of archery-ranges greater or equal than 1
+	(unit-type-count-total archer-line < FIFTY-PERCENT-POP);or number of archers less than FIFTY-PERCENT-POP (constant)
+	(can-train archer-line)				;the AI can train archers
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train archer-line)					;the AI trains the archers
+)
+
+
+
+;Rule5: train archers when we do the flush
+
+(defrule				;If
+	(current-age == feudal-age)			;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
+	(unit-type-count-total archer-line < TWO-PERCENT-POP);or number of archers less than TWO-PERCENT-POP (constant)
+	(can-train archer-line)				;the AI can train an archer
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train archer-line)				;the AI trains the archers
+)
+
+
+
+;SKIRMISHERS
+;---------------------
+
+
+
+;Rule50: train skirmishers when the combat number defined that our base-unit or secondary-unit is the skirmisher
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT SKIRMISHER)	;goal PRIMARY-COMBAT-UNIT to SKIRMISHER (constant)
+		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)	;or goal SECONDARY-COMBAT-UNIT to SKIRMISHER (constant)
+	)
+	(building-type-count archery-range >= 1)		;number of archery-ranges greater or equal than 1
+	(unit-type-count-total skirmisher-line < FIFTY-PERCENT-POP);or number of skirmishers less than FIFTY-PERCENT-POP (constant)
+	(can-train skirmisher-line)				;the AI can train skirmishers
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train skirmisher-line)				;the AI trains the skirmishers
+)
+
+
+
+;Rule121: train skirmishers to prevent being rushed
+
+(defrule				;If
+ 	(current-age == feudal-age)			;the age, the AI is in, is castle-age
+ 	(unit-type-count-total skirmisher-line < 5)	;and number of skirmisher less than 5
+ 	(can-train skirmisher-line)			;the AI can train a skirmisher
+	(players-military-population any-enemy > THREE-PERCENT-POP);any enemy has more then THREE-PERCENT-POP soldiers (constant)
+=>			;then
+ 	(train skirmisher)				;the AI trains a skirmisher
+)
+
+
+
+;Rule5: train skirmishers if we do the flush
+
+(defrule				;If
+	(current-age == feudal-age)			;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
+	(unit-type-count-total skirmisher-line < FIFTY-PERCENT-POP);or number of skirmishers less than FIFTY-PERCENT-POP (constant)
+	(can-train skirmisher-line)			;the AI can train a skirmisher
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train skirmisher-line)				;the AI trains the skirmishers
+)
+
+
+
+;Rule5: train skirmishers if we do the flush; part 2
+
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
+	(unit-type-count-total skirmisher-line < FIFTY-PERCENT-POP);or number of skirmishers less than FIFTY-PERCENT-POP (constant)
+	(can-train skirmisher-line)			;the AI can train a skirmisher
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)		;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(goal SECONDARY-COMBAT-UNIT SKIRMISHER)		;goal SECONDARY-COMBAT-UNIT to SKIRMISHER (constant)
+	(or
+		(unit-type-count-total knight-line < 8);number of knights less than 8
+		(not (research-available ri-scale-barding));or we researched the scale-barding already
+	)
+=>				;then
+	(train skirmisher-line)				;the AI trains the skirmishers
+)
+
+
+
+;CAVARCHERS
+;---------------------
+
+
+
+;Rule50: train cavarchers when the combat number defined that our base-unit or secondary-unit is the cavarcher
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT CAVARCHER)	;goal PRIMARY-COMBAT-UNIT to CAVARCHER (constant)
+		(goal SECONDARY-COMBAT-UNIT CAVARCHER)	;or goal SECONDARY-COMBAT-UNIT to CAVARCHER (constant)
+	)
+	(building-type-count archery-range >= 1)		;number of archery-ranges greater or equal than 1
+	(unit-type-count-total cavalry-archer-line < FIFTY-PERCENT-POP);or number of cavalry-archers less than FIFTY-PERCENT-POP (constant)
+	(can-train cavalry-archer-line)			;the AI can train cavalry-archers
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train cavalry-archer-line)				;the AI trains the cavalry-archers
+)
+
+
+
+;Rule5: train cavarchers if we do the castle-rush; part 2
+
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count archery-range >= 1)	;number of archery-ranges greater or equal than 1
+	(unit-type-count-total cavalry-archer-line < TWO-PERCENT-POP);or number of cavalry-archers less than TWO-PERCENT-POP (constant)
+	(can-train cavalry-archer-line)			;the AI can train a cavarcher
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT NO)		;goal PRIMARY-COMBAT-UNIT to NO (constant)
+	(goal SECONDARY-COMBAT-UNIT NO)		;goal SECONDARY-COMBAT-UNIT to NO (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train cavalry-archer-line)			;the AI trains the cavalry-archers
+)
+
+
+
+;Rule50: train heavy-cavarchers when we have got a plenty of military troops, because it is a superunit
+
+(defrule				;If
+	(building-type-count archery-range >= 1)		;number of archery-ranges greater or equal than 1
+	(military-population >= FOURTY-FIVE-PERCENT-POP);number of military troops greater or equal than FOURTY-FIVE-PERCENT-POP (constant)
+	(can-train heavy-cavalry-archer)			;the AI can train heavy-cavalry-archers
+	(unit-type-count-total trebuchet > 0)		;number of trebuchets greater than 0
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train heavy-cavalry-archer)				;the AI trains the heavy-cavalry-archers
+)
+
+
+
+;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+;//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+;----------------------
+;STABLE UNITS
+;----------------------
+
+
+
+;LIGHT-CAVALRY
+;-------------------------
+
+
+
+;Rule65: train light cavalry when the combat number defined that our base-unit or secondary-unit is the light cavalry
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT LCAVALRY)	;goal PRIMARY-COMBAT-UNIT to LCAVALRY (constant)
+		(goal SECONDARY-COMBAT-UNIT LCAVALRY)	;or goal SECONDARY-COMBAT-UNIT to LCAVALRY (constant)
+	)
+	(building-type-count stable >= 1)			;number of stables greater or equal than 1
+	(unit-type-count-total scout-cavalry-line < FIFTY-PERCENT-POP);or number of light-cavalry less than FIFTY-PERCENT-POP (constant)
+	(can-train scout-cavalry-line)			;the AI can train light-cavalry
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train scout-cavalry-line)				;the AI trains the light-cavalry
+)
+
+
+
+;Rule5: train spearmen when we do the castle-rush; part 2
+
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count stable >= 1)			;number of stables greater or equal than 1
+	(can-train scout-cavalry-line)				;the AI can train scouts
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(gold-amount < 20)			;the amount of gold is less than 20
+	(food-amount > 300)			;the amount of food is greater than 300
+	(current-age-time > 420)		;we are playing 7min already in castle age
+=>				;then
+	(train scout-cavalry-line)			;the AI trains the scouts
+)
+
+
+
+;KNIGHTS
+;--------------
+
+
+
+;Rule80: train knights when the combat number defined that our base-unit or secondary-unit is the knight
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+		(goal SECONDARY-COMBAT-UNIT KNIGHT)	;or goal SECONDARY-COMBAT-UNIT to KNIGHT (constant)
+	)
+	(building-type-count stable >= 1)			;number of stables greater or equal than 1
+	(unit-type-count-total knight-line < FIFTY-PERCENT-POP);or number of knights less than FIFTY-PERCENT-POP (constant)
+	(can-train knight-line)				;the AI can train knights
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train knight-line)					;the AI trains the knights
+)
+
+
+
+
+;Rule80: train knights to mix up our troops
+
+(defrule				;If
+	(military-population >= EIGHT-PERCENT-POP)	;the amount of military troops is greater than EIGHT-PERCENT-POP (constant)
+	(building-type-count stable >= 1)			;number of stables greater or equal than 1
+	(unit-type-count-total knight-line < FIVE-PERCENT-POP);number of knights less than FIVE-PERCENT-POP (constant)
+	(can-train knight-line)				;the AI can train knights
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train knight-line)				;the AI trains the knights
+)
+
+
+
+;Rule5: train knights if we do the castle rush
+
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count stable >= 1)	;number of stables greater or equal than 1
+	(unit-type-count-total knight-line < FIFTY-PERCENT-POP);or number of knights less than FIFTY-PERCENT-POP (constant)
+	(can-train knight-line)			;the AI can train a knight
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)		;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(or
+		(unit-type-count-total knight-line < 8);number of knights less than 8
+		(not (research-available ri-scale-barding));or we researched the scale-barding already
+	)
+=>				;then
+	(train knight-line)			;the AI trains the knights
+)
+
+
+
+;Rule80: train paladins, because it is a superunit
+
+(defrule				;If
+	(building-type-count stable >= 1)			;number of stables greater or equal than 1
+	(unit-type-count-total knight-line < FIFTY-PERCENT-POP);or number of knights less than FIFTY-PERCENT-POP (constant)
+	(can-train paladin)				;the AI can train paladins
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train paladin)					;the AI trains the knights
+)
+
+
+
+;CAMELS
+;-------------
+
+
+
+;Rule80: train camels when the combat number defined that our base-unit or secondary-unit is the camel
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT CAMEL)	;goal PRIMARY-COMBAT-UNIT to CAMEL (constant)
+		(goal SECONDARY-COMBAT-UNIT CAMEL)	;or goal SECONDARY-COMBAT-UNIT to CAMEL (constant)
+	)
+	(building-type-count stable >= 1)			;number of stables greater or equal than 1
+	(unit-type-count-total camel-line < FIFTY-PERCENT-POP);or number of camels less than FIFTY-PERCENT-POP (constant)
+	(can-train camel-line)				;the AI can train camels
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train camel-line)					;the AI trains the camels
+)
+
+
+
+;///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+;//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+;------------------------
+;UNIQUE UNITS
+;------------------------
+
+
+
+#load-if-defined GOTHIC-CIV
+
+
+
+;TRAINING HUSKARLS AT THE BARRACKS
+;--------------------------------------------------------------
+
+
+
+;Rule80: train huskarls when the combat number defined that our base-unit or secondary-unit is the huskarl
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;goal PRIMARY-COMBAT-UNIT to UNIQUE-UNIT (constant)
+		(goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)	;or goal SECONDARY-COMBAT-UNIT to UNIQUE-UNIT (constant)
+	)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total 759 < FIFTY-PERCENT-POP);or number of huskarls less than FIFTY-PERCENT-POP (constant)
+	(can-train 759)					;the AI can train huskarls
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train 759)					;the AI trains the huskarls
+)
+
+
+
+;ELITE-HUSKARLS
+;--------------------------
+
+
+
+;Rule80: train huskarls when the combat number defined that our base-unit or secondary-unit is the huskarl
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;goal PRIMARY-COMBAT-UNIT to UNIQUE-UNIT (constant)
+		(goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)	;or goal SECONDARY-COMBAT-UNIT to UNIQUE-UNIT (constant)
+	)
+	(building-type-count barracks >= 1)			;number of barracks greater or equal than 1
+	(unit-type-count-total 761 < FIFTY-PERCENT-POP)	;number of elite-huskarls less than FIFTY-PERCENT-POP (constant)
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(can-train 761)					;the AI can train elite-huskarls
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train 761)					;the AI trains the elite-huskarls
+)
+
+
+#end-if		;if civ == gothic civ
+
+
+
+;Rule80: train unique unit if it is the primary or secondary combat unit
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)	;goal PRIMARY-COMBAT-UNIT to UNIQUE-UNIT (constant)
+		(goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)	;or goal SECONDARY-COMBAT-UNIT to UNIQUE-UNIT (constant)
+	)
+	(building-type-count castle >= 1)			;number of castles greater or equal than 1
+	(unit-type-count-total my-unique-unit-line < FIFTY-PERCENT-POP);or number of unique-units less than FIFTY-PERCENT-POP (constant)
+	(can-train my-unique-unit-line)			;the AI can train its unique-unit
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train my-unique-unit-line)				;the AI trains the unique-unit
+)
+
+
+
+;Rule50: train elite-unique-units when we have got a plenty of military troops, because it might be a superunit
+
+(defrule				;If
+	(building-type-count castle >= 1)		;number of castles greater or equal than 1
+	(military-population >= FOURTY-FIVE-PERCENT-POP);number of military troops greater or equal than FOURTY-FIVE-PERCENT-POP (constant)
+	(can-train my-elite-unique-unit)			;the AI can train its elite-unique-unit
+	(unit-type-count-total trebuchet > 0)		;number of trebuchets greater than 0
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(train my-elite-unique-unit)				;the AI trains the elite-unique-unit
+)
+
+
+
+;MONKS
+;--------------------------------------------------------------------------
+
+;Rule81: train monk to get the relics
+
+(defrule				;If
+	(building-type-count monastery > 0)	;number of monasteries greater than 0
+	(can-train monk)				;the AI can train a monk
+	(unit-type-count-total monk < 2)		;number of monks less than 2
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train monk)				;the AI trains a monk)
+)
+
+;Rule81: train more monks if we have quite a number of military troops
+
+(defrule				;If
+	(building-type-count monastery > 0)	;number of monasteries greater than 0
+	(can-train monk)				;the AI can train a monk
+	(or
+		(and
+			(unit-type-count-total monk < 4) ;number of monks less than 4
+			(not (civ-selected spanish)) 	;and we don't play the spanish
+		)
+		(and
+			(unit-type-count-total monk < 1) ;or we got no monk
+			(civ-selected spanish) ;and the AI plays the spanish
+		)
+	)
+	(military-population > TEN-PERCENT-POP);number of military troops greater than TEN-PERCENT-POP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train monk)				;the AI trains a monk)
+)
+
+;Rule81: train more monks if we have quite a number of military troops
+
+(defrule				;If
+	(building-type-count monastery > 0)	;number of monasteries greater than 0
+	(can-train missionary)				;the AI can train a missionary
+	(unit-type-count-total missionary < 3);number of missionaries less than 3
+	(civ-selected spanish)			;the AI plays the spanish
+	(military-population > TEN-PERCENT-POP);number of military troops greater than TEN-PERCENT-POP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train missionary)			;the AI trains a missionary)
+)
+
+
+
+;==================
+;HAND-CANNONEERS
+;==================
+
+
+
+;Rule42: If the speaciality unit hand cannoneer is available
+
+(defrule				;If
+	(can-train hand-cannoneer)		;the AI can train hand cannoneers
+	(unit-type-count-total hand-cannoneer < FIVE-PERCENT-POP);number of hand gunners less than FIVE-PERCENT-POP (constant)
+	(difficulty <= moderate)			;we are playing on moderate, hard or hardest - difficulty
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train hand-cannoneer)			;the AI trains the hand gunners
+)
+
+
+
+;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+;SIEGE-WEAPONS (only moderate, hard and hardest)
+;::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+;===========
+;MANGONELS
+;===========
+
+
+
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN MANGONELS AS THE PRIMARY COMBAT SIEGE UNIT
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule11: train mangonels when we play on moderate and the combat number define that our primary-combat-siege-unit is mangonel
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL);goal PRIMARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total mangonel-line < THREE-PERCENT-POP);or number of mangonels less than THREE-PERCENT-POP (constant)
+	(can-train mangonel-line)			;the AI can train mangonels
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train mangonel-line)			;the AI trains the mangonels
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule12: train mangonels when we play on hard and the combat number define that our primary-combat-siege-unit is mangonel
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL);goal PRIMARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total mangonel-line < THREE-PERCENT-POP);or number of mangonels less than THREE-PERCENT-POP (constant)
+	(can-train mangonel-line)			;the AI can train mangonels
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train mangonel-line)			;the AI trains the mangonels
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule13: train mangonels when we play on hardest and the combat number define that our primary-combat-siege-unit is mangonel
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL);goal PRIMARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total mangonel-line < FOUR-PERCENT-POP);or number of mangonels less than FOUR-PERCENT-POP (constant)
+	(can-train mangonel-line)			;the AI can train mangonels
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train mangonel-line)			;the AI trains the mangonels
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN MANGONELS AS THE SECONDARY COMBAT SIEGE UNIT
+;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule14: train mangonels when we play on moderate and the combat number define that our secondary-combat-siege-unit is mangonel
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL);goal SECONDARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total mangonel-line < ONE-PERCENT-POP);or number of mangonels less than ONE-PERCENT-POP (constant)
+	(can-train mangonel-line)			;the AI can train mangonels
+	(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train mangonel-line)			;the AI trains the mangonels
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule15: train mangonels when we play on hard and the combat number define that our secondary-combat-siege-unit is mangonel
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL);goal SECONDARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total mangonel-line < TWO-PERCENT-POP);or number of mangonels less than TWO-PERCENT-POP (constant)
+	(can-train mangonel-line)			;the AI can train mangonels
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train mangonel-line)			;the AI trains the mangonels
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule16: train mangonels when we play on hardest and the combat number define that our secondary-combat-siege-unit is mangonel
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL);goal SECONDARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total mangonel-line < TWO-PERCENT-POP);or number of mangonels less than TWO-PERCENT-POP (constant)
+	(can-train mangonel-line)			;the AI can train mangonels
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train mangonel-line)			;the AI trains the mangonels
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;======
+;RAMS
+;======
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule17: train rams when we play on moderate and the combat number define that our primary-combat-siege-unit is ram
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT RAM);goal PRIMARY-COMBAT-SIEGE-UNIT to RAM (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total battering-ram-line < THREE-PERCENT-POP);or number of rams less than THREE-PERCENT-POP (constant)
+	(can-train battering-ram-line)		;the AI can train rams
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train battering-ram-line)			;the AI trains the rams
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule18: train rams when we play on hard and the combat number define that our primary-combat-siege-unit is ram
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT RAM);goal PRIMARY-COMBAT-SIEGE-UNIT to RAM (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total battering-ram-line < THREE-PERCENT-POP);or number of rams less than THREE-PERCENT-POP (constant)
+	(can-train battering-ram-line)		;the AI can train rams
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train battering-ram-line)			;the AI trains the rams
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule19: train rams when we play on hard and the combat number define that our primary-combat-siege-unit is ram
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT RAM);goal PRIMARY-COMBAT-SIEGE-UNIT to RAM (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total battering-ram-line < FOUR-PERCENT-POP);or number of rams less than FOUR-PERCENT-POP (constant)
+	(can-train battering-ram-line)		;the AI can train rams
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train battering-ram-line)			;the AI trains the rams
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;Rule19: maintain a ram
+
+(defrule				;If
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(or
+		(unit-type-count-total battering-ram-line < 1)	;number of rams less than 1 (constant)
+		(and
+			(unit-type-count-total battering-ram-line < 2);number of rams less than 2 (constant)
+			(gold-amount > 400)	;the amount of gold is greater than 400
+		)
+	)
+	(difficulty <= hard)			;we are playing on hard or hardest-difficulty
+	(can-train battering-ram-line)		;the AI can train rams
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(current-age == imperial-age)			;the age. the AI is in, is imperial-age
+=>				;then
+	(train battering-ram-line)			;the AI trains the rams
+)
+
+
+
+;Rule19: train rams when we do a rush
+
+(defrule				;If
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(or
+		(unit-type-count-total battering-ram-line < 1)	;number of rams less than 1 (constant)
+		(and
+			(unit-type-count-total battering-ram-line < 3);number of rams less than 2 (constant)
+			(military-population > FIFTEEN-PERCENT-POP);the amount of military units is greater than FIFTEEN-PERCENT-POP (constant)
+		)
+	)
+	(difficulty <= hard)			;we are playing on hard or hardest-difficulty
+	(can-train battering-ram-line)		;the AI can train rams
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+=>				;then
+	(train battering-ram-line)			;the AI trains the rams
+)
+
+
+
+
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN RAMS AS THE SECONDARY COMBAT SIEGE UNIT
+;----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule17: train rams when we play on moderate and the combat number define that our secondary-combat-siege-unit is ram
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM);goal SECONDARY-COMBAT-SIEGE-UNIT to RAM (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total battering-ram-line < ONE-PERCENT-POP);or number of rams less than ONE-PERCENT-POP (constant)
+	(can-train battering-ram-line)		;the AI can train rams
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train battering-ram-line)			;the AI trains the rams
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule18: train rams when we play on hard and the combat number define that our secondary-combat-siege-unit is ram
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM);goal SECONDARY-COMBAT-SIEGE-UNIT to RAM (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total battering-ram-line < TWO-PERCENT-POP);or number of rams less than TWO-PERCENT-POP (constant)
+	(can-train battering-ram-line)		;the AI can train rams
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train battering-ram-line)			;the AI trains the rams
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule19: train rams when we play on hard and the combat number define that our secondary-combat-siege-unit is ram
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM);goal SECONDARY-COMBAT-SIEGE-UNIT to RAM (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total battering-ram-line < TWO-PERCENT-POP);or number of rams less than TWO-PERCENT-POP (constant)
+	(can-train battering-ram-line)		;the AI can train rams
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(or
+		(and
+			(not (death-match-game))	;we don't play a death-match game
+			(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+		)
+		(military-population >= THIRTY-PERCENT-POP);number of soldiers greater or equal than THIRTY-PERCENT-POP (constant)
+	)
+=>				;then
+	(train battering-ram-line)			;the AI trains the rams
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;==========
+;SCORPIONS
+;==========
+
+
+
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN SCORPIONS AS THE PRIMARY COMBAT SIEGE UNIT
+;------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule23: train scorpions when we play on moderate and the combat number define that our primary-combat-siege-unit is scorpion
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION);goal PRIMARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total scorpion-line < SEVEN-PERCENT-POP);or number of scorpions less than SEVEN-PERCENT-POP (constant)
+	(can-train scorpion-line)			;the AI can train scorpions
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= THREE-PERCENT-POP);number of soldiers greater or equal than THREE-PERCENT-POP (constant)
+=>				;then
+	(train scorpion-line)			;the AI trains the scorpions
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule24: train scorpions when we play on hard and the combat number define that our primary-combat-siege-unit is scorpion
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION);goal PRIMARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total scorpion-line < FIFTEEN-PERCENT-POP);or number of scorpions less than FIFTEEN-PERCENT-POP (constant)
+	(can-train scorpion-line)			;the AI can train scorpions
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= THREE-PERCENT-POP);number of soldiers greater or equal than THREE-PERCENT-POP (constant)
+=>				;then
+	(train scorpion-line)			;the AI trains the scorpions
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule25: train scorpions when we play on hard and the combat number define that our primary-combat-siege-unit is scorpion
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION);goal PRIMARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total scorpion-line < FIFTEEN-PERCENT-POP);or number of scorpions less than FIFTEEN-PERCENT-POP (constant)
+	(can-train scorpion-line)			;the AI can train scorpions
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= THREE-PERCENT-POP);number of soldiers greater or equal than THREE-PERCENT-POP (constant)
+=>				;then
+	(train scorpion-line)			;the AI trains the scorpions
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;Rule19: maintain 3 scorpions
+
+(defrule				;If
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(or
+		(unit-type-count-total battering-ram-line < 1)	;number of rams less than 1 (constant)
+		(and
+			(unit-type-count-total battering-ram-line < 3);number of rams less than 3 (constant)
+			(gold-amount > 300)	;the amount of gold is greater than 300
+		)
+	)
+	(difficulty <= hard)			;we are playing on hard or hardest-difficulty
+	(can-train scorpion-line)		;the AI can train scorpions
+	(goal ABLE-TO-TRAIN-UNITS YES)			;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(current-age == imperial-age)			;the age. the AI is in, is imperial-age
+=>				;then
+	(train scorpion-line)			;the AI trains the scorpions
+)
+
+
+
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN SCORPIONS AS THE SECONDARY COMBAT SIEGE UNIT
+;-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule26: train scorpions when we play on moderate and the combat number define that our secondary-combat-siege-unit is scorpion
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION);goal SECONDARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total scorpion-line < ONE-PERCENT-POP);or number of scorpions less than ONE-PERCENT-POP (constant)
+	(can-train scorpion-line)			;the AI can train scorpions
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train scorpion-line)			;the AI trains the scorpions
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule27: train scorpions when we play on hard and the combat number define that our secondary-combat-siege-unit is scorpion
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION);goal SECONDARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total scorpion-line < TWO-PERCENT-POP);or number of scorpions less than TWO-PERCENT-POP (constant)
+	(can-train scorpion-line)			;the AI can train scorpions
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train scorpion-line)			;the AI trains the scorpions
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule28: train scorpions when we play on hardest and the combat number define that our secondary-combat-siege-unit is scorpion
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION);goal SECONDARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total scorpion-line < TWO-PERCENT-POP);or number of scorpions less than TWO-PERCENT-POP (constant)
+	(can-train scorpion-line)			;the AI can train scorpions
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train scorpion-line)			;the AI trains the scorpions
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;============
+;TREBUCHETS
+;============
+
+
+
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN TREBUCHETS AS THE PRIMARY COMBAT SIEGE UNIT
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule29: train trebuchets when we play on moderate and the combat number define that our primary-combat-siege-unit is trebuchet
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET);goal PRIMARY-COMBAT-SIEGE-UNIT to TREBUCHET (constant)
+	(building-type-count castle >= 1)		;number of siege castles greater or equal than 1
+	(unit-type-count-total trebuchet < THREE-PERCENT-POP);or number of trebuchets less than THREE-PERCENT-POP (constant)
+	(can-train trebuchet)			;the AI can train trebuchets
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train trebuchet)				;the AI trains the trebuchets
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule30: train trebuchets when we play on hard and the combat number define that our primary-combat-siege-unit is trebuchet
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET);goal PRIMARY-COMBAT-SIEGE-UNIT to TREBUCHET (constant)
+	(building-type-count castle >= 1)		;number of siege castles greater or equal than 1
+	(unit-type-count-total trebuchet < FOUR-PERCENT-POP);or number of trebuchets less than FOUR-PERCENT-POP (constant)
+	(can-train trebuchet)			;the AI can train trebuchets
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train trebuchet)				;the AI trains the trebuchets
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule31: train trebuchets when we play on hard and the combat number define that our primary-combat-siege-unit is trebuchet
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET);goal PRIMARY-COMBAT-SIEGE-UNIT to TREBUCHET (constant)
+	(building-type-count castle >= 1)		;number of siege castles greater or equal than 1
+	(unit-type-count-total trebuchet < FIVE-PERCENT-POP);or number of trebuchets less than FIVE-PERCENT-POP (constant)
+	(can-train trebuchet)			;the AI can train trebuchets
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train trebuchet)				;the AI trains the trebuchets
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN TREBUCHETS AS THE SECONDARY COMBAT SIEGE UNIT
+;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule32: train trebuchets when we play on moderate and the combat number define that our secondary-combat-siege-unit is trebuchet
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET);goal SECONDARY-COMBAT-SIEGE-UNIT to TREBUCHET (constant)
+	(building-type-count castle >= 1)		;number of siege castles greater or equal than 1
+	(unit-type-count-total trebuchet < ONE-PERCENT-POP);or number of trebuchets less than ONE-PERCENT-POP (constant)
+	(can-train trebuchet)			;the AI can train trebuchets
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train trebuchet)				;the AI trains the trebuchets
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule33: train trebuchets when we play on hard and the combat number define that our secondary-combat-siege-unit is trebuchet
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET);goal SECONDARY-COMBAT-SIEGE-UNIT to TREBUCHET (constant)
+	(building-type-count castle >= 1)		;number of siege castles greater or equal than 1
+	(unit-type-count-total trebuchet < TWO-PERCENT-POP);or number of trebuchets less than TWO-PERCENT-POP (constant)
+	(can-train trebuchet)			;the AI can train trebuchets
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train trebuchet)				;the AI trains the trebuchets
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule34: train trebuchets when we play on hardest and the combat number define that our secondary-combat-siege-unit is trebuchet
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET);goal SECONDARY-COMBAT-SIEGE-UNIT to TREBUCHET (constant)
+	(building-type-count castle >= 1)		;number of siege castles greater or equal than 1
+	(unit-type-count-total trebuchet < TWO-PERCENT-POP);or number of trebuchets less than TWO-PERCENT-POP (constant)
+	(can-train trebuchet)			;the AI can train trebuchets
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train trebuchet)				;the AI trains the trebuchets
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;******************************************
+;******************************************
+;MAINTAIN TWO TREBUCHETS
+
+(defrule				;If
+	(military-population > TEN-PERCENT-POP)		;number of military units greater than TEN-PERCENT-POP (constant)
+	(unit-type-count-total trebuchet < 2)		;number of trebuchets less than 2
+	(can-train trebuchet)				;the AI can train a trebuchet
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train trebuchet)				;the AI trains a trebuchet
+)
+
+
+
+;===================
+;BOMBARD-CANNONS
+;===================
+
+
+
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN BOMBARD-CANNONS AS THE PRIMARY COMBAT SIEGE UNIT
+;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule35: train bombard-cannons when we play on moderate and the combat number define that our primary-combat-siege-unit is bombard-cannon
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON);goal PRIMARY-COMBAT-SIEGE-UNIT to BOMBARD-CANNON (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total bombard-cannon < THREE-PERCENT-POP);or number of bombard-cannons less than THREE-PERCENT-POP (constant)
+	(can-train bombard-cannon)		;the AI can train bombard-cannons
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train bombard-cannon)			;the AI trains the bombard-cannons
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule36: train bombard-cannon when we play on hard and the combat number define that our primary-combat-siege-unit is bombard-cannon
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON);goal PRIMARY-COMBAT-SIEGE-UNIT to BOMBARD-CANNON (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total bombard-cannon < FOUR-PERCENT-POP);or number of bombard-cannons less than FOUR-PERCENT-POP (constant)
+	(can-train bombard-cannon)		;the AI can train bombard-cannons
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train bombard-cannon)			;the AI trains the bombard-cannons
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule37: train bombard-cannons when we play on hard and the combat number define that our primary-combat-siege-unit is bombard-cannon
+
+(defrule				;If
+	(goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON);goal PRIMARY-COMBAT-SIEGE-UNIT to BOMBARD-CANNON (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total bombard-cannon < FIVE-PERCENT-POP);or number of bombard-cannons less than FIVE-PERCENT-POP (constant)
+	(can-train bombard-cannon)		;the AI can train bombard-cannons
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train bombard-cannon)			;the AI trains the bombard-cannons
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN BOMBARD-CANNONS AS THE SECONDARY COMBAT SIEGE UNIT
+;--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+;MODERATE
+;------------------
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule38: train bombard-cannons when we play on moderate and the combat number define that our secondary-combat-siege-unit is bombard-cannon
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON);goal SECONDARY-COMBAT-SIEGE-UNIT to BOMBARD-CANNON (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total bombard-cannon < ONE-PERCENT-POP);or number of bombard-cannons less than ONE-PERCENT-POP (constant)
+	(can-train bombard-cannon)		;the AI can train bombard-cannons
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train bombard-cannon)			;the AI trains the bombard-cannons
+)
+
+#end-if 		;if difficulty = moderate
+
+
+
+;HARD
+;---------
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule39: train bombard-cannons when we play on hard and the combat number define that our secondary-combat-siege-unit is bombard-cannon
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON);goal SECONDARY-COMBAT-SIEGE-UNIT to BOMBARD-CANNON (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total bombard-cannon < TWO-PERCENT-POP);or number of bombard-cannons less than TWO-PERCENT-POP (constant)
+	(can-train bombard-cannon)		;the AI can train bombard-cannons
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train bombard-cannon)			;the AI trains the bombard-cannons
+)
+
+#end-if 		;if difficulty = hard
+
+
+
+;HARDEST
+;--------------
+
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule40: train bombard-cannons when we play on hardest and the combat number define that our secondary-combat-siege-unit is bombard-cannon
+
+(defrule				;If
+	(goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON);goal SECONDARY-COMBAT-SIEGE-UNIT to BOMBARD-CANNON (constant)
+	(building-type-count siege-workshop >= 1)	;number of siege workshops greater or equal than 1
+	(unit-type-count-total bombard-cannon < TWO-PERCENT-POP);or number of bombard-cannons less than TWO-PERCENT-POP (constant)
+	(can-train bombard-cannon)		;the AI can train bombard-cannons
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(military-population >= FIVE-PERCENT-POP);number of soldiers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(train bombard-cannon)			;the AI trains the bombard-cannons
+)
+
+#end-if 		;if difficulty = hardest
+
+
+
+;MAINTAIN SOME BOMBARD CANNONS, BECAUSE THEY ARE SUPERUNITS
+;-------------------------------------------------------------------------
+
+(defrule				;If
+	(military-population > TEN-PERCENT-POP)		;number of military units greater than TEN-PERCENT-POP (constant)
+	(unit-type-count-total bombard-cannon < TWO-PERCENT-POP)
+	(can-train bombard-cannon)			;the AI can train a bombard cannon
+	(nand
+		(goal ABLE-TO-TRAIN-UNITS NO)	;goal ABLE-TO-TRAIN-UNITS to NO (constant)
+		(current-age < imperial-age)	;the age, the AI is in, is not imperial-age
+	)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+=>				;then
+	(train bombard-cannon)				;the AI trains a bombard cannon
+)
+
+
+
+;=======
+;PETARD
+;=======
+
+
+
+;Rule41: train petards if we are short on resources
+
+(defrule				;If
+	(or
+		(wood-amount < 180)		;the amount of wood is less than 180
+		(gold-amount < 95)		;or the amount of gold is less than 95
+	)
+	(unit-type-count-total petard < TWO-PERCENT-POP);number of petards less than TWO-PERCENT-POP (constant)
+	(can-train petard)				;the AI can train petards
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(not (town-under-attack))			;our town is not under attack
+	(military-population > TWENTY-PERCENT-POP);number of military units greater than TWENTY-PERCENT-POP (constant)
+=>				;then
+	(train petard)				;the AI trains the petards
+)
+
+
+
+;Rule42: train Trebuchets if any enemy has got a castle near our town
+
+(defrule				;If
+	(players-building-type-count any-enemy castle > 0);any enemy has got a castle and we can see it
+	(current-age >= castle-age)			;the age, the AI is in, is greater or eqaul than age
+	(enemy-buildings-in-town)			;the enemy has got buildings in our town (the castle)
+	(unit-type-count-total trebuchet < 2)	;number of trebuchets less than 2
+	(can-train trebuchet)			;the AI is able to train a trebuchet
+=>				;then
+	(train trebuchet)				;the AI trains a trebuchet
+;	(chat-local-to-self "train TREBUCHET as the enemy built a castle near my town!");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;in long games the AI could run out of gold
+;that's why it should train spearmen, scouts and skimishers, because they don't cost any gold
+
+#load-if-not-defined TURKISH-CIV
+
+;Rule8: build barrackses if we are all out of gold
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(current-age-time > 1800)			;time in the imperial-age is greater than 30 min
+	(gold-amount < 200)			;the amount of gold is less than 200
+	(can-build barracks)			;the AI can build a barracks
+	(building-type-count-total barracks < 5);number of barracks less than 5
+=>				;then
+	(build barracks)			;the AI builds a barracks
+)
+
+
+
+;Rule8: train spearmen if we are all out of gold
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(current-age-time > 1800)			;time in the imperial-age is greater than 30 min
+	(gold-amount < 200)			;the amount of gold is less than 200
+	(can-train spearman-line)			;the AI can train some spearmen
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+=>				;then
+	(train spearman-line)			;the AI trains spearmen
+)
+
+#end-if		;if not civ == turkish
+
+
+
+#load-if-not-defined TEUTONIC-CIV
+
+;Rule8: build stables if we are all out of gold
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(current-age-time > 1800)			;time in the imperial-age is greater than 30 min
+	(gold-amount < 200)			;the amount of gold is less than 200
+	(can-build stable)			;the AI can build a stable
+	(building-type-count-total stable < 5);number of stables less than 5
+=>				;then
+	(build stable)				;the AI builds a stable
+)
+
+
+
+;Rule9:  train light cav if we are all out of gold
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(current-age-time > 1800)			;time in the imperial-age is greater than 30 min
+	(gold-amount < 200)			;the amount of gold is less than 200
+	(can-train scout-cavalry-line)		;the AI can train some light-cavalry
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+=>				;then
+	(train scout-cavalry-line)			;the AI trains light-cavalry
+)
+
+#end-if		;if not civ == teutonic
+
+
+
+#load-if-not-defined TURKISH-CIV
+
+;Rule8: build archery-ranges if we are all out of gold
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(current-age-time > 1800)			;time in the imperial-age is greater than 30 min
+	(gold-amount < 200)			;the amount of gold is less than 200
+	(can-build archery-range)			;the AI can build an archery-range
+	(building-type-count-total archery-range < 5);number of archery-ranges less than 5
+=>				;then
+	(build archery-range)			;the AI builds an archery-range
+)
+
+
+
+;Rule10: train skirmishers if we are all out of gold
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(current-age-time > 1800)			;time in the imperial-age is greater than 30 min
+	(gold-amount < 200)			;the amount of gold is less than 200
+	(can-train skirmisher-line)			;the AI can train some skirmishers
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+=>				;then
+	(train skirmisher-line)			;the AI trains skirmishers
+)
+
+#end-if		;if not civ == turkish
+
+
+#end-if			;if game type != wonder-race
+
+
+
+;******************************************************************************
+;******************************************************************************
+;TRAINING COUNTER-UNITS
+
+
+
+;In every game the AI buildas a barracks, so we should have one if needed to train Counter-units
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+
+
+;BUILD BARRACKS
+;-----------------------------------
+
+
+
+;Rule3: build stable to train the counter-units; part 1
+
+(defrule				;If
+	(or
+		(or
+			(players-unit-type-count any-enemy knight-line >= FIVE-PERCENT-POP);any enemy has got at least 'FIVE-PERCENT-POP' knights (constant)
+			(players-unit-type-count any-enemy war-elephant-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' war elefants (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy scout-cavalry-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' scouts (constant)
+			(players-unit-type-count any-enemy camel-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' camels (constant)
+		)
+	)
+	(building-type-count-total barracks < 2);number of barrackss less than 1
+	(can-build barracks)			;the AI is able to build a barracks
+=>				;then
+	(build barracks)			;the AI builds a barracks
+)
+
+
+
+;BUILD ARCHERY-RANGE
+;------------------------------------
+
+
+
+;Rule1: build archery-range to train the counter-units; part 1
+
+(defrule				;If
+	(or
+		(or
+			(players-unit-type-count any-enemy archer-line >= FIVE-PERCENT-POP);any enemy has got at least 'FIVE-PERCENT-POP' archers (constant)
+			(players-unit-type-count any-enemy cavalry-archer-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' horse archers (constant)
+		)
+		(players-unit-type-count any-enemy hand-cannoneer >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' hand cannoneers (constant)
+	)
+	(building-type-count-total archery-range < 1);number of archery-ranges less than 1
+	(can-build archery-range)		;the AI is able to build an archery-range
+=>				;then
+	(build archery-range)			;the AI builds an archery-range
+)
+
+
+
+;Rule2: build archery-range to train the counter-units; part 2
+
+(defrule				;If
+	(or
+		(or
+			(players-unit-type-count any-enemy longbowman-line >= FIVE-PERCENT-POP);any enemy has got at least 'FIVE-PERCENT-POP' longbowmen (constant)
+			(players-unit-type-count any-enemy chu-ko-nu-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' chu ko nus (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mangudai-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' mangudais (constant)
+			(players-unit-type-count any-enemy janissary-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' janissaries (constant)
+		)
+	)
+	(building-type-count-total archery-range < 1);number of archery-ranges less than 1
+	(can-build archery-range)		;the AI is able to build an archery-range
+=>				;then
+	(build archery-range)			;the AI builds an archery-range
+)
+
+
+
+;Rule1: build archery-range to train the counter-units; part 1
+
+(defrule				;If
+	(or
+		(or
+			(players-unit-type-count any-enemy archer-line >= TEN-PERCENT-POP);any enemy has got at least 'TEN-PERCENT-POP' archers (constant)
+			(players-unit-type-count any-enemy cavalry-archer-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' horse archers (constant)
+		)
+		(players-unit-type-count any-enemy hand-cannoneer >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' hand cannoneers (constant)
+	)
+	(building-type-count-total archery-range < 2);number of archery-ranges less than 2
+	(can-build archery-range)		;the AI is able to build an archery-range
+=>				;then
+	(build archery-range)			;the AI builds an archery-range
+)
+
+
+
+;Rule2: build archery-range to train the counter-units; part 2
+
+(defrule				;If
+	(or
+		(or
+			(players-unit-type-count any-enemy longbowman-line >= TEN-PERCENT-POP);any enemy has got at least 'TEN-PERCENT-POP' longbowmen (constant)
+			(players-unit-type-count any-enemy chu-ko-nu-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' chu ko nus (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mangudai-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' mangudais (constant)
+			(players-unit-type-count any-enemy janissary-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' janissaries (constant)
+		)
+	)
+	(building-type-count-total archery-range < 2);number of archery-ranges less than 2
+	(can-build archery-range)		;the AI is able to build an archery-range
+=>				;then
+	(build archery-range)			;the AI builds an archery-range
+)
+
+
+
+;BUILD STABLE
+;----------------------
+
+
+
+;Rule4: build stable to train the counter-units; part 2
+
+(defrule				;If
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' mangudais (constant)
+		)
+	)
+	(building-type-count-total stable < 1)	;number of stables less than 1
+	(can-build stable)			;the AI is able to build a stable
+=>				;then
+	(build stable)				;the AI builds a stable
+)
+
+
+
+;Rule4: build stable to train the counter-units; part 2
+
+(defrule				;If
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' mangudais (constant)
+		)
+	)
+	(building-type-count-total stable < 2)	;number of stables less than 2
+	(can-build stable)			;the AI is able to build a stable
+=>				;then
+	(build stable)				;the AI builds a stable
+)
+
+
+
+;===========================
+;TRAINING THE COUNTER UNITS
+;===========================
+
+
+
+;LAND-UNITS
+;*********************************
+;*********************************
+
+
+
+#load-if-not-defined DEATH-MATCH
+
+
+;SWORDSMEN TO COUNTER IF WE ARE BEING RUSHED
+;--------------------------------------------------------
+
+
+
+(defrule
+	(military-population < FIVE-PERCENT-POP)
+	(players-unit-count any-enemy >= SEVEN-PERCENT-POP)
+	(can-research ri-man-at-arms)
+	(town-under-attack)
+	(goal RUSH-CONTROL NO)
+=>
+	(research ri-man-at-arms)
+;	(chat-local-to-self "research man at arms")
+)
+
+
+
+(defrule
+	(military-population < FIVE-PERCENT-POP)
+	(players-unit-count any-enemy >= SEVEN-PERCENT-POP)
+	(can-research ri-long-swordsman)
+	(not (goal RUSH-CONTROL RUSHING))
+	(town-under-attack)
+	(goal RUSH-CONTROL NO)
+=>
+	(research ri-long-swordsman)
+;	(chat-local-to-self "research longswordsman as we may be rushed")
+)
+
+
+
+(defrule
+	(military-population < FIVE-PERCENT-POP)
+	(players-unit-count any-enemy >= SEVEN-PERCENT-POP)
+	(can-train militiaman-line)
+	(town-under-attack)
+	(or
+		(research-completed ri-long-swordsman)
+		(and
+			(current-age == feudal-age)
+			(research-completed ri-man-at-arms)
+		)
+	)
+	(goal RUSH-CONTROL NO)
+=>
+	(train militiaman-line)
+;	(chat-local-to-self "Swordsman as we may be rushed")
+)
+
+
+
+;KNIGHTS TO COUNTER IF WE ARE BEING RUSHED
+;--------------------------------------------------------
+
+
+
+(defrule
+	(military-population < SEVEN-PERCENT-POP)
+	(current-age == castle-age)
+	(players-military-population any-enemy >= SEVEN-PERCENT-POP)
+	(can-build stable)
+	(town-under-attack)
+	(building-type-count-total stable < 2)
+	(goal RUSH-CONTROL NO)
+=>
+	(build stable)
+;	(chat-local-to-self "Stable as we may be rushed")
+)
+
+
+
+(defrule
+	(military-population < SEVEN-PERCENT-POP)
+	(current-age == castle-age)
+	(players-military-population any-enemy >= SEVEN-PERCENT-POP)
+	(can-train knight-line)
+	(town-under-attack)
+=>
+	(train knight-line)
+;	(chat-local-to-self "Knight as we may be rushed")
+)
+
+
+#end-if		;if game-type != death-match
+
+
+
+#load-if-defined DEATH-MATCH
+
+;in deathmatch train militiamen if we don't have a castle
+
+(defrule
+	(building-type-count castle == 0)
+	(can-train militiaman-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(unit-type-count-total militiaman-line < TEN-PERCENT-POP)
+	(or
+		(or
+			(or
+				(current-age == dark-age)
+				(current-age == imperial-age)
+			)
+			(research-completed ri-man-at-arms)
+		)
+		(research-completed ri-long-swordsman)
+	)
+=>
+	(train militiaman-line)
+)
+
+#load-if-not-defined TURKISH-CIV
+
+;in deathmatch train skirmishers
+
+(defrule
+	(can-train skirmisher-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(unit-type-count-total skirmisher-line < FIFTEEN-PERCENT-POP)
+=>
+	(train skirmisher-line)
+)
+
+;in deathmatch train spearmen
+
+(defrule
+	(can-train spearman-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(unit-type-count-total spearman-line < FIFTEEN-PERCENT-POP)
+=>
+	(train spearman-line)
+)
+
+#end-if		;if civ != turkish
+
+#end-if		;if game type == deathmatch
+
+
+
+;SKIRMISHERS TO COUNTER
+;-----------------------------------------
+
+
+
+;Rule6: train SKIRMISHERS to counter the enemies archers
+
+(defrule				;If
+	(unit-type-count-total skirmisher-line < ONE-PERCENT-POP)	;the AI hasn't got ONE-PERCENT-POP skirmishers
+	(can-train skirmisher-line)			;the AI can train skirmishers
+	(or
+		(or
+			(players-unit-type-count any-enemy archer-line >= ONE-PERCENT-POP);any enemy has got at least ONE-PERCENT-POP archers (constant)
+			(players-unit-type-count any-enemy cavalry-archer-line >= ONE-PERCENT-POP);or any enemy has got at least 'ONE-PERCENT-POP' horse archers (constant)
+		)
+		(players-unit-type-count any-enemy hand-cannoneer >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP hand cannoneers (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train skirmisher-line)			;the AI trains skirmishers
+)
+
+
+
+;Rule7: train SKIRMISHERS to counter the enemies archers
+
+(defrule				;If
+	(unit-type-count-total skirmisher-line < ONE-PERCENT-POP)	;the AI hasn't got ONE-PERCENT-POP skirmishers
+	(can-train skirmisher-line)			;the AI can train skirmishers
+	(or
+		(or
+			(players-unit-type-count any-enemy longbowman-line >= ONE-PERCENT-POP);any enemy has got at least ONE-PERCENT-POP' longbowmen (constant)
+			(players-unit-type-count any-enemy chu-ko-nu-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP' chu ko nus (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mangudai-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP mangudais (constant)
+			(players-unit-type-count any-enemy janissary-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP janissaries (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train skirmisher-line)			;the AI trains skirmishers
+)
+
+
+
+;Rule6: train SKIRMISHERS to counter the enemies archers
+
+(defrule				;If
+	(unit-type-count-total skirmisher-line < THREE-PERCENT-POP)	;the AI hasn't got THREE-PERCENT-POP skirmishers
+	(can-train skirmisher-line)			;the AI can train skirmishers
+	(or
+		(or
+			(players-unit-type-count any-enemy archer-line >= THREE-PERCENT-POP);any enemy has got at least 'THREE-PERCENT-POP' archers (constant)
+			(players-unit-type-count any-enemy cavalry-archer-line >= THREE-PERCENT-POP);or any enemy has got at least 'THREE-PERCENT-POP' horse archers (constant)
+		)
+		(players-unit-type-count any-enemy hand-cannoneer >= THREE-PERCENT-POP);or any enemy has got at least 'THREE-PERCENT-POP' hand cannoneers (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train skirmisher-line)			;the AI trains skirmishers
+)
+
+
+
+;Rule7: train SKIRMISHERS to counter the enemies archers
+
+(defrule				;If
+	(unit-type-count-total skirmisher-line < THREE-PERCENT-POP)	;the AI hasn't got THREE-PERCENT-POP skirmishers
+	(can-train skirmisher-line)			;the AI can train skirmishers
+	(or
+		(or
+			(players-unit-type-count any-enemy longbowman-line >= THREE-PERCENT-POP);any enemy has got at least 'THREE-PERCENT-POP' longbowmen (constant)
+			(players-unit-type-count any-enemy chu-ko-nu-line >= THREE-PERCENT-POP);or any enemy has got at least 'THREE-PERCENT-POP' chu ko nus (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mangudai-line >= THREE-PERCENT-POP);or any enemy has got at least 'THREE-PERCENT-POP' mangudais (constant)
+			(players-unit-type-count any-enemy janissary-line >= THREE-PERCENT-POP);or any enemy has got at least 'THREE-PERCENT-POP' janissaries (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train skirmisher-line)			;the AI trains skirmishers
+)
+
+
+
+;Rule6: train SKIRMISHERS to counter the enemies archers
+
+(defrule				;If
+	(unit-type-count-total skirmisher-line < FIVE-PERCENT-POP)	;the AI hasn't got FIVE-PERCENT-POP skirmishers
+	(can-train skirmisher-line)			;the AI can train skirmishers
+	(or
+		(or
+			(players-unit-type-count any-enemy archer-line >= FIVE-PERCENT-POP);any enemy has got at least 'FIVE-PERCENT-POP' archers (constant)
+			(players-unit-type-count any-enemy cavalry-archer-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' horse archers (constant)
+		)
+		(players-unit-type-count any-enemy hand-cannoneer >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' hand cannoneers (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train skirmisher-line)			;the AI trains skirmishers
+)
+
+
+
+;Rule7: train SKIRMISHERS to counter the enemies archers
+
+(defrule				;If
+	(unit-type-count-total skirmisher-line < FIVE-PERCENT-POP)	;the AI hasn't got FIVE-PERCENT-POP skirmishers
+	(can-train skirmisher-line)			;the AI can train skirmishers
+	(or
+		(or
+			(players-unit-type-count any-enemy longbowman-line >= FIVE-PERCENT-POP);any enemy has got at least 'FIVE-PERCENT-POP' longbowmen (constant)
+			(players-unit-type-count any-enemy chu-ko-nu-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' chu ko nus (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mangudai-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' mangudais (constant)
+			(players-unit-type-count any-enemy janissary-line >= FIVE-PERCENT-POP);or any enemy has got at least 'FIVE-PERCENT-POP' janissaries (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train skirmisher-line)			;the AI trains skirmishers
+)
+
+
+
+;Rule8: train more SKIRMISHERS to counter the enemies archers
+
+(defrule				;If
+	(unit-type-count-total skirmisher-line < TEN-PERCENT-POP);the AI hasn't got 'TEN-PERCENT-POP' skirmishers (constant)
+	(can-train skirmisher-line)			;the AI can train skirmishers
+	(or
+		(or
+			(players-unit-type-count any-enemy archer-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' archers (constant)
+			(players-unit-type-count any-enemy cavalry-archer-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' horse archers (constant)
+		)
+		(players-unit-type-count any-enemy hand-cannoneer >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' hand cannoneers (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train skirmisher-line)			;the AI trains skirmishers
+)
+
+
+
+;Rule9: train more SKIRMISHERS to counter the enemies archers
+
+(defrule				;If
+	(unit-type-count-total skirmisher-line < TEN-PERCENT-POP);the AI hasn't got 'TEN-PERCENT-POP' skirmishers (constant)
+	(can-train skirmisher-line)			;the AI can train skirmishers
+	(or
+		(or
+			(players-unit-type-count any-enemy longbowman-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' longbowmen (constant)
+			(players-unit-type-count any-enemy chu-ko-nu-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' chu ko nus (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mangudai-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' mangudais (constant)
+			(players-unit-type-count any-enemy janissary-line >= TEN-PERCENT-POP);or any enemy has got at least 'TEN-PERCENT-POP' janissaries (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train skirmisher-line)			;the AI trains skirmishers
+)
+
+
+
+#load-if-not-defined TURKISH-CIV
+
+;SPEARMEN TO COUNTER
+;-------------------------------------
+
+
+
+;Rule14: train SPEARMEN to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total spearman-line < ONE-PERCENT-POP) ;the AI hasn't got ONE-PERCENT-POP spearmen
+	(can-train spearman-line)			;the AI can train spearmen
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP mangudais (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train spearman-line)			;the AI trains spearmen
+)
+
+
+
+;Rule10: train SPEARMEN to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total spearman-line < ONE-PERCENT-POP)	;the AI hasn't got ONE-PERCENT-POP spearmen
+	(can-train spearman-line)			;the AI can train spearmen
+	(or
+		(or
+			(players-unit-type-count any-enemy knight-line >= ONE-PERCENT-POP);any enemy has got at least ONE-PERCENT-POP knights (constant)
+			(players-unit-type-count any-enemy war-elephant-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP war elefants (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy scout-cavalry-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP scouts (constant)
+			(players-unit-type-count any-enemy camel-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP camels (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train spearman-line)			;the AI trains spearmen
+)
+
+
+
+;Rule14: train SPEARMEN to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total spearman-line < THREE-PERCENT-POP) ;the AI hasn't got THREE-PERCENT-POP spearmen
+	(can-train spearman-line)			;the AI can train spearmen
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP mangudais (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train spearman-line)			;the AI trains spearmen
+)
+
+
+
+;Rule10: train SPEARMEN to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total spearman-line < THREE-PERCENT-POP)	;the AI hasn't got THREE-PERCENT-POP spearmen
+	(can-train spearman-line)			;the AI can train spearmen
+	(or
+		(or
+			(players-unit-type-count any-enemy knight-line >= THREE-PERCENT-POP);any enemy has got at least THREE-PERCENT-POP knights (constant)
+			(players-unit-type-count any-enemy war-elephant-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP war elefants (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy scout-cavalry-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP scouts (constant)
+			(players-unit-type-count any-enemy camel-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP camels (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train spearman-line)			;the AI trains spearmen
+)
+
+
+
+;Rule14: train SPEARMEN to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total spearman-line < FIVE-PERCENT-POP) ;the AI hasn't got FIVE-PERCENT-POP spearmen
+	(can-train spearman-line)			;the AI can train spearmen
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP mangudais (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train spearman-line)			;the AI trains spearmen
+)
+
+
+
+;Rule10: train SPEARMEN to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total spearman-line < FIVE-PERCENT-POP)	;the AI hasn't got FIVE-PERCENT-POP spearmen
+	(can-train spearman-line)			;the AI can train spearmen
+	(or
+		(or
+			(players-unit-type-count any-enemy knight-line >= FIVE-PERCENT-POP);any enemy has got at least FIVE-PERCENT-POP knights (constant)
+			(players-unit-type-count any-enemy war-elephant-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP war elefants (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy scout-cavalry-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP scouts (constant)
+			(players-unit-type-count any-enemy camel-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP camels (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train spearman-line)			;the AI trains spearmen
+)
+
+
+
+;Rule12: train more SPEARMEN to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total spearman-line < TEN-PERCENT-POP);the AI hasn't got TEN-PERCENT-POP spearmen (constant)
+	(can-train spearman-line)			;the AI can train spearmen
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP mangudais (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train spearman-line)				;the AI trains spearman
+)
+
+
+
+;Rule12: train more SPEARMEN to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total spearman-line < TEN-PERCENT-POP);the AI hasn't got TEN-PERCENT-POP spearmen (constant)
+	(can-train spearman-line)			;the AI can train spearmen
+	(or
+		(or
+			(players-unit-type-count any-enemy knight-line >= TEN-PERCENT-POP);any enemy has got at least TEN-PERCENT-POP knights (constant)
+			(players-unit-type-count any-enemy war-elephant-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP war elefants (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy scout-cavalry-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP scouts (constant)
+			(players-unit-type-count any-enemy camel-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP camels (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train spearman-line)			;the AI trains spearmen
+)
+
+
+#end-if		;if cic != turkish
+
+
+
+;CAMELS TO COUNTER
+;---------------------------------
+
+
+
+#load-if-defined TURKISH-CIV
+
+;Rule14: train CAMELS to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total camel-line < ONE-PERCENT-POP) 	;the AI hasn't got ONE-PERCENT-POP camels
+	(can-train camel-line)			;the AI can train camels
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP mangudais (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train camel-line)				;the AI trains camels
+)
+
+
+
+;Rule10: train CAMELS to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total camel-line < ONE-PERCENT-POP)	;the AI hasn't got ONE-PERCENT-POP camels
+	(can-train camel-line)			;the AI can train camels
+	(or
+		(or
+			(players-unit-type-count any-enemy knight-line >= ONE-PERCENT-POP);any enemy has got at least ONE-PERCENT-POP knights (constant)
+			(players-unit-type-count any-enemy war-elephant-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP war elefants (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy scout-cavalry-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP scouts (constant)
+			(players-unit-type-count any-enemy camel-line >= ONE-PERCENT-POP);or any enemy has got at least ONE-PERCENT-POP camels (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train camel-line)			;the AI trains camels
+)
+
+
+
+;Rule14: train CAMELS to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total camel-line < THREE-PERCENT-POP) 	;the AI hasn't got THREE-PERCENT-POP camels
+	(can-train camel-line)			;the AI can train camels
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP mangudais (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train camel-line)				;the AI trains camels
+)
+
+
+
+;Rule10: train CAMELS to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total camel-line < THREE-PERCENT-POP)	;the AI hasn't got THREE-PERCENT-POP camels
+	(can-train camel-line)			;the AI can train camels
+	(or
+		(or
+			(players-unit-type-count any-enemy knight-line >= THREE-PERCENT-POP);any enemy has got at least THREE-PERCENT-POP knights (constant)
+			(players-unit-type-count any-enemy war-elephant-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP war elefants (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy scout-cavalry-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP scouts (constant)
+			(players-unit-type-count any-enemy camel-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP camels (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train camel-line)			;the AI trains camels
+)
+
+
+
+;Rule14: train CAMELS to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total camel-line < FIVE-PERCENT-POP) 	;the AI hasn't got FIVE-PERCENT-POP camels
+	(can-train camel-line)			;the AI can train camels
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP mangudais (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train camel-line)				;the AI trains camels
+)
+
+
+
+;Rule10: train CAMELS to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total camel-line < FIVE-PERCENT-POP)	;the AI hasn't got FIVE-PERCENT-POP camels
+	(can-train camel-line)			;the AI can train camels
+	(or
+		(or
+			(players-unit-type-count any-enemy knight-line >= FIVE-PERCENT-POP);any enemy has got at least FIVE-PERCENT-POP knights (constant)
+			(players-unit-type-count any-enemy war-elephant-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP war elefants (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy scout-cavalry-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP scouts (constant)
+			(players-unit-type-count any-enemy camel-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP camels (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train camel-line)			;the AI trains camels
+)
+
+
+#end-if		;if civ == turkish
+
+
+
+;Rule15: train CAMELS to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total camel-line < TEN-PERCENT-POP)	;the AI hasn't got TEN-PERCENT-POP camels (constant)
+	(can-train camel-line)			;the AI can train camels
+	(or
+		(or
+			(players-unit-type-count any-enemy cavalry-archer-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP horse archers (constant)
+			(players-unit-type-count any-enemy cataphract-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP cataphracts (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mameluke-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP mamelukes (constant)
+			(players-unit-type-count any-enemy mangudai-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP mangudais (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train camel-line)				;the AI trains camels
+)
+
+
+
+;Rule12: train more CAMELS to counter the enemies riders
+
+(defrule				;If
+	(unit-type-count-total camel-line < TEN-PERCENT-POP);the AI hasn't got TEN-PERCENT-POP camels (constant)
+	(can-train camel-line)			;the AI can train camels
+	(or
+		(or
+			(players-unit-type-count any-enemy knight-line >= TEN-PERCENT-POP);any enemy has got at least TEN-PERCENT-POP knights (constant)
+
+			(players-unit-type-count any-enemy war-elephant-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP war elefants (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy scout-cavalry-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP scouts (constant)
+			(players-unit-type-count any-enemy camel-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP camels (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train camel-line)			;the AI trains camels
+)
+
+
+
+#load-if-not-defined TEUTONIC-CIV
+
+;LIGHT-CAVALRY TO COUNTER
+;------------------------------------------------
+
+
+
+;Rule18: train LIGHT-CAVALRY to counter the enemies monks
+
+(defrule				;If
+	(can-train scout-cavalry-line)		;the AI can train light-cavalry
+	(or
+		(and
+			(unit-type-count-total scout-cavalry-line < THREE-PERCENT-POP)	;number of light-cavalry less than THREE-PERCENT-POP
+			(players-unit-type-count any-enemy monk >= THREE-PERCENT-POP);and any enemy has got at least THREE-PERCENT-POP monks (constant)
+		)
+		(and
+			(unit-type-count-total scout-cavalry-line < FIVE-PERCENT-POP)	;or number of light-cavalry less than FIVE-PERCENT-POP
+			(players-unit-type-count any-enemy monk >= FIVE-PERCENT-POP);and any enemy has got at least FIVE-PERCENT-POP monks (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train scout-cavalry-line)			;the AI trains the light-cavalry
+)
+
+
+
+;Rule20: train LIGHT-CAVALRY to counter the enemies unique ranged units part 1; support the skirmishers who are trained above
+
+(defrule				;If
+	(unit-type-count-total scout-cavalry-line < FIVE-PERCENT-POP);number of light-cavalry less than FIVE-PERCENT-POP (constant)
+	(can-train scout-cavalry-line)		;the AI can train light-cavalry
+	(or
+		(or
+			(players-unit-type-count any-enemy longbowman-line >= TEN-PERCENT-POP);any enemy has got at least TEN-PERCENT-POP longbows (constant)
+			(players-unit-type-count any-enemy chu-ko-nu-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP chu ko nus (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mangudai-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP mangudais (constant)
+			(players-unit-type-count any-enemy janissary-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP janissaries (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train scout-cavalry-line)			;the AI trains the light-cavalry
+)
+
+
+
+;Rule21: train LIGHT-CAVALRY to counter the enemies ranged unique units part 2; support the skirmisher who are trained above
+
+(defrule				;If
+	(unit-type-count-total scout-cavalry-line < FIVE-PERCENT-POP);number of light-cavalry less than FIVE-PERCENT-POP (constant)
+	(can-train scout-cavalry-line)		;the AI can train light-cavalry
+	(or
+		(or
+			(players-unit-type-count any-enemy plumed-archer-line >= TEN-PERCENT-POP);any enemy has got at least TEN-PERCENT-POP plumed archers (constant)
+			(players-unit-type-count any-enemy conquistador-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP conquistadors (constant)
+		)
+		(players-unit-type-count any-enemy war-wagon-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP war wagons (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train scout-cavalry-line)			;the AI trains the light cavalry
+)
+
+
+
+;Rule22: train LIGHT CAVALRY to counter the enemies siege weapons
+
+(defrule				;If
+	(unit-type-count-total scout-cavalry-line <= FIVE-PERCENT-POP);number of light-cavalry less than FIVE-PERCENT-POP (constant)
+	(can-train scout-cavalry-line)		;the AI can train light-cavalry
+	(or
+		(or
+			(players-unit-type-count any-enemy mangonel-line >= TWO-PERCENT-POP);any enemy has got at least TWO-PERCENT-POP mangonels (constant)
+			(players-unit-type-count any-enemy scorpion-line >= TWO-PERCENT-POP);or any enemy has got at least TWO-PERCENT-POP scorpions (constant)
+		)
+		(players-unit-type-count any-enemy trebuchet >= 3);or any enemy has got at least 3 trebuchets (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train scout-cavalry-line)			;the AI trains the light-cavalry
+)
+
+
+
+#else		;if not civ == teutonic
+
+
+
+;KNIGHTS TO COUNTER
+;------------------------------------------------
+
+
+
+;Rule18: train KNIGHTS to counter the enemies monks
+
+(defrule				;If
+	(can-train knight-line)		;the AI can train knights
+	(or
+		(and
+			(unit-type-count-total knight-line < THREE-PERCENT-POP)	;number of knights less than THREE-PERCENT-POP
+			(players-unit-type-count any-enemy monk >= THREE-PERCENT-POP);and any enemy has got at least THREE-PERCENT-POP monks (constant)
+		)
+		(and
+			(unit-type-count-total knight-line < FIVE-PERCENT-POP)	;or number of knights less than FIVE-PERCENT-POP
+			(players-unit-type-count any-enemy monk >= FIVE-PERCENT-POP);and any enemy has got at least FIVE-PERCENT-POP monks (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train knight-line)			;the AI trains the knights
+)
+
+
+
+;Rule20: train KNIGHTS to counter the enemies unique ranged units part 1; support the skirmishers who are trained above
+
+(defrule				;If
+	(unit-type-count-total knight-line < FIVE-PERCENT-POP);number of knights less than FIVE-PERCENT-POP (constant)
+	(can-train knight-line)		;the AI can train knights
+	(or
+		(or
+			(players-unit-type-count any-enemy longbowman-line >= TEN-PERCENT-POP);any enemy has got at least TEN-PERCENT-POP longbows (constant)
+			(players-unit-type-count any-enemy chu-ko-nu-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP chu ko nus (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mangudai-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP mangudais (constant)
+			(players-unit-type-count any-enemy janissary-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP janissaries (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train knight-line)			;the AI trains the knights
+)
+
+
+
+;Rule21: train KNIGHTS to counter the enemies ranged unique units part 2; support the skirmisher who are trained above
+
+(defrule				;If
+	(unit-type-count-total knight-line < FIVE-PERCENT-POP);number of knights less than FIVE-PERCENT-POP (constant)
+	(can-train knight-line)		;the AI can train knights
+	(or
+		(or
+			(players-unit-type-count any-enemy plumed-archer-line >= TEN-PERCENT-POP);any enemy has got at least TEN-PERCENT-POP plumed archers (constant)
+			(players-unit-type-count any-enemy conquistador-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP conquistadors (constant)
+		)
+		(players-unit-type-count any-enemy war-wagon-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP war wagons (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train knight-line)			;the AI trains the knights
+)
+
+
+
+;Rule22: train KNIGHTS to counter the enemies siege weapons
+
+(defrule				;If
+	(unit-type-count-total knight-line <= FIVE-PERCENT-POP);number of eagle-warriors less than FIVE-PERCENT-POP (constant)
+	(can-train knight-line)		;the AI can train knights
+	(or
+		(or
+			(players-unit-type-count any-enemy mangonel-line >= TWO-PERCENT-POP);any enemy has got at least TWO-PERCENT-POP mangonels (constant)
+			(players-unit-type-count any-enemy scorpion-line >= TWO-PERCENT-POP);or any enemy has got at least TWO-PERCENT-POP scorpions (constant)
+		)
+		(players-unit-type-count any-enemy trebuchet >= 3);or any enemy has got at least 3 trebuchets (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train knight-line)			;the AI trains the knights
+)
+
+
+#end-if			;if civ == teutonic
+
+
+
+;EAGLE-WARRIORS TO COUNTER
+;------------------------------------------------
+
+
+
+;Rule18: train EAGLE-WARRIORS to counter the enemies ranged units part 1 (if there aren't so many)
+
+(defrule				;If
+	(unit-type-count-total eagle-warrior-line < THREE-PERCENT-POP)	;number of eagle-warriors less than THREE-PERCENT-POP
+	(can-train eagle-warrior-line)		;the AI can train eagle-warriors
+	(or
+		(or
+			(players-unit-type-count any-enemy archer-line >= THREE-PERCENT-POP);any enemy has got at least THREE-PERCENT-POP archers (constant)
+			(players-unit-type-count any-enemy cavalry-archer-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP cavarchers (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy skirmisher-line >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP skirmishers (constant)
+			(players-unit-type-count any-enemy monk >= THREE-PERCENT-POP);or any enemy has got at least THREE-PERCENT-POP monks (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train eagle-warrior-line)			;the AI trains the eagle-warriors
+)
+
+
+
+;Rule18: train EAGLE-WARRIORS to counter the enemies ranged units part 1 (if there aren't so many)
+
+(defrule				;If
+	(unit-type-count-total eagle-warrior-line < FIVE-PERCENT-POP)	;number of eagle-warriors less than FIVE-PERCENT-POP
+	(can-train eagle-warrior-line)		;the AI can train eagle-warriors
+	(or
+		(or
+			(players-unit-type-count any-enemy archer-line >= FIVE-PERCENT-POP);any enemy has got at least FIVE-PERCENT-POP archers (constant)
+			(players-unit-type-count any-enemy cavalry-archer-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP cavarchers (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy skirmisher-line >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP skirmishers (constant)
+			(players-unit-type-count any-enemy monk >= FIVE-PERCENT-POP);or any enemy has got at least FIVE-PERCENT-POP monks (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train eagle-warrior-line)			;the AI trains the eagle-warriors
+)
+
+
+
+;Rule19: train EAGLE-WARRIORS to counter the enemies foot ranged units part 2 (if there are many)
+
+(defrule				;If
+	(unit-type-count-total eagle-warrior-line <= TEN-PERCENT-POP);number of eagle-warriors less than TEN-PERCENT-POP (constant)
+	(can-train eagle-warrior-line)		;the AI can train eagle-warriors
+	(or
+		(or
+			(players-unit-type-count any-enemy archer-line >= TEN-PERCENT-POP);any enemy has got at least TEN-PERCENT-POP archers (constant)
+			(players-unit-type-count any-enemy cavalry-archer-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP cavarchers (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy skirmisher-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP skirmishers (constant)
+			(players-unit-type-count any-enemy monk >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP monks (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train eagle-warrior-line)			;the AI trains the eagle-warriors
+)
+
+
+
+;Rule20: train EAGLE-WARRIORS to counter the enemies unique ranged units part; support the skirmishers who are trained above
+
+(defrule				;If
+	(unit-type-count-total eagle-warrior-line < TEN-PERCENT-POP);number of eagle-warriors less than TEN-PERCENT-POP (constant)
+	(can-train eagle-warrior-line)		;the AI can train eagle-warriors
+	(or
+		(or
+			(players-unit-type-count any-enemy longbowman-line >= TEN-PERCENT-POP);any enemy has got at least TEN-PERCENT-POP longbows (constant)
+			(players-unit-type-count any-enemy chu-ko-nu-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP chu ko nus (constant)
+		)
+		(or
+			(players-unit-type-count any-enemy mangudai-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP mangudais (constant)
+			(players-unit-type-count any-enemy janissary-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP janissaries (constant)
+		)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train eagle-warrior-line)			;the AI trains the eagle-warriors
+)
+
+
+
+;Rule21: train EAGLE-WARRIORS to counter the enemies ranged unique units part; support the skirmisher who are trained above
+
+(defrule				;If
+	(unit-type-count-total eagle-warrior-line < TEN-PERCENT-POP);number of eagle-warriors less than TEN-PERCENT-POP (constant)
+	(can-train eagle-warrior-line)		;the AI can train eagle-warriors
+	(or
+		(or
+			(players-unit-type-count any-enemy plumed-archer-line >= TEN-PERCENT-POP);any enemy has got at least TEN-PERCENT-POP plumed archers (constant)
+			(players-unit-type-count any-enemy conquistador-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP conquistadors (constant)
+		)
+		(players-unit-type-count any-enemy war-wagon-line >= TEN-PERCENT-POP);or any enemy has got at least TEN-PERCENT-POP war wagons (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train eagle-warrior-line)			;the AI trains the eagle-warriors
+)
+
+
+
+;Rule22: train EAGLE-WARRIORS to counter the enemies siege weapons
+
+(defrule				;If
+	(unit-type-count-total eagle-warrior-line <= FIVE-PERCENT-POP);number of eagle-warriors less than FIVE-PERCENT-POP (constant)
+	(can-train eagle-warrior-line)		;the AI can train eagle-warriors
+	(or
+		(or
+			(players-unit-type-count any-enemy mangonel-line >= TWO-PERCENT-POP);any enemy has got at least TWO-PERCENT-POP mangonels (constant)
+			(players-unit-type-count any-enemy scorpion-line >= TWO-PERCENT-POP);or any enemy has got at least TWO-PERCENT-POP scorpions (constant)
+		)
+		(players-unit-type-count any-enemy trebuchet >= 3);or any enemy has got at least 3 trebuchets (constant)
+	)
+	(or
+		(and
+			(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)	;or goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+		)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train eagle-warrior-line)			;the AI trains the eagle-warriors
+)
+
+
+
+;SHIPS
+;*********************************
+;*********************************
+
+
+
+;Rule23: train WAR-GALLEYS if the enemy has got plenty of demolition-ships
+
+(defrule				;If
+	(unit-type-count-total galley-line < THREE-PERCENT-POP);number of galleys less than THREE-PERCENT-POP (constant)
+	(players-unit-type-count any-enemy demolition-ship-line >= TWO-PERCENT-POP);any enemy has got at least TWO-PERCENT-POP demo.-ships (constant)
+	(can-train galley-line)			;the AI can train galleys
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(or
+		(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train galley-line)				;the AI trains a galley
+)
+
+
+
+;Rule24: train DEMOLITION-SHIPS if the enemy has got plenty of fire-ships
+
+(defrule				;If
+	(unit-type-count-total demolition-ship-line < THREE-PERCENT-POP);number of demolition-ships less than THREE-PERCENT-POP (constant)
+	(players-unit-type-count any-enemy fire-ship-line >= TWO-PERCENT-POP);any enemy has got at least TWO-PERCENT-POP fire-ships (constant)
+	(can-train demolition-ship-line)		;the AI can train demolition-ships
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(or
+		(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train demolition-ship-line)			;the AI trains a demo.-ship
+)
+
+
+
+;Rule25: train FIRE-SHIPS if the enemy has got plenty of galleys
+
+(defrule				;If
+	(unit-type-count-total fire-ship-line < THREE-PERCENT-POP);number of fire-ships less than THREE-PERCENT-POP (constant)
+	(players-unit-type-count any-enemy galley-line >=  TWO-PERCENT-POP);any enemy has got at least TWO-PERCENT-POP galleys (constant)
+	(can-train fire-ship-line)			;the AI can train fire-ships
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(or
+		(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+		(not (death-match-game))	;or we do not play death-match
+	)
+=>				;then
+	(train fire-ship-line)			;the AI trains a fire-ship
+)
+
+
+#end-if		;if not difficulty == easy
+#end-if		;if not difficulty == easiest
+
+
+;=====END; The Duke Military.per=====
+;=====ALL RIGHTS RESERVED=======

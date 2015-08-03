@@ -1,0 +1,1463 @@
+;			The Duke Rush.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+
+;===========================================================================
+;			RUSH-CONTROLING
+;===========================================================================
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+
+;Rule1: initialisation of rushing
+
+(defrule				;If
+	(true)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO ; note, this will forbit rushing on the other difficulty-levels
+	(chat-local-to-self "Low difficulty -> no rushing")
+	(disable-self)					;but this is only an initialisation
+)
+
+#end-if		;if difficulty != hardest
+#end-if		;if difficulty != hard
+#end-if		;if difficulty != moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+
+;Rule1: initialisation of rushing
+
+(defrule				;If
+	(true)				;
+=>				;then
+	(set-goal RUSH-CONTROL ENABLE)		;the AI sets goal RUSH-CONTROL to ENABLE ; note, this will forbit rushing on the other difficulty-levels
+	(generate-random-number 10)			;the AI generates a random number (values: 0-10)
+	(disable-self)					;but this is only an initialisation
+)
+
+#end-if		;if difficulty != easy
+#end-if		;if difficulty != easiest
+
+
+
+;*******************************************************
+;*******************************************************
+;COUNT HOW MANY PLAYERS ARE IN THE GAME
+
+
+
+(defrule
+	(player-valid 2)
+	(not (player-valid 3))
+=>
+	(set-goal HOW-MANY-PLAYERS TWO)
+	(disable-self)
+)
+
+(defrule
+	(player-valid 3)
+	(not (player-valid 4))
+=>
+	(set-goal HOW-MANY-PLAYERS THREE)
+	(disable-self)
+)
+
+(defrule
+	(player-valid 4)
+	(not (player-valid 5))
+=>
+	(set-goal HOW-MANY-PLAYERS FOUR)
+	(disable-self)
+)
+
+(defrule
+	(player-valid 5)
+	(not (player-valid 6))
+=>
+	(set-goal HOW-MANY-PLAYERS FIVE)
+	(disable-self)
+)
+
+(defrule
+	(player-valid 6)
+	(not (player-valid 7))
+=>
+	(set-goal HOW-MANY-PLAYERS SIX)
+	(disable-self)
+)
+
+(defrule
+	(player-valid 7)
+	(not (player-valid 8))
+=>
+	(set-goal HOW-MANY-PLAYERS SEVEN)
+	(disable-self)
+)
+
+(defrule
+	(player-valid 8)
+=>
+	(set-goal HOW-MANY-PLAYERS EIGHT)
+	(disable-self)
+)
+
+
+
+;*************************************************
+;*************************************************
+;DEPENDENT ON THE NUMBER OF PLAYERS IN GAME WE CAN LAUNCH RUSHES
+
+
+
+#load-if-not-defined NORMAL-MAP
+#load-if-not-defined LARGE-MAP
+#load-if-not-defined GIANT-MAP
+
+(defrule				;If
+	(or
+		(goal HOW-MANY-PLAYERS TWO)	;goal HOW-MANY-PLAYERS to TWO (constant)
+		(or
+			(goal HOW-MANY-PLAYERS THREE);or goal HOW-MANY-PLAYERS to THREE (constant)
+			(goal HOW-MANY-PLAYERS FOUR);or goal HOW-MANY-PLAYERS to FOUR (constant)
+		)
+	)
+	(goal RUSH-CONTROL ENABLE)		;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL PRIVILEGED)	;the AI sets goal RUSH-CONTROL to PRIVILEGED (constant)
+	(disable-self)				;only once
+)
+
+#end-if		;if map != giant
+#end-if		;if map != large
+#end-if		;if map != normal
+
+
+
+#load-if-not-defined TINY-MAP
+#load-if-not-defined SMALL-MAP
+#load-if-not-defined MEDIUM-MAP
+
+(defrule				;If
+	(or
+		(goal HOW-MANY-PLAYERS TWO)	;goal HOW-MANY-PLAYERS to TWO (constant)
+		(or
+			(goal HOW-MANY-PLAYERS THREE);or goal HOW-MANY-PLAYERS to THREE (constant)
+			(goal HOW-MANY-PLAYERS FOUR);or goal HOW-MANY-PLAYERS to FOUR (constant)
+		)
+	)
+	(goal RUSH-CONTROL ENABLE)		;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)		;the AI sets goal RUSH-CONTROL to NO (constant)
+	(disable-self)				;only once
+)
+
+#end-if		;if map != medium
+#end-if		;if map != small
+#end-if		;if map != tiny
+
+
+
+(defrule				;If
+	(goal HOW-MANY-PLAYERS FIVE)		;goal HOW-MANY-PLAYERS to FIVE (constant)
+	(goal RUSH-CONTROL ENABLE)		;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+;	(chat-local-to-self "five players in game, no ally -> no rush");the AI sends the chat as a local one to itself
+	(set-goal RUSH-CONTROL NO)		;the AI sets goal RUSH-CONTROL to NO (constant)
+	(disable-self)				;only once
+)
+
+
+
+(defrule				;If
+	(goal HOW-MANY-PLAYERS FIVE)		;goal HOW-MANY-PLAYERS to FIVE (constant)
+	(goal RUSH-CONTROL ENABLE)		;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+;	(chat-local-to-self "five players in game, ally -> rush");the AI sends the chat as a local one to itself
+	(disable-self)				;only once
+)
+
+
+
+(defrule				;If
+	(goal HOW-MANY-PLAYERS SIX)		;goal HOW-MANY-PLAYERS to SIX (constant)
+	(goal RUSH-CONTROL ENABLE)		;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+;	(chat-local-to-self "six players in game ->no rush");the AI sends the chat as a local one to itself
+	(set-goal RUSH-CONTROL NO)		;the AI sets goal RUSH-CONTROL to NO (constant)
+	(disable-self)				;only once
+)
+
+
+
+(defrule				;If
+	(goal HOW-MANY-PLAYERS SEVEN)		;goal HOW-MANY-PLAYERS to SEVEN (constant)
+	(goal RUSH-CONTROL ENABLE)		;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+;	(chat-local-to-self "seven players in game -> no rush");the AI sends the chat as a local one to itself
+	(set-goal RUSH-CONTROL NO)		;the AI sets goal RUSH-CONTROL to NO (constant)
+	(disable-self)				;only once
+)
+
+
+
+(defrule				;If
+	(goal HOW-MANY-PLAYERS EIGHT)		;goal HOW-MANY-PLAYERS to EIGHT (constant)
+	(goal RUSH-CONTROL ENABLE)		;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+;	(chat-local-to-self "eight players in game -> no rush");the AI sends the chat as a local one to itself
+	(set-goal RUSH-CONTROL NO)		;the AI sets goal RUSH-CONTROL to NO (constant)
+	(disable-self)				;only once
+)
+
+
+
+
+#load-if-not-defined DEATH-MATCH
+
+;the file is not loaded if we play wonder race so here is no need for a "#load-if-not-defined WONDER-RACE"
+;**************************************************************************
+;**************************************************************************
+
+
+
+;******************************************************
+;******************************************************
+;RUSH DEFINING
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule4: define the CASTLE-RUSH when we're playing on moderate; part 1
+
+(defrule				;If
+	(random-number <= 5)				;the value of the random-number is less or equal than 5
+	(goal RUSH-CONTROL PRIVILEGED)		;goal RUSH-CONTROL to PRIVILEGED (constant)
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule5: define the IMPERIAL-BOOM when we're playing on moderate; part 1
+
+(defrule				;If
+	(random-number > 5)				;the value of the random-number is greater than 5
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL PRIVILEGED)		;goal RUSH-CONTROL to PRIVILEGED (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule4: define the CASTLE-RUSH when we're playing on moderate; part 2
+
+(defrule				;If
+	(random-number <= 3)				;the value of the random-number is less or equal than 3
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule5: define the IMPERIAL-BOOM when we're playing on moderate; part 2
+
+(defrule				;If
+	(random-number > 3)				;the value of the random-number is greater than 3
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+#end-if		;if difficulty == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule7: define the FLUSH when we're playing on hard or hardest
+
+(defrule				;If
+	(random-number <= 2)				;the value of the random-number is less or equal than 2
+	(goal RUSH-CONTROL PRIVILEGED)		;goal RUSH-CONTROL to PRIVILEGED (constant)
+	(current-age <= feudal-age)			;the age, the AI is in, is less or equal than feudal age
+=>				;then
+	(set-goal RUSH-CONTROL FEUDAL)			;the AI sets goal RUSH-CONTROL to FEUDAL (constant)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard or hardest
+
+(defrule				;If
+	(random-number > 2)				;the value of the random-number is greater than 2
+	(random-number <= 7)				;the value of the random-number is less or equal than 7
+	(goal RUSH-CONTROL PRIVILEGED)		;goal RUSH-CONTROL to PRIVILEGED (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard or hardest
+
+(defrule				;If
+	(random-number > 7)				;the value of the random-number is greater than 7
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL PRIVILEGED)		;goal RUSH-CONTROL to PRIVILEGED (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;******************************************************
+;******************************************************
+;RUSH DEFINING DEPENDENT ON THE DEFINED CIV
+
+
+
+;*****************************************
+;*****************************************
+;AZTECS
+
+
+
+#load-if-defined AZTEC-CIV
+
+;Rule7: define the FLUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 2)				;the value of the random-number is less or equal than 2
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= feudal-age)			;the age, the AI is in, is less or equal than feudal age
+=>				;then
+	(set-goal RUSH-CONTROL FEUDAL)		;the AI sets goal RUSH-CONTROL to FEUDAL (constant)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number > 2)				;the value of the random-number is greater than 2
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == aztec
+
+
+
+;*****************************************
+;*****************************************
+;BRITONS
+
+
+
+#load-if-defined BRITON-CIV
+
+;Rule7: define the FLUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 3)				;the value of the random-number is less or equal than 3
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= feudal-age)			;the age, the AI is in, is less or equal than feudal age
+=>				;then
+	(set-goal RUSH-CONTROL FEUDAL)		;the AI sets goal RUSH-CONTROL to FEUDAL (constant)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number > 3)				;the value of the random-number is greater than 3
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == briton
+
+
+
+;*****************************************
+;*****************************************
+;BYZANTINES
+
+
+
+#load-if-defined BYZANTINE-CIV
+
+;Rule7: define the FLUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 3)				;the value of the random-number is less or equal than 3
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= feudal-age)			;the age, the AI is in, is less or equal than feudal age
+=>				;then
+	(set-goal RUSH-CONTROL FEUDAL)		;the AI sets goal RUSH-CONTROL to FEUDAL (constant)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number > 3)				;the value of the random-number is greater than 3
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == byzantine
+
+
+
+;*****************************************
+;*****************************************
+;CHINESES
+
+
+
+#load-if-defined CHINESE-CIV
+
+;Rule7: define the FLUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 3)				;the value of the random-number is less or equal than 3
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= feudal-age)			;the age, the AI is in, is less or equal than feudal age
+=>				;then
+	(set-goal RUSH-CONTROL FEUDAL)		;the AI sets goal RUSH-CONTROL to FEUDAL (constant)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number > 3)				;the value of the random-number is greater than 3
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == chinese
+
+
+
+;*****************************************
+;*****************************************
+;CELTICS
+
+
+
+#load-if-defined CELTIC-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 5)				;the value of the random-number is less or equal than 5
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 5)				;the value of the random-number is greater than 5
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == celtic
+
+
+
+;*****************************************
+;*****************************************
+;FRANKISHES
+
+
+
+#load-if-defined FRANKISH-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 5)				;the value of the random-number is less or equal than 5
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 5)				;the value of the random-number is greater than 5
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == frankish
+
+
+
+;*****************************************
+;*****************************************
+;GOTHS
+
+
+
+#load-if-defined GOTHIC-CIV
+
+;Rule7: define the FLUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 3)				;the value of the random-number is less or equal than 3
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= feudal-age)			;the age, the AI is in, is less or equal than feudal age
+=>				;then
+	(set-goal RUSH-CONTROL FEUDAL)		;the AI sets goal RUSH-CONTROL to FEUDAL (constant)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number > 3)				;the value of the random-number is greater than 3
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == gothic
+
+
+
+;*****************************************
+;*****************************************
+;HUNS
+
+
+
+#load-if-defined HUN-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == hun
+
+
+
+;*****************************************
+;*****************************************
+;JAPANESES
+
+
+
+#load-if-defined JAPANESE-CIV
+
+;Rule7: define the FLUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 2)				;the value of the random-number is less or equal than 2
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= feudal-age)			;the age, the AI is in, is less or equal than feudal age
+=>				;then
+	(set-goal RUSH-CONTROL FEUDAL)		;the AI sets goal RUSH-CONTROL to FEUDAL (constant)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number > 2)				;the value of the random-number is greater than 2
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == japanese
+
+
+
+;*****************************************
+;*****************************************
+;KOREANS
+
+
+
+#load-if-defined KOREAN-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 4)				;the value of the random-number is less or equal than 4
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 4)				;the value of the random-number is greater than 4
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == korean
+
+
+
+;*****************************************
+;*****************************************
+;MAYANS
+
+
+
+#load-if-defined MAYAN-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == mayan
+
+
+
+;*****************************************
+;*****************************************
+;MONGOLS
+
+
+
+#load-if-defined MONGOL-CIV
+
+;Rule7: define the FLUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 3)				;the value of the random-number is less or equal than 3
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= feudal-age)			;the age, the AI is in, is less or equal than feudal age
+=>				;then
+	(set-goal RUSH-CONTROL FEUDAL)		;the AI sets goal RUSH-CONTROL to FEUDAL (constant)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number > 3)				;the value of the random-number is greater than 3
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == mongol
+
+
+
+;*****************************************
+;*****************************************
+;PERSIANS
+
+
+
+#load-if-defined PERSIAN-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == persian
+
+
+
+;*****************************************
+;*****************************************
+;SARACENS
+
+
+
+#load-if-defined SARACEN-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 5)				;the value of the random-number is less or equal than 5
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 5)				;the value of the random-number is greater than 5
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == saracen
+
+
+
+;*****************************************
+;*****************************************
+;SPANISH
+
+
+
+#load-if-defined SPANISH-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == spanish
+
+
+
+;*****************************************
+;*****************************************
+;TEUTONICS
+
+
+
+#load-if-defined TEUTONIC-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == teutonic
+
+
+
+;*****************************************
+;*****************************************
+;TURKISHES
+
+
+
+#load-if-defined TURKISH-CIV
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 6)				;the value of the random-number is less or equal than 7
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == turkish
+
+
+
+;*****************************************
+;*****************************************
+;VIKINGS
+
+
+
+#load-if-defined VIKING-CIV
+
+;Rule7: define the FLUSH when we're playing on hard
+
+(defrule				;If
+	(random-number <= 3)				;the value of the random-number is less or equal than 3
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= feudal-age)			;the age, the AI is in, is less or equal than feudal age
+=>				;then
+	(set-goal RUSH-CONTROL FEUDAL)		;the AI sets goal RUSH-CONTROL to FEUDAL (constant)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: define the CASTLE-RUSH when we're playing on hard
+
+(defrule				;If
+	(random-number > 3)				;the value of the random-number is greater than 3
+	(random-number <= 6)				;the value of the random-number is less or equal than 6
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+	(current-age <= castle-age)				;the age, the AI is in, is less or equal than castle age
+=>				;then
+	(set-goal RUSH-CONTROL CASTLE)		;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+
+;Rule8: when don't we do any rush when we're playing on hard
+
+(defrule				;If
+	(random-number > 6)				;the value of the random-number is greater than 6
+	(random-number <= 10)				;the value of the random-number is less or equal than 10
+	(goal RUSH-CONTROL ENABLE)			;goal RUSH-CONTROL to ENABLE (constant)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "NO RUSHING")			;the AI sends the chat as a local one to itselfs
+	(disable-self)					;but only one-time
+)
+
+
+#end-if		;if civ == viking
+
+
+
+#end-if		;if not difficulty == moderate
+;******************************************************
+;******************************************************
+
+
+
+;******************************************************
+;******************************************************
+;ON WATER MAPS WE DON'T DO A RUSH!
+
+
+
+;Rule12: do not do any rush if we are on a water or on an island map
+
+(defrule				;If
+	(or
+		(goal RUSH-CONTROL FEUDAL)		;goal RUSH-CONTROL to FEUDAL (constant)
+		(goal RUSH-CONTROL CASTLE)		;or goal RUSH-CONTROL to CASTLE (constant)
+	)
+	(or
+		(goal MAP-KIND ISLAND-MAP)		;goal MAP-KIND to ISLAND-MAP (constant)
+		(goal MAP-KIND WATER-MAP)		;or goal MAP-KIND to WATER-MAP (constant)
+	)
+=>				;then
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-local-to-self "Water Map -> No Rush")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+#load-if-defined REGICIDE
+
+(defrule				;If
+	(not (goal RUSH-CONTROL NO))		;goal RUSH-CONTROL is not set to NO (constant)
+=>				;then
+	(chat-local-to-self "Regicide: no rushes (player's castle)");the AI sends the chat as a local one to itselfs
+	(set-goal RUSH-CONTROL NO)		;the AI sets goal RUSH-CONTROl to NO (constant)
+)
+
+#end-if		;if game-type == regicide
+
+
+
+;*************************************************
+;*************************************************
+
+
+
+;Rule18: set the RUSHING-goal when we're going to do the FLUSH
+
+(defrule				;If
+	(goal RUSH-CONTROL FEUDAL)			;goal RUSH-CONTROL to FEUDAL (constant)
+	(current-age == feudal-age)				;the age, the AI is in, is feudal-age
+	(or
+		(starting-age < castle-age)		;we started in the feudal-age or dark-age
+		(game-time > 60)			;or we are playing at least 1 min already
+	)
+=>				;then
+	(set-goal RUSH-CONTROL RUSHING);the AI sets goal RUSH-CONTROL to RUSHING (constant)
+)
+
+
+
+;Rule18: set the RUSHING-goal when we're going to do the CASTLE-RUSH
+
+(defrule				;If
+	(goal RUSH-CONTROL CASTLE)			;goal RUSH-CONTROL to CASTLE (constant)
+	(current-age == castle-age)				;the age, the AI is in, is castle-age
+	(or
+		(starting-age < castle-age)		;we started in the feudal-age or dark-age
+		(game-time > 60)			;or we are playing at least 1 min already
+	)
+=>				;then
+	(set-goal RUSH-CONTROL RUSHING);the AI sets goal RUSH-CONTROL to RUSHING (constant)
+)
+
+
+
+;*************************************************
+;*************************************************
+;END THE RUSHES
+
+
+
+;Rule19: reset the RUSHING-goal when we did a rush and the enemies are not so puny, otherwise continue rushing
+
+(defrule				;If
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(or
+		(cc-players-building-type-count any-enemy castle > 0);any enemy built a castle
+		(players-unit-type-count any-enemy knight > 4);or any enemy has more than 4 knights
+	)
+	(current-age == feudal-age)			;the age, the AI is in, is feudal age
+=>				;then
+	(set-strategic-number sn-maximum-town-size 16)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-to-allies "39 I will not continue rushing the enemy, because he got too strong!");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule19: reset the RUSHING-goal when we did a rush and the enemies are not so puny, otherwise continue rushing
+
+(defrule				;If
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(players-building-count every-enemy == 0)	;we did not find any enemy
+	(current-age == feudal-age)			;the age, the AI is in, is eudal age
+	(current-age-time > 120)			;time in the feudal-age is greater than 2 min
+=>				;then
+	(set-strategic-number sn-maximum-town-size 16)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(set-goal RUSH-CONTROL CASTLE)			;the AI sets goal RUSH-CONTROL to CASTLE (constant)
+	(chat-to-allies "39 I did not see any enemy, so I'll launch a castle-age-rush instead");the AI sends the chat as a local one to itselfs
+	(chat-to-allies "of a feudal-age-rush!")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule19: reset the RUSHING-goal when we did a rush and the enemies are not so puny, otherwise continue rushing
+
+(defrule				;If
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(or
+		(goal MILITARY-PARITY VASTLY-INFERIOR)	;goal MILITARY-PARITY to VASTLY-INFERIOR (constant)
+		(game-time > 2700)			;or we've played 45 min already
+	)
+	(current-age-time > 900)			;time in the castle-age is greater than 15 min
+	(military-population > TEN-PERCENT-POP);we have at least TEN-PERCENT-POP military units (constant)
+=>				;then
+	(set-strategic-number sn-maximum-town-size 16)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(set-goal RUSH-CONTROL NO)			;the AI sets goal RUSH-CONTROL to NO (constant)
+	(chat-to-allies "39 I will not continue rushing the enemy, because he got too strong!")	;the AI sends the chat as a local one to itselfs
+	(chat-local-to-self "No rush anymore -> enemy too strong")
+)
+
+
+
+;*************************************************
+;*************************************************
+;DEFINE WHICH UNITS WE'LL TRAIN TO DO THE RUSHES
+
+
+;Rule24: define units for the castle-rush
+
+(defrule				;If
+	(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
+	(current-age >= feudal-age)	;the age, the AI is in, is greater or equal than feudal-age
+	(current-age-time > 30)		;the time in the current age is greater than 30
+=>				;then
+	(generate-random-number 6)			;the AI generates a random-number, values: 1 - 6
+	(disable-self)
+)
+
+;*********************************
+
+#load-if-not-defined MAYAN-CIV
+#load-if-not-defined AZTEC-CIV
+
+
+
+(defrule				;If
+	(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
+	(current-age >= feudal-age)	;the age, the AI is in, is greater or equal than feudal-age
+	(current-age-time > 30)		;the time in the current age is greater than 30
+	(random-number <= 2)			;the value of the random number is less or equal than 2
+=>				;then
+	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT to SKIRMISHER (constant)
+	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT2 to KNIGHT (constant)
+	(set-goal SECONDARY-COMBAT-UNIT2 SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT2 to SKIRMISHER (constant)
+	(chat-local-to-self "knights and skirmishers for castle-rush");the AI sends the chat as a local one to itselfs
+	(chat-to-player every-ally "39 I will do the castle-rush with knights and skirmishers!");the AI sends the chat as a local one to all its allies
+	(disable-self)				;only once at the start of the game
+)
+
+(defrule				;If
+	(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
+	(current-age >= feudal-age)	;the age, the AI is in, is greater or equal than feudal-age
+	(current-age-time > 30)		;the time in the current age is greater than 30
+	(random-number > 2)			;the value of the random number is greater than 2
+	(random-number <= 4)			;the value of the random number is less or equal than 4
+=>				;then
+	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
+	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT);the AI sets goal PRIMARY-COMBAT-UNIT2 to KNIGHT (constant)
+	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN);the AI sets goal SECONDARY-COMBAT-UNIT2 to SPEARMAN (constant)
+	(chat-local-to-self "knights and spearmen for castle-rush");the AI sends the chat as a local one to itselfs
+	(chat-to-player every-ally "39 I will do the castle-rush with knights and spearmen!");the AI sends the chat as a local one to all its allies
+	(disable-self)				;only once at the start of the game
+)
+
+(defrule				;If
+	(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
+	(current-age >= feudal-age)	;the age, the AI is in, is greater or equal than feudal-age
+	(current-age-time > 30)		;the time in the current age is greater than 30
+	(random-number > 4)			;the value of the random number is greater than 4
+	(random-number <= 6)			;the value of the random number is less or equal than 6
+=>				;then
+	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)	;the AI sets goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1);the AI sets goal SECONDARY-COMBAT-UNIT to INFANTRY1 (constant)
+	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT);the AI sets goal PRIMARY-COMBAT-UNIT2 to KNIGHT (constant)
+	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1);the AI sets goal SECONDARY-COMBAT-UNIT2 to INFANTRY1 (constant)
+	(chat-local-to-self "knights and swordsmen for castle-rush");the AI sends the chat as a local one to itselfs
+	(chat-to-player every-ally "39 I will do the castle-rush with knights and swordsmen!");the AI sends the chat as a local one to all its allies
+	(disable-self)				;only once at the start of the game
+)
+
+#else
+
+(defrule				;If
+	(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
+	(current-age >= feudal-age)	;the age, the AI is in, is greater or equal than feudal-age
+	(current-age-time > 30)		;the time in the current age is greater than 30
+=>				;then
+	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;the AI sets goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(set-goal SECONDARY-COMBAT-UNIT NO);the AI sets goal SECONDARY-COMBAT-UNIT to NO (constant)
+	(set-goal PRIMARY-COMBAT-UNIT2 EAGLEMAN)	;the AI sets goal PRIMARY-COMBAT-UNIT2 to EAGLEMAN (constant)
+	(set-goal SECONDARY-COMBAT-UNIT2 NO);the AI sets goal SECONDARY-COMBAT-UNIT2 to NO (constant)
+	(chat-local-to-self "eagle-warriors for castle-rush");the AI sends the chat as a local one to itselfs
+	(chat-to-player every-ally "39 I will do the castle-rush with eagle-warriors!");the AI sends the chat as a local one to all its allies
+	(disable-self)				;only once at the start of the game
+)
+
+#end-if		;if not civ == aztec
+
+#else
+
+(defrule				;If
+	(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
+	(current-age >= feudal-age)	;the age, the AI is in, is greater or equal than feudal-age
+	(current-age-time > 30)		;the time in the current age is greater than 30
+=>				;then
+	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;the AI sets goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT to SKIRMISHER (constant)
+	(set-goal PRIMARY-COMBAT-UNIT2 EAGLEMAN)	;the AI sets goal PRIMARY-COMBAT-UNIT2 to EAGLEMAN (constant)
+	(set-goal SECONDARY-COMBAT-UNIT2 SKIRMISHER);the AI sets goal SECONDARY-COMBAT-UNIT2 to SKIRMISHER (constant)
+	(chat-local-to-self "eagle-warriors and skirmishers for castle-rush");the AI sends the chat as a local one to itselfs
+	(chat-to-player every-ally "39 I will do the castle-rush with eagle-warriors and skirmishers!");the AI sends the chat as a local one to all its allies
+	(disable-self)				;only once at the start of the game
+)
+
+
+#end-if		;if not civ == mayan
+
+
+
+;**************************************************************************
+;**************************************************************************
+#end-if		;if not game type == deathmatch
+
+
+
+;*************************************************
+;*************************************************
+;INFORM ALLIES IF WE'LL DO A RUSH
+
+
+
+;Rule21: inform our allies when we're going to do a feudal-age-rush (flush)
+
+(defrule				;If
+	(game-time > 10)					;the time we played already is greater than 10 seconds
+	(goal RUSH-CONTROL FEUDAL)			;goal RUSH-CONTROL to FEUDAL (constant)
+=>				;then
+	(chat-to-player every-ally "39 I'll do a FLUSH!")		;the AI sends the chat to all its allies
+	(disable-self)					;but only once to forbit getting on the nerves of our allies
+)
+
+
+
+;Rule22: inform our allies when we're going to do a castle-jump
+
+(defrule				;If
+	(game-time > 10)					;the time we played already is greater than 10 seconds
+	(goal RUSH-CONTROL CASTLE)			;goal RUSH-CONTROL to CASTLE (constant)
+=>				;then
+	(chat-to-player every-ally "39 I'll do a rush in the castle-age!");the AI sends the chat to all its allies
+	(disable-self)					;but only once to forbit getting on the nerves of our allies
+)
+
+
+#end-if		;if not difficulty == easy
+#end-if		;if not difficulty == easiest
+
+
+;=====END; The Duke Rush.per=====
+;=====ALL RIGHTS RESERVED=====

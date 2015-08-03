@@ -1,0 +1,98 @@
+;			The Duke Boar Cheating.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+;You can change the usage of boar-resource-cheating by doing the following:
+;below you see that the "defrule" only gets executed when the "#load-if"-things are full-filled, so the
+;first "defrule" gets executed when the AI plays on easy-difficulty or easiest. The second, some lines below the first, gets executed when the AI
+;plays on moderate-, hard-, or hardest - diffficulty. By changing the "NO" into a "YES" or the other way round you can tell the AI when it should cheat the boar resources related
+;to the different difficulty-settings.
+;Make sure you use capital letters for the "NO" or the "YES".
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+(defrule				;if
+	(true)						;this condition is always true -> the rule always gets executed
+=>					;then
+	(set-goal BOAR-CHEATING NO)			;the AI sets goal BOAR-CHEATING to NO (constant)
+	(disable-self)					;only initialisation
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty == hardest
+#end-if		;if not difficulty == hard
+#end-if		;if not difficulty == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+(defrule				;if
+	(true)						;this condition is always true -> the rule always gets executed
+=>					;then
+	(set-goal BOAR-CHEATING YES)			;the AI sets goal BOAR-CHEATING to YES (constant)
+	(disable-self)					;only initialisation
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty == easy
+#end-if		;if not difficulty == easiest
+
+
+
+#load-if-defined DIFFICULTY-EASIEST
+(defconst BOAR-CHEATING-AMOUNT 100)
+(defconst BOAR-CHEATING-TIME 1200)
+#end-if
+
+#load-if-defined DIFFICULTY-EASY
+(defconst BOAR-CHEATING-AMOUNT 150)
+(defconst BOAR-CHEATING-TIME 1200)
+#end-if
+
+#load-if-defined DIFFICULTY-MODERATE
+(defconst BOAR-CHEATING-AMOUNT 250)
+(defconst BOAR-CHEATING-TIME 100)
+#end-if
+
+#load-if-defined DIFFICULTY-HARD
+(defconst BOAR-CHEATING-AMOUNT 370)
+(defconst BOAR-CHEATING-TIME 300)
+#end-if
+
+#load-if-defined DIFFICULTY-HARDEST
+(defconst BOAR-CHEATING-AMOUNT 400)
+(defconst BOAR-CHEATING-TIME 300)
+#end-if
+
+
+
+(defrule				;if
+	(goal BOAR-CHEATING YES)			;goal BOAR-CHEATING to YES (constant)
+	(game-time > BOAR-CHEATING-TIME)		;we played BOAR-CHEATING-TIME already (see constants above)
+=>					;then
+	(cc-add-resource wood BOAR-CHEATING-AMOUNT)	;the AI gets BOAR-CHEATING-AMOUNT wood (see constants above)
+	(disable-self)					;only initialisation
+)
+
+
+;=====END; The Duke Boar Cheating.per=====
+;=====ALL RIGHTS RESERVED=================

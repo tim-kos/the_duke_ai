@@ -1,0 +1,2157 @@
+;		The Duke Diplomacy.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+;========================================================================
+;	HERE IS ALL THE STUFF THAT WE NEED TO COORPERATE WITH OUR ALLIES
+;		AND CHANGE OUR STANCE TO THE OTHER PLAYERS
+;========================================================================
+
+
+
+;*************************************************
+;*************************************************
+;TRADING WITH CARTS OR COGS
+
+
+
+#load-if-not-defined WONDER-RACE
+
+(defrule				;If
+	(or
+		(goal MAP-KIND LAND-MAP)
+		(goal MAP-KIND RIVERS-MAP)
+	)
+	(player-in-game any-ally)
+	(current-age >= castle-age)
+	(wood-amount >= 200)
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 400)			;or the amount of wood is greater than 400
+	)
+	(goal RUSH-CONTROL NO)
+	(military-population >= EIGHT-PERCENT-POP)
+	(can-train trade-cart)
+	(players-building-type-count any-ally market >= 1)
+	(unit-type-count-total trade-cart < TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES)
+	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
+=>				;then
+	(train trade-cart)
+)
+
+
+
+(defrule				;If
+	(or
+		(goal MAP-KIND WATER-MAP)
+		(goal MAP-KIND ISLAND-MAP)
+	)
+	(player-in-game any-ally)
+	(current-age >= castle-age)
+	(wood-amount >= 200)
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 400)			;or the amount of wood is greater than 400
+	)
+	(can-train trade-cog)
+	(goal RUSH-CONTROL NO)
+	(military-population >= TEN-PERCENT-POP)
+	(players-building-type-count any-ally market >= 1)
+	(unit-type-count-total trade-cog < TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES)
+	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
+=>				;then
+	(train trade-cog)
+)
+
+
+
+(defrule				;If
+	(cc-players-building-type-count every-ally market == 0)
+	(or
+		(unit-type-count-total trade-cart > 0)
+		(unit-type-count-total trade-cog > 0)
+	)
+=>				;then
+	(delete-unit trade-cart)
+	(delete-unit trade-cog)
+)
+
+
+#end-if		;if not game type == wonder race
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;COMMAND-DETECTING
+
+
+
+;31 == ATTACK AN ENEMY NOW
+;*****************************************
+;*****************************************
+
+
+(defrule
+	(taunt-detected any-ally 31)		;any ally want us to attack
+	(military-population < FIVE-PERCENT-POP)
+=>
+	(chat-to-player this-any-ally "39 Sorry, I don't attack! I have got only a few units and I need them to defend!")
+	(acknowledge-taunt this-any-ally 31)	;the AI acknoldges this taunt (sets the flag back)
+	(set-goal ATTACK NO)			;the AI sets goal ATTACK to NO (constant)
+)
+
+
+
+(defrule
+	(taunt-detected any-ally 31)		;any ally want us to attack
+	(town-under-attack)
+	(players-unit-count any-enemy >= FIVE-PERCENT-POP)
+	(goal TOWN-SIZE-ATTACK NO)		;goal TOWN-SIZE-ATTACK to NO (constant)
+=>
+	(chat-to-player this-any-ally "39 Sorry, I attack the enemy now already... because he is in my town!")
+	(acknowledge-taunt this-any-ally 31)	;the AI acknoldges this taunt (sets the flag back)
+	(set-goal ATTACK NO)			;the AI sets goal ATTACK to NO (constant)
+)
+
+
+
+(defrule
+	(taunt-detected any-ally 31)		;any ally want us to attack
+	(military-population >= FIVE-PERCENT-POP)
+	(not (town-under-attack))
+=>
+	(set-strategic-number sn-percent-attack-soldiers 100)
+	(set-strategic-number sn-percent-attack-boats 100)
+	(attack-now)
+	(attack-now)
+	(chat-local-to-self "Ok, I will attack an enemy!")
+	(chat-to-player this-any-ally "Ok, I will attack an enemy!")
+	(acknowledge-taunt this-any-ally 31)	;the AI acknoldges this taunt (sets the flag back)
+	(set-goal ATTACK NO)			;the AI sets goal ATTACK to NO (constant)
+)
+
+
+
+;32 == STOP TRAINING VILLAGERS
+;*****************************************
+;*****************************************
+(defrule				;If
+ 	(taunt-detected any-ally 32)		;any ally want us to cease traning villagers
+=>				;then
+ 	(acknowledge-taunt this-any-ally 32)	;the AI acknoldges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 Ok, I won't train more villagers!")
+	(set-goal TRAIN-VILLAGERS NO)
+)
+
+
+
+;33 == CREATE MORE VILAGERS
+;*****************************************
+;*****************************************
+(defrule				;If
+ 	(taunt-detected any-ally 33)		;any ally want us to train as much villagers as possible
+=>				;then
+ 	(acknowledge-taunt this-any-ally 33)	;the AI acknoldges this taunt (sets the flag back)
+	(chat-to-player this-any-ally "39 Well, I shall train as many villagers as possible!");the AI sends the chat to this ally
+	(set-goal TRAIN-VILLAGERS EXTRA)
+)
+
+
+
+;34 == BUILD NAVY
+;*****************************************
+;*****************************************
+(defrule				;If
+ 	(taunt-detected any-ally 34)		;any ally want us to build a navy
+	(goal MAP-KIND LAND-MAP)		;goal MAP-KIND to LAND-MAP (constant)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 34)
+ 	(chat-to-player this-any-ally "39 But sir, this map is dry as a desert! Are you still sure you want me to build a navy?")
+)
+
+
+
+(defrule				;If
+ 	(taunt-detected any-ally 34)		;any ally want us to build a navy
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND WATER-MAP);or goal MAP-KIND to WATER-MAP (constant)
+		)
+		(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+	)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 34)
+ 	(chat-to-player this-any-ally "39 Okay sir, I will build up a strong navy!")
+	(set-goal MAIN-SHIP-BUILDER YES)
+	(set-goal TRAIN-NEXT-FIRESHIP YES)
+)
+
+
+
+;35 == STOP BUILDING NAVY
+;*****************************************
+;*****************************************
+(defrule				;If
+ 	(taunt-detected any-ally 35)		;any ally want us to stop building navy
+	(goal MAP-KIND LAND-MAP)		;goal MAP-KIND to LAND-MAP (constant)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 35)	;the AI acknoldges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 Er ... sir, I didn't plan building a navy, because of the dryness of this map!")
+)
+
+
+
+(defrule				;If
+ 	(taunt-detected any-ally 35)		;any ally want us to stop building navy
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND WATER-MAP);or goal MAP-KIND to WATER-MAP (constant)
+		)
+		(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+	)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 35)	;the AI acknoldges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 Okay sir, I will stop building a navy!")
+	(set-goal MAIN-SHIP-BUILDER NOTICE)
+	(set-goal TRAIN-NEXT-FIRESHIP NEVER)
+)
+
+
+;36 == ONLY ATTACK IF SIGN IS GIVEN
+;*****************************************
+;*****************************************
+(defrule				;If
+ 	(taunt-detected any-ally 36)		;any ally want us to attack when he gives a sign only
+=>				;then
+ 	(acknowledge-taunt this-any-ally 36)	;the AI acknoldges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 Ok, I'll attack, when you give me a sign only!")
+	(set-goal ATTACK ALLY-WANT-US-TO-ATTACK)
+)
+
+
+
+;37 == BUILDING A WONDER
+;*****************************************
+;*****************************************
+(defrule				;If
+ 	(taunt-detected any-enemy 37)		;any ally want us to build a wonder
+=>				;then
+ 	(acknowledge-taunt this-any-enemy 37)	;the AI acknoldges this taunt (sets the flag back)
+ 	(set-goal WONDER-ATTEMPT POSSIBLE)
+ 	(chat-to-player this-any-enemy "40 You can't give me any commands, because you aren't my ally!")
+)
+
+
+
+#load-if-not-defined VICTORY-CONQUEST
+
+(defrule				;If
+ 	(taunt-detected any-ally 37)		;any ally want us to build a wonder
+	(current-age < imperial-age)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 37)	;the AI acknoldges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 Sir, I didn't research the imperial-age yet!")
+)
+
+
+
+(defrule				;If
+ 	(taunt-detected any-ally 37)		;any ally want us to build a wonder
+	(current-age >= imperial-age)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 37)	;the AI acknoldges this taunt (sets the flag back)
+ 	(set-goal WONDER-ATTEMPT POSSIBLE)
+ 	(chat-to-player this-any-ally "39 Okay sir, I'll build a wonder when I can do so!")
+)
+
+#end-if
+
+
+
+#load-if-defined VICTORY-CONQUEST
+
+(defrule				;If
+ 	(taunt-detected any-ally 37)		;any ally want us to build a wonder
+=>				;then
+ 	(acknowledge-taunt this-any-ally 37)	;the AI acknoledges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 But sir, it would be silly to build a wonder, because we are playing on victory-conquest!")
+)
+
+#end-if
+
+
+
+;38 == GIVING AWAY EXTRA RESOURCES
+;*****************************************
+;*****************************************
+(defrule				;If
+ 	(taunt-detected any-ally 38)		;any allyy want us to send all our extra resources to him
+=>				;then
+ 	(tribute-to-player this-any-ally food 2000)
+ 	(chat-to-player this-any-ally "39 Here is the rest of my food-resources!")
+)
+
+
+(defrule				;If
+ 	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
+=>				;then
+ 	(tribute-to-player this-any-ally wood 2000)
+ 	(chat-to-player this-any-ally "39 Here is the rest of my wood-resources!")
+)
+
+
+(defrule				;If
+ 	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
+=>				;then
+ 	(tribute-to-player this-any-ally gold 2000)
+ 	(chat-to-player this-any-ally "39 Here is the rest of my gold-resources!")
+)
+
+
+
+(defrule				;If
+ 	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
+=>				;then
+ 	(tribute-to-player this-any-ally gold 2000)
+ 	(chat-to-player this-any-ally "39 Here is the rest of my stone-resources!")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-ally 38)		;any ally want us to send all our extra resources to him
+=>				;then
+	(acknowledge-taunt this-any-ally 38)
+)
+
+
+
+;42 == WHAT AGE ARE YOU IN?
+;*****************************************
+;*****************************************
+(defrule				;If
+ 	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
+ 	(current-age == dark-age)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 42	)	;the AI acknowledges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 Sire, I'm still in dark-age!")
+)
+
+
+
+(defrule				;If
+ 	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
+ 	(current-age == feudal-age)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 42)	;the AI acknowledges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 Sire, I didn't advance to the glorious castle-age!")
+)
+
+
+
+(defrule				;If
+ 	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
+ 	(current-age == castle-age)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 42)	;the AI acknowledges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 Sir, I've researched o the age of castles, the CASTLE_AGE!")
+)
+
+
+
+(defrule				;If
+ 	(taunt-detected any-ally 42)		;any ally want us to inform him in which age we are
+ 	(current-age == imperial-age)
+=>				;then
+ 	(acknowledge-taunt this-any-ally 42)	;the AI acknowledges this taunt (sets the flag back)
+ 	(chat-to-player this-any-ally "39 Sir, I've researched to the glorious IMPERIAL-AGE!")
+)
+
+
+
+;47 == ADVANCE TO THE NEXT AGE!
+;*****************************************
+;*****************************************
+
+
+
+(defrule				;If
+	(true)					;this condition is always true
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE (constant)
+	(disable-self)				;initialisation -> only once
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-ally 47)		;any ally wants us advance to the next age
+=>				;then
+	(acknowledge-taunt this-any-ally 47)	;the AI acknowledges this taunt (sets the flag back)
+	(set-goal ADVANCE-TO-THE-NEXT-AGE YES);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+)
+
+
+
+(defrule				;If
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+	(current-age == dark-age)			;the age, the AI is in, is feudal-age
+	(goal ADVANCING-TO-AGE CASTLE-AGE);goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(chat-to-player every-ally "39 Sir, I am advancing to the castle-age already!")
+)
+
+
+
+(defrule				;If
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(goal ADVANCING-TO-AGE IMPERIAL-AGE);goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(chat-to-player every-ally "39 Sir, I am advancing to the imperial-age already!")
+)
+
+
+
+(defrule				;If
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(chat-to-player every-ally "39 Sir, I cannot advance anymore, because I am in the imperial-age!")
+)
+
+
+
+(defrule				;If
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+	(goal ADVANCING-TO-AGE FEUDAL-AGE);goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(chat-to-player every-ally "39 Sir, I am advancing to the feudal-age already!")
+)
+
+
+
+(defrule				;If
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(not (can-research-with-escrow feudal-age))	;the AI is not able to advance to the feudal age (with escrow-resources)
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
+	(set-goal TRAIN-VILLAGERS NO)		;the AI sets goal TRAIN-VILLAGERS to NO (constant)
+	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!");the AI sends the chat to this ally
+	(chat-to-player every-ally "But I'll do so when it's possible!");the AI sends the chat to this ally
+)
+
+
+
+(defrule				;If
+	(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+	(or
+		(and
+			(current-age == feudal-age);the age, the AI is in, is feudal age
+			(not (can-research-with-escrow castle-age));and the AI is not able to advance to the castle age (with escrow-resources)
+		)
+		(and
+			(current-age == castle-age);or the age, the AI is in, is feudal age
+			(not (can-research-with-escrow imperial-age));and the AI is not able to advance to the imperial age (with escrow-resources)
+		)
+	)
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
+	(set-goal TRAIN-VILLAGERS NO)		;the AI sets goal TRAIN-VILLAGERS to NO (constant)
+	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!");the AI sends the chat to this ally
+	(chat-to-player every-ally "But I'll do so when it's possible!");the AI sends the chat to this ally
+)
+
+
+
+(defrule				;If
+	(or
+		(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE);or goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
+	)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(can-research-with-escrow feudal-age)	;the AI is able to advance to the feudal age (with escrow-resources)
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the feudal-age now!");the AI sends the chat to this ally
+	(chat-to-player every-ally "I'll do so!")	;the AI sends the chat to this ally
+	(release-escrow food)			;the AI releases its food-escrow-resources
+	(research feudal-age)			;the AI advances to the feudal age
+)
+
+
+
+(defrule				;If
+	(or
+		(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE);or goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
+	)
+	(current-age == feudal-age)		;the age, the AI is in, is dark age
+	(can-research-with-escrow castle-age)	;the AI is able to advance to the feudal age (with escrow-resources)
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the castle-age now!");the AI sends the chat to this ally
+	(chat-to-player every-ally "I'll do so!")	;the AI sends the chat to this ally
+	(release-escrow food)			;the AI releases its food-escrow-resources
+	(release-escrow gold)			;the AI releases its gold-escrow-resources
+	(research castle-age)			;the AI advances to the castle age
+)
+
+
+
+(defrule				;If
+	(or
+		(goal ADVANCE-TO-THE-NEXT-AGE YES)	;goal ADVANCE-TO-THE-NEXT-AGE to YES (constant)
+		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE);or goal ADVANCE-TO-THE-NEXT-AGE to MAYBE (constant)
+	)
+
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(can-research-with-escrow imperial-age)	;the AI is able to advance to the imperial age (with escrow-resources)
+=>				;then
+	(set-goal ADVANCE-TO-THE-NEXT-AGE NO);the AI sets goal ADVANCE-TO-THE-NEXT-AGE to NO (constant)
+	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the imperial-age now!");the AI sends the chat to this ally
+	(chat-to-player every-ally "I'll do so!")	;the AI sends the chat to this ally
+	(release-escrow food)			;the AI releases its food-escrow-resources
+	(release-escrow gold)			;the AI releases its gold-escrow-resources
+	(research imperial-age)			;the AI advances to the imperial age
+)
+
+
+
+;The taunts 48 and 49 do you find in the attack.per - file
+
+
+
+;*********IF ENEMY WANT TO COMMAND US*********
+
+(defrule				;If
+	(or
+		(or
+			(or
+				(or
+					(taunt-detected any-enemy 31);any enemy want us to attack
+					(taunt-detected any-enemy 32);or any enemy want us to cease creating villagers
+				)
+				(taunt-detected any-enemy 33);or any enemy want us to train as much villagers as possible
+			)
+			(taunt-detected any-enemy 34);or any enemy want us to go navy
+		)
+		(taunt-detected any-enemy 35)	;or any enemy want us to stop building navy
+	)
+=>
+	(acknowledge-taunt this-any-enemy 31)	;the AI acknoldges this taunt (sets the flag back)
+	(acknowledge-taunt this-any-enemy 32)	;the AI acknoldges this taunt (sets the flag back)
+	(acknowledge-taunt this-any-enemy 33)	;the AI acknoldges this taunt (sets the flag back)
+	(acknowledge-taunt this-any-enemy 34)	;the AI acknoldges this taunt (sets the flag back)
+	(acknowledge-taunt this-any-enemy 35)	;the AI acknoldges this taunt (sets the flag back)
+	(chat-to-player this-any-enemy "40 You can't command me, you aren't my ally!")
+)
+
+
+
+(defrule				;If
+	(or
+		(or
+			(or
+				(taunt-detected any-enemy 36);any enemy want us to attack only when he gives us sign
+				(taunt-detected any-enemy 37);or any enemy want us to build a wonder
+			)
+			(taunt-detected any-enemy 38);or any enemy want us to send all our extra resources to him
+		)
+		(taunt-detected any-enemy 42)	;or any enemy want us to inform him in which we are
+	)
+=>
+	(acknowledge-taunt this-any-enemy 36)	;the AI acknoldges this taunt (sets the flag back)
+	(acknowledge-taunt this-any-enemy 37)	;the AI acknoldges this taunt (sets the flag back)
+	(acknowledge-taunt this-any-enemy 38)	;the AI acknoldges this taunt (sets the flag back)
+	(acknowledge-taunt this-any-enemy 42)	;the AI acknoldges this taunt (sets the flag back)
+	(chat-to-player this-any-enemy "40 You can't command me, you aren't my ally!")
+)
+
+
+
+;===============================================
+;===============================================
+;IF ENEMY SENT TRIBUTE TO US
+
+(defrule			;If
+	(or
+		(or
+			(or
+				(players-tribute-memory any-enemy food >= 1)
+				(players-tribute-memory any-enemy wood >= 1)
+			)
+			(players-tribute-memory any-enemy gold >= 1)
+		)
+		(players-tribute-memory any-enemy stone >= 1)
+	)
+=>				;then
+	(clear-tribute-memory this-any-enemy food)
+	(clear-tribute-memory this-any-enemy wood)
+	(clear-tribute-memory this-any-enemy gold)
+	(clear-tribute-memory this-any-enemy stone)
+	(chat-to-player this-any-enemy "40 Don't think that you will get a new friend!")
+)
+
+
+
+;CHOOSING THE DIPLOMATIC STANCE
+;--------------------------------------------------------
+
+
+
+;BASIC DIPLOMACY
+;-----------------------------
+
+
+
+#load-if-not-defined TEAMS-LOCKED
+
+(defrule				;If
+	(true)
+=>				;then
+	(enable-timer T-DIPLOMACY 1)
+	(set-goal HUMAN-DIPLOMACY NO)
+	(disable-self)
+)
+
+
+
+;BASIC DIPLOMACY VERSUS OTHER AIs
+;----------------------------------------------------------
+(defrule				;If
+	(current-age >= feudal-age)
+	(players-stance any-computer-ally neutral)
+=>				;then
+	(set-stance this-any-computer-ally neutral)
+)
+
+
+
+(defrule				;If
+	(current-age >= feudal-age)
+	(players-stance any-computer-ally enemy)
+=>				;then
+	(set-stance this-any-computer-ally enemy)
+)
+
+
+
+(defrule				;If
+	(current-age >= feudal-age)
+	(players-stance any-computer-neutral ally)
+=>				;then
+	(set-stance this-any-computer-neutral ally)
+)
+
+
+
+(defrule				;If
+	(current-age >= feudal-age)
+	(players-stance any-computer-neutral enemy)
+=>				;then
+	(set-stance this-any-computer-neutral enemy)
+)
+
+
+
+(defrule				;If
+	(current-age >= feudal-age)
+	(players-stance any-computer-enemy ally)
+=>				;then
+	(set-stance this-any-computer-enemy ally)
+)
+
+
+
+(defrule				;If
+	(current-age >= feudal-age)
+	(players-stance any-computer-enemy neutral)
+=>				;then
+	(set-stance this-any-computer-enemy neutral)
+)
+
+
+
+;BASIC DIPLOMACY VERSUS HUMANS
+;-------------------------------------------------------
+
+
+
+(defrule				;If
+	(player-human 1)
+	(or
+		(or
+			(player-human 2)
+			(player-human 3)
+		)
+		(or
+			(or
+				(or
+					(player-human 4)
+					(player-human 5)
+				)
+				(or
+					(player-human 6)
+					(player-human 7)
+				)
+			)
+			(player-human 8)
+		)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY YES)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(player-human 2)
+	(or
+		(or
+			(player-human 1)
+			(player-human 3)
+		)
+		(or
+			(or
+				(or
+					(player-human 4)
+					(player-human 5)
+				)
+				(or
+					(player-human 6)
+					(player-human 7)
+				)
+			)
+			(player-human 8)
+		)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY YES)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(player-human 3)
+	(or
+		(or
+			(player-human 2)
+			(player-human 1)
+		)
+		(or
+			(or
+				(or
+					(player-human 4)
+					(player-human 5)
+				)
+				(or
+					(player-human 6)
+					(player-human 7)
+				)
+			)
+			(player-human 8)
+		)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY YES)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(player-human 4)
+	(or
+		(or
+			(player-human 2)
+			(player-human 3)
+		)
+		(or
+			(or
+				(or
+					(player-human 1)
+					(player-human 5)
+				)
+				(or
+					(player-human 6)
+					(player-human 7)
+				)
+			)
+			(player-human 8)
+		)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY YES)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(player-human 5)
+	(or
+		(or
+			(player-human 2)
+			(player-human 3)
+		)
+		(or
+			(or
+				(or
+					(player-human 4)
+					(player-human 1)
+				)
+				(or
+					(player-human 6)
+					(player-human 7)
+				)
+			)
+			(player-human 8)
+		)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY YES)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(player-human 6)
+	(or
+		(or
+			(player-human 2)
+			(player-human 3)
+		)
+		(or
+			(or
+				(or
+					(player-human 4)
+					(player-human 5)
+				)
+				(or
+					(player-human 1)
+					(player-human 7)
+				)
+			)
+			(player-human 8)
+		)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY YES)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(player-human 7)
+	(or
+		(or
+			(player-human 2)
+			(player-human 3)
+		)
+		(or
+			(or
+				(or
+					(player-human 4)
+					(player-human 5)
+				)
+				(or
+					(player-human 6)
+					(player-human 1)
+				)
+			)
+			(player-human 8)
+		)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY YES)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(player-human 8)
+	(or
+		(or
+			(player-human 2)
+			(player-human 3)
+		)
+		(or
+			(or
+				(or
+					(player-human 4)
+					(player-human 5)
+				)
+				(or
+					(player-human 6)
+					(player-human 7)
+				)
+			)
+			(player-human 1)
+		)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY YES)
+	(disable-self)
+)
+
+
+
+;IF AN ALLY CHANGED HIS STANCE (TO NEUTRAL OR TO ENEMY)
+;------------------------------------------------------------------------------------------------
+
+
+
+(defrule				;If
+	(goal HUMAN-DIPLOMACY NO)
+	(timer-triggered T-DIPLOMACY)
+	(players-stance any-human-neutral enemy)
+	(or
+		(difficulty <= moderate)
+		(current-age > dark-age)
+	)
+=>				;then
+	(chat-to-player-using-id this-any-human-neutral 22027)
+		;"41 I am Neutral to thee. Set thy diplomacy to Neutral to me."
+	(disable-timer T-DIPLOMACY)
+	(enable-timer T-DIPLOMACY 30)
+	(set-goal HUMAN-DIPLOMACY ANGRY)
+)
+
+
+
+(defrule				;If
+	(or
+		(goal HUMAN-DIPLOMACY ANGRY)
+		(or
+			(goal HUMAN-DIPLOMACY ANGRIER)
+			(goal HUMAN-DIPLOMACY ANGRIEST)
+		)
+	)
+	(or
+		(players-stance any-human-neutral neutral)
+		(players-stance any-human-neutral ally)
+	)
+=>				;then
+	(chat-to-player-using-id this-any-human-neutral 22028)
+	(chat-to-player-using-id this-any-human-neutral 22029)
+		;"39 Thou art wise to be a potential friend."
+		;"Thou shalt hear from me again."
+	(disable-timer T-DIPLOMACY)
+	(enable-timer T-DIPLOMACY 30)
+	(set-goal HUMAN-DIPLOMACY NO)
+)
+
+
+
+(defrule				;If
+	(goal HUMAN-DIPLOMACY ANGRY)
+	(timer-triggered T-DIPLOMACY)
+	(players-stance any-human-neutral enemy)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY ANGRIER)
+	(disable-timer T-DIPLOMACY)
+	(enable-timer T-DIPLOMACY 30)
+	(chat-to-player-using-id this-any-human-neutral 22030)
+	(chat-to-player-using-id this-any-human-neutral 22031)
+		;"41 Thou hast ignored my generous invitation. I am merciful, and give you another chance."
+		;"Set thy diplomacy to Neutral to me. Now."
+)
+
+
+
+(defrule				;If
+	(goal HUMAN-DIPLOMACY ANGRIER)
+	(timer-triggered T-DIPLOMACY)
+	(players-stance any-human-neutral enemy)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY ANGRIEST)
+	(disable-timer T-DIPLOMACY)
+	(enable-timer T-DIPLOMACY 30)
+	(chat-to-player-using-id this-any-human-neutral 22032)
+	(chat-to-player-using-id this-any-human-neutral 22033)
+		;"41 How unwise. Thou art still hostile to me. Set to Neutral at once versus me!"
+		;"This is thy last opportunity."
+)
+
+
+
+(defrule				;If
+	(goal HUMAN-DIPLOMACY ANGRIEST)
+	(timer-triggered T-DIPLOMACY)
+	(players-stance any-human-neutral enemy)
+=>				;then
+	(disable-timer T-DIPLOMACY)
+	(set-goal HUMAN-DIPLOMACY YES)
+	(chat-to-player-using-id this-any-human-neutral 22025)
+	(chat-to-player-using-id this-any-human-neutral 22026)
+		;"40 So! Thou has chosen to defy me."
+		;"It shall be war to the knife!"
+	(chat-to-player this-any-human-ally "**********************************************************")
+	(chat-to-player this-any-human-ally "DarkAngelBGE: Perhaps in thirty minutes the AI could ally with you again..")
+	(set-stance this-any-human-neutral enemy)
+	(set-goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
+	(enable-timer T-GET-NEW-FRIEND 1800)
+)
+
+;***********************************************
+;***********************************************
+
+(defrule				;If
+	(goal HUMAN-DIPLOMACY NO)
+	(or
+		(players-stance any-human-ally neutral)
+		(players-stance any-human-ally enemy)
+	)
+=>				;then
+	(chat-to-player-using-id this-any-human-ally 22147)
+		;"39 I am thine Ally, friend. Pray set thyself to Ally, too."
+	(enable-timer T-DIPLOMACY 30)
+	(set-goal HUMAN-DIPLOMACY ANGRY)
+)
+
+
+
+(defrule				;If
+	(or
+		(goal HUMAN-DIPLOMACY ANGRY)
+		(or
+			(goal HUMAN-DIPLOMACY ANGRIER)
+			(goal HUMAN-DIPLOMACY ANGRIEST)
+		)
+	)
+	(players-stance any-human-ally ally)
+=>				;then
+	(chat-to-player-using-id this-any-human-ally 22148)
+		;"39 Thou art gracious to remain mine friend."
+	(disable-timer T-DIPLOMACY)
+	(enable-timer T-DIPLOMACY 30)
+	(set-goal HUMAN-DIPLOMACY NO)
+)
+
+
+
+(defrule				;If
+	(goal HUMAN-DIPLOMACY ANGRY)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-ally neutral)
+		(players-stance any-human-ally enemy)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY ANGRIER)
+	(disable-timer T-DIPLOMACY)
+	(enable-timer T-DIPLOMACY 30)
+	(chat-to-player-using-id this-any-human-ally 22149)
+	(chat-to-player-using-id this-any-human-ally 22150)
+		;"41 What evil is this? Thou art still not friendly?!"
+		;"Perhaps thou did not understand? Be mine Ally, for I am thine."
+)
+
+
+
+(defrule				;If
+	(goal HUMAN-DIPLOMACY ANGRIER)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-ally neutral)
+		(players-stance any-human-ally enemy)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY ANGRIEST)
+	(disable-timer T-DIPLOMACY)
+	(enable-timer T-DIPLOMACY 30)
+	(chat-to-player-using-id this-any-human-ally 22151)
+	(chat-to-player-using-id this-any-human-ally 22152)
+		;"41 Oh, falsest of friends. This is thy last chance!"
+		;"If thou wilt have me for Ally, thou must do likewise."
+)
+
+
+
+(defrule				;If
+	(goal HUMAN-DIPLOMACY ANGRIEST)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-ally neutral)
+		(players-stance any-human-ally enemy)
+	)
+=>				;then
+	(disable-timer T-DIPLOMACY)
+	(enable-timer T-DIPLOMACY 2)
+	(set-goal HUMAN-DIPLOMACY YES)
+	(chat-to-player-using-id this-any-human-ally 22025)
+	(chat-to-player-using-id this-any-human-ally 22026)
+		;"40 So! Thou has chosen to defy me."
+		;"It shall be war to the knife!"
+	(chat-to-player this-any-human-ally "**********************************************************")
+	(chat-to-player this-any-human-ally "DarkAngelBGE: Perhaps in thirty minutes the AI could ally with you again..")
+	(enable-timer T-GET-NEW-FRIEND 1800)
+	(set-stance this-any-human-ally enemy)
+	(set-goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
+)
+
+
+
+(defrule				;If
+	(stance-toward any-human neutral)
+	(nor
+		(player-in-game any-computer-ally)
+		(or
+			(player-in-game any-computer-enemy)
+			(player-in-game any-computer-neutral)
+		)
+	)
+=>				;then
+	(set-goal HUMAN-DIPLOMACY YES)
+	(chat-to-player-using-id this-any-human 22034)
+	(chat-to-player-using-id this-any-human 22035)
+		;"40 I have thought better of mine previous merciful plan."
+		;"Thou must be exterminated, and I shall forever be thine foe."
+	(set-stance this-any-human enemy)
+	(set-stance every-computer ally)
+	(disable-timer T-DIPLOMACY)
+	(enable-timer T-DIPLOMACY 2)
+	(set-goal GET-NEW-FRIEND NOT-POSSIBLE)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(stance-toward any-human ally)
+	(nor
+		(or
+			(or
+				(player-in-game any-human-neutral)
+				(player-in-game any-human-enemy)
+			)
+			(player-in-game any-computer-enemy)
+		)
+		(player-in-game any-computer-neutral)
+	)
+	(player-in-game any-computer-ally)
+	(goal GET-NEW-FRIEND DONE)
+=>				;then
+	(chat-to-player this-any-human "Sorry, I have only allies! That's why  you must feel the terror of my army!")
+	(chat-to-player this-any-human "That's the terror of this AI, you think you've got a new friend,")
+	(chat-to-player this-any-human "gave tribute to him and a few seconds later .. he is your enemy!!! Ha, Ha, Ha!")
+	(set-stance this-any-human enemy)
+	(enable-timer T-DIPLOMACY 2)
+	(set-goal GET-NEW-FRIEND NOT-POSSIBLE)
+)
+
+
+
+(defrule				;If
+	(goal HUMAN-DIPLOMACY YES)
+=>				;then
+	(set-stance every-human enemy)
+	(set-stance every-computer ally)
+	(disable-self)
+)
+
+
+
+;********************************************************************************
+;********************************************************************************
+;IF A NEUTRAL OR AN ENEMY WANT US TO BE HIS FRIEND
+;--------------------------------------------------------------------------------------
+
+(defrule				;If
+	(timer-triggered T-DIPLOMACY)
+	(goal GET-NEW-FRIEND NO)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+=>				;then
+	(disable-timer T-DIPLOMACY)
+	(set-goal GET-NEW-FRIEND POSSIBLE)
+	(chat-to-player this-any-human-neutral "41 Do you want to ally with me ?")
+	(chat-to-player this-any-human-enemy "40 Do you want to ally with me ?")
+	(enable-timer T-DIPLOMACY 5)
+)
+
+(defrule				;If
+	(timer-triggered T-GET-NEW-FRIEND)
+	(goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+=>				;then
+	(disable-timer T-GET-NEW-FRIEND)
+	(set-goal GET-NEW-FRIEND POSSIBLE)
+	(chat-to-player this-any-human-neutral "41 Do you want to ally with me ?")
+	(chat-to-player this-any-human-enemy "40 Do you want to ally with me ?")
+	(enable-timer T-DIPLOMACY 5)
+)
+
+(defrule				;If
+	(timer-triggered T-DIPLOMACY)
+	(goal GET-NEW-FRIEND POSSIBLE)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+=>				;then
+	(disable-timer T-DIPLOMACY)
+	(set-goal GET-NEW-FRIEND YES)
+	(chat-to-player this-any-human-neutral "DarkAngelBGE: Please answer with 1 for YES or 2 for NO.")
+	(chat-to-player this-any-human-neutral "You have got one minute time to answer!")
+	(chat-to-player this-any-human-enemy "DarkAngelBGE: Please answer with 1 for YES or 2 for NO.")
+	(chat-to-player this-any-human-enemy "You have got one minute time to answer!")
+	(enable-timer T-DIPLOMACY 60)
+)
+
+(defrule				;If
+	(timer-triggered T-DIPLOMACY)
+	(goal GET-NEW-FRIEND YES)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+=>				;then
+	(disable-timer T-DIPLOMACY)
+	(set-goal GET-NEW-FRIEND NO)
+	(chat-to-player this-any-human-neutral "41 Sorry, you didn't answer! You will not get a new friend!")
+	(chat-to-player this-any-human-enemy "40 Sorry, you didn't answer! You will not get a new friend!")
+	(enable-timer T-DIPLOMACY 5)
+)
+
+
+
+;*******************************************
+;*******************************************
+;ANSWERS
+
+(defrule
+	(goal GET-NEW-FRIEND YES)
+	(or
+		(taunt-detected any-human-neutral 1)
+		(taunt-detected any-human-enemy 1)
+	)
+=>
+	(acknowledge-taunt this-any-human-neutral 1)
+	(acknowledge-taunt this-any-human-enemy 1)
+	(chat-to-player this-any-human-neutral "41 Okay, if you want to have a new friend, you must")
+	(chat-to-player this-any-human-neutral "give me some tribute so that I can be sure you want a new friend..")
+
+;***************
+
+	(chat-to-player this-any-human-enemy "40 Okay, if you want to have a new friend, you must")
+	(chat-to-player this-any-human-enemy "give me some tribute so that I can be sure you want a new friend..")
+	(set-goal GET-NEW-FRIEND RESOURCES)
+	(enable-timer T-DIPLOMACY 5)
+	(generate-random-number 4)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND YES)
+	(or
+		(taunt-detected any-human-neutral 2)
+		(taunt-detected any-human-enemy 2)
+	)
+=>
+	(acknowledge-taunt this-any-human-neutral 2)
+	(acknowledge-taunt this-any-human-enemy 2)
+	(chat-to-player this-any-human-neutral "41 Okay, if you don't want a new friend, you will not get any!")
+	(chat-to-player this-any-human-neutral "Please do not disturb me again! I have to build up a dukedom!")
+	(chat-to-player this-any-human-neutral "DarkAngelBGE: Perhaps in twenty minutes the AI could ally with you again..")
+
+;***************
+
+	(chat-to-player this-any-human-enemy "40 Okay, if you don't want a new friend, you will not get any!")
+	(chat-to-player this-any-human-enemy "Please do not disturb me again! I have to build up a dukedom!")
+	(chat-to-player this-any-human-enemy "DarkAngelBGE: Perhaps in twenty minutes the AI could ally with you again..")
+	(set-goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
+	(enable-timer T-DIPLOMACY 5)
+	(enable-timer T-GET-NEW-FRIEND 1200)
+)
+
+
+
+;*******************************************
+;*******************************************
+;WAIT FOR RESOURCES
+
+;*********
+;*********
+;EASIEST
+
+#load-if-defined DIFFICULTY-EASIEST
+
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 1)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 100 food to me within the next 5 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 100 food to me within the next 5 minutes!")
+	(clear-tribute-memory this-any-human-neutral food)
+	(clear-tribute-memory this-any-human-enemy food)
+	(set-goal GET-NEW-FRIEND RESOURCES-FOOD)
+	(enable-timer T-DIPLOMACY 300)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 2)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 100 wood to me within the next 5 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 100 wood to me within the next 5 minutes!")
+	(clear-tribute-memory this-any-human-neutral wood)
+	(clear-tribute-memory this-any-human-enemy wood)
+	(set-goal GET-NEW-FRIEND RESOURCES-WOOD)
+	(enable-timer T-DIPLOMACY 300)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 3)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 100 gold to me within the next 5 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 100 gold to me within the next 5 minutes!")
+	(clear-tribute-memory this-any-human-neutral gold)
+	(clear-tribute-memory this-any-human-enemy gold)
+	(set-goal GET-NEW-FRIEND RESOURCES-GOLD)
+	(enable-timer T-DIPLOMACY 300)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 4)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 100 stone to me within the next 5 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 100 stone to me within the next 5 minutes!")
+	(clear-tribute-memory this-any-human-neutral stone)
+	(clear-tribute-memory this-any-human-enemy stone)
+	(set-goal GET-NEW-FRIEND RESOURCES-STONE)
+	(enable-timer T-DIPLOMACY 300)
+)
+
+#end-if		;if difficulty type == easiest
+
+
+
+;*********
+;*********
+;EASY
+
+#load-if-defined DIFFICULTY-EASY
+
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 1)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 200 food to me within the next 4 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 200 food to me within the next 4 minutes!")
+	(clear-tribute-memory this-any-human-neutral food)
+	(clear-tribute-memory this-any-human-enemy food)
+	(set-goal GET-NEW-FRIEND RESOURCES-FOOD)
+	(enable-timer T-DIPLOMACY 240)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 2)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 200 wood to me within the next 4 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 200 wood to me within the next 4 minutes!")
+	(clear-tribute-memory this-any-human-neutral wood)
+	(clear-tribute-memory this-any-human-enemy wood)
+	(set-goal GET-NEW-FRIEND RESOURCES-WOOD)
+	(enable-timer T-DIPLOMACY 240)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 3)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 200 gold to me within the next 4 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 200 gold to me within the next 4 minutes!")
+	(clear-tribute-memory this-any-human-neutral gold)
+	(clear-tribute-memory this-any-human-enemy gold)
+	(set-goal GET-NEW-FRIEND RESOURCES-GOLD)
+	(enable-timer T-DIPLOMACY 240)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 4)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 200 stone to me within the next 4 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 200 stone to me within the next 4 minutes!")
+	(clear-tribute-memory this-any-human-neutral stone)
+	(clear-tribute-memory this-any-human-enemy stone)
+	(set-goal GET-NEW-FRIEND RESOURCES-STONE)
+	(enable-timer T-DIPLOMACY 240)
+)
+
+#end-if		;if difficulty type == easy
+
+
+
+;*********
+;*********
+;MODERATE
+
+#load-if-defined DIFFICULTY-MODERATE
+
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 1)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 800 food to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 800 food to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral food)
+	(clear-tribute-memory this-any-human-enemy food)
+	(set-goal GET-NEW-FRIEND RESOURCES-FOOD)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 2)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 800 wood to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 800 wood to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral wood)
+	(clear-tribute-memory this-any-human-enemy wood)
+	(set-goal GET-NEW-FRIEND RESOURCES-WOOD)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 3)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 800 gold to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 800 gold to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral gold)
+	(clear-tribute-memory this-any-human-enemy gold)
+	(set-goal GET-NEW-FRIEND RESOURCES-GOLD)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 4)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 800 stone to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 800 stone to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral stone)
+	(clear-tribute-memory this-any-human-enemy stone)
+	(set-goal GET-NEW-FRIEND RESOURCES-STONE)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+#end-if		;if difficulty type == moderate
+
+
+
+;*********
+;*********
+;HARD
+
+#load-if-defined DIFFICULTY-HARD
+
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 1)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 1500 food to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 food to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral food)
+	(clear-tribute-memory this-any-human-enemy food)
+	(set-goal GET-NEW-FRIEND RESOURCES-FOOD)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 2)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 1500 wood to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 wood to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral wood)
+	(clear-tribute-memory this-any-human-enemy wood)
+	(set-goal GET-NEW-FRIEND RESOURCES-WOOD)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 3)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 1500 gold to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 gold to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral gold)
+	(clear-tribute-memory this-any-human-enemy gold)
+	(set-goal GET-NEW-FRIEND RESOURCES-GOLD)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 4)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 1500 stone to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 stone to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral stone)
+	(clear-tribute-memory this-any-human-enemy stone)
+	(set-goal GET-NEW-FRIEND RESOURCES-STONE)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+#end-if		;if difficulty type == hard
+
+
+
+;*********
+;*********
+;HARDEST
+
+#load-if-defined DIFFICULTY-HARDEST
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 1)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 1500 food to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 food to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral food)
+	(clear-tribute-memory this-any-human-enemy food)
+	(set-goal GET-NEW-FRIEND RESOURCES-FOOD)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 2)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 1500 wood to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 wood to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral wood)
+	(clear-tribute-memory this-any-human-enemy wood)
+	(set-goal GET-NEW-FRIEND RESOURCES-WOOD)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 3)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 1500 gold to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 gold to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral gold)
+	(clear-tribute-memory this-any-human-enemy gold)
+	(set-goal GET-NEW-FRIEND RESOURCES-GOLD)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES)
+	(timer-triggered T-DIPLOMACY)
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(random-number == 4)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 You must give 1500 stone to me within the next 2 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 stone to me within the next 2 minutes!")
+	(clear-tribute-memory this-any-human-neutral stone)
+	(clear-tribute-memory this-any-human-enemy stone)
+	(set-goal GET-NEW-FRIEND RESOURCES-STONE)
+	(enable-timer T-DIPLOMACY 120)
+)
+
+#end-if		;if difficulty type == hardest
+
+
+
+;****************************************
+;****************************************
+;IF THE PLAYER GAVE THE RIGHT RESOURCES AND ENOUGH
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-FOOD)
+	(or
+		(players-tribute-memory any-human-neutral food >= GET-NEW-FRIEND-RESOURCES)
+		(players-tribute-memory any-human-enemy food >= GET-NEW-FRIEND-RESOURCES)
+	)
+=>
+	(set-goal GET-NEW-FRIEND DONE)
+	(chat-to-player this-any-human-neutral "41 Your food tribute is great! You will get a new friend now..!")
+	(chat-to-player this-any-human-enemy "40 Your food tribute is great! You will get a new friend now..!")
+	(set-stance this-any-human-neutral ally)
+	(set-stance this-any-human-enemy ally)
+	(enable-timer T-GET-NEW-FRIEND 10)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-WOOD)
+	(or
+		(players-tribute-memory any-human-neutral wood >= GET-NEW-FRIEND-RESOURCES)
+		(players-tribute-memory any-human-enemy wood >= GET-NEW-FRIEND-RESOURCES)
+	)
+=>
+	(set-goal GET-NEW-FRIEND DONE)
+	(chat-to-player this-any-human-neutral "41 Your wood tribute is great! You will get a new friend now..!")
+	(chat-to-player this-any-human-enemy "40 Your wood tribute is great! You will get a new friend now..!")
+	(set-stance this-any-human-neutral ally)
+	(set-stance this-any-human-enemy ally)
+	(enable-timer T-GET-NEW-FRIEND 10)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-GOLD)
+	(or
+		(players-tribute-memory any-human-neutral gold >= GET-NEW-FRIEND-RESOURCES)
+		(players-tribute-memory any-human-enemy gold >= GET-NEW-FRIEND-RESOURCES)
+	)
+=>
+	(set-goal GET-NEW-FRIEND DONE)
+	(chat-to-player this-any-human-neutral "41 Your gold tribute is great! You will get a new friend now..!")
+	(chat-to-player this-any-human-enemy "40 Your gold tribute is great! You will get a new friend now..!")
+	(set-stance this-any-human-neutral ally)
+	(set-stance this-any-human-enemy ally)
+	(enable-timer T-GET-NEW-FRIEND 10)
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-STONE)
+	(or
+		(players-tribute-memory any-human-neutral stone >= GET-NEW-FRIEND-RESOURCES)
+		(players-tribute-memory any-human-enemy stone >= GET-NEW-FRIEND-RESOURCES)
+	)
+=>
+	(set-goal GET-NEW-FRIEND DONE)
+	(chat-to-player this-any-human-neutral "41 Your stone tribute is great! You will get a new friend now..!")
+	(chat-to-player this-any-human-enemy "40 Your stone tribute is great! You will get a new friend now..!")
+	(set-stance this-any-human-neutral ally)
+	(set-stance this-any-human-enemy ally)
+	(enable-timer T-GET-NEW-FRIEND 10)
+)
+
+
+
+(defrule
+	(timer-triggered T-GET-NEW-FRIEND)
+	(goal GET-NEW-FRIEND DONE)
+=>
+	(disable-timer T-GET-NEW-FRIEND)
+	(set-goal GET-NEW-FRIEND NO)
+)
+
+
+
+;****************************************
+;****************************************
+;IF THE PLAYER  GAVE THE RIGHT RESOURCES BUT NOT ENOUGH
+
+(defrule
+	(timer-triggered T-GET-NEW-FRIEND)
+	(goal GET-NEW-FRIEND RESOURCES-FOOD)
+	(or
+		(and
+			(players-tribute-memory any-human-neutral food < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-neutral food > 0)
+		)
+		(and
+			(players-tribute-memory any-human-enemy food < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-enemy food > 0)
+		)
+	)
+=>
+	(disable-timer T-GET-NEW-FRIEND)
+	(chat-to-player this-any-human-neutral "41 You must send me more food!")
+	(chat-to-player this-any-human-enemy "40 You must send me more food!")
+	(enable-timer T-GET-NEW-FRIEND 90)
+)
+
+(defrule
+	(timer-triggered T-GET-NEW-FRIEND)
+	(goal GET-NEW-FRIEND RESOURCES-WOOD)
+	(or
+		(and
+			(players-tribute-memory any-human-neutral wood < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-neutral wood > 0)
+		)
+		(and
+			(players-tribute-memory any-human-enemy wood < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-enemy wood > 0)
+		)
+	)
+=>
+	(disable-timer T-GET-NEW-FRIEND)
+	(chat-to-player this-any-human-neutral "41 You must send me more wood!")
+	(chat-to-player this-any-human-enemy "40 You must send me more wood!")
+	(enable-timer T-GET-NEW-FRIEND 90)
+)
+
+(defrule
+	(timer-triggered T-GET-NEW-FRIEND)
+	(goal GET-NEW-FRIEND RESOURCES-GOLD)
+	(or
+		(and
+			(players-tribute-memory any-human-neutral gold < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-neutral gold > 0)
+		)
+		(and
+			(players-tribute-memory any-human-enemy gold < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-enemy gold > 0)
+		)
+	)
+=>
+	(disable-timer T-GET-NEW-FRIEND)
+	(chat-to-player this-any-human-neutral "41 You must send me more gold!")
+	(chat-to-player this-any-human-enemy "40 You must send me more gold!")
+	(enable-timer T-GET-NEW-FRIEND 90)
+)
+
+(defrule
+	(timer-triggered T-GET-NEW-FRIEND)
+	(goal GET-NEW-FRIEND RESOURCES-STONE)
+	(or
+		(and
+			(players-tribute-memory any-human-neutral stone < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-neutral stone > 0)
+		)
+		(and
+			(players-tribute-memory any-human-enemy stone < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-enemy stone >  0)
+		)
+	)
+=>
+	(disable-timer T-GET-NEW-FRIEND)
+	(chat-to-player this-any-human-neutral "41 You must send me more stone!")
+	(chat-to-player this-any-human-enemy "40 You must send me more stone!")
+	(enable-timer T-GET-NEW-FRIEND 90)
+)
+
+
+
+;****************************************
+;****************************************
+;IF THE PLAYER  DIDN'T GIVE THE RIGHT RESOURCES
+
+;FOOD
+;--------
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-FOOD)
+	(or
+		(or
+			(or
+				(players-tribute-memory any-human-neutral wood > 0)
+				(players-tribute-memory any-human-enemy wood > 0)
+			)
+			(players-tribute-memory any-human-neutral gold > 0)
+		)
+		(players-tribute-memory any-human-enemy gold > 0)
+	)
+=>
+	(clear-tribute-memory this-any-human-neutral wood)
+	(clear-tribute-memory this-any-human-neutral gold)
+	(clear-tribute-memory this-any-human-enemy wood)
+	(clear-tribute-memory this-any-human-enemy gold)
+	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have food, but I don't tell you that..")
+	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have food, but I don't tell you that..")
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-FOOD)
+	(or
+		(players-tribute-memory any-human-neutral stone > 0)
+		(players-tribute-memory any-human-enemy stone > 0)
+	)
+=>
+	(clear-tribute-memory this-any-human-neutral stone)
+	(clear-tribute-memory this-any-human-enemy stone)
+	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have food, but I don't tell you that..")
+	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have food, but I don't tell you that..")
+)
+
+
+
+;WOOD
+;--------
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-WOOD)
+	(or
+		(or
+			(or
+				(players-tribute-memory any-human-neutral food > 0)
+				(players-tribute-memory any-human-enemy food > 0)
+			)
+			(players-tribute-memory any-human-neutral gold > 0)
+		)
+		(players-tribute-memory any-human-enemy gold > 0)
+	)
+=>
+	(clear-tribute-memory this-any-human-neutral food)
+	(clear-tribute-memory this-any-human-neutral gold)
+	(clear-tribute-memory this-any-human-enemy food)
+	(clear-tribute-memory this-any-human-enemy gold)
+	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have wood, but I don't tell you that..")
+	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have wood, but I don't tell you that..")
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-WOOD)
+	(or
+		(players-tribute-memory any-human-neutral stone > 0)
+		(players-tribute-memory any-human-enemy stone > 0)
+	)
+=>
+	(clear-tribute-memory this-any-human-neutral stone)
+	(clear-tribute-memory this-any-human-enemy stone)
+	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have wood, but I don't tell you that..")
+	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have wood, but I don't tell you that..")
+)
+
+
+
+;GOLD
+;--------
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-GOLD)
+	(or
+		(or
+			(or
+				(players-tribute-memory any-human-neutral wood > 0)
+				(players-tribute-memory any-human-enemy wood > 0)
+			)
+			(players-tribute-memory any-human-neutral food > 0)
+		)
+		(players-tribute-memory any-human-enemy food > 0)
+	)
+=>
+	(clear-tribute-memory this-any-human-neutral wood)
+	(clear-tribute-memory this-any-human-neutral food)
+	(clear-tribute-memory this-any-human-enemy wood)
+	(clear-tribute-memory this-any-human-enemy food)
+	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have gold, but I don't tell you that..")
+	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have gold, but I don't tell you that..")
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-GOLD)
+	(or
+		(players-tribute-memory any-human-neutral stone > 0)
+		(players-tribute-memory any-human-enemy stone > 0)
+	)
+=>
+	(clear-tribute-memory this-any-human-neutral stone)
+	(clear-tribute-memory this-any-human-enemy stone)
+	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have food, but I don't tell you that..")
+	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have food, but I don't tell you that..")
+)
+
+
+
+;STONE
+;----------
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-STONE)
+	(or
+		(or
+			(or
+				(players-tribute-memory any-human-neutral wood > 0)
+				(players-tribute-memory any-human-enemy wood > 0)
+			)
+			(players-tribute-memory any-human-neutral gold > 0)
+		)
+		(players-tribute-memory any-human-enemy gold > 0)
+	)
+=>
+	(clear-tribute-memory this-any-human-neutral wood)
+	(clear-tribute-memory this-any-human-neutral gold)
+	(clear-tribute-memory this-any-human-enemy wood)
+	(clear-tribute-memory this-any-human-enemy gold)
+	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have food, but I don't tell you that..")
+	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have food, but I don't tell you that..")
+)
+
+(defrule
+	(goal GET-NEW-FRIEND RESOURCES-STONE)
+	(or
+		(players-tribute-memory any-human-neutral food > 0)
+		(players-tribute-memory any-human-enemy food > 0)
+	)
+=>
+	(clear-tribute-memory this-any-human-neutral food)
+	(clear-tribute-memory this-any-human-enemy food)
+	(chat-to-player this-any-human-neutral "41 Er .. I wanted to have food, but I don't tell you that..")
+	(chat-to-player this-any-human-enemy "40 Er .. I wanted to have food, but I don't tell you that..")
+)
+
+
+
+;****************************************
+;****************************************
+;IF THE TIME IS OVER
+
+(defrule
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(or
+		(goal GET-NEW-FRIEND RESOURCES-FOOD)
+		(goal GET-NEW-FRIEND RESOURCES-WOOD)
+	)
+	(timer-triggered T-DIPLOMACY)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 That's a pity! The time is over..!")
+	(chat-to-player this-any-human-enemy "40 That's a pity! The time is over..!")
+	(chat-to-player this-any-human-neutral "DarkAngelBGE: Perhaps in twenty minutes the AI could ally with you again..")
+	(chat-to-player this-any-human-enemy "DarkAngelBGE: Perhaps in twenty minutes the AI could ally with you again..")
+	(enable-timer T-DIPLOMACY 5)
+	(enable-timer T-GET-NEW-FRIEND 1200)
+	(set-goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
+)
+
+;***********
+
+(defrule
+	(or
+		(players-stance any-human-neutral ally)
+		(players-stance any-human-enemy ally)
+	)
+	(or
+		(goal GET-NEW-FRIEND RESOURCES-GOLD)
+		(goal GET-NEW-FRIEND RESOURCES-STONE)
+	)
+	(timer-triggered T-DIPLOMACY)
+=>
+	(disable-timer T-DIPLOMACY)
+	(chat-to-player this-any-human-neutral "41 That's a pity! The time is over..!")
+	(chat-to-player this-any-human-enemy "40 That's a pity! The time is over..!")
+	(chat-to-player this-any-human-neutral "DarkAngelBGE: Perhaps in twenty minutes the AI could ally with you again..")
+	(chat-to-player this-any-human-enemy "DarkAngelBGE: Perhaps in twenty minutes the AI could ally with you again..")
+	(enable-timer T-DIPLOMACY 5)
+	(enable-timer T-GET-NEW-FRIEND 1200)
+	(set-goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
+)
+
+#end-if		;if not teams-locked
+
+
+
+;******************************************************************
+;******************************************************************
+;SOME CHATS
+
+
+
+#load-if-not-defined WONDER-RACE
+;*************************************
+;*************************************
+
+
+
+(defrule				;If
+	(player-resigned any-enemy)
+=>				;then
+	(chat-to-player every-enemy "40 That was the first and now I'll defeat you!")
+	(chat-to-player every-enemy "11")
+	(disable-self)
+)
+
+
+
+(defrule				;If
+ 	(players-building-count any-enemy >= 1)
+=>				;then
+	(chat-to-player every-ally "16 Enemy sighted!")
+	(disable-self)
+)
+
+
+
+(defrule				;If
+ 	(current-age == feudal-age)		;The age, the AI is in, is feudal-age
+	(starting-age < feudal-age)			;the age, the players start with is dark-age
+	(current-age-time > 2)			;time in the current-age greater than 2
+=>				;then
+	(chat-to-player every-ally "39 We have researched to the feudal-age!");the AI sends the chat to its allies
+ 	(disable-self)				;but only one-time
+)
+
+
+
+(defrule				;If
+ 	(current-age == castle-age)			;The age, the AI is in, is castle-age
+	(starting-age <= feudal-age)		;the age, the players start with, is dark-age or feudal-age
+	(current-age-time > 2)			;time in the current-age greater than 2
+=>				;then
+	(chat-to-player every-ally "39 We have researched to the castle-age!");the AI sends the chat to its allies
+ 	(disable-self)				;but only one-time
+)
+
+
+
+(defrule				;If
+ 	(current-age == imperial-age)		;The age, the AI is in, is imperial-age
+	(starting-age < imperial-age)		;the age, the players start with is imperial-age
+	(current-age-time > 2)			;time in the current-age greater than 2
+=>				;then
+	(chat-to-player every-ally "39 We have researched to the glorious imperial-age!");the AI sends the chat to its allies
+ 	(disable-self)				;but only one-time
+)
+
+
+;*************************************
+;*************************************
+#end-if		;if game-type != wonder-race
+
+
+;=====END; The Duke Diplomacy.per=====
+;=====ALL RIGHTS RESERVED=========

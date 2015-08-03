@@ -1,0 +1,244 @@
+[The Duke-AI version 1.6 readme-file]
+
+
+
+COPYRIGHT INFORMATION
+---------------------
+
+AGE OF EMPIRES II AND THE CONQUERORS ARE GAMES BY ENSEMBLE STUDIOS AND MICROSOFT
+ALL TRADEMARKS ARE PROPERTY OF THEIR RESPECTIVE OWNERS
+ALL RIGHTS RESERVED
+
+COPYRIGHT (©) 2000-2002 by Tim Koschützki [DarkAngelBGE]
+Official The Duke-AI website: http://dragon.gamerznexus.com/duke-ai
+
+
+
+WHAT TO DO WITH THE FILES?
+--------------------------
+
+Please put all files with a *.per or an *.ai extension in your AI folder, but please let they stay in there folders.
+All the new taunts that you'll find in the folder "The Duke-AI - media do you put into your taunt directory.
+
+If you did this you would have to start a new game and you must choose for player "The Duke-AI version 1.2" !  Then you can play with that AI !
+
+
+
+VERSION 1.6
+-----------
+
+Here is a list of all changes, bugfixes and new features I have done for The Duke-AI Version 1.5:
+
+>> The AI builds the Town-Center on the nomad-map first when it has found some wood.
+
+>> After that the AI tasks more villagers to gather and to build. In version 1.4 and earlier all villagers were explorers, even when the TC has been built up (on nomad-map).
+
+>> Bug fixed: The AI now always attacks when it has got plenty resources. In the earlier versions it sometimes did not attack although it had plenty of soldiers and resources.
+
+>> On victory-condition Standard: The AI always tries to attack the monasteries when the enemies captured all and always tries to attack the wonder if an enemy has built one.
+
+>> On victory-condition Standard: If the AI has captured all relics and it does never attack anymore until the monasteries (in which the relics are) have been defeated.
+
+>> The AI now attacks more frequently. There are not so big gaps between the attacks.
+
+>> If the has got 2 or more castle, it tries to place one near the enemy's town(s).
+
+>> Bug fixed: The AI now researches is unique-research when it plays the turkish or the teutons. In the earlier versions it did not research it (when it plays the turkish or the teutons).
+
+>> When the duke plays on a custom random map, it asks which map type the random map is (land-map, ocean-map, rivers-map, islands-map). So it will play well on a custom random map, too. Check the taunt-commands-page at http://dragon.gamerznexus.com/duke-ai for more information.
+
+>> If the AI should be "more aggressive" (taunt command) it will build more military buildings (produces units faster then) and more buildings near the enemy's town(s).
+
+>> The AI has got more readable code now.
+
+>> The AI now informs its allies at the start of a game which teambonus it will bring to the team.
+
+>> New military-upgrade-system! If the AI only has a few units of a give unit type then thy will get the blacksmith upgrades from the feudal-age. A few more, then the upgrades fromthe castle-age and again a few more the upgrades from the imperial-age. Have tested it and it works well!
+
+>> If you want the AI to advance to the next age (with the taunt) then it will do it much faster and will inform you whether it is advancingto the next age already.
+
+>> Bug fixed that the AI sometimes do not chop wood after 2 hours of playing anymore.
+
+>> Bug fixed that the AI sometimes does not attack.
+
+>> The AI will launch rushes now on medium-, standard- and low-starting- resources, too.
+
+>> Bug fixed that the AI sometimes builds 2 docks in the dark-age nd when it advances to the feudal-age it doesn't have enough wood to build a market and a blacksmith so advances to thecastle-age way more later.
+
+>> Updated navy system: the AI now creates galleys, fire-ships and cannon-galleons instead of sometimes only fire-ships and cannon-galleons.
+ 
+>> Bug fixed that the AI sometimes does not attack when it should be "defensive" (taunt).  
+
+>> New attack system: the AI now only attacks when it is not outnumbered (when it does rushes, then it's clear it uses a different attack system).
+>> The AI now builds forward buildings only if it has enough wood, at least a second town center and some military buildings in its town.
+
+>> The best new feature !!! You can now tell your ally dukes which units they should train via taunts. If you send such a taunt to an enemy then he will tell you that you cannot command him.
+
+>> Unit combos have been improved for some civs.
+
+>> The AI does not always send only a small group of soldiers into battle. If you give Duke-AI enough time he will create a really big military troop.
+
+>> If the AI does not have an ally, then it will train the previous considered number of trade units as villagers.
+
+>> If the AI has enough soldiers, it will train more monks. The AI now is more intelligent gathering the relics as well.
+
+>> Sometimes (if the AI has enough wood) it will build a mill next to deers or fishing places to keep dropsite distance small.
+
+>> Improved gatherer ratios.
+
+>> The AI now cheats more resources on hardest.
+
+>> If there is no more gold and stone on the map, the AI will delete its miners and will build trade units instead (but only if it has got an ally market).
+
+>> Camp distance has been improved. If duke could beat any player it will use his resources as well, although they are far away from duke's town.
+
+>> Towns are now smaller again, because the AI can defend small towns better.
+
+>> If AI has got enough wood, it will build a second monastery as well to keep training monks fast.
+
+>> Improved counter-unit-training. It will not only train now counter unitsi f town is under attack, but also if it has seen an army and it is not in duke's town.
+
+>> The Duke-AI always trains some pikemen in castle-age to prevent a knight rush.
+
+>> If the AI launches a castle rush or feudal rush, it will first research the economic upgrades to keep training units fast.
+
+>> If the AI is in imperial-transition it will always keep five percent of the pop cap units and not as in version 1.4 won't train any units in imperial transition.
+
+>> When doing a feudal rush, duke will not only train two units, it will train all units who are able in feudal age.
+
+>> When doing a castle rush, duke will train cheap units as well as always some knights after the first attack.
+
+>> On difficulty easiest or easy the AI only trains one monk.
+
+>> On difficulty easiest and easy the AI trains less villagers and military, does not upgrade its units that good again, but has the usage of the market to keep the economic balanced.
+
+>> The AI builds only one military building of each type it needs for the strategy and then waits for a second town center. If the town center is under construction, the AI will train more military buildings.
+
+>> On rushes the point above is different. There a second town center is not as important as military buildings.
+
+>> On wonder race the AI builds always a market now -> bug fixed.
+
+>> Rushes improved: when doing a castle rush the AI will never use its unique unit, because it takes too long to build a castle. The enemy will once be too strong to launch a rush.
+
+>> On difficulty easiest and easy the duke does not research the new ages that fast.
+
+>> The AI keeps training villagers even when it is rushes or is in imperial transition.
+
+>> The duke now builds his first ming camp during feudal transition and not first in feudal age.
+
+>> To the feature that you can tell duke his units: If any unit you would like him to train is not in his tech tree he will inform you.
+
+>> The AI now decides to do a rush dependant on the map size as well. For example: If you play 1v1 on a giant map, then the AI's scout has less chance to find your town before the rush is launched. This would trigger silly things like a duke with plenty units in feudal age, but not using them, because the tactical AI (not made by me, but by the game engine) is really buggy with scouting and target evaluation.
+
+>> The duke keeps having the number of military buildings it needs balanced. For example: if duke needs an archery range and a barracks, it will then train 2 barracks and two archery-ranges and after that barracks and ranges up to 12 or so. In version 1.4 when duke sometimes needed a barracks and an archery-range ghe train 10 barracks, but no archery-range and that's why often lost.
+
+>> The AI keeps some population slots unused on watermaps to have enough space to train a fleet.
+
+>> Improved rushes.
+
+>> A new attack form (TSA) added.
+
+>> many, many more which are minor changes but improve duke's performance.
+
+
+
+BOAR CHEATING
+-------------
+
+The AI gets some wood after 5min (amount of wood is dependant on the difficulty level), because the AI cannot hunt boar (due to the buggy game engine) and that's why
+a human player can advance to feudal age earlier and pretty stronger than an AI. To lock boar cheatng, please go into the "The DUke-AI Version 1.5 - Main Files" - folder
+and open The DUke Boar Cheating.per with a text editor (for example notepad).
+
+There you find this:
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+(defrule				;if
+	(true)						;this condition is always true -> the rule always gets executed
+=>					;then
+	(set-goal BOAR-CHEATING NO)			;LINE X !! ;the AI sets goal BOAR-CHEATING to NO (constant)
+	(disable-self)					;only initialisation
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty == hardest
+#end-if		;if not difficulty == hard
+#end-if		;if not difficulty == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+(defrule				;if
+	(true)						;this condition is always true -> the rule always gets executed
+=>					;then
+	(set-goal BOAR-CHEATING YES)			;LINE Y !! ;the AI sets goal BOAR-CHEATING to YES (constant)
+	(disable-self)					;only initialisation
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty == easy
+#end-if		;if not difficulty == easiest
+
+
+
+If you want the AI to have boar cheating on easiest-, easy- or moderate-difficulty then please change the "NO" into a "YES" in line x (use capital letters, otherwise the game will give an error message).
+If you want the AI not to have boar cheating on hard- or hardest-difficulty, then change the second "YES" in line y into a "NO". 
+
+
+
+TAUNTS
+------
+
+Please check "The Duke-AI supported taunts.doch to have a list of all taunts supported by the AI. It would be helpful if you would print that list.
+
+Put all taunts from the "The Duke-AI Media"-folder into your "taunt"-folder under your Age of Empires II folder.
+
+
+
+DIFFICULTY DESCRIPTION
+----------------------
+
+Easiest: something like a whole newbie! I think everybody who has never seen a computer yet is able to win!
+
+Easy: a bit better than easiest, but every Age of Empires newbie should be able to win!
+
+Moderate: you play against a well practised player! This should be fun, but on hard or hardest you can enjoy many more tricks, rushes and strategies of The Duke-AI!
+
+Hard, Hardest: these are the most challenging difficulty levels of The Duke-AI (as they should be :)). Here, there are rushes, optimised building strategies.. just most changelling.
+The only difference between hard and hardest, is that in hardest goes everything faster and earlier and the rushes are more difficult to defend.
+If hardest is too easy for you, then play against 2 or 3 or even more The Duke-AIs, but I think a 2 vs 2 cheating The Dukes on hardest should be hard enough! By the way, on hardest the duke cheats a little bit. On hard the duke does not cheat.
+
+The Duke-AI can take on 3 comp opponents which are teamed together (not always, but often) and in one test it could beat phoenixknight and often beats alliance-AI by Dr. Mabuse.
+
+
+
+IMPORTANT:
+----------
+
+THIS AI IS COPYRIGHTED (c) BY TIM KOSCHÜTZKI (DarkAngelBGE). YOU MAY NOT CHANGE THE CODE AND USE IT FOR COMERCIAL THINGS UNDER ANOTHER NAME, NOT EVEN IF YOU DID CHANGE THE CODE!
+
+For opinions, bugreport and new features send me a mail: DarkAngelBGE@aol.com
+
+
+Greetings from Berlin/Germany		
+
+				Tim Koschützki
+
+- The Duke-AI - Developer
+- Email: DarkAngelBGE@aol.com
+- Zone name: BGE_DarkAngel
+- aok.heavengames.com - forum - name: DarkAngelBGE
+- proud member of Dragon Gaming Design Netwok (http://dragon.gamerznexus.com)
+- please visit the official The Duke-AI website: http://dragon.gamerznexus.com/duke-ai

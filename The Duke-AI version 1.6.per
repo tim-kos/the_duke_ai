@@ -1,0 +1,1552 @@
+;			The Duke-AI version 1.6.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+;=====================================================================
+;	Set Author, Version and Author E-Mail
+;=====================================================================
+
+
+
+(defrule
+	(true)
+=>
+	(set-author-version "The Duke-AI - Version 1.5")
+	(set-author-name "Author name: DarkAngelBGE alias Tim Koschützki")
+	(set-author-email "Author e-mail: DarkAngelBGE@aol.com")
+	(disable-self)
+)
+
+
+
+;======================================================================
+;		Load all the files of The Duke-AI
+;======================================================================
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Constants")
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Buildings")
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Diplomacy")
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Resign")
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Cheating")
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Commodity")
+
+#load-if-not-defined WONDER-RACE
+(load "The Duke-AI version 1.6 - Main Files\The Duke Attack")
+#end-if
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Technologies")
+
+#load-if-not-defined VICTORY-CONQUEST
+#load-if-not-defined WONDER-RACE
+
+#load-if-defined DIFFICULTY-EASIEST
+
+	(load-random
+	  	0 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+	)
+
+#end-if
+;***********************************
+#load-if-defined DIFFICULTY-EASY
+
+	(load-random
+	  	20 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+	)
+
+#end-if
+;***********************************
+#load-if-defined DIFFICULTY-MODERATE
+
+	(load-random
+	  	30 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+	)
+
+#end-if
+;***********************************
+#load-if-defined DIFFICULTY-HARD
+
+	(load-random
+		30 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+	)
+
+#end-if
+;***********************************
+#load-if-defined DIFFICULTY-HARDEST
+
+	(load-random
+		30 "The Duke-AI version 1.6 - Main Files\The Duke Wonder"
+	)
+
+#end-if
+#end-if		;if not game type == wonder race
+#end-if		;load if not defined victory conquest
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Unit-Combos")
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Military")
+
+
+#load-if-defined DEFEND-WONDER
+(load "The Duke-AI version 1.6 - Main Files\The Duke Wonder Kill")
+#end-if		;if defend-wonder
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Resource-Control")
+
+
+
+;======================================================================
+;STARTUP
+;======================================================================
+
+;goals // note, the other goal don't need any initialisation or have got other initialisation conditions
+
+(defrule
+	(true)
+=>
+	(set-goal RESOURCE-NEEDED NO)				;goal 2
+	(set-goal ABLE-TO-BUILD-BARRACKS NO)		;goal 4
+	(set-goal ABLE-TO-BUILD-ARCHERY-RANGE NO)		;goal 5
+	(set-goal ABLE-TO-BUILD-STABLE NO)			;goal 6
+	(set-goal GET-NEW-FRIEND NO)			;goal 13
+	(set-goal HUMAN-DIPLOMACY NO)			;goal 25
+	(set-goal MAIN-SHIP-BUILDER NOTICE)
+	(set-goal ABLE-TO-RESEARCH-WHEN-RUSH NO)	;goal 26
+	(disable-self)
+)
+
+#load-if-not-defined NORMAL-MAP
+#load-if-not-defined LARGE-MAP
+#load-if-not-defined GIANT-MAP
+
+(defrule
+	(true)
+=>
+	(set-goal TOWN-SIZE-ATTACK YES)
+	(disable-self)
+)
+
+#else	;if map-size != giant
+
+(defrule
+	(true)
+=>
+	(set-goal TOWN-SIZE-ATTACK NO)
+	(disable-self)
+)
+
+#end-if	;if map-size == giant
+
+#else	;if map-size != large
+
+(defrule
+	(true)
+=>
+	(set-goal TOWN-SIZE-ATTACK YES)
+	(disable-self)
+)
+
+#end-if	;if map-size == large
+
+#else	;if map-size != normal
+
+(defrule
+	(true)
+=>
+	(set-goal TOWN-SIZE-ATTACK YES)
+	(disable-self)
+)
+
+#end-if	;if map-size == normal
+
+
+
+(defrule
+	(true)
+=>
+	(set-goal RESEARCHING-FEUDAL NOTICE)		;goal 14
+	(set-goal RESEARCHING-CASTLE NOTICE)			;goal 15
+	(set-goal RESEARCHING-IMPERIAL NOTICE)		;goal 16
+	(set-goal ABLE-TO-UPGRADE-INFANTRY NO)		;goal 22
+	(set-goal ABLE-TO-UPGRADE-ARCHERS NO)		;goal 23
+	(set-goal ABLE-TO-UPGRADE-CAVALRY NO)		;goal 24
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)  	;goal 3
+	(disable-self)
+)
+
+(defrule
+	(true)
+=>
+	(set-goal PRIMARY-COMBAT-UNIT NO)
+	(set-goal PRIMARY-COMBAT-UNIT2 NO)
+	(set-goal SECONDARY-COMBAT-UNIT NO)
+	(set-goal SECONDARY-COMBAT-UNIT2 NO)
+
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT NO)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 NO)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
+
+	(disable-self)
+)
+
+
+#load-if-defined DEATH-MATCH
+
+(defrule
+	(not (goal RUSH-CONTROL NO))
+=>
+	(set-goal RUSH-CONTROL NO)				;goal 7
+)
+
+#end-if
+
+
+
+#load-if-defined DEFEND-WONDER
+
+(defrule
+	(not (goal RUSH-CONTROL NO))
+=>
+	(set-goal RUSH-CONTROL NO)				;goal 7
+)
+
+#end-if
+
+
+
+;timers // note, the other timers have got onther initialisation conditions
+
+(defrule
+	(true)
+=>
+	(enable-timer T-DIPLOMACY 1)				;timer 2
+	(enable-timer T-NEED-HELP 1)				;timer 4
+	(enable-timer T-GET-NEW-FRIEND 1)			;timer 5
+	(disable-self)
+)
+
+
+
+;**********************************************************************
+
+#load-if-defined AZTEC-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am an Atztec Duke!")
+	(chat-to-player every-ally "Teambonus: relics +33% gold!")
+	(chat-to-player every-enemy "40 You will be defeated by an Atztec Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined BRITON-CIV
+
+(defrule
+  	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a British Duke!")
+	(chat-to-player every-ally "Teambonus: +1 range for archers, +2 attack for towers!")
+	(chat-to-player every-enemy "40 You will be defeated by a British Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;*************************
+#load-if-defined BYZANTINE-CIV
+
+(defrule
+  	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Byzantine Duke!")
+	(chat-to-player every-ally "Teambonus: monks heal 50% faster!")
+	(chat-to-player every-enemy "40 You will be defeated by a Byzantine Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;*************************
+#load-if-defined CHINESE-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Chinese Duke!")
+	(chat-to-player every-ally "Teambonus: +45 food for farms!")
+	(chat-to-player every-enemy "40 You will be defeated by a Chinese Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;*************************
+#load-if-defined CELTIC-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Celtic Duke!")
+	(chat-to-player every-ally "Teambonus: siege-workshop works 20% faster!")
+	(chat-to-player every-enemy "40 You will be defeated by a Celtic Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;*************************
+#load-if-defined FRANKISH-CIV
+
+(defrule
+  	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Frankish Duke!")
+	(chat-to-player every-ally "Teambonus: knights +2 LOS!")
+	(chat-to-player every-enemy "40 You will be defeated by a Frankish Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;*************************
+#load-if-defined GOTHIC-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Gothic Duke!")
+	(chat-to-player every-ally "Teambonus: barracks works 20% faster!")
+	(chat-to-player every-enemy "40 You will be defeated by a Gothic Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;*************************
+#load-if-defined HUN-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Hunic Duke!")
+	(chat-to-player every-ally "Teambonus: stable works 20% faster!")
+	(chat-to-player every-enemy "40 You will be defeated by a Hunic Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;*************************
+#load-if-defined JAPANESE-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Japanese Duke!")
+	(chat-to-player every-ally "Teambonus: +50% LOS for galleys!")
+	(chat-to-player every-enemy "40 You will be defeated by a Japanese Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined KOREAN-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Korean Duke!")
+	(chat-to-player every-ally "Teambonus: +1 range for mangonels!")
+	(chat-to-player every-enemy "40 You will be defeated by a Korean Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined MAYAN-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Mayan Duke!")
+	(chat-to-player every-ally "Teambonus: walls cost -50%!")
+	(chat-to-player every-enemy "40 You will be defeated by a Mayan Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined MONGOL-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Mongol Duke!")
+	(chat-to-player every-ally "Teambonus: +2 LOS for scouts, light-cav and hussar!")
+	(chat-to-player every-enemy "40 You will be defeated by a Mongol Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined PERSIAN-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Persian Duke!")
+	(chat-to-player every-ally "Teambonus: +2 attack for knights against archers!")
+	(chat-to-player every-enemy "40 You will be defeated by a Persian Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined SARACEN-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Saracen Duke!")
+	(chat-to-player every-ally "Teambonus: archers +1 attack against buildings!")
+	(chat-to-player every-enemy "40 You will be defeated by a Saracen Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined SPANISH-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Spanish Duke!")
+	(chat-to-player every-ally "Teambonus: tradecarts and tradecogs get +33% gold!")
+	(chat-to-player every-enemy "40 You will be defeated by a Spanish Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined TEUTONIC-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Teutonic Duke!")
+	(chat-to-player every-ally "Teambonus: more resistance against conversion!")
+	(chat-to-player every-enemy "40 You will be defeated by a Teutonic Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined TURKISH-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Turkish Duke!")
+	(chat-to-player every-ally "Teambonus: cannon units are trained 20% faster!")
+	(chat-to-player every-enemy "40 You will be defeated by a Turkish Duke!")
+	(disable-self)
+)
+
+#end-if
+
+;************************
+#load-if-defined VIKING-CIV
+
+(defrule
+ 	(game-time > 4)
+=>
+ 	(chat-to-player every-ally "39 I am a Viking Duke!")
+	(chat-to-player every-ally "Teambonus: docks cost -25%!")
+	(chat-to-player every-enemy "40 You will be defeated by a Viking Duke!")
+	(disable-self)
+)
+
+#end-if
+
+
+
+;****************************************
+;****************************************
+;MAP-LOADING
+
+
+
+;LAND MAPS
+;---------
+
+#load-if-defined ARABIA-MAP
+(defrule
+	(true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined ARENA-MAP
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined BLACK-FOREST-MAP
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#load-if-defined DIFFICULTY-HARDEST
+(defrule
+	(unit-type-count-total bombard-cannon < TWO-PERCENT-POP)
+	(can-train bombard-cannon)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+=>
+	(train bombard-cannon)
+)
+#end-if
+#end-if
+;*******************************
+#load-if-defined FORTRESS-MAP
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined GOLD-RUSH-MAP
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined HIGHLAND-MAP
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined MONGOLIA-MAP
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined YUCATAN-MAP
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined OASIS-MAP
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined GHOST-LAKE-MAP
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined SCANDINAVIA-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+
+;WATER MAPS
+;----------
+
+#load-if-defined ARCHIPELAGO-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined ISLANDS-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND ISLAND-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined TEAM-ISLANDS-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined BALTIC-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined COASTAL-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined CONTINENTAL-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined CRATER-LAKE-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true)=> (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined MEDITERRANEAN-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined RIVERS-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
+#end-if
+;*******************************
+#load-if-defined NOMAD-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined SALT-MARSH-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined MIGRATION-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+
+;REAL-WORLD-MAPS
+;---------------
+
+#load-if-defined REAL-WORLD-BYZANTIUM-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined REAL-WORLD-CARIBBEAN-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined REAL-WORLD-ENGLAND-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined REAL-WORLD-FRANCE-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined REAL-WORLD-ITALY-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined REAL-WORLD-JUTLAND-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined REAL-WORLD-MIDEAST-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined REAL-WORLD-NIPPON-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat-Prepare")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined REAL-WORLD-SPAIN-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND WATER-MAP) (disable-self))
+#end-if
+;******************************
+#load-if-defined REAL-WORLD-TEXAS-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) => (set-goal MAP-KIND RIVERS-MAP) (disable-self))
+#end-if
+
+;UNKNOWN-MAPS
+;------------
+
+#load-if-defined SCENARIO-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) =>
+	(chat-to-player every-human "Check whether this map has got water or not and then")
+	(chat-to-player every-human "rework thy AI-script accordingly!")(chat-to-player every-human "45") (set-goal MAP-KIND RIVERS-MAP)
+	(disable-self)
+)
+#end-if
+;******************************
+#load-if-defined CUSTOM-MAP
+(load "The Duke-AI version 1.6 - Main Files\The Duke Warboat")
+(load "The Duke-AI version 1.6 - Main Files\The Duke Fishingship")
+
+(defrule (true) =>
+	(set-goal MAP-KIND NOTICE)
+	(disable-self)
+)
+
+
+
+(defrule
+	(game-time > 8)
+=>
+	(chat-to-all "On which map type are we playing?")
+	(chat-to-all "Answer with 1 for land, 2 for ocean, 3 for rivers")
+	(chat-to-all "and 4 for island!")
+	(chat-to-all "You must answer within 30 secs, otherwise I will consider this map")
+	(chat-to-all "to be land-based!")
+	(enable-timer T-RESIGN 30)
+	(disable-self)
+)
+
+
+
+(defrule
+	(game-time > 5)
+	(or
+		(taunt-detected any-computer 1)
+		(taunt-detected any-human 1)
+	)
+	(goal MAP-KIND NOTICE)
+=>
+	(disable-timer T-RESIGN)
+	(acknowledge-taunt this-any-computer 1)
+	(acknowledge-taunt this-any-human 1)
+	(chat-to-all "Okay, one of you told me this is a land map!")
+	(chat-to-all "I now choose my strategy....")
+	(set-goal MAP-KIND LAND-MAP)
+)
+
+(defrule
+	(game-time > 5)
+	(or
+		(taunt-detected any-computer 2)
+		(taunt-detected any-human 2)
+	)
+	(goal MAP-KIND NOTICE)
+=>
+	(disable-timer T-RESIGN)
+	(acknowledge-taunt this-any-computer 2)
+	(acknowledge-taunt this-any-human 2)
+	(chat-to-all "Okay, one of you told me this is an ocean map!")
+	(chat-to-all "I now choose my strategy....")
+	(set-goal MAP-KIND WATER-MAP)
+)
+
+(defrule
+	(game-time > 5)
+	(or
+		(taunt-detected any-computer 3)
+		(taunt-detected any-human 3)
+	)
+	(goal MAP-KIND NOTICE)
+=>
+	(disable-timer T-RESIGN)
+	(acknowledge-taunt this-any-computer 3)
+	(acknowledge-taunt this-any-human 3)
+	(chat-to-all "Okay, one of you told me this is a rivers map!")
+	(chat-to-all "I now choose my strategy....")
+	(set-goal MAP-KIND RIVERS-MAP)
+)
+
+(defrule
+	(game-time > 5)
+	(or
+		(taunt-detected any-computer 4)
+		(taunt-detected any-human 4)
+	)
+	(goal MAP-KIND NOTICE)
+=>
+	(disable-timer T-RESIGN)
+	(acknowledge-taunt this-any-computer 4)
+	(acknowledge-taunt this-any-human 4)
+	(chat-to-all "Okay, one of you told me this is an islands map!")
+	(chat-to-all "I now choose my strategy....")
+	(set-goal MAP-KIND ISLAND-MAP)
+)
+
+
+
+(defrule
+	(timer-triggered T-RESIGN)
+=>
+	(disable-timer T-RESIGN)
+	(chat-to-all "Okay, time is up and I must choose my strategy now!")
+	(chat-to-all "I consider this map to be land-based!")
+	(set-goal MAP-KIND LAND-MAP)
+)
+
+#end-if		;if custom-map
+
+
+
+;======================================================================
+;		STRATEGIC-NUMBERS
+;======================================================================
+
+
+
+#load-if-defined KING-OF-THE-HILL
+
+(defrule
+	(hold-koh-ruin)
+=>
+	(set-strategic-number sn-gather-idle-soldiers-at-center YES)
+)
+
+
+
+(defrule
+	(not (hold-koh-ruin))
+	(military-population < TWENTY-PERCENT-POP)
+=>
+	(set-strategic-number sn-gather-idle-soldiers-at-center NO)
+)
+
+
+
+(defrule
+	(not (hold-koh-ruin))
+	(military-population >= TWENTY-PERCENT-POP)
+=>
+	(set-strategic-number sn-gather-idle-soldiers-at-center YES)
+)
+
+#end-if
+
+
+
+(defrule
+	(or
+		(players-current-age any-enemy > feudal-age)
+		(players-military-population any-enemy > 2)
+	)
+=>
+	(set-strategic-number sn-allow-civilian-defense NO)
+	(disable-self)
+)
+
+
+
+#load-if-defined SPANISH-CIV
+
+(defrule
+	(research-completed my-unique-research)
+=>
+	(set-strategic-number sn-allow-civilian-defense YES)
+	(disable-self)
+)
+
+#end-if		;if civ == spanish
+
+
+
+;CIVIL-NUMBERS
+;-------------
+
+
+
+#load-if-not-defined NOMAD-MAP
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-minimum-civilian-explorers 2)
+	(set-strategic-number sn-cap-civilian-explorers 2)
+	(set-strategic-number sn-percent-civilian-explorers 67)
+	(set-strategic-number sn-percent-civilian-builders 0)
+	(set-strategic-number sn-percent-civilian-gatherers 0)
+	(set-strategic-number sn-total-number-explorers 3)
+	(set-strategic-number sn-number-explore-groups 3)
+	(set-strategic-number sn-minimum-explore-group-size 1)
+	(set-strategic-number sn-maximum-explore-group-size 1)
+	(disable-self)
+)
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-minimum-boat-explore-group-size 1)
+	(set-strategic-number sn-maximum-boat-explore-group-size 1)
+	(set-strategic-number sn-number-boat-explore-groups 1)
+	(set-strategic-number sn-percent-civilian-gatherers 0)
+	(set-strategic-number sn-cap-civilian-gatherers -1)
+	(set-strategic-number sn-number-enemy-objects-required 2)
+	(disable-self)
+)
+
+
+
+(defrule
+	(or
+		(players-unit-type-count my-player-number 958 > 0);sheep or turkey
+		(resource-found food)
+	)
+=>
+	(set-strategic-number sn-minimum-civilian-explorers 0)
+	(set-strategic-number sn-cap-civilian-explorers 0)
+	(set-strategic-number sn-cap-civilian-builders 3)
+	(set-strategic-number sn-total-number-explorers 1)
+	(set-strategic-number sn-number-explore-groups 1)
+	(set-strategic-number sn-percent-civilian-explorers 0)
+	(set-strategic-number sn-percent-civilian-builders 0)
+	(set-strategic-number sn-percent-civilian-gatherers 100)
+	(disable-self)
+)
+
+#end-if
+
+(defrule
+	(map-type nomad)
+	(game-time < 90)
+=>
+	(set-strategic-number sn-minimum-civilian-explorers 6)
+	(set-strategic-number sn-cap-civilian-explorers 6)
+	(set-strategic-number sn-cap-civilian-builders 0)
+	(set-strategic-number sn-cap-civilian-gatherers 0)
+	(set-strategic-number sn-percent-civilian-explorers 100)
+	(set-strategic-number sn-percent-civilian-builders 0)
+	(set-strategic-number sn-percent-civilian-gatherers 0)
+	(disable-self)
+)
+
+(defrule
+	(map-type nomad)
+	(game-time > 180)
+	(unit-type-count villager < 15)
+	(starting-resources < high-resources)
+	(or
+		(unit-type-count scout-cavalry == 0)
+		(unit-type-count eagle-warrior == 0)
+	)
+=>
+	(set-strategic-number sn-minimum-civilian-explorers 1)
+	(set-strategic-number sn-cap-civilian-explorers 1)
+	(set-strategic-number sn-percent-civilian-explorers 5)
+	(set-strategic-number sn-percent-civilian-builders 15)
+	(set-strategic-number sn-percent-civilian-gatherers 80)
+	(disable-self)
+)
+
+(defrule
+	(map-type nomad)
+	(game-time > 180)
+	(unit-type-count villager < 15)
+	(starting-resources == high-resources)
+	(or
+		(unit-type-count scout-cavalry == 0)
+		(unit-type-count eagle-warrior == 0)
+	)
+=>
+	(set-strategic-number sn-minimum-civilian-explorers 1)
+	(set-strategic-number sn-cap-civilian-explorers 1)
+	(set-strategic-number sn-percent-civilian-explorers 5)
+	(set-strategic-number sn-percent-civilian-builders 80)
+	(set-strategic-number sn-percent-civilian-gatherers 15)
+	(disable-self)
+)
+
+
+
+(defrule
+	(unit-type-count galley-line > 0)
+=>
+	(set-strategic-number sn-total-number-explorers 2)
+)
+
+
+
+#load-if-not-defined DEATH-MATCH
+
+(defrule
+	(current-age == dark-age)
+=>
+	(set-strategic-number sn-cap-civilian-builders 3)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == feudal-age)
+=>
+	(set-strategic-number sn-cap-civilian-builders 5)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == castle-age)
+=>
+	(set-strategic-number sn-cap-civilian-builders 8)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == imperial-age)
+=>
+	(set-strategic-number sn-cap-civilian-builders 8)
+	(disable-self)
+)
+
+#else		;if game type != death-match
+
+(defrule
+	(current-age == dark-age)
+=>
+	(set-strategic-number sn-cap-civilian-builders 5)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == feudal-age)
+=>
+	(set-strategic-number sn-cap-civilian-builders 8)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == castle-age)
+=>
+	(set-strategic-number sn-cap-civilian-builders 12)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == imperial-age)
+=>
+	(set-strategic-number sn-cap-civilian-builders 12)
+	(disable-self)
+)
+
+#end-if		;if game type == death-match
+
+
+
+#load-if-defined WONDER-RACE
+
+
+(defrule
+	(current-age == imperial-age)
+	(building-type-count-total wonder == 0)
+=>
+	(set-strategic-number sn-cap-civilian-builders 8)
+	(set-strategic-number sn-percent-civilian-builders 0)
+	(set-strategic-number sn-percent-civilian-gatherers 100)
+)
+
+(defrule
+	(current-age == imperial-age)
+	(building-type-count-total wonder > 0)
+=>
+	(set-strategic-number sn-percent-civilian-builders 95)
+	(set-strategic-number sn-percent-civilian-gatherers 5)
+	(set-strategic-number sn-cap-civilian-builders 99)
+)
+
+#end-if		;if not game-type == wonder-race
+
+
+
+;CAMP DISTANCE
+;-------------
+
+
+
+(defrule
+	(not (dropsite-min-distance wood == -1))
+	(dropsite-min-distance wood <= 8)
+=>
+	(set-goal DO-WE-HAVE-WOOD YES)
+)
+
+(defrule
+	(or
+		(dropsite-min-distance wood == -1)
+		(dropsite-min-distance wood > 8)
+	)
+=>
+	(set-goal DO-WE-HAVE-WOOD NO)
+)
+
+(defrule
+	(goal DO-WE-HAVE-WOOD NO)
+	(wood-amount >= 275)
+	(current-age == dark-age)
+=>
+	(set-goal DO-WE-HAVE-WOOD YES)
+)
+
+(defrule
+	(goal DO-WE-HAVE-WOOD NO)
+	(wood-amount >= 275)
+	(current-age == feudal-age)
+	(building-type-count-total market > 0)
+	(building-type-count-total blacksmith > 0)
+=>
+	(set-goal DO-WE-HAVE-WOOD YES)
+)
+
+(defrule
+	(goal DO-WE-HAVE-WOOD NO)
+	(wood-amount >= 450)
+	(current-age == feudal-age)
+=>
+	(set-goal DO-WE-HAVE-WOOD YES)
+)
+
+(defrule
+	(goal DO-WE-HAVE-WOOD NO)
+	(wood-amount >= 375)
+	(current-age >= castle-age)
+	(building-type-count-total market > 0)
+	(building-type-count-total blacksmith > 0)
+=>
+	(set-goal DO-WE-HAVE-WOOD YES)
+)
+
+(defrule
+	(goal DO-WE-HAVE-WOOD NO)
+	(wood-amount >= 550)
+	(current-age >= castle-age)
+=>
+	(set-goal DO-WE-HAVE-WOOD YES)
+)
+
+
+
+(defrule
+	(goal DO-WE-HAVE-WOOD NO)
+	(building-type-count-total town-center > 0)
+=>
+	(set-strategic-number sn-mill-max-distance 200)
+	(set-strategic-number sn-camp-max-distance 200)
+)
+
+(defrule
+	(goal DO-WE-HAVE-WOOD YES)
+	(building-type-count-total town-center > 0)
+=>
+	(set-strategic-number sn-mill-max-distance 28)
+	(set-strategic-number sn-camp-max-distance 20)
+)
+
+(defrule
+	(goal DO-WE-HAVE-WOOD YES)
+	(or
+		(dropsite-min-distance gold < 30)
+		(dropsite-min-distance stone < 30)
+	)
+=>
+	(set-strategic-number sn-camp-max-distance 30)
+)
+
+(defrule
+	(goal DO-WE-HAVE-WOOD YES)
+	(or
+		(dropsite-min-distance gold < 20)
+		(dropsite-min-distance stone < 20)
+	)
+=>
+	(set-strategic-number sn-camp-max-distance 20)
+)
+
+(defrule
+	(strategic-number sn-camp-max-distance < 25)
+	(goal DO-WE-HAVE-WOOD YES)
+	(game-time > 900)
+=>
+	(set-strategic-number sn-camp-max-distance 25)
+)
+
+(defrule
+	(strategic-number sn-camp-max-distance < 45)
+	(goal DO-WE-HAVE-WOOD YES)
+	(game-time > 1800)
+=>
+	(set-strategic-number sn-camp-max-distance 45)
+)
+
+(defrule
+	(strategic-number sn-camp-max-distance < 60)
+	(goal DO-WE-HAVE-WOOD YES)
+	(game-time > 2700)
+=>
+	(set-strategic-number sn-camp-max-distance 60)
+)
+
+(defrule
+	(strategic-number sn-camp-max-distance < 75)
+	(goal DO-WE-HAVE-WOOD YES)
+	(game-time > 3600)
+=>
+	(set-strategic-number sn-camp-max-distance 75)
+)
+
+(defrule
+	(strategic-number sn-camp-max-distance < 100)
+	(goal DO-WE-HAVE-WOOD YES)
+	(game-time > 4500)
+=>
+	(set-strategic-number sn-camp-max-distance 100)
+)
+
+(defrule
+	(strategic-number sn-camp-max-distance < 125)
+	(goal DO-WE-HAVE-WOOD YES)
+	(game-time > 5400)
+=>
+	(set-strategic-number sn-camp-max-distance 125)
+)
+
+(defrule
+	(strategic-number sn-camp-max-distance < 150)
+	(goal DO-WE-HAVE-WOOD YES)
+	(game-time > 6300)
+=>
+	(set-strategic-number sn-camp-max-distance 150)
+)
+
+(defrule
+	(strategic-number sn-camp-max-distance < 200)
+	(goal DO-WE-HAVE-WOOD YES)
+	(game-time > 7200)
+=>
+	(set-strategic-number sn-camp-max-distance 200)
+)
+
+
+
+;NUMBERS FOR ATTACK-GROUP-SELECTION
+;----------------------------------
+
+
+
+;OUR ATTACK GROUP SIZE
+;------------------------
+
+
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-group-form-distance 250)
+	(set-strategic-number sn-number-attack-groups 0)
+	(set-strategic-number sn-attack-group-gather-spacing 9)
+	(set-strategic-number sn-minimum-defend-group-size 0)
+	(set-strategic-number sn-maximum-defend-group-size 0)
+	(set-strategic-number sn-minimum-attack-group-size 1)
+	(set-strategic-number sn-maximum-attack-group-size 40)
+	(disable-self)
+)
+
+
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-group-commander-selection-method 1)
+	(set-strategic-number sn-consecutive-idle-unit-limit idle-unit-limit)
+	(set-strategic-number sn-task-ungrouped-soldiers NO)
+	(set-strategic-number sn-group-leader-defense-distance group-leader-defense-distance)
+	(set-strategic-number sn-percent-enemy-sighted-response percent-enemy-sighted-response)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(set-strategic-number sn-maximum-gaia-attack-response 2)
+	(disable-self)
+)
+
+
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-attack-intelligence attack-intelligence)
+	(set-strategic-number sn-initial-attack-delay initial-attack-delay)
+	(set-strategic-number sn-initial-attack-delay-type initial-attack-delay-type)
+	(set-strategic-number sn-attack-group-size-randomness 0)
+	(set-strategic-number sn-scale-minimum-attack-group-size 0)
+	(set-strategic-number sn-scale-maximum-attack-group-size 0)
+	(set-strategic-number sn-attack-separation-time-randomness 0)
+	(disable-self)
+)
+
+
+
+(defrule
+	(research-completed ri-loom)
+=>
+	(set-strategic-number sn-maximum-gaia-attack-response 1)
+	(disable-self)
+)
+
+
+
+;NUMBERS FOR DEFENDING OUR DUKEDOM
+;---------------------------------
+
+
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-number-defend-groups 0)
+	(set-strategic-number sn-gold-defend-priority 1)
+	(set-strategic-number sn-stone-defend-priority 7)
+	(set-strategic-number sn-forage-defend-priority 7)
+	(set-strategic-number sn-town-defend-priority 6)
+	(set-strategic-number sn-relic-defend-priority 7)
+	(set-strategic-number sn-dock-defend-priority 7)
+	(set-strategic-number sn-defense-distance 25)
+	(set-strategic-number sn-sentry-distance 20)
+	(set-strategic-number sn-sentry-distance-variation 5)
+	(set-strategic-number sn-defend-overlap-distance 10)
+	(disable-self)
+)
+
+
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-gather-defense-units YES)
+)
+
+
+
+;NUMBERS FOR BUILDING UP OUR DUKEDOM
+;-----------------------------------
+
+
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-max-build-plan-gatherer-percentage 95)
+	(set-strategic-number sn-minimum-dropsite-buffer minimum-dropsite-buffer)
+	(set-strategic-number sn-required-forest-tiles 500)
+	(set-strategic-number sn-initial-exploration-required initial-exploration-required)
+	(disable-self)
+)
+
+(defrule
+	(map-type highland)
+=>
+	(set-strategic-number sn-minimum-water-body-size-for-dock 300)
+	(disable-self)
+)
+(defrule
+	(not (map-type highland))
+=>
+	(set-strategic-number sn-minimum-water-body-size-for-dock 1000)
+	(disable-self)
+)
+
+
+;NUMBERS FOR TARGET-EVALUATION
+;-----------------------------
+
+
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-target-evaluation-hitpoints 0)
+	(set-strategic-number sn-target-evaluation-ally-proximity 0)
+	(set-strategic-number sn-special-attack-influence1 100)
+	(set-strategic-number sn-target-evaluation-distance 0)
+	(set-strategic-number sn-target-evaluation-damage-capability 100)
+	(set-strategic-number sn-target-evaluation-kills 0)
+	(set-strategic-number sn-target-evaluation-rof 10)
+	(set-strategic-number sn-target-evaluation-randomness 0)
+	(set-strategic-number sn-target-evaluation-attack-attempts 100)
+	(set-strategic-number sn-target-evaluation-range 0)
+	(set-strategic-number sn-target-evaluation-continent 50)
+	(set-strategic-number sn-target-evaluation-time-kill-ratio 80)
+	(set-strategic-number sn-target-evaluation-boat 0)
+	(set-strategic-number sn-target-evaluation-in-progress 50)
+	(disable-self)
+)
+
+
+
+(defrule
+	(not (town-under-attack))
+=>
+	(set-strategic-number sn-target-evaluation-siege-weapon 80)
+)
+
+(defrule
+	(town-under-attack)
+	(players-unit-type-count any-enemy trebuchet < 1)
+=>
+	(set-strategic-number sn-target-evaluation-siege-weapon 0)
+)
+
+(defrule
+	(town-under-attack)
+	(players-unit-type-count any-enemy trebuchet >= 1)
+=>
+	(set-strategic-number sn-target-evaluation-siege-weapon 40)
+)
+
+
+
+;DIFFERENT NUMBERS
+;-----------------
+
+
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-relic-return-distance relic-return-distance)
+	(set-strategic-number sn-minimum-peace-like-level peace-like-level)
+	(set-strategic-number sn-scaling-frequency scaling-frequency)
+	(set-strategic-number sn-build-frequency build-frequency)
+	(set-strategic-number sn-save-scenario-information save-scenario-information)
+	(set-strategic-number sn-number-build-attempts-before-skip 20)
+	(set-strategic-number sn-attack-diplomacy-impact 50)
+	(set-strategic-number sn-easiest-reaction-percentage 20)
+	(set-strategic-number sn-easier-reaction-percentage 20)
+	(disable-self)
+)
+
+
+
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-track-player-history track-player-history)
+	(set-strategic-number sn-attack-winning-player attack-winning-player)
+	(set-strategic-number sn-coop-share-information coop-share-information)
+	(set-strategic-number sn-attack-winning-player-factor attack-winning-player-factor)
+	(set-strategic-number sn-coop-share-attacking coop-share-attacking)
+	(set-strategic-number sn-coop-share-attacking-interval coop-share-attacking-interval)
+	(set-strategic-number sn-minimum-amount-for-trading 200)
+	(set-strategic-number sn-minimum-boar-hunt-group-size 6)
+	(disable-self)
+)
+
+
+
+(defrule
+ 	(true)
+=>
+	(set-strategic-number sn-wood-dropsite-distance 7)
+	(set-strategic-number sn-food-dropsite-distance 8)
+	(set-strategic-number sn-stone-dropsite-distance 3)
+	(set-strategic-number sn-gold-dropsite-distance 3)
+
+ 	(set-strategic-number sn-maximum-wood-drop-distance 10)
+	(set-strategic-number sn-maximum-food-drop-distance 8)
+ 	(set-strategic-number sn-maximum-hunt-drop-distance 12)
+ 	(set-strategic-number sn-maximum-gold-drop-distance 5)
+ 	(set-strategic-number sn-maximum-stone-drop-distance 4)
+ 	(set-strategic-number sn-maximum-fish-boat-drop-distance 30)
+	(disable-self)
+)
+
+(defrule
+ 	(game-time > 2700)	;45 min
+=>
+ 	(set-strategic-number sn-maximum-wood-drop-distance 20)
+	(set-strategic-number sn-maximum-food-drop-distance 30)
+ 	(set-strategic-number sn-maximum-hunt-drop-distance 12)
+ 	(set-strategic-number sn-maximum-gold-drop-distance 5)
+ 	(set-strategic-number sn-maximum-stone-drop-distance 5)
+ 	(set-strategic-number sn-maximum-fish-boat-drop-distance 30)
+	(disable-self)
+)
+
+
+;======================================================================
+;DIFFICULTY PARAMETERS
+;======================================================================
+
+;scaled to the dificulty-level
+
+(defrule
+	(true)
+=>
+	(set-difficulty-parameter ability-to-dodge-missiles dodge-missiles)
+	(set-difficulty-parameter ability-to-maintain-distance maintain-distance)
+	(disable-self)
+)
+
+
+;=====END; The Duke vers. 1.6.per=====
+;=====ALL RIGHTS RESERVED============

@@ -1,0 +1,811 @@
+;			The Duke Cheating.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+
+;========================================================================
+;		ALL THE STUFF WE NEED TO CHEAT
+;========================================================================
+
+;Sorry, but this is my first AI and I want the AI to do strategies that I defined without any resource problems
+;Delete the content of this file and you'll have a non-cheating AI
+
+;********************************************************************
+;********************************************************************
+
+;CHEATING IF DIFFICULTY == EASIEST
+
+#load-if-defined DIFFICULTY-EASIEST
+
+(defconst CHEAT-AMOUNT-FOOD-DARK 0)
+(defconst CHEAT-AMOUNT-FOOD-FEUDAL 0)
+(defconst CHEAT-AMOUNT-FOOD-CASTLE 0)
+(defconst CHEAT-AMOUNT-FOOD-IMPERIAL 0)
+(defconst CHEAT-AMOUNT-WOOD-DARK 0)
+(defconst CHEAT-AMOUNT-WOOD-FEUDAL 0)
+(defconst CHEAT-AMOUNT-WOOD-CASTLE 0)
+(defconst CHEAT-AMOUNT-WOOD-IMPERIAL 0)
+(defconst CHEAT-AMOUNT-GOLD-DARK 0)
+(defconst CHEAT-AMOUNT-GOLD-FEUDAL 0)
+(defconst CHEAT-AMOUNT-GOLD-CASTLE 0)
+(defconst CHEAT-AMOUNT-GOLD-IMPERIAL 0)
+(defconst CHEAT-AMOUNT-STONE-DARK 0)
+(defconst CHEAT-AMOUNT-STONE-FEUDAL 0)
+(defconst CHEAT-AMOUNT-STONE-CASTLE 0)
+(defconst CHEAT-AMOUNT-STONE-IMPERIAL 0)
+
+#end-if		;if difficulty == easiest
+
+
+
+;*********************************************
+;*********************************************
+;CHEATING IF DIFFICULTY == EASY
+
+#load-if-defined DIFFICULTY-EASY
+
+(defconst CHEAT-AMOUNT-FOOD-DARK 0)
+(defconst CHEAT-AMOUNT-FOOD-FEUDAL 0)
+(defconst CHEAT-AMOUNT-FOOD-CASTLE 0)
+(defconst CHEAT-AMOUNT-FOOD-IMPERIAL 0)
+(defconst CHEAT-AMOUNT-WOOD-DARK 0)
+(defconst CHEAT-AMOUNT-WOOD-FEUDAL 0)
+(defconst CHEAT-AMOUNT-WOOD-CASTLE 0)
+(defconst CHEAT-AMOUNT-WOOD-IMPERIAL 0)
+(defconst CHEAT-AMOUNT-GOLD-DARK 0)
+(defconst CHEAT-AMOUNT-GOLD-FEUDAL 0)
+(defconst CHEAT-AMOUNT-GOLD-CASTLE 0)
+(defconst CHEAT-AMOUNT-GOLD-IMPERIAL 0)
+(defconst CHEAT-AMOUNT-STONE-DARK 0)
+(defconst CHEAT-AMOUNT-STONE-FEUDAL 0)
+(defconst CHEAT-AMOUNT-STONE-CASTLE 0)
+(defconst CHEAT-AMOUNT-STONE-IMPERIAL 0)
+
+#end-if		;if difficulty == easy
+
+
+
+;*********************************************
+;*********************************************
+;CHEATING IF DIFFICULTY == MODERATE
+
+#load-if-defined DIFFICULTY-MODERATE
+
+(defconst CHEAT-AMOUNT-FOOD-DARK 3)
+(defconst CHEAT-AMOUNT-FOOD-FEUDAL 4)
+(defconst CHEAT-AMOUNT-FOOD-CASTLE 8)
+(defconst CHEAT-AMOUNT-FOOD-IMPERIAL 6)
+(defconst CHEAT-AMOUNT-WOOD-DARK 2)
+(defconst CHEAT-AMOUNT-WOOD-FEUDAL 4)
+(defconst CHEAT-AMOUNT-WOOD-CASTLE 6)
+(defconst CHEAT-AMOUNT-WOOD-IMPERIAL 8)
+(defconst CHEAT-AMOUNT-GOLD-DARK 3)
+(defconst CHEAT-AMOUNT-GOLD-FEUDAL 5)
+(defconst CHEAT-AMOUNT-GOLD-CASTLE 7)
+(defconst CHEAT-AMOUNT-GOLD-IMPERIAL 6)
+(defconst CHEAT-AMOUNT-STONE-DARK 3)
+(defconst CHEAT-AMOUNT-STONE-FEUDAL 4)
+(defconst CHEAT-AMOUNT-STONE-CASTLE 5)
+(defconst CHEAT-AMOUNT-STONE-IMPERIAL 6)
+
+#end-if		;if difficulty == moderate
+
+
+
+;*********************************************
+;*********************************************
+;CHEATING IF DIFFICULTY == HARD
+
+#load-if-defined DIFFICULTY-HARD
+
+(defconst CHEAT-AMOUNT-FOOD-DARK 5)
+(defconst CHEAT-AMOUNT-FOOD-FEUDAL 15)
+(defconst CHEAT-AMOUNT-FOOD-CASTLE 15)
+(defconst CHEAT-AMOUNT-FOOD-IMPERIAL 15)
+(defconst CHEAT-AMOUNT-WOOD-DARK 5)
+(defconst CHEAT-AMOUNT-WOOD-FEUDAL 15)
+(defconst CHEAT-AMOUNT-WOOD-CASTLE 15)
+(defconst CHEAT-AMOUNT-WOOD-IMPERIAL 15)
+(defconst CHEAT-AMOUNT-GOLD-DARK 5)
+(defconst CHEAT-AMOUNT-GOLD-FEUDAL 15)
+(defconst CHEAT-AMOUNT-GOLD-CASTLE 15)
+(defconst CHEAT-AMOUNT-GOLD-IMPERIAL 15)
+(defconst CHEAT-AMOUNT-STONE-DARK 5)
+(defconst CHEAT-AMOUNT-STONE-FEUDAL 15)
+(defconst CHEAT-AMOUNT-STONE-CASTLE 15)
+(defconst CHEAT-AMOUNT-STONE-IMPERIAL 15)
+
+#end-if		;if difficulty == hard
+
+
+
+;*********************************************
+;*********************************************
+;CHEATING IF DIFFICULTY == HARDEST
+
+#load-if-defined DIFFICULTY-HARDEST
+
+(defconst CHEAT-AMOUNT-FOOD-DARK 10)
+(defconst CHEAT-AMOUNT-FOOD-FEUDAL 20)
+(defconst CHEAT-AMOUNT-FOOD-CASTLE 20)
+(defconst CHEAT-AMOUNT-FOOD-IMPERIAL 20)
+(defconst CHEAT-AMOUNT-WOOD-DARK 10)
+(defconst CHEAT-AMOUNT-WOOD-FEUDAL 20)
+(defconst CHEAT-AMOUNT-WOOD-CASTLE 20)
+(defconst CHEAT-AMOUNT-WOOD-IMPERIAL 20)
+(defconst CHEAT-AMOUNT-GOLD-DARK 10)
+(defconst CHEAT-AMOUNT-GOLD-FEUDAL 20)
+(defconst CHEAT-AMOUNT-GOLD-CASTLE 20)
+(defconst CHEAT-AMOUNT-GOLD-IMPERIAL 20)
+(defconst CHEAT-AMOUNT-STONE-DARK 10)
+(defconst CHEAT-AMOUNT-STONE-FEUDAL 20)
+(defconst CHEAT-AMOUNT-STONE-CASTLE 20)
+(defconst CHEAT-AMOUNT-STONE-IMPERIAL 20)
+
+#end-if		;if difficulty == hardest
+
+;********************************************************************
+;********************************************************************
+
+
+
+;CHEATING IN DARK-AGE
+;-------------------------------------
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 52);any human play want us to cheat only food
+			(taunt-detected any-computer 52);or any compuetr want us to cheat only food
+		)
+	)
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+	(food-amount < 2500)			;the amount of food is less than 2500
+=>				;then
+	(cc-add-resource food CHEAT-AMOUNT-FOOD-DARK);the AI gets * food
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 53);any human play want us to cheat only wood
+			(taunt-detected any-computer 53);or any compuetr want us to cheat only wood
+		)
+	)
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+	(wood-amount < 2500)			;the amount of food is less than 2500
+=>				;then
+	(cc-add-resource wood CHEAT-AMOUNT-WOOD-DARK);the AI gets * wood
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 54);any human play want us to cheat only gold
+			(taunt-detected any-computer 54);or any compuetr want us to cheat only gold
+		)
+	)
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+	(gold-amount < 2500)			;the amount of gold is less than 2500
+=>				;then
+	(cc-add-resource gold CHEAT-AMOUNT-GOLD-DARK);the AI gets * gold
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 55);any human play want us to cheat only stone
+			(taunt-detected any-computer 55);or any compuetr want us to cheat only stone
+		)
+	)
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+	(stone-amount < 2500)			;the amount of stone is less than 2500
+=>				;then
+	(cc-add-resource stone CHEAT-AMOUNT-STONE-DARK);the AI gets * stone
+)
+
+;***********************
+
+;CHEATING IN FEUDAL-AGE
+;----------------------------------------
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 52);any human play want us to cheat only food
+			(taunt-detected any-computer 52);or any compuetr want us to cheat only food
+		)
+	)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(food-amount < 2500)			;the amount of food is less than 2500
+=>				;then
+	(cc-add-resource food CHEAT-AMOUNT-FOOD-FEUDAL);the AI gets * food
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 53);any human play want us to cheat only wood
+			(taunt-detected any-computer 53);or any compuetr want us to cheat only wood
+		)
+	)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(wood-amount < 2500)			;the amount of food is less than 2500
+=>				;then
+	(cc-add-resource wood CHEAT-AMOUNT-WOOD-FEUDAL);the AI gets * wood
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 54);any human play want us to cheat only gold
+			(taunt-detected any-computer 54);or any compuetr want us to cheat only gold
+		)
+	)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(gold-amount < 2500)			;the amount of gold is less than 2500
+=>				;then
+	(cc-add-resource gold CHEAT-AMOUNT-GOLD-FEUDAL);the AI gets * gold
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 55);any human play want us to cheat only stone
+			(taunt-detected any-computer 55);or any compuetr want us to cheat only stone
+		)
+	)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(stone-amount < 2500)			;the amount of stone is less than 2500
+=>				;then
+	(cc-add-resource stone CHEAT-AMOUNT-STONE-FEUDAL);the AI gets * stone
+)
+
+;***********************
+
+;CHEATING IN CASTLE-AGE
+;----------------------------------------
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 52);any human play want us to cheat only food
+			(taunt-detected any-computer 52);or any compuetr want us to cheat only food
+		)
+	)
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(food-amount < 2500)			;the amount of food is less than 2500
+=>				;then
+	(cc-add-resource food CHEAT-AMOUNT-FOOD-CASTLE);the AI gets * food
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 53);any human play want us to cheat only wood
+			(taunt-detected any-computer 53);or any compuetr want us to cheat only wood
+		)
+	)
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(wood-amount < 2500)			;the amount of food is less than 2500
+=>				;then
+	(cc-add-resource wood CHEAT-AMOUNT-WOOD-CASTLE);the AI gets * wood
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 54);any human play want us to cheat only gold
+			(taunt-detected any-computer 54);or any compuetr want us to cheat only gold
+		)
+	)
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(gold-amount < 2500)			;the amount of gold is less than 2500
+=>				;then
+	(cc-add-resource gold CHEAT-AMOUNT-GOLD-CASTLE);the AI gets * gold
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 55);any human play want us to cheat only stone
+			(taunt-detected any-computer 55);or any compuetr want us to cheat only stone
+		)
+	)
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(stone-amount < 2500)			;the amount of stone is less than 2500
+=>				;then
+	(cc-add-resource stone CHEAT-AMOUNT-STONE-CASTLE);the AI gets * stone
+)
+
+;***********************
+
+;CHEATING IN IMPERIAL-AGE
+;-------------------------------------------
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 52);any human play want us to cheat only food
+			(taunt-detected any-computer 52);or any compuetr want us to cheat only food
+		)
+	)
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(food-amount < 2000)			;the amount of food is less than 2000
+=>				;then
+ 	(cc-add-resource food CHEAT-AMOUNT-FOOD-IMPERIAL);the AI gets * food
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 53);any human play want us to cheat only wood
+			(taunt-detected any-computer 53);or any compuetr want us to cheat only wood
+		)
+	)
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(wood-amount < 2000)			;the amount of wood is less than 2000
+=>				;then
+ 	(cc-add-resource wood CHEAT-AMOUNT-WOOD-IMPERIAL);the AI gets * wood
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 54);any human play want us to cheat only gold
+			(taunt-detected any-computer 54);or any compuetr want us to cheat only gold
+		)
+	)
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(gold-amount < 2000)			;the amount of gold is less than 2000
+=>				;then
+ 	(cc-add-resource gold CHEAT-AMOUNT-GOLD-IMPERIAL);the AI gets * gold
+)
+
+(defrule				;If
+	(or
+		(or
+			(taunt-detected any-human 51);any human play want us to cheat
+			(taunt-detected any-computer 51);or any compuetr want us to cheat
+		)
+		(or
+			(taunt-detected any-human 55);any human play want us to cheat only stone
+			(taunt-detected any-computer 55);or any compuetr want us to cheat only stone
+		)
+	)
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(stone-amount < 2000)			;the amount of stone is less than 2000
+=>				;then
+ 	(cc-add-resource stone CHEAT-AMOUNT-STONE-IMPERIAL);the AI gets * stone
+)
+
+
+;***********************************
+;***********************************
+;STOP CHEATING
+
+(defrule				;If
+	(or
+		(taunt-detected any-human 50)	;any human play want us not to cheat
+		(taunt-detected any-computer 50)	;or any compuetr want us not to cheat
+	)
+=>					;then
+	(acknowledge-taunt this-any-human 50)	;the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-computer 50);the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-human 51)	;the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-computer 51);the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-human 52)	;the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-computer 52);the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-human 53)	;the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-computer 53);the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-human 54)	;the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-computer 54);the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-human 55)	;the AI acknowledges (sets the flag back) this taunt
+	(acknowledge-taunt this-any-computer 55);the AI acknowledges (sets the flag back) this taunt
+
+)
+
+
+
+
+#load-if-not-defined DEFEND-WONDER
+#load-if-defined DIFFICULTY-HARDEST
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+(defrule
+	(current-age == dark-age)
+=>
+	(cc-add-resource food 500)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == feudal-age)
+=>
+	(cc-add-resource food 800)
+	(cc-add-resource wood 325)
+	(cc-add-resource gold 200)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == castle-age)
+=>
+	(cc-add-resource food 1000)
+	(cc-add-resource wood 500)
+	(cc-add-resource gold 800)
+	(cc-add-resource stone 1300)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == imperial-age)
+=>
+	(cc-add-resource food 1000)
+	(cc-add-resource wood 1000)
+	(cc-add-resource gold 1000)
+	(cc-add-resource stone 1000)
+	(disable-self)
+)
+
+
+
+(defrule
+	(current-age == imperial-age)
+=>
+	(disable-timer T-GET-RESOURCE)
+	(enable-timer T-GET-RESOURCE 600)
+	(disable-self)
+)
+
+(defrule
+	(timer-triggered T-GET-RESOURCE)
+=>
+	(cc-add-resource wood 800)
+	(cc-add-resource food 800)
+	(cc-add-resource gold 800)
+	(cc-add-resource stone 800)
+	(disable-timer T-GET-RESOURCE)
+	(enable-timer T-GET-RESOURCE 600)
+)
+
+
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#end-if		;if difficulty == hardest
+#end-if		;if not game type == defend-the-wonder
+
+
+
+#load-if-defined DEFEND-WONDER
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+;****************************************
+;****************************************
+;EXTRA CHEATING IF WE ARE THE ATTACKER
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule4: extra cheating if we are attacker and play on moderate
+
+(defrule				;If
+	(goal WONDER-ATTEMPT ATTACK)	;goal WONDE-ATTEMPT to ATTACK (constant)
+=>				;then
+	(cc-add-resource wood 1500)		;the AI gets 1500 wood
+	(cc-add-resource food 1500)		;the AI gets 1500 food
+	(cc-add-resource gold 1000)		;the AI gets 1000 gold
+	(cc-add-resource stone 1000)		;the AI gets 1000 stone
+	(disable-self)				;only once
+)
+
+#end-if		;if defficulty == moderate
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule5: extra cheating if we are attacker and play on hard
+
+(defrule				;If
+	(goal WONDER-ATTEMPT ATTACK)	;goal WONDE-ATTEMPT to ATTACK (constant)
+=>				;then
+	(cc-add-resource wood 3000)		;the AI gets 3000 wood
+	(cc-add-resource food 3000)		;the AI gets 3000 food
+	(cc-add-resource gold 3000)		;the AI gets 3000 gold
+	(cc-add-resource stone 3000)		;the AI gets 3000 stone
+	(disable-self)				;only once
+)
+
+#end-if		;if difficulty == hard
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule6: extra cheating if we are attacker and play on hardest
+
+(defrule				;If
+	(goal WONDER-ATTEMPT ATTACK)	;goal WONDE-ATTEMPT to ATTACK (constant)
+=>				;then
+	(cc-add-resource wood 5000)		;the AI gets 5000 wood
+	(cc-add-resource food 5000)		;the AI gets 5000 food
+	(cc-add-resource gold 5000)		;the AI gets 5000 gold
+	(cc-add-resource stone 5000)		;the AI gets 5000 stone
+	(disable-self)				;only once
+)
+
+#end-if		;if difficulty == hardest
+
+
+
+;****************************************
+;****************************************
+;EXTRA CHEATING IF WE ARE THE DEFENDER
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule7: extra cheating if we are defender and play on moderate
+
+(defrule				;If
+	(goal WONDER-ATTEMPT DEFEND)	;goal WONDE-ATTEMPT to DEFEND (constant)
+=>				;then
+	(cc-add-resource wood 500)		;the AI gets 500 wood
+	(cc-add-resource food 500)			;the AI gets 500 food
+	(cc-add-resource gold 500)			;the AI gets 500 gold
+	(cc-add-resource stone 500)		;the AI gets 500 stone
+	(disable-self)				;only once
+)
+
+#end-if		;if difficulty == moderate
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule8: extra cheating if we are defender and play on hard
+
+(defrule				;If
+	(goal WONDER-ATTEMPT DEFEND)	;goal WONDE-ATTEMPT to DEFEND (constant)
+=>				;then
+	(cc-add-resource wood 800)		;the AI gets 800 wood
+	(cc-add-resource food 800)			;the AI gets 800 food
+	(cc-add-resource gold 800)			;the AI gets 800 gold
+	(cc-add-resource stone 800)		;the AI gets 800 stone
+	(disable-self)				;only once
+)
+
+#end-if		;if difficulty == hard
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule9: extra cheating if we are defender and play on hardest
+
+(defrule				;If
+	(goal WONDER-ATTEMPT DEFEND)	;goal WONDE-ATTEMPT to DEFEND (constant)
+=>				;then
+	(cc-add-resource wood 5000)		;the AI gets 5000 wood
+	(cc-add-resource food 5000)		;the AI gets 5000 food
+	(cc-add-resource gold 5000)		;the AI gets 5000 gold
+	(cc-add-resource stone 5000)		;the AI gets 5000 stone
+	(disable-self)				;only once
+)
+
+#end-if		;if difficulty == hardest
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#end-if		;if game type == defend-the-wonder
+
+
+
+#load-if-defined WONDER-RACE
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+#load-if-defined DARK-AGE-START
+
+;Rule10: initialisation of the timer that will start the loop of cheating while playing wonder race
+
+(defrule				;If
+	(true)					;this condition is always true
+=>				;then
+	(enable-timer T-GET-RESOURCE 1200);the AI enables the timer with id T-GET-RESOURCE with 1200 seconds (constant)
+	(disable-self)				;only once
+)
+
+#end-if		;if dark age start
+
+
+
+#load-if-defined FEUDAL-AGE-START
+
+;Rule11: initialisation of the timer that will start the loop of cheating while playing wonder race
+
+(defrule				;If
+	(true)					;this condition is always true
+=>				;then
+	(enable-timer T-GET-RESOURCE 900);the AI enables the timer with id T-GET-RESOURCE with 900 seconds (constant)
+	(disable-self)				;only once
+)
+
+#end-if		;if feudal age start
+
+
+
+#load-if-defined CASTLE-AGE-START
+
+;Rule12: initialisation of the timer that will start the loop of cheating while playing wonder race
+
+(defrule				;If
+	(true)					;this condition is always true
+=>				;then
+	(enable-timer T-GET-RESOURCE 600);the AI enables the timer with id T-GET-RESOURCE with 600 seconds (constant)
+	(disable-self)				;only once
+)
+
+#end-if		;if castle age start
+
+
+
+#load-if-defined IMPERIAL-AGE-START
+
+;Rule13: initialisation of the timer that will start the loop of cheating while playing wonder race
+
+(defrule				;If
+	(true)					;this condition is always true
+=>				;then
+	(enable-timer T-GET-RESOURCE 1);the AI enables the timer with id T-GET-RESOURCE with 1 seconds (constant)
+	(disable-self)				;only once
+)
+
+#end-if		;if imperial age start
+
+
+
+#load-if-defined POST-IMPERIAL-AGE-START
+
+;Rule14: initialisation of the timer that will start the loop of cheating while playing wonder race
+
+(defrule				;If
+	(true)					;this condition is always true
+=>				;then
+	(enable-timer T-GET-RESOURCE 1);the AI enables the timer with id T-GET-RESOURCE with 1 seconds (constant)
+	(disable-self)				;only once
+)
+
+#end-if		;if post imperial age start
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule15: extra cheating if we are attacker and play on hard; and we don't cheat the boar resources
+
+(defrule				;If
+	(timer-triggered T-GET-RESOURCE);the timer with id T-GET-RESOURCE has been triggered (constant)
+	(goal BOAR-CHEATING NO)		;goal BOAR-CHEATING to NO (constant)
+=>				;then
+	(disable-timer T-GET-RESOURCE);the disables (sets the flag back) the timer with id T-GET-RESOURCE (constant)
+	(cc-add-resource wood 300)		;the AI gets 300 wood
+	(cc-add-resource food 300)			;the AI gets 300 food
+	(cc-add-resource gold 300)			;the AI gets 300 gold
+	(cc-add-resource stone 300)		;the AI gets 300 stone
+	(enable-timer T-GET-RESOURCE 1200);the AI enables the timer with id T-GET-RESOURCE with 1200 seconds (constant)
+)
+
+;Rule15: extra cheating if we are attacker and play on hard; and we cheat the boar resources already
+
+(defrule				;If
+	(timer-triggered T-GET-RESOURCE);the timer with id T-GET-RESOURCE has been triggered (constant)
+	(goal BOAR-CHEATING YES)		;goal BOAR-CHEATING to YES (constant)
+=>				;then
+	(disable-timer T-GET-RESOURCE);the disables (sets the flag back) the timer with id T-GET-RESOURCE (constant)
+	(cc-add-resource wood 300)		;the AI gets 300 wood
+	;(cc-add-resource food 300)			;the AI gets 300 food
+	(cc-add-resource gold 300)			;the AI gets 300 gold
+	(cc-add-resource stone 300)		;the AI gets 300 stone
+	(enable-timer T-GET-RESOURCE 1200);the AI enables the timer with id T-GET-RESOURCE with 1200 seconds (constant)
+)
+
+#end-if		;if difficulty == hard
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule16: extra cheating if we are attacker and play on hardest
+
+(defrule				;If
+	(timer-triggered T-GET-RESOURCE);the timer with id T-GET-RESOURCE has been triggered (constant)
+=>				;then
+	(disable-timer T-GET-RESOURCE);the disables (sets the flag back) the timer with id T-GET-RESOURCE (constant)
+	(cc-add-resource wood 500)		;the AI gets 500 wood
+	(cc-add-resource food 500)			;the AI gets 500 food
+	(cc-add-resource gold 500)			;the AI gets 500 gold
+	(cc-add-resource stone 500)		;the AI gets 500 stone
+	(enable-timer T-GET-RESOURCE 900);the AI enables the timer with id T-GET-RESOURCE with 900 seconds (constant)
+)
+
+#end-if		;if difficulty == hardest
+
+;:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+#end-if		;if game type == wonder-race
+
+
+
+;LOADING THE DUKE BOAR CHEATING.PER
+;-----------------------------------------------
+
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Boar Cheating")
+
+
+;=====END; The Duke Cheating.per=====
+;=====ALL RIGHTS RESERVED========

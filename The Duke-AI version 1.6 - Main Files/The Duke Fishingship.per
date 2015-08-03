@@ -1,0 +1,193 @@
+;			The Duke Fishingship.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+#load-if-not-defined DEFEND-WONDER
+#load-if-not-defined DEATH-MATCH
+#load-if-not-defined WONDER-RACE
+
+;********************************************************
+;********************************************************
+;FISHING SHIPS IN THE DARK-AGE
+
+
+
+;Rule1: train fishing ships in the dark age
+
+(defrule				;If
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+	(building-type-count-total lumber-camp > 0)	;number of lumber camps greater than 0
+	(civilian-population < POPULATION-MAX)	;our civilian population is less than POPULATION-MAX (constant)
+	(unit-type-count-total fishing-ship < THREE-PERCENT-POP);number of fishing ships less than THREE-PERCENT-POP (constant)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+	(can-train fishing-ship)			;the AI can train a fishing ship
+	(wood-amount > 300)				;the amount of wood is greater than 300
+=>				;then
+	(train fishing-ship)			;the AI trains a fishing ship
+;	(chat-local-to-self "train FISHING-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;********************************************************
+;********************************************************
+;FISHING SHIPS IN THE FEUDAL-AGE
+
+
+
+;Rule2: train fishing ships in the feudal age
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(building-type-count-total market > 0)	;number of markets greater than 0
+	(civilian-population < POPULATION-MAX)	;our civilian population is less than POPULATION-MAX (constant)
+	(unit-type-count-total fishing-ship < THREE-PERCENT-POP);number of fishing ships less than THREE-PERCENT-POP (constant)
+	(can-train fishing-ship)			;the AI can train a fishing ship
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+	(wood-amount > 300)				;the amount of wood is greater than 300
+=>				;then
+	(train fishing-ship)			;the AI trains a fishing ship
+;	(chat-local-to-self "train FISHING-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;********************************************************
+;********************************************************
+;FISHING SHIPS IN THE CASTLE-AGE AND IN THE IMPERIAL-AGE
+
+
+
+;Rule3: train fishing ships in the castle age and in the imperial age
+
+(defrule				;If
+	(building-type-count-total town-center > 1);number of town centers greater than 1
+	(civilian-population < POPULATION-MAX)	;our civilian population is less than POPULATION-MAX (constant)
+	(unit-type-count-total fishing-ship < THREE-PERCENT-POP);number of fishing ships less than THREE-PERCENT-POP (constant)
+	(or
+		(current-age == castle-age)		;the age, the AI is in, is castle-age
+		(and
+			(current-age == imperial-age);or the age, the AI is in, is imperial-age
+			(current-age-time < 2400)	;time in imperial age less than 40 min
+		)
+	)
+	(can-train fishing-ship)			;the AI can train a fishing ship
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+	(wood-amount > 200)				;the amount of wood is greater than 300
+	(building-type-count-total town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(train fishing-ship)			;the AI trains a fishing ship
+;	(chat-local-to-self "train FISHING-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+#end-if		;if not game type == defend-the-wonder
+#end-if		;if not game type == death-match
+#end-if		;if not game type == woder race
+
+
+
+#load-if-defined WONDER-RACE
+
+;Rule4: train fishing ships in the dark age when we play wonder race
+
+(defrule				;If
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(civilian-population < POPULATION-MAX)	;our civilian population is less than POPULATION-MAX (constant)
+	(unit-type-count-total fishing-ship < FIVE-PERCENT-POP);number of fishing ships less than FIVE-PERCENT-POP (constant)
+	(can-train fishing-ship)			;the AI can train a fishing ship
+	(building-type-count dock > 0)		;number of docks greater than 0
+=>				;then
+	(train fishing-ship)			;the AI trains a fishing ship
+;	(chat-local-to-self "train FISHING-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule5: train fishing ships in the feudal age when we play wonder race
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(civilian-population < POPULATION-MAX)	;our civilian population is less than POPULATION-MAX (constant)
+	(unit-type-count-total fishing-ship < FIVE-PERCENT-POP);number of fishing ships less than TEN-PERCENT-POP (constant)
+	(can-train fishing-ship)			;the AI can train a fishing ship
+=>				;then
+	(train fishing-ship)			;the AI trains a fishing ship
+;	(chat-local-to-self "train FISHING-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule6: train fishing ships in the castle age and in the imperial age when we play wonder race
+
+(defrule				;If
+	(civilian-population < POPULATION-MAX)	;our civilian population is less than POPULATION-MAX (constant)
+	(unit-type-count-total fishing-ship < FIVE-PERCENT-POP);number of fishing ships less than TEN-PERCENT-POP (constant)
+	(current-age >= castle-age)			;the age, the AI is in, is greater or eqaul than castle-age
+	(wood-amount > 1100)			;the amount of wood is greater than 1100
+	(can-train fishing-ship)			;the AI can train a fishing ship
+=>				;then
+	(train fishing-ship)			;the AI trains a fishing ship
+;	(chat-local-to-self "train FISHING-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+#end-if		;if game type == wonder race
+
+
+
+;Rule7: delete fishing ships if we have got many and we are at our pop cap
+
+(defrule				;If
+	(population >= pop-cap)			;we have got "pop-cap" inhabitants or even more (constant)
+	(unit-type-count fishing-ship > ONE-PERCENT-POP);number of fishing ships greater than ONE-PERCENT-POP (constant)
+=>				;then
+	(delete-unit fishing-ship)			;the AI deletes a fishing ship
+;	(chat-local-to-self "delete FISHING-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule8: if we are at our pop cap and we play in the imperial for 40 min. then delete fishing ships
+
+(defrule				;If
+	(population >= pop-cap)			;we have got "pop-cap" inhabitants or even more (constant)
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(current-age-time >= 1800)			;time in the imperial age greater or equal than 2400
+	(unit-type-count fishing-ship > 0)		;number of fishing ships greater than 0
+=>				;then
+	(delete-unit fishing-ship)			;the AI deletes a fishing ship
+;	(chat-local-to-self "delete FISHING-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;***************************************************
+;***************************************************
+;FISH-TRAPS
+
+;This is used for future versions, because this time the AI is not able to build fish traps (greetings to Ensemble Studios)!
+
+;Rule9: build fish-traps part 1
+
+;(defrule				;If
+;	(unit-type-count-total fishing-ship > THREE-PERCENT-POP);number of fishing-ships greater than TWO-PERCENT-POP (constant)
+;	(can-build fish-trap)			;the AI can build a fish-trap
+;	(building-type-count-total fish-trap <= THREE-PERCENT-POP);number of fish-traps less or equal than THREE-PERCENT-POP (constant)
+;	(wood-amount > 500)			;the amount of wood is greater than 500
+;=>				;then
+;	(build fish-trap)				;the AI builds a fish-trap
+;	(chat-local-to-self "build FISH-TRAP")	;the AI sends the chat as a local one to itselfs
+;)
+
+
+
+;=====END; The Duke Fishingship.per=====
+;=====ALL RIGHTS RESERVED=============

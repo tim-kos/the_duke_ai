@@ -1,0 +1,3781 @@
+;		The Duke Technologies.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Age-Advancement")
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN TOWN-CENTER
+
+
+
+;Rule90: research LOOM
+;50 GOLD
+(defrule				;If
+	(or
+		(and
+			(not (can-train villager)) 	;the AI can't train any villagers now
+			(or
+				(civilian-population > 6);and number of villagers is greater than 6
+				(civ-selected chinese)	;or we play the chinese
+			)
+		)
+		(game-time > 420)			;or we played at least 7 min already
+	)
+ 	(can-research-with-escrow ri-loom)		;the AI can research the loom (with escrow-resources)
+ 	(current-age >= dark-age)			;the age, the AI is in, is greather or equal dark-age
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-loom)				;the AI researches the loom (with escrow-resources)
+;	(chat-local-to-self "research LOOM")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+
+
+#load-if-not-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+;Rule91: research WHEEL-BARROW-EASIEST, EASY
+;175 FOOD, 50 WOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+	(can-research-with-escrow ri-wheel-barrow)	;the AI can research the wheel-barrow (with escrow-resources)
+	(difficulty >= easy)			;we are playing easy or easiest - difficulty
+	(or
+		(current-age-time > 100)		;time in the current-age is greater than 100 seconds
+		(town-under-attack)		;or the AI's town is being attacked
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-wheel-barrow)			;the AI researches the wheel-barrow (with escrow-resources)
+;	(chat-local-to-self "research WHEEL-BARROW");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == hardest
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule92: research WHEEL-BARROW-MODERATE, HARD, HARDEST
+;175 FOOD, 50 WOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-wheel-barrow)   ;the AI can research the wheel-barrow (with escrow-resources)
+	(difficulty <= moderate)			;the difficulty, that the player chose, is MODERATE, HARD or HARDEST
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-wheel-barrow)			;the AI researches the wheel-barrow (with escrow-resources)
+;	(chat-local-to-self "research WHEEL-BARROW");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;Rule93: research HAND-CART-EASIEST, EASY
+;300 FOOD, 200 WOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-hand-cart)	;the AI can research the hand-cart (with-escrow-resources)
+	(difficulty >= easy)			;we are playing on easy or easiest - difficulty
+	(or
+		(current-age-time > 100)		;time in the current-age is greater than 100 seconds
+		(town-under-attack)		;or the AI's town is being attacked
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-hand-cart)			;the researches the hand-cart (with escrow-resorces)
+;	(chat-local-to-self "research HAND-CART");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule94: research HAND-CART-MODERATE, HARD, HARDEST; if we do not do a rush
+;300 FOOD, 200 WOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-hand-cart)	;the AI can research the hand-cart (with-escrow-resources)
+	(difficulty <= moderate)			;the difficulty, that the player chose, is MODERATE, HARD or HARDEST
+	(goal RUSH-CONTROL NO)			;RUSH-CONTROL to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-hand-cart)			;the researches the hand-cart (with escrow-resorces)
+;	(chat-local-to-self "research HAND-CART") ;the AI sends the chat as a local chat to itselfs
+)
+
+;Rule119: research HAND-CART-MODERATE, HARD, HARDEST
+;200 WOOD, 300 FOOD
+(defrule				;If
+ 	(current-age == castle-age)		;the age, the AI is in, is castle-age
+ 	(can-research-with-escrow ri-hand-cart)	;the AI can research the hand-cart (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(or
+		(unit-type-count-total eagle-warrior-line > TEN-PERCENT-POP);number of EWs greater than TEN-PERCENT-POP (constant)
+		(unit-type-count-total knight-line > EIGHT-PERCENT-POP);number of knights greater than EIGHT-PERCENT-POP (constant)
+	)
+	(food-amount > 350)			;the amount of food is gretaer than 350
+	(food-amount > 250)			;the amount of wood is gretaer than 250
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+	(current-age-time > 300)		;time in the current-age greater than 5 min
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-hand-cart)			;the AI researches the gold-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research HAND-CART");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;Rule95: research TOWN-WATCH
+;75 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+	(food-amount > 600)			;the amount of food is greater than 600
+ 	(can-research-with-escrow ri-town-watch)	;the AI can research the town-watch
+	(building-type-count town-center > 1)	;we have built at least two town centers
+	(goal RUSH-CONTROL NO)			;RUSH-CONTROL to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+ 	(research ri-town-watch)			;the AI researches the town-watch (with escrow-resources)
+;	(chat-local-to-self "research TOWN-WATCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule96: research TOWN-PATROL
+;300 FOOD, 200 GOLD
+(defrule				;If
+	(food-amount > 600)			;the amount of food is greater than 600
+	(gold-amount > 500)			;the amount of gold is greater than 500
+	(can-research-with-escrow ri-town-patrol);the AI can research the town-patrol (with escrow-resources)
+	(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL));the goal RESEARCHING-IMPERIAL is not set to FAST-IMPERIAL (constant)
+	(building-type-count town-center > 1)	;we have built at least two town centers
+	(goal RUSH-CONTROL NO)			;RUSH-CONTROL to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-town-patrol)			;the AI researches the town-patrol (with escrow-resources)
+;	(chat-local-to-self "research TOWN-PATROL");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN LUMBER-CAMP
+
+
+
+;Rule118: research DOUBLE-BIT-AXE- EASIEST, EASY
+;50 WOOD, 100 FOOD
+(defrule				;If
+	(difficulty >= easy)			;we are playing on easy or easiest - difficulty
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-double-bit-axe)	;the AI can research the double-bit-axe (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(current-age-time > 120)			;time in the current-age greater than 120 seconds
+	(strategic-number sn-wood-gatherer-percentage > 0);at least one percent of our villagers is gathering wood
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-double-bit-axe)			;the AI researches the double-bit-axe (with escrow-resources)
+;               (chat-local-to-self "research DOUBLE-BIT-AXE");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule119: research DOUBLE-BIT-AXE-MODERATE, HARD, HARDEST
+;50 WOOD, 100 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-double-bit-axe)	;the AI can research the double-bit-axe (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(strategic-number sn-wood-gatherer-percentage > 0);at least one percent of our villagers is gathering wood
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+	(goal RUSH-CONTROL NO)			;RUSH-CONTROL to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-double-bit-axe)			;the AI researches the double-bit-axe (with escrow-resources)
+;               (chat-local-to-self "research DOUBLE-BIT-AXE");the AI sends the chat as a local chat to itselfs
+)
+
+;Rule119: research DOUBLE-BIT-AXE-MODERATE, HARD, HARDEST
+;50 WOOD, 100 FOOD
+(defrule				;If
+ 	(or
+		(goal ADVANCING-TO-AGE CASTLE-AGE);we are advancing to the castle-age
+ 		(current-age >= castle-age)		;the age, the AI is in, is castle-age or imperial-age
+	)
+ 	(can-research-with-escrow ri-double-bit-axe)	;the AI can research the double-bit-axe (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(strategic-number sn-wood-gatherer-percentage > 0);at least one percent of our villagers is gathering wood
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-double-bit-axe)			;the AI researches the double-bit-axe (with escrow-resources)
+;               (chat-local-to-self "research DOUBLE-BIT-AXE");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;Rule120: research BOW-SAW-EASY
+;100 WOOD, 150 FOOD
+(defrule				;If
+	(difficulty == easy)			;we are playing on easy - difficulty
+ 	(current-age >= castle-age)	                	;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-bow-saw)	;the AI can research the bow-saw (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(current-age-time > 120)			;time in the current-age greater than 120 seconds
+	(strategic-number sn-wood-gatherer-percentage > 0);at least one percent of our villagers is gathering wood
+	(not (research-available ri-hand-cart))	;we are not able to research the hand-cart (included is the fact that the research is in progress)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-bow-saw)			;the AI researches the bow-saw (with escrow-resources)
+;               (chat-local-to-self "research BOW-SAW")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule121: research BOW-SAW-MODERATE, HARD, HARDEST; when we do a rush
+;100 WOOD, 150 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-bow-saw)	;the AI can research the bow-saw (with escrow-resources)
+	(not (research-available ri-hand-cart))	;we are not able to research the hand-cart (included is the fact that the research is in progress)
+	(goal RUSH-CONTROL NO)			;RUSH-CONTROL to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-bow-saw)			;the AI researches the bow-saw (with escrow-resources)
+;               (chat-local-to-self "research BOW-SAW")	;the AI sends the chat as a local chat to itselfs
+)
+
+;Rule119: research BOW-SAW-MODERATE, HARD, HARDEST
+;100 WOOD, 150 FOOD
+(defrule				;If
+ 	(current-age == castle-age)		;the age, the AI is in, is castle-age
+ 	(can-research-with-escrow ri-bow-saw)	;the AI can research the bow-saw (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+	(or
+		(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP);number of EWs greater than FIVE-PERCENT-POP (constant)
+		(unit-type-count-total knight-line > THREE-PERCENT-POP);number of knights greater than THREE-PERCENT-POP (constant)
+	)
+	(food-amount > 300)
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+	(current-age-time > 180)		;time in the current-age greater than 3 min
+	(not (research-available ri-gold-mining));we started to research the gold-mining-tech already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-bow-saw)			;the AI researches the bow-saw (with escrow-resources)
+;               (chat-local-to-self "research BOW-SAW");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule123: research TWO-MAN-SAW-MODERATE, HARD, HARDEST
+;200 WOOD, 300 FOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-two-man-saw)	;the AI can research the two-man-saw (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(goal RUSH-CONTROL NO)			;RUSH-CONTROL to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-two-man-saw)			;the AI researches the two-man-saw (with escrow-resources)
+;               (chat-local-to-self "research TWO-MAN-SAW");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN MILL
+
+
+
+;Rule124: research HORSE-COLLAR-EASIEST, EASY
+;75 WOOD, 75 FOOD
+(defrule				;If
+	(difficulty >= easy)			;we are playing on easy or easiest - difficulty
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-horse-collar)	;the AI can research the horse-collar (with escrow-resources)
+	(building-type-count-total mill  >= 1)	;the AI has got at least one mill
+	(strategic-number sn-food-gatherer-percentage > 0);at least one percent of our villagers is gathering food
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-horse-collar)			;the AI researches the horse-collar (with escrow-resources)
+;               (chat-local-to-self "research HORSE-COLLAR");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule125: research HORSE-COLLAR-MODERATE, HARD, HARDEST
+;75 WOOD, 75 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-horse-collar)	;the AI can research the two-man-saw (with escrow-resources)
+	(building-type-count-total mill >= 1)		;the AI has got at least one mill
+	(strategic-number sn-food-gatherer-percentage > 0);at least one percent of our villagers is gathering food
+	(or
+		(not (goal RESEARCHING-CASTLE FAST-CASTLE));and the goal RESEARCHING-CASTLE is not set to FAST-CASTLE (constant)
+		(and
+			(goal ADVANCING-TO-AGE CASTLE-AGE)	;or goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+			(timer-triggered T-ABLE-TO-PAY-RESOURCES);and timer triggered with id T-ABLE-TO-PAY-RESOURCES (constant)
+		)
+	)
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+	(goal RUSH-CONTROL NO)			;RUSH-CONTROL to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-horse-collar)			;the AI researches the two-man-saw (with escrow-resources)
+;               (chat-local-to-self "research HORSE-COLLAR");the AI sends the chat as a local chat to itselfs
+)
+
+;Rule119: research HORSE-COLLAR-MODERATE, HARD, HARDEST
+;75 WOOD, 75 FOOD
+(defrule				;If
+ 	(current-age == castle-age)		;the age, the AI is in, is castle-age
+ 	(can-research-with-escrow ri-horse-collar);the AI can research the horse-collar (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+	(or
+		(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP);number of EWs greater than FIVE-PERCENT-POP (constant)
+		(unit-type-count-total knight-line > THREE-PERCENT-POP);number of knights greater than THREE-PERCENT-POP (constant)
+	)
+	(food-amount > 300)
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+	(current-age-time > 180)		;time in the current-age greater than 3 min
+	(not (research-available ri-double-bit-axe));we researched the double-bit-axe already
+	;(not (research-available ri-gold-mining));we started to research the gold-mining-tech already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-horse-collar)			;the AI researches the horse-collar (with escrow-resources)
+;       (chat-local-to-self "research HORSE-COLLAR");the AI sends the chat as a local chat to itselfs
+)
+
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;Rule126: research HEAVY-PLOW-EASY
+;125 WOOD, 125 FOOD
+(defrule				;If
+	(difficulty == easy)			;we are playing on easy - difficulty
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-heavy-plow)	;the AI can research the heavy-plow (with escrow-resources)
+	(building-type-count-total mill  >= 1)	;the AI has got at least one mill
+	(current-age-time > 120)			;time in the current-age greater than 120 seconds
+	(strategic-number sn-food-gatherer-percentage > 0);at least one percent of our villagers is gathering food
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-heavy-plow)			;the AI researches the heavy-plow (with escrow-resources)
+;               (chat-local-to-self "research HEAVY-PLOW");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule127: research HEAVY-PLOW-MODERATE, HARD, HARDEST
+;125 WOOD, 125 FOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-heavy-plow)	;the AI can research the heavy-plow (with escrow-resources
+	(goal RUSH-CONTROL NO);goal RUSH-CONTROL is not set to NO (constant)
+	(not (research-available ri-hand-cart))	;we are not able to research the hand-cart (included is the fact that the research is in progress)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-heavy-plow)			;the AI researches the heavy-plow (with escrow-resources)
+;               (chat-local-to-self "research HEAVY-PLOW");the AI sends the chat as a local chat to itselfs
+)
+
+;Rule119: research HEAVY-PLOW-MODERATE, HARD, HARDEST
+;125 WOOD, 125 FOOD
+(defrule				;If
+ 	(current-age == castle-age)		;the age, the AI is in, is castle-age
+ 	(can-research-with-escrow ri-heavy-plow);the AI can research the heavy-plow (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+	(or
+		(unit-type-count-total eagle-warrior-line > EIGHT-PERCENT-POP);number of EWs greater than EIGHT-PERCENT-POP (constant)
+		(unit-type-count-total knight-line > FIVE-PERCENT-POP);number of knights greater than FIVE-PERCENT-POP (constant)
+	)
+	(food-amount > 350)
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+	(current-age-time > 300)		;time in the current-age greater than 5 min
+	(not (research-available ri-bow-saw))	;we researched the bow-saw already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-heavy-plow)			;the AI researches the heavy-plow (with escrow-resources)
+;               (chat-local-to-self "research HEAVY-PLOW");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule129: research CROP-ROTATION-MODERATE, HARD, HARDEST
+;250 WOOD, 250 FOOD
+(defrule				;If
+	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-crop-rotation)	;the AI can research the crop-rotation (with escrow-resources)
+	(building-type-count-total mill >= 1)		;the AI has got at least one mill
+	(strategic-number sn-food-gatherer-percentage > 0);at least one percent of our villagers is gathering food
+	(not (research-available ri-hand-cart))	;we are not able to research the hand-cart (included is the fact that the research is in progress)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-crop-rotation)			;the AI researches the crop-rotation (with escrow-resources)
+;               (chat-local-to-self "research CROP-ROTATION");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN MINING-CAMP
+
+
+
+;*******************************************************************
+;*******************************************************************
+;GOLD MINING
+
+
+
+;Rule130: research GOLD-MINING-EASY
+;75 WOOD, 100 FOOD
+(defrule				;If
+	(difficulty == easy)			;we are playing on easy - difficulty
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-gold-mining)	;the AI can research the gold-mining (with escrow-resources)
+	(building-type-count-total mining-camp  >= 1);the AI has got at least one mining-camp
+	(strategic-number sn-gold-gatherer-percentage > 0);at least one percent of our villagers is gathering gold
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-gold-mining)			;the AI researches the gold-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule131: research GOLD-MINING-MODERATE, HARD, HARDEST, if we don't do a rush
+;75 WOOD, 100 FOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-gold-mining)	;the AI can research the gold-mining (with escrow-resources)
+	(strategic-number sn-gold-gatherer-percentage > 0);at least one percent of our villagers is gathering gold
+	(or
+		(or
+			(not (goal RESEARCHING-CASTLE FAST-CASTLE));and the goal RESEARCHING-CASTLE is not set to FAST-CASTLE (constant)
+			(and
+				(goal ADVANCING-TO-AGE CASTLE-AGE);or goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+				(timer-triggered T-ABLE-TO-PAY-RESOURCES);and timer triggered with id T-ABLE-TO-PAY-RESOURCES (constant)
+			)
+		)
+		(current-age >= castle-age)		;or the age, the AI is in, is greatzer or equal than castle-age
+	)
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL is to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-gold-mining)			;the AI researches the gold-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+;Rule119: research GOLD-MINING-MODERATE, HARD, HARDEST
+;75 WOOD, 100 FOOD
+(defrule				;If
+	(or
+		(goal ADVANCING-TO-AGE CASTLE-AGE);we are advancing to the castle-age
+ 		(current-age >= castle-age)		;the age, the AI is in, is castle-age or imperial-age
+	)
+ 	(can-research-with-escrow ri-gold-mining)	;the AI can research the gold-mining (with escrow-resources)
+	(building-type-count-total mining-camp >= 1);the AI has got at least one mining-camp
+	(strategic-number sn-gold-gatherer-percentage > 0);at least one percent of our villagers is gathering gold
+	(or
+		(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP);number of EWs greater than FIVE-PERCENT-POP (constant)
+		(unit-type-count-total knight-line > THREE-PERCENT-POP);number of knights greater than THREE-PERCENT-POP (constant)
+	)
+	(food-amount > 300)
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+	(current-age-time > 180)		;time in the current-age greater than 3 min
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-gold-mining)			;the AI researches the gold-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;Rule132: research GOLD-SHAFT-MINING-EASY
+;150 WOOD, 200 FOOD
+(defrule				;If
+	(difficulty == easy)			;we are playing on easy - difficulty
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-gold-shaft-mining);the AI can research the gold-shaft-mining (with escrow-resources)
+	(building-type-count-total mining-camp  >= 1);the AI has got at least one mining-camp
+	(strategic-number sn-gold-gatherer-percentage > 0);at least one percent of our villagers is gathering gold
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-gold-shaft-mining)		;the AI researches the gold-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-SHAFT-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule133: research GOLD-SHAFT-MINING-MODERATE, HARD, HARDEST, if we don't do a rush
+;150 WOOD, 200 FOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-gold-shaft-mining);the AI can research the gold-shaft-mining (with escrow-resources)
+	(strategic-number sn-gold-gatherer-percentage > 0);at least one percent of our villagers is gathering gold
+	(not (research-available ri-hand-cart))	;we are not able to research the hand-cart (included is the fact that the research is in progress)
+	(or
+		(building-type-count-total town-center > 1);number oftown-centers greater than 1
+		(wood-amount > 700)		;or the amount of wood is greater than 700
+	)
+	(goal RUSH-CONTROL NO)			;RUSH-CONTROL to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-gold-shaft-mining)		;the AI researches the gold-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-SHAFT-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+;Rule119: research GOLD-SHAFT-MINING-MODERATE, HARD, HARDEST
+;150 WOOD, 200 FOOD
+(defrule				;If
+ 	(current-age == castle-age)		;the age, the AI is in, is castle-age
+ 	(can-research-with-escrow ri-gold-shaft-mining)	;the AI can research the gold-shaft-mining (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(strategic-number sn-gold-gatherer-percentage > 0);at least one percent of our villagers is gathering gold
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+	(or
+		(unit-type-count-total eagle-warrior-line > EIGHT-PERCENT-POP);number of EWs greater than EIGHT-PERCENT-POP (constant)
+		(unit-type-count-total knight-line > FIVE-PERCENT-POP);number of knights greater than FIVE-PERCENT-POP (constant)
+	)
+	(food-amount > 350)
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+	(current-age-time > 300)		;time in the current-age greater than 5 min
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-gold-shaft-mining)			;the AI researches the gold-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-SHAFT-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;*******************************************************************
+;*******************************************************************
+;STONE MINING
+
+
+
+;Rule134: research STONE-MINING-EASY
+;125 WOOD, 125 FOOD
+(defrule				;If
+	(difficulty == easy)			;we are playing on easy - difficulty
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-stone-mining)	;the AI can research the stone-mining (with escrow-resources)
+	(building-type-count-total mill  >= 1)	;the AI has got at least one mill
+	(strategic-number sn-stone-gatherer-percentage > 0);at least one percent of our villagers is gathering stone
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-stone-mining)			;the AI researches the stone-mining (with escrow-resources)
+;               (chat-local-to-self "research STONE-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule135: research STONE-MINING-MODERATE, HARD, HARDEST, if we don't do a rush
+;125 WOOD, 125 FOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-stone-mining);the AI can research the stone-mining (with escrow-resources)
+	(building-type-count-total mining-camp >= 2);the AI has got at least one mining-camp
+	(strategic-number sn-stone-gatherer-percentage > 0);at least one percent of our villagers is gathering stone
+	(not (research-available ri-wheel-barrow))	;we are not able to research the wheel-barrow (included is the fact that the research is in progress)
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL is to NO (constant)
+	(or
+		(building-type-count-total town-center > 1);number oftown-centers greater than 1
+		(wood-amount > 800)		;or the amount of wood is greater than 800
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-stone-mining)			;the AI researches the stone-mining (with escrow-resources)
+;               (chat-local-to-self "research STONE-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;Rule136: research STONE-SHAFT-MINING-EASY
+;150 WOOD, 200 FOOD
+(defrule				;If
+	(difficulty == easy)			;we are playing on easy - difficulty
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-stone-shaft-mining);the AI can research the stone-shaft-mining (with escrow-resources)
+	(building-type-count-total mining-camp  >= 1);the AI has got at least one mining-camp
+	(strategic-number sn-stone-gatherer-percentage > 0);at least one percent of our villagers is gathering stone
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-stone-shaft-mining)		;the AI researches the stone-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research STONE-SHAFT-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule137: research STONE-SHAFT-MINING-MODERATE, HARD, HARDEST, if we don't do a rush
+;150 WOOD, 200 FOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-stone-shaft-mining);the AI can research the stone-shaft-mining (with escrow-resources)
+	;(strategic-number sn-stone-gatherer-percentage > 0);at least one percent of our villagers is gathering stone
+	(or
+		(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL));the goal RESEARCHING-IMPERIAL is not set to FAST-IMPERIAL (constant)
+		(and
+			(goal ADVANCING-TO-AGE IMPERIAL-AGE);or goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+			(timer-triggered T-ABLE-TO-PAY-RESOURCES);and timer triggered with id T-ABLE-TO-PAY-RESOURCES (constant)
+		)
+	)
+	(not (research-available ri-hand-cart))	;we are not able to research the hand-cart (included is the fact that the research is in progress)
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL is to NO (constant)
+	(or
+		(building-type-count-total town-center > 1);number oftown-centers greater than 1
+		(wood-amount > 700)		;or the amount of wood is greater than 700
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-stone-shaft-mining)		;the AI researches the stone-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research STONE-SHAFT-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;***********************************************
+;***********************************************
+#else		;if not game type == death match
+;***********************************************
+;***********************************************
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+;Rule91: research WHEEL-BARROW-EASIEST, EASY
+;175 FOOD, 50 WOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+	(can-research-with-escrow ri-wheel-barrow)	;the AI can research the wheel-barrow (with escrow-resources)
+	(difficulty >= easy)			;we are playing easy or easiest - difficulty
+	(or
+		(current-age-time > 100)		;time in the current-age is greater than 100 seconds
+		(town-under-attack)		;or the AI's town is being attacked
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-wheel-barrow)			;the AI researches the wheel-barrow (with escrow-resources)
+;	(chat-local-to-self "research WHEEL-BARROW");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == hardest
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule92: research WHEEL-BARROW-MODERATE, HARD, HARDEST
+;175 FOOD, 50 WOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-wheel-barrow)   ;the AI can research the wheel-barrow (with escrow-resources)
+	(difficulty <= moderate)			;the difficulty, that the player chose, is MODERATE, HARD or HARDEST
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-wheel-barrow)			;the AI researches the wheel-barrow (with escrow-resources)
+;	(chat-local-to-self "research WHEEL-BARROW");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;Rule93: research HAND-CART-EASIEST, EASY
+;300 FOOD, 200 WOOD
+(defrule				;If
+  	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-hand-cart)	;the AI can research the hand-cart (with-escrow-resources)
+	(difficulty >= easy)			;we are playing on easy or easiest - difficulty
+	(or
+		(current-age-time > 100)		;time in the current-age is greater than 100 seconds
+		(town-under-attack)		;or the AI's town is being attacked
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-hand-cart)			;the researches the hand-cart (with escrow-resorces)
+;	(chat-local-to-self "research HAND-CART");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule94: research HAND-CART-MODERATE, HARD, HARDEST; if we do not do a rush
+;300 FOOD, 200 WOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-hand-cart)	;the AI can research the hand-cart (with-escrow-resources)
+	(difficulty <= moderate)			;the difficulty, that the player chose, is MODERATE, HARD or HARDEST
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-hand-cart)			;the researches the hand-cart (with escrow-resorces)
+;	(chat-local-to-self "research HAND-CART") ;the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;Rule95: research TOWN-WATCH
+;75 FOOD
+;(defrule				;If
+; 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than feudal-age
+;	(can-research-with-escrow ri-town-watch)	;the AI can research the town-watch
+;	(building-type-count town-center > 1)	;we have built at least two town centers
+;=>				;then
+;	(release-escrow food)			;the AI releases the food-escrow-resources
+;	(research ri-town-watch)			;the AI researches the town-watch (with escrow-resources)
+;	(chat-local-to-self "research TOWN-WATCH");the AI sends the chat as a local chat to itselfs
+;)
+
+
+
+;Rule96: research TOWN-PATROL
+;300 FOOD, 200 GOLD
+;(defrule				;If
+; 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than feudal-age
+;	(can-research-with-escrow ri-town-patrol);the AI can research the town-patrol (with escrow-resources)
+;	(building-type-count town-center > 1)	;we have built at least two town centers
+;=>				;then
+;	(release-escrow food)			;the AI releases the food-escrow-resources
+;	(release-escrow gold)			;the AI releases the gold-escrow-resources
+;	(research ri-town-patrol)			;the AI researches the town-patrol (with escrow-resources)
+;	(chat-local-to-self "research TOWN-PATROL");the AI sends the chat as a local chat to itselfs
+;)
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN LUMBER-CAMP
+
+
+
+;Rule119: research DOUBLE-BIT-AXE
+;50 WOOD, 100 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-double-bit-axe)	;the AI can research the double-bit-axe (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-double-bit-axe)			;the AI researches the double-bit-axe (with escrow-resources)
+;               (chat-local-to-self "research DOUBLE-BIT-AXE");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule121: research BOW-SAW
+;100 WOOD, 150 FOOD
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-bow-saw)	;the AI can research the bow-saw (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-bow-saw)			;the AI researches the bow-saw (with escrow-resources)
+;               (chat-local-to-self "research BOW-SAW")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule123: research TWO-MAN-SAW
+;200 WOOD, 300 FOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-two-man-saw)	;the AI can research the two-man-saw (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-two-man-saw)			;the AI researches the two-man-saw (with escrow-resources)
+;               (chat-local-to-self "research TWO-MAN-SAW");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN MILL
+
+
+
+;Rule125: research HORSE-COLLAR
+;75 WOOD, 75 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-horse-collar)	;the AI can research the two-man-saw (with escrow-resources)
+	(building-type-count-total mill >= 1)		;the AI has got at least one mill
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-horse-collar)			;the AI researches the two-man-saw (with escrow-resources)
+;               (chat-local-to-self "research HORSE-COLLAR");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule127: research HEAVY-PLOW-MODERATE, HARD, HARDEST
+;125 WOOD, 125 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-heavy-plow)	;the AI can research the heavy-plow (with escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-heavy-plow)			;the AI researches the heavy-plow (with escrow-resources)
+;               (chat-local-to-self "research HEAVY-PLOW");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule129: research CROP-ROTATION-MODERATE, HARD, HARDEST
+;250 WOOD, 250 FOOD
+(defrule				;If
+	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-crop-rotation)	;the AI can research the crop-rotation (with escrow-resources)
+	(building-type-count-total mill >= 1)		;the AI has got at least one mill
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-crop-rotation)			;the AI researches the crop-rotation (with escrow-resources)
+;               (chat-local-to-self "research CROP-ROTATION");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN MINING-CAMP
+
+
+
+;*******************************************************************
+;*******************************************************************
+;GOLD MINING
+
+
+
+;Rule131: research GOLD-MINING-MODERATE, HARD, HARDEST, if we do a rush
+;75 WOOD, 100 FOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-gold-mining)	;the AI can research the gold-mining (with escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-gold-mining)			;the AI researches the gold-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule133: research GOLD-SHAFT-MINING
+;150 WOOD, 200 FOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-gold-shaft-mining);the AI can research the gold-shaft-mining (with escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-gold-shaft-mining)		;the AI researches the gold-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-SHAFT-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;*******************************************************************
+;*******************************************************************
+;STONE MINING
+
+
+
+;Rule135: research STONE-MINING
+;125 WOOD, 125 FOOD
+;(defrule				;If
+; 	(can-research-with-escrow ri-stone-mining);the AI can research the stone-mining (with escrow-resources)
+;=>				;then
+;	(release-escrow food)			;the AI releases the food-escrow-resources
+;	(release-escrow wood)			;the AI releases the wood-escrow-resources
+;	(research ri-stone-mining)			;the AI researches the stone-mining (with escrow-resources)
+;               (chat-local-to-self "research STONE-MINING");the AI sends the chat as a local chat to itselfs
+;)
+
+
+
+;Rule137: research STONE-SHAFT-MINING
+;150 WOOD, 200 FOOD
+;(defrule				;If
+; 	(can-research-with-escrow ri-stone-shaft-mining);the AI can research the stone-shaft-mining (with escrow-resources)
+;=>				;then
+;	(release-escrow food)			;the AI releases the food-escrow-resources
+;	(release-escrow wood)			;the AI releases the wood-escrow-resources
+;	(research ri-stone-shaft-mining)		;the AI researches the stone-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research STONE-SHAFT-MINING");the AI sends the chat as a local chat to itselfs
+;)
+
+;Rule137: research STONE-SHAFT-MINING-MODERATE, HARD, HARDEST, if we do a rush
+
+
+;***********************************************
+;***********************************************
+#end-if		;if game type == death-match
+
+
+
+;***********************************************
+;***********************************************
+#else		;if not game type == wonder race
+;***********************************************
+;***********************************************
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule138: research WHEEL-BARROW-MODERATE, HARD, HARDEST
+;175 FOOD, 50 WOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-wheel-barrow)   ;the AI can research the wheel-barrow (with escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-wheel-barrow)			;the AI researches the wheel-barrow (with escrow-resources)
+;	(chat-local-to-self "research WHEEL-BARROW");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+;***********************************************
+;***********************************************
+
+;Rule139: research HAND-CART- HARD, HARDEST
+;300 FOOD, 200 WOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-hand-cart)	;the AI can research the hand-cart (with-escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-hand-cart)			;the researches the hand-cart (with escrow-resorces)
+;	(chat-local-to-self "research HAND-CART") ;the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN LUMBER-CAMP
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule140: research DOUBLE-BIT-AXE-MODERATE, HARD, HARDEST
+;50 WOOD, 100 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-double-bit-axe)	;the AI can research the double-bit-axe (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(strategic-number sn-wood-gatherer-percentage > 0);at least one percent of our villagers is gathering wood
+	(not (research-available ri-wheel-barrow));we researched the wheel-barrow already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-double-bit-axe)			;the AI researches the double-bit-axe (with escrow-resources)
+;               (chat-local-to-self "research DOUBLE-BIT-AXE");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule141: research BOW-SAW-MODERATE, HARD, HARDEST
+;100 WOOD, 150 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-bow-saw)	;the AI can research the bow-saw (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(strategic-number sn-wood-gatherer-percentage > 0);at least one percent of our villagers is gathering wood
+	(not (research-available ri-hand-cart));we researched the hand-cart already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-bow-saw)			;the AI researches the bow-saw (with escrow-resources)
+;               (chat-local-to-self "research BOW-SAW")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+;Rule142: research TWO-MAN-SAW-HARD, HARDEST
+;200 WOOD, 300 FOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-two-man-saw)	;the AI can research the two-man-saw (with escrow-resources)
+	(building-type-count-total lumber-camp >= 1);the AI has got at least one lumber-camp
+	(strategic-number sn-wood-gatherer-percentage > 0);at least one percent of our villagers is gathering wood
+	(not (research-available ri-hand-cart));we researched the hand-cart already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-two-man-saw)			;the AI researches the two-man-saw (with escrow-resources)
+;               (chat-local-to-self "research TWO-MAN-SAW");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+#end-if		;if not difficulty type == moderate
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN MILL
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule143: research HORSE-COLLAR-MODERATE, HARD, HARDEST
+;75 WOOD, 75 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-horse-collar)	;the AI can research the two-man-saw (with escrow-resources)
+	(building-type-count-total mill >= 1)		;the AI has got at least one mill
+	(strategic-number sn-food-gatherer-percentage > 0);at least one percent of our villagers is gathering food
+	(not (research-available ri-wheel-barrow));we researched the wheel-barrow already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-horse-collar)			;the AI researches the two-man-saw (with escrow-resources)
+;               (chat-local-to-self "research HORSE-COLLAR");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule144: research HEAVY-PLOW-MODERATE, HARD, HARDEST
+;125 WOOD, 125 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-heavy-plow)	;the AI can research the heavy-plow (with escrow-resources)
+	(building-type-count-total mill >= 1)		;the AI has got at least one mill
+	(strategic-number sn-food-gatherer-percentage > 0);at least one percent of our villagers is gathering food
+	(not (research-available ri-hand-cart));we researched the hand-cart already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-heavy-plow)			;the AI researches the heavy-plow (with escrow-resources)
+;               (chat-local-to-self "research HEAVY-PLOW");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule145: research CROP-ROTATION-HARD, HARDEST
+;250 WOOD, 250 FOOD
+;(defrule				;If
+; 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+; 	(can-research-with-escrow ri-crop-rotation)	;the AI can research the crop-rotation (with escrow-resources)
+;	(building-type-count-total mill  >= 1)	;the AI has got at least one mill
+;	(strategic-number sn-food-gatherer-percentage > 0);at least one percent of our villagers is gathering food
+;	(building-type-count-total town-center > 1)	;number of town centers greater than 1
+;	(not (research-available ri-hand-cart));we researched the hand-cart already
+;=>				;then
+;	(release-escrow food)			;the AI releases the food-escrow-resources
+;	(release-escrow wood)			;the AI releases the wood-escrow-resources
+;	(research ri-crop-rotation)			;the AI researches the crop-rotation (with escrow-resources)
+;               (chat-local-to-self "research CROP-ROTATION");the AI sends the chat as a local chat to itselfs
+;)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN MINING-CAMP
+
+
+
+;*******************************************************************
+;*******************************************************************
+;GOLD MINING
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule146: research GOLD-MINING-MODERATE, HARD, HARDEST
+;75 WOOD, 100 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-gold-mining)	;the AI can research the gold-mining (with escrow-resources)
+	(building-type-count-total mining-camp >= 1);the AI has got at least one mining-camp
+	(strategic-number sn-gold-gatherer-percentage > 0);at least one percent of our villagers is gathering gold
+	(not (research-available ri-wheel-barrow));we researched the wheel-barrow already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-gold-mining)			;the AI researches the gold-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule147: research GOLD-SHAFT-MINING-HARD, HARDEST
+;150 WOOD, 200 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-gold-shaft-mining);the AI can research the gold-shaft-mining (with escrow-resources)
+	(building-type-count-total mining-camp >= 1);the AI has got at least one mining-camp
+	(strategic-number sn-gold-gatherer-percentage > 0);at least one percent of our villagers is gathering gold
+	(not (research-available ri-hand-cart));we researched the hand-cart already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-gold-shaft-mining)		;the AI researches the gold-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research GOLD-SHAFT-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;*******************************************************************
+;*******************************************************************
+;STONE MINING
+
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule148: research STONE-MINING-MODERATE, HARD, HARDEST
+;125 WOOD, 125 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-stone-mining);the AI can research the stone-mining (with escrow-resources)
+	(building-type-count-total mining-camp >= 1);the AI has got at least one mining-camp
+	(strategic-number sn-stone-gatherer-percentage > 0);at least one percent of our villagers is gathering stone
+	(not (research-available ri-wheel-barrow));we researched the wheel-barrow already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-stone-mining)			;the AI researches the stone-mining (with escrow-resources)
+;               (chat-local-to-self "research STONE-MINING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule149: research STONE-SHAFT-MINING-HARD, HARDEST
+;150 WOOD, 200 FOOD
+;(defrule				;If
+;	(difficulty <= hard)			;the difficulty, that the player chose, is HARD or HARDEST
+; 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+; 	(can-research-with-escrow ri-stone-shaft-mining);the AI can research the stone-shaft-mining (with escrow-resources)
+;	(building-type-count-total mining-camp >= 1);the AI has got at least one mining-camp
+;	(strategic-number sn-stone-gatherer-percentage > 0);at least one percent of our villagers is gathering stone
+;	(not (research-available ri-hand-cart));we researched the hand-cart already
+;=>				;then
+;	(release-escrow food)			;the AI releases the food-escrow-resources
+;	(release-escrow wood)			;the AI releases the wood-escrow-resources
+; 	(research ri-stone-shaft-mining)		;the AI researches the stone-shaft-mining (with escrow-resources)
+;               (chat-local-to-self "research STONE-SHAFT-MINING");the AI sends the chat as a local chat to itselfs
+;)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+;***********************************************
+;***********************************************
+#end-if		;if game type == wonder race
+
+
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Techs-Blacksmith")
+
+
+
+#load-if-not-defined WONDER-RACE
+
+;*******************************************************************
+;*******************************************************************
+;TECHNOLOGIES IN MARKET
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule193: research CARTOGRAPHY- MODERATE, HARD, HARDEST
+;100 FOOD, 100 GOLD
+(defrule				;If
+ 	(can-research-with-escrow ri-cartography)	;the AI can research the cartography (with escrow-resources)
+	(player-in-game any-ally)			;is there any ally in the game?
+	(or
+		(not (goal RESEARCHING-CASTLE FAST-CASTLE));and the goal RESEARCHING-CASTLE is not set to FAST-CASTLE (constant)
+		(current-age >= castle-age)		;or we are in castle or imperial-age
+	)
+	(or
+		(goal RUSH-CONTROL NO)	;goal RUSH-CONTROL to NO
+		(current-age-time > 600)		;or we played 10 min already in castle-age
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-cartography)			;the AI researches the cartography (with escrow-resources)
+;               (chat-local-to-self "research CARTOGRAPHY");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule194: research COINAGE- MODERATE, HARD, HARDEST
+;150 FOOD, 50 GOLD
+(defrule				;If
+ 	(can-research-with-escrow ri-coinage)	;the AI can research the coinage (with escrow-resources
+	(player-in-game any-ally)			;is there any ally in the game?
+	(current-age >= castle-age)		;or we are in castle or imperial-age
+	(or
+		(goal RUSH-CONTROL NO)	;goal RUSH-CONTROL to NO
+		(current-age-time > 900)		;or we played 15 min already in castle-age
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-coinage)			;the AI researches the coinage (with escrow-resources)
+;               (chat-local-to-self "research COINAGE");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule195: research BANKING- MODERATE, HARD, HARDEST
+;200 FOOD, 100 GOLD
+(defrule				;If
+ 	(can-research-with-escrow ri-banking)	;the AI can research the coinage (with escrow-resources
+	(player-in-game any-ally)			;is there any ally in the game?
+	(or
+		(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL));the goal RESEARCHING-IMPERIAL is not set to FAST-IMPERIAL (constant)
+		(current-age == imperial-age)	;or we are in imperial-age
+	)
+	(or
+		(goal RUSH-CONTROL NO)	;goal RUSH-CONTROL to NO
+		(current-age-time > 900)		;or we played 15 min already in castle-age
+	)
+	(food-amount > 600)			;the amount of food is greater than 600
+	(gold-amount > 400)			;the amount of gold is greater than 400
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-banking)			;the AI researches the banking (with escrow-resources)
+;               (chat-local-to-self "research BANKING")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+;***********************************************
+;***********************************************
+
+;Rule196: research CARAVAN-  HARD, HARDEST
+;200 FOOD, 200 GOLD
+(defrule				;If
+ 	(can-research-with-escrow ri-caravan)	;the AI can research the caravan (with escrow-resources)
+	(player-in-game any-ally)			;is there any ally in the game?
+	(current-age == imperial-age)		;we are in imperial-age
+	(or
+		(unit-type-count-total trade-cart > 2);number of trade-carts greater than 2
+		(unit-type-count-total trade-cog > 2);or number of trade-cogs greater than 2
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-caravan)			;the AI researches the caravan (with escrow-resources)
+;               (chat-local-to-self "research CARAVAN")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule197: research GUILDS- HARD, HARDEST
+;300 FOOD, 200 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-guilds)	;the AI can research the caravan (with escrow-resources
+	(building-type-count-total market >= 1)	;the AI has got at least one market
+	(food-amount > 1000)			;the amount of food is greater than 1000
+	(gold-amount > 800)			;the amount of gold is greater than 800
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-guilds)			;the AI researches the guilds (with escrow-resources)
+;               (chat-local-to-self "research GUILDS")	;the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty == moderate
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN UNIVERSITY
+
+
+
+;Rule198: research MASONRY- MODERATE, HARD, HARDEST
+;175 WOOD, 150 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-masonry)	;the AI can research the masonry (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(building-type-count-total castle >= 2)	;number of castles greater or equal than 2
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow food)			;the AI releases the food-escrow-resources
+ 	(research ri-masonry)			;the AI researches the masonry (with escrow-resources)
+;               (chat-local-to-self "research MASONRY");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+#load-if-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule199: research GUARD-TOWER- EASY
+;125 WOOD, 125 STONE
+(defrule				;If
+	(difficulty == easy)			;we are playing on easy - difficulty
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-guard-tower)	;the AI can research the guard-tower (with escrow-resources)
+	(current-age-time > 400)			;time in the current age greater than 400 seconds
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(building-type-count-total watch-tower-line > 4);number of watch-towers greather than 4
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow food)			;the AI releases the food-escrow-resources
+ 	(research ri-guard-tower)			;the AI researches the guard-tower (with escrow-resources)
+;               (chat-local-to-self "research GUARD-TOWER");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if difficulty type == easy
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule200: research GUARD-TOWER- MODERATE, HARD, HARDEST
+;125 WOOD, 125 STONE
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-guard-tower)	;the AI can research the guard-tower (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(building-type-count-total watch-tower-line > 1);number of watch-towers greater than 1
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow food)			;the AI releases the dood-escrow-resources
+	(research ri-guard-tower)			;the AI researches the masonry (with escrow-resources)
+;               (chat-local-to-self "research GUARD-TOWER");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+#load-if-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule201: research BALLISTICS- EASY
+;300 WOOD, 175 GOLD
+(defrule				;If
+	(difficulty == easy)			;we are playing on easy - difficulty
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-ballistics)	;the AI can research the ballistics (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(or
+		(building-type-count-total watch-tower-line > 2);number of watch-towers greather than 2
+		(research-completed ri-guard-tower)	;or the AI research the guard-tower already
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-ballistics)			;the AI researches the ballistics (with escrow-resources)
+;               (chat-local-to-self "research BALLISTICS")   ;the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if difficulty type == easy
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule202: research BALLISTICS- MODERATE, HARD, HARDEST
+;300 WOOD, 175 GOLD
+(defrule				;If
+ 	(can-research-with-escrow ri-ballistics)	;the AI can research the ballistics (with escrow-resources)
+	(or
+		(goal ABLE-TO-UPGRADE-ARCHERS YES);or goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
+		(building-type-count-total castle >= 1);number of castles greater or equal than 1
+	)
+	(or
+		(goal ABLE-TO-TRAIN-UNITS YES);goal ABLE-TO-TRAIN-UNITS to YES (constant)
+		(current-age == imperial-age)	;or the age, the Ai is in, is imperial-age
+	)
+	(not (research-available ri-murder-holes))	;the murder-holes-technology is not available
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-ballistics)			;the AI researches the ballistics (with escrow-resources)
+;               (chat-local-to-self "research BALLISTICS");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+#load-if-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule203: research MURDER-HOLES- EASY
+;200 FOOD, 200 STONE
+(defrule				;If
+	(difficulty == easy)			;we are playing on easy - difficulty
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-murder-holes)	;the AI can research the murder-holes (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(or
+		(building-type-count-total watch-tower-line > 2);number of watch-towers greater than 2
+		(building-type-count-total castle > 0);or number of castles greater than 0
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research ri-murder-holes)			;the AI researches the murder-holes (with escrow-resources)
+;               (chat-local-to-self "research MURDER-HOLES");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if difficulty type == easy
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule204: research MURDER-HOLES- MODERATE, HARD, HARDEST
+;200 FOOD, 200 STONE
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-murder-holes)	;the AI can research the murder-holes (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research ri-murder-holes)			;the AI researches the murder-holes (with escrow-resources)
+;               (chat-local-to-self "research MURDER-HOLES");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule205: research FORTIFIED-WALL- MODERATE, HARD, HARDEST
+;200 FOOD, 100 WOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-fortified-wall)	;the AI can research the fortified-wall (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(wall-completed-percentage 2 > 60)		;the AI finished building 60 % of the wall
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-fortified-wall)			;the AI researches the fortified-wall (with escrow-resources)
+;               (chat-local-to-self "research FORTIFIED-WALL");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule206: research HEATED-SHOT- MODERATE, HARD, HARDEST
+;350 FOOD, 100 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greather or equal than castle-age
+ 	(can-research-with-escrow ri-heated-shot)	;the AI can research the heated-shot (with escrow-resources)
+	(not (goal MAP-KIND LAND-MAP))	;goal MAP-KIND is not set to LAND-MAP (constants)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-heated-shot)			;the AI researches the heated-shot (with escrow-resources)
+;               (chat-local-to-self "research HEATED-SHOT");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;***********************************************
+;***********************************************
+#else		;if not game type == wonder race
+;***********************************************
+;***********************************************
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule207: research STONECUTTING- MODERATE, HARD, HARDEST
+;200 WOOD, 300 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-stonecutting)	;the AI can research the stonecutting (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research ri-stonecutting)			;the AI researches the stonecutting (with escrow-resources)
+;               (chat-local-to-self "research STONECUTTING");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;***********************************************
+;***********************************************
+#end-if		;if  game type == wonder race
+
+
+
+#load-if-not-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule207: research STONECUTTING- MODERATE, HARD, HARDEST
+;200 WOOD, 300 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-stonecutting)	;the AI can research the stonecutting (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research ri-stonecutting)			;the AI researches the stonecutting (with escrow-resources)
+;               (chat-local-to-self "research STONECUTTING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule208: research SIEGE-ENGINEERS- MODERATE, HARD, HARDEST
+;500 FOOD, 600 WOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-siege-engineers);the AI can research the siege-engineers (with escrow-resources)
+	(or
+		(or
+			(unit-type-count-total battering-ram-line > 1);number of rams greater than 1
+			(unit-type-count-total mangonel-line > 1);number of mangonels greater than 1
+		)
+		(unit-type-count-total scorpion-line > 3);number of scorpions greater than 3
+	)
+	(food-amount > 1000)				;the amount of food is greater than 1000
+	(wood-amount > 700)				;the amount of wood is greater than 700
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-siege-engineers)		;the AI researches the siege-engineers (with escrow-resources)
+;               (chat-local-to-self "research SIEGE-ENGINEERS");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule208: research SIEGE-ENGINEERS- MODERATE, HARD, HARDEST
+;500 FOOD, 600 WOOD
+(defrule				;If
+ 	(can-research-with-escrow ri-siege-engineers);the AI can research the siege-engineers (with escrow-resources)
+	(or
+		(unit-type-count-total bombard-cannon > 1);number of bombard-cannons greater than 2
+		(unit-type-count-total trebuchet > 1);number of trebuchets greater than 1
+	)
+	(food-amount > 1000)				;the amount of food is greater than 1000
+	(wood-amount > 700)				;the amount of wood is greater than 700
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-siege-engineers)		;the AI researches the siege-engineers (with escrow-resources)
+;               (chat-local-to-self "research SIEGE-ENGINEERS");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule210: research ARCHITECTURE- MODERATE, HARD, HARDEST
+;200 WOOD, 300 FOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-architecture)      ;the AI can research the architecture (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow food)			;the AI releases the food-escrow-resources
+ 	(research ri-architecture)			;the AI researches the architecture (with escrow-resources)
+;               (chat-local-to-self "research ARCHITECTURE");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule211: research KEEP- MODERATE, HARD, HARDEST
+;500 WOOD, 350 STONE
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-keep)      	;the AI can research the keep (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(building-type-count-total watch-tower-line > 3);number of watch-towers greater than 3
+	(building-type-count-total castle >= 2)	;number of castles greater or equal than 2
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(research ri-keep)				;the AI researches the architecture (with escrow-resources)
+;               (chat-local-to-self "research KEEP")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule212: research CHEMISTRY- MODERATE, HARD, HARDEST
+;300 FOOD, 200 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-chemistry)      	;the AI can research the chemistry (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-chemistry)			;the  AI researches the chemistry (with escrow-resources)
+;               (chat-local-to-self "research CHEMISTRY")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule213: research BOMBARD-TOWER- MODERATE, HARD, HARDEST
+;800 FOOD, 400 WOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-bombard-tower) ;the AI can research the bombard-tower (with escrow-resources)
+	(building-type-count-total university >= 1)	;the AI has got at least one university
+	(not (research-available ri-ballistics))	;the ballistics-technology is not available
+	(building-type-count town-center > 1)	;number of town-centers greater than 1
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(research ri-bombard-tower)		;the  AI researches the bombard-tower (with escrow-resources)
+;               (chat-local-to-self "research BOMBARD-TOWER");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN MONASTERY
+
+
+
+;Rule214: research ATONEMENT
+;325 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-atonement)	;the AI can research the atonement (with escrow-resources)
+	(building-type-count-total monastery >= 1)	;number of monasteries greater or equal than 1
+	(cc-players-unit-type-count any-enemy monk >= 4);any enemy has got at least 4 (constant)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO
+	(gold-amount > 500)			;the amount of gold is greater than 500
+	(or
+		(game-time > 5400)		;we played 1:30h already
+		(not (death-match-game))	;or we don't play death-match)
+	)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-atonement)			;the AI researches the atonement
+;	(chat-local-to-self "research ATONEMENT");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule215: research FERVOR
+;140 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow  ri-fervor)	;the AI can research the fervor (with escrow-resources)
+	(building-type-count-total monastery >= 1)	;number of monasteries greather or equal than 1
+	(unit-type-count monk >= 3)		;number of monks greater or equal than 3 (constant)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO
+	(gold-amount > 300)			;the amount of gold is greater than 300
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-fervor)			;the AI researches the fervor (with escrow-resources
+;	(chat-local-to-self "research FERVOR")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule216: research SANCTITY
+;120 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-sanctity)	;the AI can research the sanctity (with escrow-resources)
+	(building-type-count-total monastery >= 1)	;number of monasteries greater or equal than 1
+	(unit-type-count monk >= 3)		;number of monks greather or equal than 3 (constant)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO
+	(gold-amount > 300)			;the amount of gold is greater than 300
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-sanctity)			;the AI researches the sanctity (with escrow-resources)
+;	(chat-local-to-self "research SANCTITY")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule217: research REDEMPTION
+;475 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-redemption)	;the AI can research the redemption (with escrow-resources)
+	(building-type-count-total monastery >= 1)	;number of monasteries greater or equal than 1
+	(unit-type-count monk >= 3)		;number of monks greather or equal than 3 (constant)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO
+	(gold-amount > 500)			;the amount of gold is greater than 500
+	(or
+		(game-time > 5400)		;we played 1:30h already
+		(not (death-match-game))	;or we don't play death-match)
+	)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-redemption)			;the AI researches the redemption (with escrow-resources)
+;	(chat-local-to-self "research REDEMPTION");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule218: research HERBAL-MEDICINE
+;350 GOLD
+;(defrule				;If
+;	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+; 	(can-research-with-escrow ri-herbal-medicine);the AI can research the herbal-medicine (with escrow-resources)
+;	(building-type-count-total monastery >= 1)	;number of monasteries greater or equal than 1
+;	(not (goal RESOURCE-NEEDED GOLD))	;not goal RESOURCE-NEEDED to GOLD (constant)
+;	(current-age-time > 500)			;time in the current age greater than 500 seconds
+;=>				;then
+;	(release-escrow gold)			;the AI releases the gold-escrow-resources
+;	(research ri-herbel-medicine)		;the AI researches the herbal-medicine (with escrow-resources)
+;	(chat-local-to-self "research HERBAL-MEDICINE");the AI sends the chat as a local one to itselfs
+;)
+
+#load-if-not-defined DIFFICULTY-MODERATE
+;***********************************************
+;***********************************************
+
+;Rule219: research HERESY
+;1000 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-heresy)	;the AI can research the heresy (with escrow-resources)
+	(building-type-count-total monastery >= 1)	;number of monasteries greater or equal than 1
+	(gold-amount > 1500)			;the amount of gold is greater than 1500
+	(military-population > 30)			;we have got at least 30 soldiers
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-heresy)			;the AI researches the heresy (with escrow-resources)
+;	(chat-local-to-self "research HERESY");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule220: research FAITH
+;750 FOOD, 1000 GOLD
+(defrule				;If
+	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-faith)		;the AI can research the faith (with escrow-resources)
+	(building-type-count-total monastery >= 2)	;number of monasteries greater or equal than 2
+	(gold-amount > 2000)			;the amount of gold is greater than 2000
+	(military-population > 30)			;we have got at least 30 soldiers
+	(food-amount > 2000)			;the amount of food is greater than 2000
+	(or
+		(game-time > 5400)		;we played 1:30h already
+		(not (death-match-game))	;or we don't play death-match)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-faith)				;the AI researches the faith (with escrow-resources)
+;	(chat-local-to-self "research FAITH")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule221: research ILLUMINATION
+;120 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-illumination)	;the AI can research the illumination (with escrow-resources)
+	(building-type-count-total monastery >= 1)	;number of monasteries greater or equal than 1
+	(unit-type-count monk >= 3);number of monks greater or equal than 3
+	(gold-amount > 500)			;the amount of gold is greater than 500
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-illumination)			;the AI researches the illumination (with escrow-resources)
+;	(chat-local-to-self "research ILLUMINATION");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule222: research BLOCK-PRINTING
+;200 GOLD
+(defrule				;If
+	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+	(can-research-with-escrow ri-block-printing)	;the AI can research the block-printing (with escrow-resources)
+	(building-type-count-total monastery >= 1)	;number of monasteries greater or equal than 1
+	(unit-type-count monk >= 3);number of monks greather or equal than 3
+	(gold-amount > 500)			;the amount of gold is greater than 500
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-block-printing)			;the AI researches the block-printing (with escrow-resources)
+;	(chat-local-to-self "research BLOCK-PRINTING");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule223: research THEOCRACY
+;400 FOOD, 800 GOLD
+(defrule				;If
+	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+	(can-research-with-escrow ri-theocracy)	;the AI can research the theocracy (with escrow-resources)
+	(building-type-count-total monastery >= 1)	;number of monasteries greater or equal than 1
+	(unit-type-count monk >= 4)		;number of monks greather or equal than 4
+	(gold-amount > 1000)			;the amount of gold is greater than 1000
+	(or
+		(game-time > 5400)		;we played 1:30h already
+		(not (death-match-game))	;or we don't play death-match)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-theocracy)			;the AI researches the theocracy (with escrow-resources)
+;	(chat-local-to-self "research THEOCRACY")	;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty == easiest
+#end-if		;if not difficulty == easy
+#end-if		;if not difficulty == moderate
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN BARRACKS
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule224: research TRACKING-  MODERATE, HARD, HARDEST
+;75 FOOD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-tracking)	;the AI can research tracking (with escrow-resources)
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(or
+		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
+		(goal ABLE-TO-UPGRADE-INFANTRY YES);goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(or
+		(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+		(food-amount > 500)		;or the amount of food is greater than 500
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+ 	(research ri-tracking)			;the AI researches tracking (with escrow-resources)
+;               (chat-local-to-self "research TRACKING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule226: research SQUIRES- MODERATE, HARD, HARDEST
+;200 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-squires)	;the AI can research squires (with escrow-resources)
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(or
+		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE);goal ABLE-TO-UPGRADE-INFANTRY to MIDDLE (constant)
+		(goal ABLE-TO-UPGRADE-INFANTRY YES);goal ABLE-TO-UPGRADE-INFANTRY to YES (constant)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(or
+		(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+		(food-amount > 500)		;or the amount of food is greater than 500
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+ 	(research ri-squires)			;the AI researches squires (with escrow-resources)
+;               (chat-local-to-self "research SQUIRES")         ;the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+#load-if-defined DIFFICULTY-EASIEST
+;***********************************************
+;***********************************************
+
+;Rule227: research MAN-AT-ARMS- EASIEST; part 1
+;100 FOOD, 40 GOLD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-man-at-arms)	;the AI can research man-at-arms (with escrow-resources)
+	(current-age-time > 300)			;time in the current-age greater than 300 seconds
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(or
+		(goal PRIMARY-COMBAT-UNIT INFANTRY);goal PRIMARY-COMBAT-UNIT to INFANTRY (constant)
+		(goal SECONDARY-COMBAT-UNIT INFANTRY);or goal SECONDARY-COMBAT-UNIT to INFANTRY (constant)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-man-at-arms)			;the AI researches man-at-arms (with escrow-resources)
+;               (chat-local-to-self "research MAN-AT-ARMS");the AI sends the chat as a local chat to itselfs
+)
+
+;Rule227: research MAN-AT-ARMS- EASIEST; part 2
+;100 FOOD, 40 GOLD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-man-at-arms)	;the AI can research man-at-arms (with escrow-resources)
+	(current-age-time > 300)			;time in the current-age greater than 300 seconds
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(or
+		(goal PRIMARY-COMBAT-UNIT INFANTRY1);goal PRIMARY-COMBAT-UNIT to INFANTRY1 (constant)
+		(goal SECONDARY-COMBAT-UNIT INFANTRY1);or goal SECONDARY-COMBAT-UNIT to INFANTRY1 (constant)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-man-at-arms)			;the AI researches man-at-arms (with escrow-resources)
+;               (chat-local-to-self "research MAN-AT-ARMS");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#else	;if defined difficulty easiest
+;***********************************************
+;***********************************************
+
+;Rule228: research MAN-AT-ARMS- EASY, MODERATE, HARD, HARDEST, part 1
+;100 FOOD, 40 GOLD
+(defrule				;If
+	(difficulty <= easy)			;we are playing on easy, moderate, hard or hardest - difficulty
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-man-at-arms)	;the AI can research man-at-arms (with escrow-resources)
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(or
+		(unit-type-count-total militiaman-line > 1)	;number of militiaman greater than 1
+		(and
+			(and
+				(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+				(goal RUSH-CONTROL CASTLE)
+			)
+			(goal ADVANCING-TO-AGE CASTLE-AGE)
+		)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-man-at-arms)			;the AI researches man-at-arms (with escrow-resources)
+;               (chat-local-to-self "research MAN-AT-ARMS");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+
+
+;Rule230: research LONG-SWORDSMAN- MODERATE, HARD, HARDEST; part 3
+;200 FOOD, 65 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-long-swordsman);the AI can research long-swordsman (with escrow-resources)
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(or
+		(unit-type-count-total militiaman-line > TWO-PERCENT-POP);number of swordsmen greater than TWO-PERCENT-POP (constant)
+		(and
+			(goal RUSH-CONTROL RUSHING)	;goal RUSH-CONTROL to RUSHING (constant)
+			(goal SECONDARY-COMBAT-UNIT INFANTRY1);and goal SECONDARY-COMBAT-UNIT to INFANTRY1 (constant)
+		)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-long-swordsman)		;the AI researches long-swordsman (with escrow-resources)
+;               (chat-local-to-self "research LONG-SWORDSMAN");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule232: research TWO-HANDED-SWORDSMAN- MODERATE, HARD, HARDEST
+;300 FOOD, 100 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-two-handed-swordsman);the AI can research two-hamded-swordsman (with escrow-resources)
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(or
+		(unit-type-count-total militiaman-line > THREE-PERCENT-POP);number of swordsmen greater than THREE-PERCENT-POP (constant)
+		(or
+			(goal PRIMARY-COMBAT-UNIT INFANTRY);or goal PRIMARY-COMBAT-UNIT to INFANTRY (constant)
+			(goal PRIMARY-COMBAT-UNIT INFANTRY1);or goal PRIMARY-COMBAT-UNIT to INFANTRY1 (constant)
+		)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-two-handed-swordsman)	;the AI researches two-handed-swordsman (with escrow-resources)
+;               (chat-local-to-self "research TWO-HANDED-SWORDSMAN");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule233: research CHAMPION- HARD, HARDEST
+;750 FOOD, 350 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-champion)          ;the AI can research champion (with escrow-resources)
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(unit-type-count-total militiaman-line > FIVE-PERCENT-POP);number ofswordsmen greater than FIVE-PERCENT-POP (constant)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-champion)			;the AI researches champion (with escrow-resources)
+;               (chat-local-to-self "research CHAMPION")    ;the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+
+
+
+;Rule235: research PIKEMAN- MODERATE, HARD, HARDEST; part
+;215 FOOD, 90 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-pikeman)	;the AI can research pikeman (with escrow-resources)
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(or
+		(unit-type-count-total spearman-line >= ONE-PERCENT-POP);number of spearmen greater or equal than ONE-PERCENT-POP (constant)
+		(and
+			(goal RUSH-CONTROL RUSHING)	;goal RUSH-CONTROL to RUSHING (constant)
+			(goal SECONDARY-COMBAT-UNIT SPEARMAN);and goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
+		)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-pikeman)			;the AI researches pikeman (with escrow-resources)
+;               (chat-local-to-self "research PIKEMAN")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule237: research HALBERDIER- MODERATE, HARD, HARDEST
+;215 FOOD, 90 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-halberdier)	;the AI can research halberdier (with escrow-resources)
+	(building-type-count-total barracks >= 1)	;number of barracks greater or equal than one
+	(or
+		(unit-type-count-total spearman-line >= THREE-PERCENT-POP);number of spearmen greater than THREE-PERCENT-POP (constant)
+		(or
+			(goal PRIMARY-COMBAT-UNIT SPEARMAN);or goal PRIMARY-COMBAT-UNIT to SPEARMAN (constant)
+			(goal SECONDARY-COMBAT-UNIT SPEARMAN);or goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
+		)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-halberdier)			;the AI researches halberdier (with escrow-resources)
+;               (chat-local-to-self "research HALBERDIER")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule238: research ELITE-EAGLE-WARRIOR- MODERATE, HARD, HARDEST
+;215 FOOD, 90 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-elite-eagle-warrior);the AI can research elite-eagle-warrior (with escrow-resources)
+	(building-type-count-total barracks >= 1)	;number of barracks greather or equal than one
+	(or
+		(unit-type-count-total eagle-warrior-line >= THREE-PERCENT-POP);number of EWs greater than THREE-PERCENT-POP (constant)
+		(or
+			(goal PRIMARY-COMBAT-UNIT EAGLEMAN);or goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+			(goal SECONDARY-COMBAT-UNIT EAGLEMAN);or goal SECONDARY-COMBAT-UNIT to EAGLEMAN (constant)
+		)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-elite-eagle-warrior)		;the AI researches elite-eagle-warrior (with escrow-resources)
+;               (chat-local-to-self "research ELITE-EAGLE-WARRIOR");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN ARCHERY-RANGE
+
+
+
+;Rule241: research CROSSBOW- MODERATE, HARD, HARDEST; part 1
+;125 FOOD, 75 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-crossbow)	;the AI can research crossbow (with escrow-resources)
+	(building-type-count-total archery-range >= 1);number of archery-ranges greather or equal than one
+	(unit-type-count-total archer-line > 0)	;number of archers greater than 0
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-crossbow)			;the AI researches crossbow (with escrow-resources)
+;               (chat-local-to-self "research CROSSBOW")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule242: research ARBALEST- MODERATE, HARD, HARDEST
+;350 FOOD, 300 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-arbalest)	;the AI can research arbalest (with escrow-resources)
+	(building-type-count-total archery-range >= 1);number of archery-ranges greather or equal than one
+	(unit-type-count-total archer-line >= FOUR-PERCENT-POP);number of archers greater or equal than FOUR-PERCENT-POP (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-arbalest)			;the AI researches arbalest (with escrow-resources)
+;               (chat-local-to-self "research ARBALEST")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule243: research ELITE-SKIRMISHER- MODERATE, HARD, HARDEST
+;250 WOOD, 160 GOLD
+(defrule				;If
+ 	(can-research-with-escrow ri-elite-skirmisher)	;the AI can research elite-skirmisher (with escrow-resources)
+	(or
+		(unit-type-count-total skirmisher-line >= TWO-PERCENT-POP);number of skirmishers greater or equal than TWO-PERCENT-POP (constant)
+		(or
+			(goal PRIMARY-COMBAT-UNIT SKIRMISHER);or goal PRIMARY-COMBAT-UNIT to SKIRMISHER (constant)
+			(goal SECONDARY-COMBAT-UNIT SKIRMISHER);or goal SECONDARY-COMBAT-UNIT to SKIRMISHER (constant)
+		)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-elite-skirmisher)		;the AI researches elite-skirmisher (with escrow-resources)
+;               (chat-local-to-self "research ELITE-SKIRMISHER");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule245: research HEAVY-CAVALRY-ARCHER- MODERATE, HARD, HARDEST
+;900 FOOD, 500 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-heavy-cavalry-archer);the AI can research heavy-cavalry-archer (with escrow-resources)
+	(building-type-count-total archery-range >= 1);number of archery-ranges greater or equal than one
+	(unit-type-count-total cavalry-archer-line >= FIVE-PERCENT-POP);number of cavarchers greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-heavy-cavalry-archer)		;the AI researches heavy-cavalry-archer (with escrow-resources)
+;               (chat-local-to-self "research HEAVY-CAVALRY-ARCHER");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule248: research THUMB-RING- MODERATE, HARD, HARDEST
+;350 FOOD, 250 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-thumb-ring)	;the AI can research thumb-ring (with escrow-resources)
+	(building-type-count-total archery-range >= 1);number of archery-ranges greater or equal than one
+	(or
+		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE);goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
+		(goal ABLE-TO-UPGRADE-ARCHERS YES);goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-thumb-ring)			;the AI researches thumb-ring (with escrow-resources)
+;               (chat-local-to-self "research THUMB-RING");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule250: research PARTHIAN-TACTICS- HARDEST
+;200 FOOD, 250 GOLD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-parthian-tactics);the AI can research parthian-tactics (with escrow-resources)
+	(building-type-count-total archery-range >= 1);number of archery-ranges greater or equal than one
+	(or
+		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE);goal ABLE-TO-UPGRADE-ARCHERS to MIDDLE (constant)
+		(goal ABLE-TO-UPGRADE-ARCHERS YES);goal ABLE-TO-UPGRADE-ARCHERS to YES (constant)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-parthian-tactics)		;the AI researches parthian-tactics (with escrow-resources)
+;               (chat-local-to-self "research PARTHIAN-TACTICS");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN STABLE
+
+
+
+;Rule251: research HUSBANDRY- MODERATE, HARD, HARDEST
+;250 FOOD
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-research-with-escrow ri-husbandry)	;the AI can research husbandry (with escrow-resources)
+	(building-type-count-total stable >= 1)	;number of stables greater or equal than one
+	(or
+		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE);goal ABLE-TO-UPGRADE-CAVALRY to MIDDLE (constant)
+		(goal ABLE-TO-UPGRADE-CAVALRY YES);goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+	(not (research-available ri-bloodlines));we have researched the bloodlines technology already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+ 	(research ri-husbandry)			;the AI researches husbandry (with escrow-resources)
+;               (chat-local-to-self "research HUSBANDRY")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule254: research BLOODLINES-  MODERATE, HARD, HARDEST
+;150 FOOD, 100 GOLD
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-research-with-escrow ri-bloodlines)	;the AI can research bloodlines (with escrow-resources)
+	(building-type-count-total stable >= 1)	;number of stables greater or equal than one
+	(or
+		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE);goal ABLE-TO-UPGRADE-CAVALRY to MIDDLE (constant)
+		(goal ABLE-TO-UPGRADE-CAVALRY YES);goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
+	)
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-bloodlines)			;the AI researches bloodlines (with escrow-resources)
+;               (chat-local-to-self "research BLOODLINES") ;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule255: research LIGHT-CAVALRY- MODERATE, HARD, HARDEST; if we don't do a rush, part 2
+;150 FOOD, 50 GOLD
+(defrule				;If
+ 	(can-research-with-escrow ri-light-cavalry)	;the AI can research light-cavalry (with escrow-resources)
+	(unit-type-count-total scout-cavalry-line > 1);number of scout-cavalry greater than 1
+	(or
+		(current-age == imperial-age)	;the age, the AI is in, is imperial-age
+		(goal ABLE-TO-TRAIN-UNITS YES);or goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-light-cavalry)			;the AI researches light-cavalry (with escrow-resources)
+;               (chat-local-to-self "research LIGHT-CAVALRY");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule257: research HUSSAR - MODERATE, HARD, HARDEST
+;500 FOOD, 600 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-hussar)	;the AI can research hussar (with escrow-resources)
+	(building-type-count-total stable >= 1)	;number of stables greater or equal than one
+	(or
+		(unit-type-count-total scout-cavalry-line >= THREE-PERCENT-POP);number of light-cavalries greater than THREE-PERCENT-POP (constant)
+		(or
+			(goal PRIMARY-COMBAT-UNIT LCAVALRY);or goal PRIMARY-COMBAT-UNIT to LCAVALRY (constant)
+			(goal SECONDARY-COMBAT-UNIT LCAVALRY);or goal SECONDARY-COMBAT-UNIT to LCAVALRY (constant)
+		)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-hussar)			;the AI researches hussar (with escrow-resources)
+;               (chat-local-to-self "research HUSSAR")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule259: research CAVALIER- MODERATE, HARD, HARDEST
+;300 FOOD, 300 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-cavalier)	;the AI can research cavalier (with escrow-resources)
+	(building-type-count-total stable >= 1)	;number of stables greater or equal than one
+	(or
+		(unit-type-count-total knight-line >= TWO-PERCENT-POP);number of knights greater or equal than TWO-PERCENT-POP (constant)
+		(or
+			(goal PRIMARY-COMBAT-UNIT KNIGHT);or goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+			(goal SECONDARY-COMBAT-UNIT KNIGHT);or goal SECONDARY-COMBAT-UNIT to KNIGHT (constant)
+		)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-cavalier)			;the AI researches cavalier (with escrow-resources)
+;               (chat-local-to-self "research CAVALIER")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule260: research PALADIN-  HARD, HARDEST
+;1300 FOOD, 750 GOLD
+(defrule				;If
+	(difficulty <= hard)			;we are playing on hard or hardest - difficulty
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-paladin)	;the AI can research paladin (with escrow-resources)
+	(or
+		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)	;goal ABLE-TO-UPGRADE-CAVALRY to MIDDLE (constant)
+		(goal ABLE-TO-UPGRADE-CAVALRY YES);or goal ABLE-TO-UPGRADE-CAVALRY to YES (constant)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-paladin)			;the AI researches paladin (with escrow-resources)
+;               (chat-local-to-self "research PALADIN")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule261: research HEAVY-CAMEL-  HARD, HARDEST
+;1300 FOOD, 750 GOLD
+(defrule				;If
+	(difficulty <= hard)			;we are playing on hard or hardest - difficulty
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-heavy-camel)	;the AI can research heavy-camel (with escrow-resources)
+	(unit-type-count-total camel-line >= FIVE-PERCENT-POP);number of camels greater or equal than FIVE-PERCENT-POP (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-heavy-camel)			;the AI researches paladin (with escrow-resources)
+;               (chat-local-to-self "research HEAVY-CAMEL");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN SIEGE-WORKSHOP
+
+
+
+;Rule263: research CAPPED-RAM-  MODERATE, HARD, HARDEST
+;300 FOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-capped-ram)	;the AI can research capped-ram (with escrow-resources)
+	(building-type-count-total siege-workshop >= 1);number of siege-workshops greater or equal than one
+	(unit-type-count-total battering-ram-line > 1);number of rams greater than 1
+	(food-amount > 700)			;the amount of food is greater than 700
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research ri-capped-ram)			;the AI researches capped-ram (with escrow-resources)
+;               (chat-local-to-self "research CAPPED-RAM");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule264: research SIEGE-RAM-  HARD, HARDEST
+;1000 FOOD
+(defrule				;If
+	(difficulty <= hard)			;we are playing on hard or hardest - difficulty
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-siege-ram)	;the AI can research siege-ram (with escrow-resources)
+	(building-type-count-total siege-workshop >= 1);number of siege-workshops greater or equal than one
+	(or
+		(goal PRIMARY-COMBAT-SIEGE-UNIT RAM);goal PRIMARY-COMBAT-SIEGE-UNIT to RAM (constant)
+		(goal SECONDARY-COMBAT-SIEGE-UNIT RAM);or goal SECONDARY-COMBAT-SIEGE-UNIT to RAM (constant)
+	)
+	(food-amount > 1200)			;the amount of food is greater than 1200
+	(or
+		(game-time > 5400)		;we played 1:30h already
+		(not (death-match-game))	;or we don't play death-match)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+ 	(research ri-siege-ram)			;the AI researches siege-ram (with escrow-resources)
+;               (chat-local-to-self "research SIEGE-RAM")	;the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+
+
+
+;Rule266: research ONAGER-  MODERATE, HARD, HARDEST
+;800 FOOD, 500 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-onager)	;the AI can research onager (with escrow-resources)
+	(building-type-count-total siege-workshop >= 1);number of siege-workshops greather or equal than one
+	(or
+		(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL);goal PRIMARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+		(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL);or goal SECONDARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+	)
+	(food-amount > 1000)			;the amount of food is greater than 1000
+	(gold-amount > 700)			;the amount of gold is greater than 700
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-onager)			;the AI researches onager (with escrow-resources)
+;               (chat-local-to-self "research ONAGER")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule267: research SIEGE-ONAGER-  HARD, HARDEST
+;1450 FOOD, 1000 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-siege-onager)	;the AI can research siege-onager (with escrow-resources)
+	(building-type-count-total siege-workshop >= 1);number of siege-workshops greater or equal than one
+	(or
+		(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL);goal PRIMARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+		(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL);or goal SECONDARY-COMBAT-SIEGE-UNIT to MANGONEL (constant)
+	)
+	(food-amount > 1600)			;the amount of food is greater than 1600
+	(gold-amount > 1200)			;the amount of gold is greater than 1200
+	(or
+		(game-time > 5400)		;we played 1:30h already
+		(not (death-match-game))	;or we don't play death-match)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-siege-onager)			;the AI researches siege-onager (with escrow-resources)
+;               (chat-local-to-self "research SIEGE-ONAGER");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+
+
+
+;Rule269: research HEAVY-SCORPION-  MODERATE, HARD, HARDEST
+;1000 FOOD, 1100 WOOD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-heavy-scorpion);the AI can research heavy-scorpion (with escrow-resources)
+	(building-type-count-total siege-workshop >= 1);number of siege-workshops greater or equal than one
+	(or
+		(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION);goal PRIMARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
+		(goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION);or goal SECONDARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
+	)
+	(wood-amount > 1400)			;the amount of wood is greater than 1400
+	(food-amount > 1500)			;the amount of food is greater than 1500
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-heavy-scorpion)		;the AI researches heavy-scorpion (with escrow-resources)
+;               (chat-local-to-self "research HEAVY-SCORPION");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN DOCK
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule270: research HEAVY-DEMOLITION-SHIP - MODERATE, HARD, HARDEST
+;200 WOOD, 300 GOLD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(can-research-with-escrow ri-heavy-demolition-ship);the AI can research the heavy-demolition-ship (with escrow-resources)
+	(unit-type-count-total demolition-ship-line > 1);number of demolition ships greater than 1
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(wood-amount > 800)			;the amount of wood is greater than 800
+	(gold-amount > 800)			;the amount of gold is greater than 800
+=>
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-heavy-demolition-ship)		;the AI researches the heavy-demolition-ship (with escrow-resources)
+;	(chat-local-to-self "research HEAVY-DEMOLITION-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+
+
+
+;Rule271: research DRY-DOCK - MODERATE, HARD, HARDEST
+;600 FOOD, 400 GOLD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(can-research-with-escrow ri-dry-dock)	;the AI can research the dry-dock (with escrow-resources)
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(not (goal RUSH-CONTROL RUSHING))	;the goal RUSH-CONTROL is not set to RUSHING (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(food-amount > 800)			;the amount of food is greater than 800
+	(gold-amount > 600)			;the amount of gold is greater than 600
+=>
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-dry-dock)			;the AI researches the dry-dock (with escrow-resources)
+;	(chat-local-to-self "research DRY-DOCK")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule272: research SHIPWRIGHT - MODERATE, HARD, HARDEST
+;1000 FOOD, 300 GOLD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(warboat-count > FIVE-PERCENT-POP)	;number of warboats greater than FIVE-PERCENT-POP (constant)
+	(can-research-with-escrow ri-shipwright)	;the AI can research the shipwright (with escrow-resources)
+	(not (goal RUSH-CONTROL RUSHING))	;the goal RUSH-CONTROL is not set to RUSHING (constant)
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(food-amount > 1200)			;the amount of food is greater than 1200
+	(gold-amount > 500)			;the amount of gold is greater than 500
+=>
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-shipwright)			;the AI researches the ship-wright (with escrow-resources)
+;	(chat-local-to-self "research SHIPWRIGHT")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule273: research CAREENING - MODERATE, HARD, HARDEST
+;250 FOOD, 150 GOLD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(can-research-with-escrow ri-careening)	;the AI can research the careening (with escrow-resources)
+	(not (goal RUSH-CONTROL RUSHING))	;the goal RUSH-CONTROL is not set to RUSHING (constant)
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+=>
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-careening)			;the AI researches the careening (with escrow-resources)
+;	(chat-local-to-self "research CAREENING")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule274: research FAST-FIRE-SHIP - MODERATE, HARD, HARDEST
+;280 WOOD, 250 GOLD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(unit-type-count-total fire-ship-line > THREE-PERCENT-POP);number of fire ships greater than THREE-PERCENT-POP (constant)
+	(can-research-with-escrow ri-fast-fire-ship)	;the AI can research the fast-fire-ship (with escrow-resources)
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 575)			;or the amount of wood is greater than 575
+	)
+=>
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-fast-fire-ship)			;the AI researches the fast-fire-ship (with escrow-resources)
+;	(chat-local-to-self "research FAST-FIRE-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule275: research CANNON-GALLEON - MODERATE, HARD, HARDEST
+;500 WOOD, 400 FOOD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(can-research-with-escrow ri-cannon-galleon);the AI can research the cannon-galleon (with escrow-resources)
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 775)			;or the amount of wood is greater than 775
+	)
+=>
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research ri-cannon-galleon)		;the AI researches the cannon-galleon (with escrow-resources)
+;	(chat-local-to-self "research CANNON-GALLEON");the AI sends the chat as a local one to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule276: research DECK-GUNS - HARD, HARDEST
+;525 WOOD, 500 GOLD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(unit-type-count-total cannon-galleon > 0)	;number of cannon-galleons greater than 0
+	(can-research-with-escrow ri-deck-guns)	;the AI can research the deck-guns (with escrow-resources)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 800)			;or the amount of wood is greater than 800
+	)
+=>
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-deck-guns)			;the AI researches the deck-guns (with escrow-resources)
+;	(chat-local-to-self "research DECK-GUNS")	;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+
+
+
+;Rule277: research WAR-GALLEY - MODERATE, HARD, HARDEST
+;230 FOOD, 100 GOLD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(unit-type-count-total galley-line > 1)	;number of galleys greater than 1
+	(can-research-with-escrow ri-war-galley)	;the AI can research the war-galley (with escrow-resources)
+	(nand
+		(civ-selected viking)		;when we play the viking then we mustn't have a castle (longboats), when we don't play the viking we may have a castle
+		(building-type-count-total castle > 0)
+	)
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+=>
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research ri-war-galley)			;the AI researches the war-galley (with escrow-resources)
+;	(chat-local-to-self "research WAR-GALLEY");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule278: research GALLEON - MODERATE, HARD, HARDEST
+;315 WOOD, 400 FOOD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(can-research-with-escrow ri-galleon)	;the AI can research the galleon (with escrow-resources)
+	(nand
+		(civ-selected viking)		;when we play the viking then we mustn't have a castle (longboats), when we don't play the viking we may have a castle
+		(building-type-count-total castle > 0)
+	)
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 590)			;or the amount of wood is greater than 590
+	)
+=>
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research ri-galleon)			;the AI researches the galleon (with escrow-resources)
+;	(chat-local-to-self "research GALLEON")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+
+
+;Rule279: research ELITE-LONGBOAT - HARD, HARDEST
+;750 FOOD, 475 GOLD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(can-research-with-escrow ri-elite-longboat)	;the AI can research the elite longboat (with escrow-resources)
+	(unit-type-count-total longboat-line >= THREE-PERCENT-POP);number of longboats greater or equal than THREE-PERCENT-POP (constant)
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+=>
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research ri-elite-longboat)			;the AI researches the elite longboat (with escrow-resources)
+;	(chat-local-to-self "research ELITE-LONGBOAT");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule280: research ELITE-TURTLE-SHIP - HARD, HARDEST
+;1000 FOOD, 800 GOLD
+(defrule
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(can-research-with-escrow ri-elite-turtle-ship);the AI can research the elite turtleship (with escrow-resources)
+	(unit-type-count-total turtle-ship-line >= THREE-PERCENT-POP);number of turtleships greater or equal than THREE-PERCENT-POP (constant)
+	(not (goal MAP-KIND LAND-MAP))	;the goal MAP-KIND is not set to LAND-MAP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(food-amount > 1200)			;the amount of food is greater than 1200
+	(gold-amount > 1000)			;the amount of gold is greater than 1000
+=>
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research ri-elite-turtle-ship)		;the AI researches the elite turtleship (with escrow-resources)
+;	(chat-local-to-self "research ELITE-TURTLE-SHIP");the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;TECHNOLOGIES IN CASTLE
+
+
+
+;Rule282: research HOARDINGS-  MODERATE, HARD, HARDEST
+;400 WOOD, 400 STONE
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-hoardings)	;the AI can research hoardings (with escrow-resources)
+	(building-type-count-total castle >= 3)	;number of castles greater or equal than 3
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research ri-hoardings)			;the AI researches hoardings (with escrow-resources)
+;               (chat-local-to-self "research HOARDINGS")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule284: research CONSCRIPTION-  MODERATE, HARD, HARDEST
+;150 FOOD, 150 GOLD
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-conscription)	;the AI can research conscription (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-conscription)			;the AI researches conscription (with escrow-resources)
+;               (chat-local-to-self "research CONSCRIPTION");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule285: research SAPPERS-  MODERATE, HARD, HARDEST
+;400 FOOD, 200 GOLD
+;note this technology only gives stronger villagers  to us and I didn't write any strategy that uses this technology. That's why only research if
+;we've got tons of goods
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow ri-sappers)	;the AI can research sappers (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greather or equal than one
+	(food-amount > 2000)			;the amount of food is greater than 2000
+	(gold-amount > 1500)			;the amount of gold is greater than 1500
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research ri-sappers)			;the AI researches sappers (with escrow-resources)
+;               (chat-local-to-self "research SAPPERS")	;the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;UNIQUE RESEARCH
+
+
+
+#load-if-defined AZTEC-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == aztec
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined BYZANTINE-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == byzantine
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined BRITON-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+	(research-completed ri-bracer)		;we researched the bracer already
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == briton
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined CELTIC-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == celtic
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined CHINESE-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == chinese
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined FRANKISH-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(or
+		(or
+			(cc-players-unit-type-count any-enemy archer-line >= 6);any enemy as got more than five archers
+			(cc-players-unit-type-count any-enemy chu-ko-nu-line >= 6);or any enemy has got more than five ch ko nus
+		)
+		(or
+			(or
+				(cc-players-unit-type-count any-enemy janissary-line >= 6);or any enemy has got more than five janissaries
+				(cc-players-unit-type-count any-enemy longbowman-line >= 6);or any enemy has got more than five longbows
+			)
+			(cc-players-unit-type-count any-enemy mangudai-line >= 6);or any enemy has got more than five mangudais
+		)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == frankish
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined GOTHIC-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research PERFUSION-  MODERATE, HARD, HARDEST
+;400 WOOD, 600 GOLD
+(defrule				;If
+ 	(can-research-with-escrow 457)		;the AI can research the perfusion (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research 457)				;the AI researches the perfusion (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH-perfusion");the AI sends the chat as a local chat to itselfs
+)
+
+
+
+;Rule295: research ANARCHY-  MODERATE, HARD, HARDEST
+;450 FOOD, 250 GOLD
+(defrule				;If
+ 	(can-research-with-escrow 16)		;the AI can research the anarchy (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+	(unit-type-count-total huskarl-line >= TWO-PERCENT-POP);number of huskarls greater or equal than TWO-PERCENT-POP (constant)
+	(goal ABLE-TO-TRAIN-UNITS YES)	;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research 16)				;the AI researches the anarchy (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH-anarchy");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == gothic
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined HUN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+	(cc-players-building-type-count any-enemy wonder > 0);any enemy built a wonder
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == hun
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined JAPANESE-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+	(unit-type-count-total mangonel-line > ONE-PERCENT-POP);num,ber of mangonels greater than ONE-PERCENT-POP (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == japanese
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined KOREAN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+	(unit-type-count-total mangonel-line > ONE-PERCENT-POP);num,ber of mangonels greater than ONE-PERCENT-POP (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == korean
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined MAYAN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+	(unit-type-count-total eagle-warrior-line > THREE-PERCENT-POP);number of eagle-warriors greater than THREE-PERCENT-POP (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == mayan
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined MONGOL-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+
+	(building-type-count siege-workshop > 0)	;number of siege workshops greater than 0
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == mongol
+;***********************************************
+;***********************************************
+
+
+#load-if-defined PERSIAN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == persian
+;***********************************************
+;***********************************************
+
+
+#load-if-defined SARACEN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == saracen
+;***********************************************
+;***********************************************
+
+
+#load-if-defined SPANISH-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == spanish
+;***********************************************
+;***********************************************
+
+
+#load-if-defined TEUTONIC-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 2)	;number of castles greater or equal than 2
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == teutonic
+;***********************************************
+;***********************************************
+
+
+#load-if-defined TURKISH-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+	(or
+		(unit-type-count-total bombard-cannon > 2);number of bombard-cannons greater than 2
+		(building-type-count-total bombard-tower > 2);or number of bombard-towers greater than 2
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+
+#end-if			;if civ == turkish
+;***********************************************
+;***********************************************
+
+
+#load-if-defined VIKING-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(can-research-with-escrow my-unique-research);the AI can research its unique-research (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(research my-unique-research)		;the AI researches its unique-research (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-RESEARCH");the AI sends the chat as a local chat to itselfs
+)
+
+#end-if			;if civ == viking
+;***********************************************
+;***********************************************
+
+
+
+;Rule297: research MY-UNIQUE-UNIT-UPGRADE-  MODERATE, HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(can-research-with-escrow my-unique-unit-upgrade);the AI can research its unique-unit-upgrade (with escrow-resources)
+	(building-type-count-total castle >= 1)	;number of castles greater or equal than one
+	(unit-type-count-total my-unique-unit-line > THREE-PERCENT-POP);number of unique-units greater than THREE-PERCENT-POP (cinstant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(research my-unique-unit-upgrade)		;the AI researches its unique-unit-upgrade (with escrow-resources)
+;               (chat-local-to-self "research UNIQUE-UNIT-UPGRADE");the AI sends the chat as a local chat to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty == easiest
+#end-if		;if not difficulty == easy
+
+;***********************************************
+;***********************************************
+#end-if		;if not game type == wonder race
+
+
+;=====END; The Duke Technologies.per=====
+;=====ALL RIGHTS RESERVED===========

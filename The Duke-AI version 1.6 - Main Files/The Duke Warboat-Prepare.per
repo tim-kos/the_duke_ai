@@ -1,0 +1,232 @@
+;			The Duke Warboat-Prepare.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+;Rule1: when an ally is the main ship builder already then the AI can't be the main ship builder
+
+(defrule			;If
+	(taunt-detected any-ally 202)		;any ally want us not to be the main ship builder
+=>				;then
+	(acknowledge-taunt this-any-ally 202)	;we acknowledge his request
+	(set-goal MAIN-SHIP-BUILDER NO)		;the AI sets goal MAIN-SHIP-BUILDER to NO (constant)
+	(disable-self)				;only once
+)
+
+
+
+;*******************************************************************
+;*******************************************************************
+;THESE CIVS ARE THE BEST SHIP BUILDERS - BYZANTINES, JAPANESE
+;PERSIAN, SARACEN AND VIKING
+
+;Rule2: we are the main ship builder when we play one civ that belongs to the best ship builders part 1
+
+(defrule			;If
+	(goal MAIN-SHIP-BUILDER NOTICE)		;goal MAIN-SHIP-BUILDER to NOTICE (constant)
+	(player-in-game any-computer-ally)	;we have got any compuetr player as ally
+	(or
+		(or
+			(civ-selected byzantine);we play the byzantine, the japanese,the persians or the saracens
+			(civ-selected japanese)
+		)
+		(or
+			(civ-selected persian)
+			(civ-selected saracen)
+		)
+	)
+=>				;then
+	(chat-to-player-using-id every-ally 22408)	;202
+	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
+	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
+	(disable-self)				;only once
+)
+
+
+
+;Rule3: we are the main ship builder when we play one civ that belongs to the best ship builders part 2
+
+(defrule			;If
+	(goal MAIN-SHIP-BUILDER NOTICE)		;goal MAIN-SHIP-BUILDER to NOTICE (constant)
+	(player-in-game any-computer-ally)	;we have got any compuetr player as ally
+	(or
+		(or
+			(civ-selected viking)	;we play the vikings, the spanishes or the koreans
+			(civ-selected spanish)
+		)
+		(civ-selected korean)
+	)
+=>				;then
+	(chat-to-player-using-id every-ally 22408)	;202
+	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
+	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
+	(disable-self)				;only once
+)
+
+
+
+;*******************************************************************
+;*******************************************************************
+;THESE CIVS ARE THE GOOD SHIP BUILDERS - BRITONS, CELTIC, CHINESE,
+;TURKISH AND MAYAN
+
+;Rule4: we are the main ship builder when we play one civ that belongs to the good ship builders
+
+(defrule			;If
+	(goal MAIN-SHIP-BUILDER NOTICE)		;goal MAIN-SHIP-BUILDER to NOTICE (constant)
+	(game-time > 10)
+	(player-in-game any-computer-ally)	;we have got any compuetr player as ally
+	(or
+		(or
+			(civ-selected briton)	;we play the britons, the celtics, the chineses, the turkish or the mayans
+			(civ-selected celtic)
+		)
+		(or
+			(or
+				(civ-selected chinese)
+				(civ-selected turkish)
+			)
+			(civ-selected mayan)
+		)
+	)
+=>				;then
+	(chat-to-player-using-id every-ally 22408)	;202
+	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
+	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
+	(disable-self)				;only once
+)
+
+
+
+;*******************************************************************
+;*******************************************************************
+;THESE CIVS ARE THE BAD SHIP BUILDERS - FRANKISH, GOTHIC, MONGOL,
+;TEUTONIC, AZTEC AND HUN
+
+;Rule5: we are the main ship builder when we play one civ that belongs to the bad ship builders part 1
+
+(defrule			;If
+	(goal MAIN-SHIP-BUILDER NOTICE)		;goal MAIN-SHIP-BUILDER to NOTICE (constant)
+	(game-time > 20)
+	(player-in-game any-computer-ally)	;we have got any compuetr player as ally
+	(or
+		(or
+			(civ-selected frankish)	;we play the frankish, the gothics, the mongols or the teutonics
+			(civ-selected gothic)
+		)
+		(or
+			(civ-selected mongol)
+			(civ-selected teutonic)
+		)
+	)
+=>				;then
+	(chat-to-player-using-id every-ally 22408)	;202
+	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
+	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
+	(disable-self)				;only once
+)
+
+
+
+;Rule6: we are the main ship builder when we play one civ that belongs to the bad ship builders part 2
+
+(defrule			;If
+	(goal MAIN-SHIP-BUILDER NOTICE)		;goal MAIN-SHIP-BUILDER to NOTICE (constant)
+	(game-time > 20)
+	(player-in-game any-computer-ally)	;we have got any compuetr player as ally
+	(or
+		(civ-selected aztec)		;we play the aztecs or the huns
+		(civ-selected hun)
+	)
+=>				;then
+	(chat-to-player-using-id every-ally 22408)	;202
+	(set-goal MAIN-SHIP-BUILDER YES)	;the AI sets goal MAIN-SHIP-BUILDER to YES (constant)
+	(chat-local-to-self "Main-Ship-Builder True");the AI sends the chat as a local one to itselfs
+	(disable-self)				;only once
+)
+
+
+
+;DELETING FISHING SHIPS TO BE ABLE TO BUILD A TRANSPORT SHIP
+;-----------------------------------------------------------
+
+;Rule7: delete fishing ships when we are at our pop cap and we haven't got a transport ship
+
+(defrule			;If
+	(population >= pop-cap)			;number of inhabitants greater or equal than pop-cap (constant)
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(unit-type-count transport-ship == 0)	;number of transport ships is 0
+	(can-afford-unit transport-ship)	;we have the resources to train a transport ship
+	(attack-soldier-count > 0)		;we have got at least 1 soldier that is able to attack
+=>				;then
+	(delete-unit fishing-ship)		;we delete exact one fishing ship
+)
+
+
+
+;DELETING VILLAGERS TO BE ABLE TO BUILD A TRANSPORT SHIP
+;-----------------------------------------------------------
+
+;Rule8: delete villagers when we are at our pop cap and we haven't got a transport ship
+
+(defrule
+	(population >= pop-cap)			;number of inhabitants greater or equal than pop-cap (constant)
+	(building-type-count dock > 0)		;number of docks greater than 0
+	(unit-type-count transport-ship == 0)	;number of transport ships is 0
+	(can-afford-unit transport-ship)	;we have the resources to train a transport ship
+	(attack-soldier-count > 0)		;we have got at least 1 soldier that is able to attack
+	(unit-type-count fishing-ship == 0)	;number of fishing ships is 0 // makes sure that we first delete all fishing ships before we delete villagers (rule above)
+=>
+	(delete-unit villager)			;we delete exact one villager
+)
+
+
+
+;*********************************
+;*********************************
+;TRANSPORT SHIP - MARINE
+
+
+
+#load-if-not-defined COASTAL-MAP
+
+;Rule9: always keep building a transport ship
+
+(defrule			;If
+	(unit-type-count-total transport-ship == 0);number of transport ships is 0
+	(military-population > 10)		;the AI has got at least 11 soldiers
+	(can-train transport-ship)		;the AI can train a transport ship
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(wood-amount > 400)			;the amount of wood is greater than 400
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+=>				;then
+	(train transport-ship)			;the AI trains a transport ship
+)
+
+
+
+;Rule10: build more transport ships if we have got a great army
+
+(defrule			;If
+	(attack-soldier-count >= 20)		;number of soldiers that could attack is greater or equal than 20
+	(research-completed ri-careening)	;the AI finished researching the careening-technology
+	(unit-type-count-total transport-ship < 3);number of transport ships less than 3
+	(can-train transport-ship)		;the AI can train a transport ship
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(wood-amount > 500)			;the amount of wood is greater than 500
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES
+=>				;then
+	(train transport-ship)			;the AI trains a transport ship
+)
+
+#end-if
+
+
+;=====END; The Duke Warboat-Prepare=====
+;=====ALL RIGHTS RESERVED==============

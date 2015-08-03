@@ -1,0 +1,843 @@
+;		The Duke Age-Advancement.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+#load-if-not-defined WONDER-RACE
+#load-if-not-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;AGE ADVANCEMENT
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule1: generate a random number if difficulty == hard or hardest that will define how long it'll take to advance to those several ages
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+=>				;then
+	(generate-random-number 9)		;the AI generates a random-number from 1 till 9
+	(disable-self)				;but only at the start of a game
+)
+
+
+
+;************************************************
+;************************************************
+;FEUDAL-AGE
+
+
+
+;Rule5: define the "Middle-Feudal" -Strategy
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+	(starting-age == dark-age)			;the age, the AI is in on the start of a game, is dark-age
+	(goal RESEARCHING-FEUDAL NOTICE)	;goal RESEARCHING-FEUDAL to NOTICE (constant)
+	(or
+		(and
+			(random-number >= 5)		;or the value of the random number is greater or equal than 5
+			(goal RUSH-CONTROL NO)	;and goal RUSH-CONTROL to NO (constant)
+		)
+		(goal RUSH-CONTROL FEUDAL)	;or goal RUSH-CONTROL to FEUDAL (constant)
+	)
+	(starting-age == dark-age)		;we started at the dark age
+=>				;then
+	(set-goal RESEARCHING-FEUDAL MIDDLE-FEUDAL);the AI sets goal RESEARCHING-FEUDAL to MIDDLE-FEUDAL (constant)
+	(chat-local-to-self "MIDDLE-FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)				;but only at the start of a game
+)
+
+
+
+;Rule2: define the "Late-Feudal" -Strategy
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+	(starting-age == dark-age)			;the age, the AI is in on the start of a game, is dark-age
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE
+	(goal RESEARCHING-FEUDAL NOTICE)	;goal RESEARCHING-FEUDAL to NOTICE (constant)
+=>				;then
+	(set-goal RESEARCHING-FEUDAL LATE-FEUDAL);the AI sets goal RESEARCHING-FEUDAL to LATE-FEUDAL (constant)
+	(chat-local-to-self "LATE-FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)				;but only at the start of a game
+)
+
+
+
+;Rule9: define the "Late-Feudal" -Strategy
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(goal RESEARCHING-FEUDAL NOTICE)	;goal RESEARCHING-FEUDAL to NOTICE (constant)
+	(random-number < 5)			;the value of the random number is less than 5
+	(starting-age == dark-age)		;we started at the dark age
+=>				;then
+	(set-goal RESEARCHING-FEUDAL LATE-FEUDAL);the AI sets goal RESEARCHING-FEUDAL to LATE-FEUDAL (constant)
+	(chat-local-to-self "LATE-FEUDAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)				;but only one-time
+)
+
+
+
+;************************************************
+;************************************************
+;CASTLE-AGE
+
+
+
+;Rule11: define the "Fast-Castle" -Strategy (attacker)
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+	(or
+		(or
+			(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
+			(goal RESEARCHING-FEUDAL LATE-FEUDAL);or goal RESEARCHING-FEUDAL to LATE-FEUDAL (constant)
+		)
+		(and
+			(goal RESEARCHING-FEUDAL MIDDLE-FEUDAL);or goal RESEARCHING-FEUDAL to LATE-FEUDAL (constant)
+			(not (goal RUSH-CONTROL FEUDAL));and goal RUSH-CONTROL is not se to FEUDAL (constant)
+		)
+	)
+	(starting-age <= feudal-age)		;the age, the AI is in on the start of a game, is less or equal than feudal-age
+	(goal RESEARCHING-CASTLE NOTICE)	;goal RESEARCHING-CASTLE to NOTICE (constant)
+	(starting-age <= feudal-age)		;we started at the dark age or at the feudal-age
+=>				;then
+	(set-goal RESEARCHING-CASTLE FAST-CASTLE);the AI sets goal RESEARCHING-CASTLE to FAST-CASTLE (constant)
+	(chat-local-to-self "FAST-CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)				;but only at the start of a game
+)
+
+
+
+;Rule11: define the "Fast-Castle" -Strategy (attacker)
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(starting-age <= feudal-age)		;the age, the AI is in on the start of a game, is less or equal than feudal-age
+	(goal RESEARCHING-CASTLE NOTICE)	;goal RESEARCHING-CASTLE to NOTICE (constant)
+	(random-number < 6)			;the value of the random number is less than 6
+	(starting-age <= feudal-age)		;we started at the dark age or at the feudal-age
+=>				;then
+	(set-goal RESEARCHING-CASTLE FAST-CASTLE);the AI sets goal RESEARCHING-CASTLE to FAST-CASTLE (constant)
+	(chat-local-to-self "FAST-CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)				;but only at the start of a game
+)
+
+
+
+;Rule14: define the "Middle-Castle" -Strategy (attacker)
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to no (constant)
+	(random-number >= 6)		;or the value of the random number is greater or equal than 6
+	(starting-age <= feudal-age)		;the age, the AI is in on the start of a game, is less or equal than feudal-age
+	(goal RESEARCHING-CASTLE NOTICE)	;goal RESEARCHING-CASTLE to NOTICE (constant)
+	(starting-age <= feudal-age)		;we started at the dark age or at the feudal-age
+=>				;then
+	(set-goal RESEARCHING-CASTLE MIDDLE-CASTLE);the AI sets goal RESEARCHING-CASTLE to MIDDLE-CASTLE (constant)
+	(chat-local-to-self "MIDDLE-CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)				;but only at the start of a game
+)
+
+
+
+;Rule17: define the "Late-Castle" -Strategy (attacker)
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+	(goal RUSH-CONTROL FEUDAL)		;goal RUSH-CONTROL to FEUDAL (constant)
+	(starting-age <= feudal-age)		;the age, the AI is in on the start of a game, is less or equal than feudal-age
+	(goal RESEARCHING-CASTLE NOTICE)	;goal RESEARCHING-CASTLE to NOTICE (constant)
+=>				;then
+	(set-goal RESEARCHING-CASTLE LATE-CASTLE);the AI sets goal RESEARCHING-CASTLE to LATE-CASTLE (constant)
+	(chat-local-to-self "LATE-CASTLE")	;the AI sends the chat as a local one to itselfs
+	(disable-self)				;but only at the start of a game
+)
+
+
+
+;************************************************
+;************************************************
+;IMPERIAL-AGE
+
+
+
+;Rule23: define the "Middle-Imperial" -Strategy (attacker)
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+	(random-number <= 4)			;the value of the random number is less or equal than 7
+	(or
+		(goal RUSH-CONTROL NO	);goal RUSH-CONTROL to NO (constant)
+		(goal RUSH-CONTROL FEUDAL)	;or goal RUSH-CXONTROL to FEUDAL
+	)
+	(starting-age <= castle-age)		;the age, the AI is in on the start of a game, is less or equal than castle-age
+	(goal RESEARCHING-IMPERIAL NOTICE)	;goal RESEARCHING-IMPERIAL to NOTICE (constant)
+	(starting-age <= castle-age)		;we started at the dark age, at the feudal-age or at the castle age
+=>				;then
+	(set-goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL);the AI sets goal RESEARCHING-IMPERIAL to MIDDLE-IMPERIAL (constant)
+	(chat-local-to-self "MIDDLE-IMPERIAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)				;but only at the start of a game
+)
+
+
+
+;Rule26: define the "Late-Imperial" -Strategy (attacker)
+
+(defrule				;If
+	(game-time > 14)			;we played 14 seconds already
+	(or
+		(and
+			(and
+				(random-number > 4);the value of the random-number is greater than 4
+				(random-number <= 9);the value of the random-number is less or equal than 9
+			)
+			(or
+				(goal RUSH-CONTROL NO);goal RUSH-CONTROL to NO (constant)
+				(goal RUSH-CONTROL FEUDAL);or goal RUSH-CONTROL to FEUDAL (constant)
+			)
+		)
+		(goal RUSH-CONTROL CASTLE)	;or goal RUSH-CONTROL to CASTLE (constant)
+	)
+	(starting-age <= castle-age)		;the age, the AI is in on the start of a game, is less or equal than castle-age
+	(goal RESEARCHING-IMPERIAL NOTICE)	;goal RESEARCHING-IMPERIAL to NOTICE (constant)
+	(starting-age <= castle-age)		;we started at the dark age, at the feudal-age or at the castle age
+=>				;then
+	(set-goal RESEARCHING-IMPERIAL LATE-IMPERIAL);the AI sets goal RESEARCHING-IMPERIAL to LATE-IMPERIAL (constant)
+	(chat-local-to-self "LATE-IMPERIAL")	;the AI sends the chat as a local one to itselfs
+	(disable-self)				;but only at the start of a game
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+(defrule				;If
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+=>
+	(set-goal ADVANCING-TO-AGE NO)		;the AI sets goal ADVANCE-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+=>
+	(set-goal ADVANCING-TO-AGE NO)	;the AI sets goal ADVANCING-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+=>
+	(set-goal ADVANCING-TO-AGE NO)	;the AI sets goal ADVANCING-TO-AGE to NO (constant)
+	(disable-timer T-ABLE-TO-PAY-RESOURCES);the AI disables this timer (sets the flag back) with id T-ABLE-TO-PAY-RESOURCES (constant)
+	(disable-self)
+)
+
+
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+=>
+	(set-goal ADVANCING-TO-AGE NO)	;the AI sets goal ADVANCING-TO-AGE to NO (constant)
+	(disable-timer T-ABLE-TO-PAY-RESOURCES);the AI disables this timer (sets the flag back) with id T-ABLE-TO-PAY-RESOURCES (constant)
+	(disable-self)
+)
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+;Rule101: research FEUDAL-AGE1-EASY, EASIEST
+;500 FOOD
+(defrule				;If
+	(difficulty >= easy)			;we are playing on easy or easiest - difficulty
+ 	(current-age == dark-age)			;the age, the AI is in, is DARK-AGE
+ 	(can-research-with-escrow feudal-age)	;the AI can research the feudal-age (with escrow-resources)
+	(or
+		(players-current-age any-computer >= feudal-age);is there any computer in feudal-age already?
+		(players-current-age any-human >= feudal-age);or is there any human in feudal-age already?
+	)
+	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY);game time is greater than FEUDAL-RESEARCH-TIME-EASIEST-EASY (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research feudal-age)			;the AI researches the feudal-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm adavancing to the feudal-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to FEUDAL-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE FEUDAL-AGE);the AI sets goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == hardest
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule103: research FEUDAL-AGE3-MODERATE, HARD, HARDEST -fast feudal-age
+;500 FOOD
+(defrule				;If
+ 	(current-age == dark-age)			;the age, the AI is in, is DARK-AGE
+ 	(game-time > FEUDAL-RESEARCH-TIME-FAST-FEUDAL);the game time is greater than FEUDAL-RESEARCH-TIME-FAST-CASTLE (constant)
+ 	(can-research-with-escrow feudal-age)	;the AI can research the feudal-age (with escrow-resources)
+	(goal RESEARCHING-FEUDAL FAST-FEUDAL);goal RESEARCHING-FEUDAL to FAST-FEUDAL (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research feudal-age)			;the AI researches the feudal-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to FEUDAL-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE FEUDAL-AGE);the AI sets goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+)
+
+
+
+;Rule104: research FEUDAL-AGE4-MODERATE, HARD, HARDEST -middle feudal-age
+;500 FOOD
+(defrule				;If
+ 	(current-age == dark-age)			;the age, the AI is in, is DARK-AGE
+ 	(game-time > FEUDAL-RESEARCH-TIME-MIDDLE-FEUDAL);game time is greater than FEUDAL-RESEARCH-TIME-MIDDLE-FEUDAL (constant)
+	(can-research-with-escrow feudal-age)	;the AI can research the feudal-age (with escrow-resources)
+	(goal RESEARCHING-FEUDAL MIDDLE-FEUDAL);goal RESEARCHING-FEUDAL to MIDDLE-FEUDAL (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research feudal-age)			;the AI researches the feudal-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to FEUDAL-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE FEUDAL-AGE);the AI sets goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+)
+
+
+
+;Rule105: research FEUDAL-AGE5-MODERATE, HARD, HARDEST -late feudal-age
+;500 FOOD
+(defrule				;If
+ 	(current-age == dark-age)			;the age, the AI is in, is DARK-AGE
+ 	(game-time > FEUDAL-RESEARCH-TIME-LATE-FEUDAL);game time is greater than FEUDAL-RESEARCH-TIME-LATE-FEUDAL (constant) (constant)
+	(can-research-with-escrow feudal-age)	;the AI can research the feudal-age (with escrow-resources)
+	(goal RESEARCHING-FEUDAL LATE-FEUDAL);goal RESEARCHING-FEUDAL to LATE-FEUDAL (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(research feudal-age)			;the AI researches the feudal-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to FEUDAL-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE FEUDAL-AGE);the AI sets goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+#load-if-defined DIFFICULTY-EASIEST
+;***********************************************
+;***********************************************
+
+;Rule106: research CASTLE-AGE1- EASIEST
+;800 FOOD, 200 GOLD
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is FEUDAL-AGE
+ 	(game-time > CASTLE-RESEARCH-TIME-EASIEST);game time is greater than CASTLE-RESEARCH-TIME-EASIEST (constant)
+ 	(can-research-with-escrow castle-age)	;the AI can research the castle-age (with escrow-resources)
+	(or
+		(players-current-age any-computer >= castle-age);is there any computer in castle-age already?
+		(players-current-age any-human >= castle-age);or is there any human in castle-age already?
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research castle-age)			;the AI researches the castle-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the castle-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to CASTLE-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE CASTLE-AGE);the AI sets goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if difficulty type == easiest
+
+
+
+#load-if-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule107: research CASTLE-AGE2- EASY
+;800 FOOD, 200 GOLD
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is FEUDAL-AGE
+ 	(game-time > CASTLE-RESEARCH-TIME-EASY);game time is greater than CASTLE-RESEARCH-TIME-EASY (constant)
+ 	(can-research-with-escrow castle-age)	;the AI can research the castle-age (with escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research castle-age)			;the AI researches the castle-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the castle-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to CASTLE-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE CASTLE-AGE);the AI sets goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if difficulty type == easiest
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule109: research CASTLE-AGE4- MODERATE, HARD, HARDEST -fast castle-age
+;800 FOOD, 200 GOLD
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is FEUDAL-AGE
+	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE);the game time is greater than CASTLE-RESEARCH-TIME-FAST-CASTLE (constant)
+ 	(can-research-with-escrow castle-age)	;the AI can research the castle-age (with escrow-resources)
+ 	(goal RESEARCHING-CASTLE FAST-CASTLE);goal RESEARCHING-CASTLE to FAST-CASTLE (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research castle-age)			;the AI researches the castle-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the castle-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to CASTLE-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE CASTLE-AGE);the AI sets goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+
+
+;Rule110: research CASTLE-AGE5- HARD, HARDEST -middle castle-age
+;800 FOOD, 200 GOLD
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is FEUDAL-AGE
+	(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE);game time is greater than CASTLE-RESEARCH-TIME-MIDDLE-CASTLE (constant)
+ 	(can-research-with-escrow castle-age)	;the AI can-research the castle-age (with escrow-resources)
+ 	(goal RESEARCHING-CASTLE MIDDLE-CASTLE);goal RESEARCHING-CASTLE to MIDDLE-CASTLE (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research castle-age)			;the AI researches the castle-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the castle-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to CASTLE-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE CASTLE-AGE);the AI sets goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+
+
+;Rule111: research CASTLE-AGE6- HARD, HARDEST -late castle-age
+;800 FOOD, 200 GOLD
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is FEUDAL-AGE
+	(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE);game time is greater than CASTLE-RESEARCH-TIME-LATE-CASTLE
+ 	(can-research-with-escrow castle-age)	;the AI can research the castle-age (with escrow-resources)
+ 	(goal RESEARCHING-CASTLE LATE-CASTLE);goal RESEARCHING-CASTLE to LATE-CASTLE (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research castle-age)			;the AI researches the castle-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the castle-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to CASTLE-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE CASTLE-AGE);the AI sets goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+#load-if-defined DIFFICULTY-EASIEST
+;***********************************************
+;***********************************************
+
+;Rule112: research IMPERIAL-AGE1- EASIEST
+;1000 FOOD, 800 GOLD
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is CASTLE-AGE
+ 	(game-time > IMPERIAL-RESEARCH-TIME-EASIEST);game time is greater than IMPERIAL-RESEARCH-TIME-EASIEST (constant)
+ 	(can-research-with-escrow imperial-age)	;the AI can research the castle-age (with escrow-resources)
+	(or
+		(players-current-age any-computer == imperial-age);is there any computer in imperial-age already?
+		(players-current-age any-human == imperial-age);or is there any human in imperial-age already?
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research imperial-age)			;the AI researches the imperial-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to IMPERIAL-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE);the AI sets goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if difficulty type == easiest
+
+
+
+#load-if-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule113: research IMPERIAL-AGE2- EASY
+;1000 FOOD, 800 GOLD
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is CASTLE-AGE
+ 	(game-time > IMPERIAL-RESEARCH-TIME-EASY);game time is greater than IMPERIAL-RESEARCH-TIME-EASY (constant)
+ 	(can-research-with-escrow imperial-age)	;the AI can research the imperial-age (with escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research imperial-age)			;the AI researches the imperial-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to IMPERIAL-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE);the AI sets goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if difficulty type == easiest
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule115: research IMPERIAL-AGE4- HARD, HARDEST -fast imperial-age
+;1000 FOOD, 800 GOLD
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is CaSTLE-AGE
+	(game-time > IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL);the game time is greater than IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL (constant)
+ 	(can-research-with-escrow imperial-age)	;the AI can research the imperial-age (with escrow-resources)
+ 	(goal RESEARCHING-IMPERIAL FAST-IMPERIAL);goal RESEARCHING-IMPERIAL to FAST-IMPERIAL (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research imperial-age)			;the AI researches the imperial-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to IMPERIAL-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE);the AI sets goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+
+
+;Rule116: research IMPERIAL-AGE5- HARD, HARDEST -middle imperial-age
+;1000 FOOD, 800 GOLD
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is CASTLE-AGE
+	(game-time > IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL);game time is greater than IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL
+ 	(can-research-with-escrow imperial-age)	;the AI can-research the imperial-age (with escrow-resources)
+ 	(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL);goal RESEARCHING-IMPERIAL to MIDDLE-IMPERIAL (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research imperial-age)			;the AI researches the imperial-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to IMPERIAL-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE);the AI sets goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+
+
+;Rule117: research IMPERIAL-AGE6- HARD, HARDEST -late imperial-age
+;1000 FOOD, 800 GOLD
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is CASTLE-AGE
+	(game-time > IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL);game time is greater than IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL (constant)
+ 	(can-research-with-escrow imperial-age)	;the AI can research the imperial-age (with escrow-resources)
+ 	(goal RESEARCHING-IMPERIAL LATE-IMPERIAL);goal RESEARCHING-IMPERIAL to LATE-IMPERIAL (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+ 	(research imperial-age)			;the AI researches the imperial-age (with escrow-resources)
+	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to IMPERIAL-AGE");the AI sends the chat as a local chat to itselfs
+	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE);the AI sets goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15);the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;***********************************************
+;***********************************************
+#end-if		;if not game-type == death-match
+#end-if		;if not game type == wonder race
+
+
+;**************************************************************************
+;**************************************************************************
+
+#load-if-defined DEATH-MATCH
+
+;Rule29: reset the ADVANCING-TO-AGE - goal in the dark age
+
+(defrule				;If
+	(current-age == dark-age)				;the age, the AI is in, is dark-age
+=>					;then
+	(set-goal ADVANCING-TO-AGE NO)		;the AI sets goal ADVANCE-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+;Rule30: reset the ADVANCING-TO-AGE - goal in the feudal age
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+=>					;then
+	(set-goal ADVANCING-TO-AGE NO)	;the AI sets goal ADVANCING-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+;Rule31: reset the ADVANCING-TO-AGE - goal in the castle age
+
+(defrule				;If
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+=>					;then
+	(set-goal ADVANCING-TO-AGE NO)	;the AI sets goal ADVANCING-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+;Rule32: reset the ADVANCING-TO-AGE - goal in the imperial age
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+=>					;then
+	(set-goal ADVANCING-TO-AGE NO)	;the AI sets goal ADVANCING-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+;Rule33: advance to the feudal age
+
+(defrule				;If
+	(can-research-with-escrow feudal-age)		;the AI can research the feudal-age (with escrow-resources)
+	(or
+		(players-current-age every-human >= feudal-age);every human player is in an age, that is feudal-, castle- or imperial-age
+		(difficulty <= moderate)	;or we are playing on moderate, hard or hardest - difficulty
+	)
+=>					;then
+	(release-escrow food)				;the AI releases the food-escrow-resources
+	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to FEUDAL-AGE");the AI sends the chat as a local chat to itselfs
+	(research feudal-age)			;the AI researches the feudal-age
+	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)	;the AI sets goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)	;the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+
+
+;Rule34: advance to the castle age
+
+(defrule				;If
+	(can-research-with-escrow castle-age)		;the AI can research the castle-age (with escrow-resources)
+	(or
+		(players-current-age every-human >= castle-age);every human player is in an age, that is castle- or imperial-age
+		(difficulty <= moderate)	;or we are playing on moderate, hard or hardest - difficulty
+	)
+=>					;then
+	(release-escrow food)				;the AI releases the food-escrow-resources
+	(release-escrow gold)				;the AI releases the gold-escrow-resources
+	(chat-to-player every-ally "39 I'm advancing to the castle-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to CASTLE-AGE");the AI sends the chat as a local chat to itselfs
+	(research castle-age)			;the AI researches the castle-age
+	(set-goal ADVANCING-TO-AGE CASTLE-AGE)	;the AI sets goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)	;the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+
+
+;Rule35: advance to the imperial age
+
+(defrule				;If
+	(can-research-with-escrow imperial-age)		;the AI can research the castle-age (with escrow-resources)
+	(or
+		(players-current-age every-human == imperial-age);every human player is in imperial-age
+		(difficulty <= moderate)	;or we are playing on moderate, hard or hardest - difficulty
+	)
+=>					;then
+	(release-escrow food)				;the AI releases the food-escrow-resources
+	(release-escrow gold)				;the AI releases the gold-escrow-resources
+	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!");the AI sends the chat to all its allies
+	(chat-local-to-self "advance to IMPERIAL-AGE");the AI sends the chat as a local chat to itselfs
+	(research imperial-age)			;the AI researches the imperial-age
+	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE);the AI sets goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)	;the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if game type == death match
+
+
+
+#load-if-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+;Rule36: reset the ADVANCING-TO-AGE - goal in the dark age
+
+(defrule				;If
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+=>					;then
+	(set-goal ADVANCING-TO-AGE NO)		;the AI sets goal ADVANCE-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+;Rule37: reset the ADVANCING-TO-AGE - goal in the feudal age
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+=>					;then
+	(set-goal ADVANCING-TO-AGE NO)	;the AI sets goal ADVANCING-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+;Rule38: reset the ADVANCING-TO-AGE - goal in the castle age
+
+(defrule				;If
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+=>					;then
+	(set-goal ADVANCING-TO-AGE NO)	;the AI sets goal ADVANCING-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+;Rule39: reset the ADVANCING-TO-AGE - goal in the imperial age
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+=>					;then
+	(set-goal ADVANCING-TO-AGE NO)	;the AI sets goal ADVANCING-TO-AGE to NO (constant)
+	(disable-self)
+)
+
+
+
+;Rule40: advance to the feudal age
+
+(defrule				;If
+	(can-research-with-escrow feudal-age)	;the AI can research the feudal-age (with escrow-resources)
+	(or
+		(players-current-age every-human >= feudal-age);every human player is in an age, that is feudal-, castle- or imperial-age
+		(difficulty <= moderate)	;or we are playing on moderate, hard or hardest - difficulty
+	)
+=>					;then
+	(chat-local-to-self "advance to FEUDAL-AGE");the AI sends the chat as a local chat to itselfs
+	(release-escrow food)				;the AI releases the food-escrow-resources
+	(research feudal-age)				;the AI researches the feudal-age
+	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)	;the AI sets goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)	;the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+
+
+;Rule41: advance to the castle age
+
+(defrule				;If
+	(can-research-with-escrow castle-age)		;the AI can research the castle-age (with escrow-resources)
+	(or
+		(players-current-age every-human >= castle-age);every human player is in an age, that is castle- or imperial-age
+		(difficulty <= moderate)	;or we are playing on moderate, hard or hardest - difficulty
+	)
+=>					;then
+	(chat-local-to-self "advance to CASTLE-AGE")	;the AI sends the chat as a local chat to itselfs
+	(release-escrow food)				;the AI releases the food-escrow-resources
+	(release-escrow gold)				;the AI releases the gold-escrow-resources
+	(research castle-age)				;the AI researches the castle-age
+	(set-goal ADVANCING-TO-AGE CASTLE-AGE)	;the AI sets goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)	;the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+
+
+;Rule42: advance to the imperial age
+
+(defrule				;If
+	(can-research-with-escrow imperial-age)		;the AI can research the castle-age (with escrow-resources)
+	(or
+		(players-current-age every-human == imperial-age);every human player is in imperial-age
+		(difficulty <= moderate)	;or we are playing on moderate, hard or hardest - difficulty
+	)
+=>					;then
+	(chat-local-to-self "advance to IMPERIAL-AGE")	;the AI sends the chat as a local chat to itselfs
+	(release-escrow food)				;the AI releases the food-escrow-resources
+	(release-escrow gold)				;the AI releases the gold-escrow-resources
+	(research imperial-age)				;the AI researches the imperial-age
+	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)	;the AI sets goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)	;the AI enables the timer with id T-ABLE-TO-PAY-RESOURCES with 15 seconds
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if game type == wonder race
+
+
+;=====END; The Duke Age-Advancement.per=====
+;=====ALL RIGHTS RESERVED===============

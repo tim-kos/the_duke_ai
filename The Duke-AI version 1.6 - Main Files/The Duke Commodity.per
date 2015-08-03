@@ -1,0 +1,1157 @@
+;			The Duke Commodity.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;BUYING RESOURCES
+
+
+
+#load-if-not-defined WONDER-RACE
+
+;BUYING FOOD
+;---------------------
+
+
+
+;Rule1: buy FOOD to advance to the imperial-age part 1
+
+(defrule				;If
+	(food-amount < 1000)			;the AI's amount of food is less than 1000
+	(gold-amount > 950)			;the AI's amount of gold is greather than 950
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(commodity-buying-price food < 200)	;the price to buy a packet of food is less than 200
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(can-buy-commodity food)		;the AI can buy a packet of food
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE NO (constant)
+	(or
+		(and
+			(difficulty == moderate)	;we are playing on moderate-difficulty
+			(game-time > IMPERIAL-RESEARCH-TIME-MODERATE);and we have played over IMPERIAL-RESEARCH-TIME-MODERATE (constant)
+		)
+		(and
+			(goal RESEARCHING-IMPERIAL FAST-IMPERIAL);goal RESEARCHING-IMPERIAL to FAST-IMPERIAL (constant)
+			(game-time > IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL);and we have played over IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL (constant)
+		)
+	)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(buy-commodity food)			;the AI buys a packet of food
+)
+
+
+
+;Rule1: buy FOOD to advance to the imperial-age part 2
+
+(defrule				;If
+	(food-amount < 1000)			;the AI's amount of food is less than 1000
+	(gold-amount > 950)			;the AI's amount of gold is greather than 950
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(commodity-buying-price food < 200)	;the price to buy a packet of food is less than 200
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(can-buy-commodity food)		;the AI can buy a packet of food
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE NO (constant)
+	(or
+		(and
+			(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL);goal RESEARCHING-IMPERIAL to MIDDLE-IMPERIAL (constant)
+			(game-time > IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL);and we have played over IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL (constant)
+		)
+		(and
+			(goal RESEARCHING-IMPERIAL LATE-IMPERIAL);goal RESEARCHING-IMPERIAL to LATE-IMPERIAL (constant)
+			(game-time > IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL); and we have played over IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL (constant)
+		)
+	)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(buy-commodity food)			;the AI buys a packet of food
+)
+
+
+
+;Rule4a: buy FOOD to balance the economy in the imperial-age part 2
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+      	(gold-amount > 1000)			;the AI's amount of gold is greater than 1000
+        (food-amount < 700)			;the AI's amount of food is less than 700
+        (can-buy-commodity food)		;the AI can buy a packet of food
+        (commodity-buying-price food < 200)	;the price to buy a packet of food is less than 200
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+        (buy-commodity food)			;the AI buys a packet of food
+)
+
+
+
+;BUYING WOOD
+;----------------------
+
+
+
+;Rule12: buy WOOD to balance the economy in the imperial-age part 2
+
+(defrule				;If
+	(or
+		(goal ADVANCING-TO-AGE CASTLE-AGE);goal ADVACNING-TO-AGE to CASTLE-AGE (constant)
+		(current-age >= castle-age)	;or the age, the AI is in, is castle-age or imperial-age
+	)
+      	(gold-amount > 300)			;the AI's amount of gold is greater than 300
+        (wood-amount < 175)			;the AI's amount of food is less than 175
+	(building-type-count-total barracks < 4);number of barracks less than 4
+	(building-type-count barracks > 2)	;number of barracks greater than 2
+        (can-buy-commodity wood)		;the AI can buy a packet of food
+        (commodity-buying-price wood < 175);the price to buy a packet of wood is less than 175
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(not (goal RUSH-CONTROL NO))		;goal RUSH-CONTROL is not set to NO (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+        (buy-commodity wood)			;the AI buys a packet of wood
+)
+
+
+
+;Rule12: buy WOOD to balance the economy in the imperial-age part 2
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+      	(gold-amount > 1000)			;the AI's amount of gold is greater than 1000
+        (wood-amount < 400)			;the AI's amount of food is less than 600
+        (can-buy-commodity wood)		;the AI can buy a packet of food
+        (commodity-buying-price wood < 175);the price to buy a packet of wood is less than 175
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+        (buy-commodity wood)			;the AI buys a packet of wood
+)
+
+
+
+;Rule13: buy WOOD to balance the economy in the imperial-age part 3
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+      	(gold-amount > 1400)			;the AI's amount of gold is greater than 2400
+        (wood-amount < 300)			;the AI's amount of food is less than 300
+        (can-buy-commodity wood)		;the AI can buy a packet of food
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+        (buy-commodity wood)			;the AI buys a packet of wood
+)
+
+
+
+;BUYING STONE
+;----------------------
+
+
+
+;******************************
+
+;Rule16: buy STONE to build more watch-towers and castles when we aren't advancing to the imperial-age
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+       	(gold-amount > 700)			;the AI's amount of gold is greater than 700
+        (stone-amount < 100)			;the AI's amount of stone is less than 100
+        (can-buy-commodity stone)		;the AI can buy a packet of stone
+        (commodity-buying-price stone < 200)	;the price to buy a packet of stone is less than 200
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(building-type-count-total town-center < town-center-building-imperial);number of twon-centers less than town-center-building-imperial (constant)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+        (buy-commodity stone)			;the AI buys a packet of stone
+)
+
+;Rule16: buy STONE to build more watch-towers and castles when we aren't advancing to the imperial-age
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+       	(gold-amount > 1500)			;the AI's amount of gold is greater than 1500
+        (stone-amount < 650)			;the AI's amount of stone is less than 650
+        (can-buy-commodity stone)		;the AI can buy a packet of stone
+        (commodity-buying-price stone < 200)	;the price to buy a packet of stone is less than 200
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(building-type-count-total castle < castle-building-imperial);number of castles less than castle-building-imperial (constant)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+        (buy-commodity stone)			;the AI buys a packet of stone
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;SELLING RESOURCES
+
+
+
+;SELLING FOOD FOR GOLD
+;-------------------------------------
+
+
+
+;Rule19: sell FOOD to research the imperial-age part 1
+
+(defrule				;If
+	(food-amount > 1150)			;the AI's amount of food is greater than 1150
+	(gold-amount < 800)			;the AI's amount of gold is less than 800
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(can-sell-commodity food)		;the AI can sell a packet of food
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(and
+			(difficulty == moderate);we are playing on moderate-difficulty
+			(game-time > IMPERIAL-RESEARCH-TIME-MODERATE);and we have played over IMPERIAL-RESEARCH-TIME-MODERATE (constant)
+		)
+		(and
+			(goal RESEARCHING-IMPERIAL FAST-IMPERIAL);goal RESEARCHING-IMPERIAL to FAST-IMPERIAL (constant)
+			(game-time > IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL); and we have played over IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL (constant)
+		)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(sell-commodity food)			;the AI sells a packet of food
+)
+
+
+
+;Rule19: sell FOOD to research the imperial-age part 2
+
+(defrule				;If
+	(food-amount > 1150)			;the AI's amount of food is greater than 1150
+	(gold-amount < 800)			;the AI's amount of gold is less than 800
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(can-sell-commodity food)		;the AI can sell a packet of food
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(and
+			(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL);goal RESEARCHING-IMPERIAL to MIDDLE-IMPERIAL (constant)
+			(game-time > IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL);and we have played over IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL (constant)
+		)
+		(and
+			(goal RESEARCHING-IMPERIAL LATE-IMPERIAL);goal RESEARCHING-IMPERIAL to LATE-IMPERIAL (constant)
+			(game-time > IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL); and we have played over IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL (constant)
+		)
+	)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(sell-commodity food)			;the AI sells a packet of food
+)
+
+
+
+;******************************
+
+
+;Rule19: sell FOOD to get gold in the imperial-age part 1
+
+(defrule				;If
+	(food-amount > 1000)			;the AI's amount of food is greater than 1000
+	(gold-amount < 800)			;the AI's amount of gold is less than 800
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(can-sell-commodity food)		;the AI can sell a packet of food
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(sell-commodity food)			;the AI sells a packet of food
+)
+
+
+
+;Rule19: sell FOOD to get gold in the castle-age if we do a rush
+
+(defrule				;If
+	(food-amount > 600)			;the AI's amount of food is greater than 600
+	(gold-amount < 200)			;the AI's amount of gold is less than 200
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(can-sell-commodity food)		;the AI can sell a packet of food
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(sell-commodity food)			;the AI sells a packet of food
+)
+
+
+
+;SELLING WOOD FOR GOLD
+;---------------------------------------
+
+
+
+;Rule29: sell WOOD to advance to the imperial-age part 1
+
+(defrule				;If
+	(wood-amount > 500)			;the AI's amount of wood is greater than 500
+	(research-completed ri-bow-saw)		;the AI researched the bow-saw already
+	(gold-amount < 800)			;or the amount of gold is less than 800
+	(building-type-count market >= 1)		;number of markets greater or equal than 1
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(can-sell-commodity wood)		;the AI can sell a packet of wood
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(and
+			(difficulty == moderate)	;we are playing on moderate-difficulty
+			(game-time > IMPERIAL-RESEARCH-TIME-MODERATE);and we have played over IMPERIAL-RESEARCH-TIME-MODERATE (constant)
+		)
+		(and
+			(goal RESEARCHING-IMPERIAL FAST-IMPERIAL);goal RESEARCHING-IMPERIAL to FAST-IMPERIAL (constant)
+			(game-time > IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL);and we have played over IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL (constant)
+		)
+	)
+=>				;then
+	(sell-commodity wood)			;the AI sells a packet of wood
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+)
+
+
+
+;Rule29: sell WOOD to advance to the imperial-age part 2
+
+(defrule				;If
+	(wood-amount > 500)			;the AI's amount of wood is greater than 500
+	(research-completed ri-bow-saw)		;the AI researched the bow-saw already
+	(gold-amount < 800)			;the amount of gold is less than 800
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(can-sell-commodity wood)		;the AI can sell a packet of wood
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(and
+			(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL);goal RESEARCHING-IMPERIAL to MIDDLE-IMPERIAL (constant)
+			(game-time > IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL);and we have played over IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL (constant)
+		)
+		(and
+			(goal RESEARCHING-IMPERIAL LATE-IMPERIAL);goal RESEARCHING-IMPERIAL to LATE-IMPERIAL (constant)
+			(game-time > IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL); and we have played over IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL (constant)
+		)
+	)
+=>				;then
+	(sell-commodity wood)			;the AI sells a packet of wood
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+)
+
+
+
+;Rule34: sell WOOD to balance the economy in the imperial-age part 1 (too less gold)
+
+(defrule			;If
+	(wood-amount > 700)			;the amount of wood is greater than 700
+        (gold-amount < 800)			;the amount of gold is less than 800
+        (can-sell-commodity wood)		;the AI can sell a packet of wood
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(commodity-selling-price wood >= 20)	;we get at least 20 gold units for 100 wood units
+=>				;then
+        (release-escrow wood)			;the AI releases the wood-escrow-resources
+        (sell-commodity wood)			;the AI sells a packet of wood
+)
+
+
+
+;*****************************
+
+;Rule37: sell WOOD to balance the economy in the imperial-age part 2 (too less gold)
+
+(defrule			;If
+	(wood-amount > 1000)			;the amount of wood is greater than 1000
+        (gold-amount < 1500)			;and the amount of gold is less than 1500
+        (can-sell-commodity wood)		;the AI can sell a packet of wood
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+=>				;then
+        (release-escrow wood)			;the AI releases the wood-escrow-resources
+        (sell-commodity wood)			;the AI sells a packet of wood
+)
+
+
+
+;*****************************
+
+;Rule37: sell WOOD to balance the economy in the imperial-age part 2 (too less gold)
+
+(defrule			;If
+	(wood-amount > 10000)			;the amount of wood is greater than 10000
+        (can-sell-commodity wood)		;the AI can sell a packet of wood
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(commodity-selling-price wood > 14)	;we get at least 15 gold units for 100 wood units
+=>				;then
+        (release-escrow wood)			;the AI releases the wood-escrow-resources
+        (sell-commodity wood)			;the AI sells a packet of wood
+)
+
+
+
+;Rule19: sell WOOD to get gold in the castle-age if we do a rush
+
+(defrule				;If
+	(wood-amount > 450)			;the AI's amount of wood is greater than 450
+	(gold-amount < 200)			;the AI's amount of gold is less than 200
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(can-sell-commodity wood)		;the AI can sell a packet of wood
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(sell-commodity wood)			;the AI sells a packet of wood
+)
+
+
+
+;SELLING STONE FOR GOLD (maybe to buy other resources)
+;---------------------------------------------------------------------------------
+
+
+
+;Rule49: sell STONE to balance the economy in the imperial-age part 3 (too less gold)
+
+(defrule				;If
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(can-sell-commodity stone)		;the AI can sell a packet of stone
+	(or
+		(and
+			(current-age == feudal-age);the age, the AI is in, is feudal-age
+			(goal RUSH-CONTROL CASTLE);and goal RUSH-CONTROL to CASTLE (constant)
+		)
+		(and
+			(current-age == castle-age);the age, the AI is in, is castle-age
+			(goal RUSH-CONTROL RUSHING);and goal RUSH-CONTROL to RUSHING (constant)
+		)
+	)
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(sell-commodity stone)			;the AI sells a packet of stone
+	(disable-self)
+)
+
+;Rule49: sell STONE to balance the economy in the imperial-age part 3 (too less gold)
+
+(defrule				;If
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(can-sell-commodity stone)		;the AI can sell a packet of stone
+	(or
+		(and
+			(current-age == feudal-age);the age, the AI is in, is feudal-age
+			(goal RUSH-CONTROL CASTLE);and goal RUSH-CONTROL to CASTLE (constant)
+		)
+		(and
+			(current-age == castle-age);the age, the AI is in, is castle-age
+			(goal RUSH-CONTROL RUSHING);and goal RUSH-CONTROL to RUSHING (constant)
+		)
+	)
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(sell-commodity stone)			;the AI sells a packet of stone
+	(disable-self)
+)
+
+
+
+;Rule49: sell STONE to balance the economy in the imperial-age part 3 (too less gold)
+
+(defrule				;If
+	(stone-amount > 300)			;the amount of stone is greater than 300
+	(building-type-count-total castle >= castle-building-imperial);number of castles greater or eqaul than castle-building-imperial (constant)
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(gold-amount < 1500)			;the amount of gold is less than 1500
+	(current-age == imperial-age)		;the age, the AI is in, is feudal-age
+	(can-sell-commodity stone)		;the AI can sell a packet of stone
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(sell-commodity stone)			;the AI sells a packet of stone
+)
+
+
+
+#load-if-defined DEATH-MATCH
+
+
+;Rule49: sell STONE to balance the economy in the imperial-age part 3 (too less gold)
+
+(defrule				;If
+	(stone-amount > 1500)			;the amount of stone is greater than 1500
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(can-sell-commodity stone)		;the AI can sell a packet of stone
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(commodity-selling-price stone > 60)	;we get at least 60 gold units for 100 stone units
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(sell-commodity stone)			;the AI sells a packet of stone
+)
+
+;Rule49: sell STONE to balance the economy in the imperial-age part 3 (too less gold)
+
+(defrule				;If
+	(stone-amount > 1500)			;the amount of stone is greater than 1500
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(can-sell-commodity stone)		;the AI can sell a packet of stone
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(commodity-selling-price stone > 60)	;we get at least 60 gold units for 100 stone units
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(sell-commodity stone)			;the AI sells a packet of stone
+)
+
+;Rule49: sell STONE to balance the economy in the imperial-age part 3 (too less gold)
+
+(defrule				;If
+	(stone-amount > 1500)			;the amount of stone is greater than 1500
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(can-sell-commodity stone)		;the AI can sell a packet of stone
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(commodity-selling-price stone > 60)	;we get at least 60 gold units for 100 stone units
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(sell-commodity stone)			;the AI sells a packet of stone
+)
+
+
+#end-if		;if game type != deathmatch
+
+
+#end-if		;if not game type == wonder race
+
+
+
+;************************************************************************
+;************************************************************************
+
+
+
+#load-if-defined WONDER-RACE
+
+
+;SOME STUFF TO BUILD A WONDER
+;----------------------------------------------------
+
+
+
+;Rule50: buy FOOD to advance to the castle-age part 1
+
+(defrule				;If
+	(food-amount < 800)			;the AI's amount of food is less than 800
+	(gold-amount > 350)			;the AI's amount of gold is greather than 350
+	(building-type-count market >= 1)	;number of markets greater or equal than 1
+	(commodity-buying-price food < 200)	;the price to buy a packet of food is less than 200
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(can-buy-commodity food)		;the AI can buy a packet of food
+	(not (goal ADVANCING-TO-AGE CASTLE-AGE));the goal ADVANCING-TO-AGE is not set to CASTLE-AGE (constant)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(buy-commodity food)			;the AI buys a packet of food
+)
+
+
+
+;Rule51: buy FOOD to advance to the imperial-age part 1
+
+(defrule				;If
+	(food-amount < 1000)			;the AI's amount of food is less than 1000
+	(gold-amount > 900)			;the AI's amount of gold is greather than 900
+	(building-type-count market >= 1)		;number of markets greater or equal than 1
+	(commodity-buying-price food < 200)	;the price to buy a packet of food is less than 200
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(can-buy-commodity food)			;the AI can buy a packet of food
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE));the goal ADVANCING-TO-AGE is not set to IMPERIAL-AGE (constant)
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(buy-commodity food)			;the AI buys a packet of food
+)
+
+
+
+;Rule52: buy WOOD for building a wonder (requires 1000 wood)
+
+(defrule			;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(wood-amount < 1000)			;the amount of wood is less than 1000
+	(gold-amount > 1100)			;the amount of gold is greather than 1100
+	(can-buy-commodity wood)		;the AI can buy a packet of wood
+	(building-type-count market >= 1)		;number of markets greater or equal than 1
+	(commodity-buying-price wood < 200)	;the price to buy a packet of wood is less than 200
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(buy-commodity wood)			;the AI buys a packet of wood
+)
+
+
+
+;Rule53: buy STONE for building a wonder (requires 1000 of stone)
+
+(defrule			;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(wood-amount >= 1000)			;the amount of wood is greater or equal than 1000
+	(stone-amount < 1000)			;the amount of stone is less than 1000
+	(gold-amount > 1100)			;the amount of gold is greather than 1100
+	(can-buy-commodity stone)		;the AI can buy a packet of stone
+	(building-type-count market >= 1)		;number of markets greater or equal than 1
+	(commodity-buying-price stone < 200)	;the price to buy a packet of stone is less than 200
+=>				;then
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(buy-commodity stone)			;the AI buys a packet of stone
+)
+
+
+
+;Rule54: sell FOOD to buy the resources that we use for building a wonder
+
+(defrule			;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(food-amount > 200)			;the amount of food is greather than 200
+	(gold-amount < 1200)			;the amount of gold is less than 1200
+	(can-sell-commodity food)			;the AI can sell a packet of food
+	(building-type-count-total wonder < 1)	;number of wonder less than 1
+=>				;then
+;	(chat-local-to-self "sell FOOD for building a wonder");the AI sends the chat as a local one to itselfs
+	(sell-commodity food)			;the AI sells a packet of food
+)
+
+
+
+;Rule55: sell WOOD to buy the resources that we use for building a wonder
+
+(defrule			;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(wood-amount > 1100)			;the amount of wood is greather than 1100
+	(gold-amount < 1000)			;the amount of gold is less than 1000
+	(can-sell-commodity wood)		;the AI can sell a packet of wood
+=>				;then
+;	(chat-local-to-self "sell WOOD for building a wonder");the AI sends the chat as a local one to itselfs
+	(sell-commodity wood)			;the AI sells a packet of wood
+)
+
+
+
+;Rule56: sell STONE to buy the resources that we use for building a wonder
+
+(defrule			;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(stone-amount > 1100)			;the amount of stone is greather than 1100
+	(gold-amount < 1100)			;the amount of gold is less than 1100
+	(can-sell-commodity stone)		;the AI can sell a packet of stone
+=>				;then
+;	(chat-local-to-self "sell STONE for building a wonder");the AI sends the chat as a local one to itselfs
+	(sell-commodity stone)			;the AI sells a packet of stone
+)
+
+
+
+;Rule57: sell WOOD to advance to the castle-age
+
+(defrule				;If
+	(wood-amount > 200)			;the AI's amount of wood is greater than 200
+	(research-completed ri-double-bit-axe)	;the AI researched the double-bit-axe already
+	(or
+		(and
+			(food-amount < 800)	;the AI's amount of food is less than 800
+			(gold-amount < 350)	;and the AI's amount of gold is less than 350
+		)
+		(gold-amount < 200)		;or the amount of gold is less than 200
+	)
+	(building-type-count-total market > 0)	;number of markets greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(can-sell-commodity wood)		;the AI can sell a packet of wood
+	(not (goal ADVANCING-TO-AGE CASTLE-AGE));the goal ADVANCING-TO-AGE is not set to CASTLE-AGE (constant)
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(sell-commodity wood)			;the AI sells a packet of wood
+)
+
+;******************************
+
+;Rule60: sell STONE to advance to the imperial-age
+
+(defrule				;If
+	(stone-amount > 1100)			;the amount of stone is greater than 1100
+	(gold-amount < 1000)			;the amount of gold is less than 1000
+	(building-type-count market >= 1)		;number of markets greater or equal than 1
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(can-sell-commodity stone)		;the AI can sell a packet of stone
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE));the goal ADVANCING-TO-AGE is not set to IMPERIAL-AGE (constant)
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(sell-commodity stone)			;the AI sells a packet of stone
+)
+
+
+#end-if		;if game type == wonder race
+
+
+
+;*****************************************************************
+;*****************************************************************
+;TRIBUTES
+
+
+
+(defrule				;If
+	(building-type-count-total market > 0)
+	(player-in-game any-ally)
+	(cc-players-building-type-count every-ally market < 1)
+	(players-current-age any-ally > dark-age)
+	(players-current-age-time any-ally > 300)
+=>				;then
+	(chat-to-player this-any-ally "39 Please build a market to trade with me!")
+	(disable-self)
+)
+
+
+
+;WE ASK OUR ALLIES FOR RESOURCES
+;--------------------------------------------------------
+
+
+
+#load-if-not-defined WONDER-RACE
+
+(defrule				;If
+	(players-building-type-count any-ally market > 0);any ally has got at least one market
+=>				;then
+	(enable-timer T-TRIBUTE 1)		;the AI enables the timer T-TRIBUTE with 1 second
+	(disable-self)				;but only one-time
+)
+
+
+
+;ASKING FOR FOOD
+;----------------------------
+
+
+
+(defrule				;If
+	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-age
+	(timer-triggered T-TRIBUTE)		;the timer T-TRIBUTE is over
+	(player-in-game any-ally)			;the AI has got at least one ally
+	(goal RESOURCE-NEEDED FOOD)		;goal RESOURCE-NEEDED to FOOD (constant)
+=>				;then
+	(chat-to-player every-ally "3 I need some food!");the AI sends the chat to all its allies
+	(chat-to-player every-ally "39")	;the AI sends the chat to all its allies
+)
+
+
+
+(defrule				; If
+	(players-tribute-memory any-ally food >= 1)
+=>
+	(clear-tribute-memory this-any-ally food)
+	(chat-to-player this-any-ally "39 Thanks for your food!")
+)
+
+
+
+;ASKING FOR WOOD
+;-----------------------------
+
+
+
+(defrule				;If
+	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-age
+	(timer-triggered T-TRIBUTE)		;the timer T-TRIBUTE is over
+	(player-in-game any-ally)			;the AI has got at least one ally
+	(goal RESOURCE-NEEDED WOOD)	;goal RESOURCE-NEEDED to WOOD (constant)
+=>				;then
+	(chat-to-player every-ally "4 I need some wood!");the AI sends the chat to all its allies
+	(chat-to-player every-ally "39")	;the AI sends the chat to all its allies
+)
+
+
+
+(defrule				;If
+	(players-tribute-memory any-ally wood >= 1)
+=>
+	(clear-tribute-memory this-any-ally wood)
+	(chat-to-player this-any-ally "39 Thanks for your wood!")
+)
+
+
+
+;ASKING FOR GOLD
+;----------------------------
+
+
+
+(defrule				;If
+	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-age
+	(timer-triggered T-TRIBUTE)		;the timer T-TRIBUTE is over
+	(player-in-game any-ally)			;the AI has got at least one ally
+	(goal RESOURCE-NEEDED GOLD)		;goal RESOURCE-NEEDED to GOLD (constant)
+=>				;then
+	(chat-to-player every-ally "5 I need some gold!");the AI sends the chat to all its allies
+	(chat-to-player every-ally "39")		;the AI sends the chat to all its allies
+)
+
+
+
+(defrule				;If
+	(players-tribute-memory any-ally gold >= 1)
+=>				;then
+	(clear-tribute-memory this-any-ally gold)
+	(chat-to-player this-any-ally "39 Thanks for your gold!")
+)
+
+
+
+;ASKING FOR STONE
+;------------------------------
+
+
+
+(defrule				;If
+	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-age
+	(timer-triggered T-TRIBUTE)		;the timer T-TRIBUTE is over
+	(player-in-game any-ally)			;the AI has got at least one ally
+	(stone-amount < 700)			;the amount of stone is less than 700
+	(goal RESOURCE-NEEDED NO)		;goal RESOURCE-NEEDED to NO (constant)
+=>				;then
+	(chat-to-player every-ally "6 I need some stone!");the AI sends the chat to all its allies
+	(chat-to-player every-ally "39")	;the AI sends the chat to all its allies
+)
+
+
+
+(defrule				;If
+	(players-tribute-memory any-ally stone >= 1)
+=>				;then
+	(clear-tribute-memory this-any-ally stone)
+	(chat-to-player this-any-ally "39 Thanks for your stone!")
+)
+
+#end-if		;if not game-type == wonder-race
+
+
+
+;THE ENEMY ASK US FOR RESOURCES
+;-------------------------------------------------------
+
+
+
+(defrule				;If
+	(or
+		(or
+			(or
+				(taunt-detected any-enemy 3)
+				(taunt-detected any-enemy 4)
+			)
+			(taunt-detected any-enemy 5)
+		)
+		(taunt-detected any-enemy 6)
+	)
+=>				;then
+	(acknowledge-taunt this-any-enemy 3)
+	(acknowledge-taunt this-any-enemy 4)
+	(acknowledge-taunt this-any-enemy 5)
+	(acknowledge-taunt this-any-enemy 6)
+	(chat-to-player this-any-enemy "40 No resources for you! You aren't my ally!")
+)
+
+
+
+;THE NEUTRAL ASK US FOR RESOURCES
+;-----------------------------------------------------------
+
+
+
+(defrule				;If
+	(or
+		(or
+			(or
+				(taunt-detected any-neutral 3)
+				(taunt-detected any-neutral 4)
+			)
+			(taunt-detected any-neutral 5)
+		)
+		(taunt-detected any-neutral 6)
+	)
+=>				;then
+	(acknowledge-taunt this-any-neutral 3)
+	(acknowledge-taunt this-any-neutral 4)
+	(acknowledge-taunt this-any-neutral 5)
+	(acknowledge-taunt this-any-neutral 6)
+	(chat-to-player this-any-neutral "41 No resources for you! You aren't my ally!")
+)
+
+
+
+;OUR ALLIES ASK US FOR RESOURCES
+;-------------------------------------------------------
+
+
+
+#load-if-not-defined WONDER-RACE
+
+
+(defrule				;If
+	(or
+		(or
+			(or
+				(taunt-detected any-ally 3)
+				(taunt-detected any-ally 4)
+			)
+			(taunt-detected any-ally 5)
+		)
+		(taunt-detected any-ally 6)
+	)
+	(building-type-count-total market < 1)
+=>				;then
+	(acknowledge-taunt this-any-ally 3)
+	(acknowledge-taunt this-any-ally 4)
+	(acknowledge-taunt this-any-ally 5)
+	(acknowledge-taunt this-any-ally 6)
+	(chat-to-player this-any-ally "39 Sorry, I haven't got any market yet!")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-ally 3)
+	(food-amount < 400)
+=>				;then
+	(acknowledge-taunt this-any-ally 3)
+	(chat-to-player this-any-ally "39 Sorry, I can't give you food at this moment, because I haven't got so much food!")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-ally 4)
+	(wood-amount < 400)
+=>				;then
+	(acknowledge-taunt this-any-ally 4)
+	(chat-to-player this-any-ally "39 Sorry, I can't give you wood at this moment, because I haven't got so much wood!")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-ally 5)
+	(gold-amount < 500)
+=>				;then
+	(acknowledge-taunt this-any-ally 5)
+	(chat-to-player this-any-ally "39 Sorry, I can't give you gold at this moment; because I haven't got so much gold!")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-ally 6)
+	(building-type-count castle < 1)
+=>				;then
+	(acknowledge-taunt this-any-ally 6)
+	(chat-to-player this-any-ally "39 Sorry, I can't give you stones at this moment, because I haven't built a castle yet!")
+	(chat-to-player this-any-ally "I must do that first to run properly!")
+)
+
+
+
+(defrule				;If
+	(or
+		(or
+			(or
+				(taunt-detected any-computer-ally 3)
+				(taunt-detected any-computer-ally 4)
+			)
+			(taunt-detected any-computer-ally 5)
+		)
+		(taunt-detected any-computer-ally 6)
+	)
+	(not (research-completed ri-coinage))
+=>				;then
+	(acknowledge-taunt this-any-computer-ally 3)
+	(acknowledge-taunt this-any-computer-ally 4)
+	(acknowledge-taunt this-any-computer-ally 5)
+	(acknowledge-taunt this-any-computer-ally 6)
+	(chat-to-player this-any-computer-ally "39 Sorry, I did not research the coinage yet! Tributes are too expensive now!")
+)
+
+
+
+;*****************************************
+;HUMAN ALLIES ASK US FOR RESOURCES
+
+
+
+(defrule				;If
+	(taunt-detected any-human-ally 3)
+	(food-amount >= 400)
+	(not (town-under-attack))
+	(building-type-count-total market > 0)
+=>				;then
+	(acknowledge-taunt this-any-human-ally 3)
+	(tribute-to-player this-any-human-ally food 100)
+	(chat-to-player this-any-human-ally "39 Here is some food for you! Use it for training villagers")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-human-ally 4)
+	(wood-amount >= 400)
+	(not (town-under-attack))
+	(building-type-count-total market > 0)
+=>				;then
+	(acknowledge-taunt this-any-human-ally 4)
+	(tribute-to-player this-any-human-ally wood 100)
+	(chat-to-player this-any-human-ally "39 Here is some wood for you! Use it to build up your kingdom")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-human-ally 5)
+	(gold-amount >= 500)
+	(not (town-under-attack))
+	(building-type-count-total market > 0)
+=>				;then
+	(acknowledge-taunt this-any-human-ally 5)
+	(tribute-to-player this-any-human-ally gold 100)
+	(chat-to-player this-any-human-ally "39 Here is some gold for you! Use it for training better units!")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-human-ally 6)
+	(stone-amount >= 500)
+	(not (town-under-attack))
+	(building-type-count-total market > 0)
+=>				;then
+	(acknowledge-taunt this-any-human-ally 6)
+	(tribute-to-player this-any-human-ally stone 100)
+	(chat-to-player this-any-human-ally "39 Here are some stones for you! Use them for building more castles!")
+)
+
+
+
+;**********************************
+;COMPUTER ALLIES ASK US FOR RESOURCES
+
+
+
+(defrule				;If
+	(taunt-detected any-computer-ally 3)
+	(food-amount >= 400)
+	(not (town-under-attack))
+	(building-type-count-total market > 0)
+	(research-completed ri-coinage)
+=>				;then
+	(acknowledge-taunt this-any-computer-ally 3)
+	(tribute-to-player this-any-computer-ally food 100)
+	(chat-to-player this-any-computer-ally "39 Here is some food for you! Use it for training villagers")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-computer-ally 4)
+	(wood-amount >= 400)
+	(not (town-under-attack))
+	(building-type-count-total market > 0)
+	(research-completed ri-coinage)
+=>				;then
+	(acknowledge-taunt this-any-computer-ally 4)
+	(tribute-to-player this-any-computer-ally wood 100)
+	(chat-to-player this-any-computer-ally "39 Here is some wood for you! Use it to build up your kingdom")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-computer-ally 5)
+	(gold-amount >= 500)
+	(not (town-under-attack))
+	(building-type-count-total market > 0)
+	(research-completed ri-coinage)
+=>				;then
+	(acknowledge-taunt this-any-computer-ally 5)
+	(tribute-to-player this-any-computer-ally gold 100)
+	(chat-to-player this-any-computer-ally "39 Here is some gold for you! Use it for training better units!")
+)
+
+
+
+(defrule				;If
+	(taunt-detected any-computer-ally 6)
+	(building-type-count castle > 0)
+	(not (town-under-attack))
+	(building-type-count-total market > 0)
+	(research-completed ri-coinage)
+=>				;then
+	(acknowledge-taunt this-any-computer-ally 6)
+	(tribute-to-player this-any-computer-ally stone 100)
+	(chat-to-player this-any-computer-ally "39 Here are some stones for you! Use them for building more castles!")
+)
+
+#end-if		;if not game type == wonder race
+
+
+
+#load-if-defined WONDER-RACE
+
+(defrule				;If
+	(or
+		(or
+			(or
+				(taunt-detected any-ally 3)
+				(taunt-detected any-ally 4)
+			)
+			(taunt-detected any-ally 5)
+		)
+		(taunt-detected any-ally 6)
+	)
+=>
+	(acknowledge-taunt this-any-ally 3)
+	(acknowledge-taunt this-any-ally 4)
+	(acknowledge-taunt this-any-ally 5)
+	(acknowledge-taunt this-any-ally 6)
+	(chat-to-player this-any-ally "I will not give you any resources, because I want to win that wonder race!")
+)
+
+#end-if		;if game type == wonder race
+
+
+
+(defrule
+	(timer-triggered T-TRIBUTE)
+	(not (player-in-game any-human-ally) )
+=>
+	(disable-timer T-TRIBUTE)
+	(enable-timer T-TRIBUTE 120)
+)
+
+
+
+(defrule
+	(timer-triggered T-TRIBUTE)
+	(player-in-game any-human-ally)
+=>
+	(disable-timer T-TRIBUTE)
+	(enable-timer T-TRIBUTE 240)
+)
+
+
+;=====END; The Duke Commodity.per=====
+;=====ALL RIGHTS RESERVED==========

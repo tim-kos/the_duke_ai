@@ -1,0 +1,1715 @@
+;		The Duke Training Villagers.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+;ESCROW RESOURCES
+;-------------------------------
+
+
+
+;Rule42: set the escrow-resources in other games than wonderrace-games and we do not do any rush, dark-age
+
+(defrule				;If
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+=>				;then
+	(set-escrow-percentage food 0)		;0 percent of the food resources are escrow-resources
+	(set-escrow-percentage wood 0)		;0 percent of the wood resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of the gold resources are escrow-resources
+	(set-escrow-percentage stone 100)		;100 percent of the stone resources are escrow-resources
+	(disable-self)				;only once
+)
+
+
+
+;Rule42: set the escrow-resources in other games than wonderrace-games and we do not do any rush, dark-age
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+=>				;then
+	(set-escrow-percentage food 0)		;0 percent of the food resources are escrow-resources
+	(set-escrow-percentage wood 0)		;0 percent of the wood resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of the gold resources are escrow-resources
+	(set-escrow-percentage stone 100)		;100 percent of the stone resources are escrow-resources
+	(disable-self)				;only once
+)
+
+
+
+;Rule42: set the escrow-resources in other games than wonderrace-games and we do not do any rush, castle-age
+
+(defrule				;If
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+=>				;then
+	(set-escrow-percentage food 0)		;0 percent of the food resources are escrow-resources
+	(set-escrow-percentage wood 0)		;0 percent of the wood resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of the gold resources are escrow-resources
+	(set-escrow-percentage stone 100)		;100 percent of the stone resources are escrow-resources
+	(disable-self)				;only once
+)
+
+
+
+#load-if-defined WONDER-RACE
+
+;Rule44: set the escrow resources in wonder race games (imperial age))
+
+(defrule
+	(current-age == imperial-age)
+=>
+	(set-escrow-percentage food 10)
+	(set-escrow-percentage wood 100)
+	(set-escrow-percentage gold 100)
+	(set-escrow-percentage stone 100)
+	(disable-self)
+)
+
+#else
+
+;Rule44: set the escrow resources in wonder race games (imperial age))
+
+(defrule
+	(current-age == imperial-age)
+=>
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage wood 0)
+	(set-escrow-percentage gold 0)
+	(set-escrow-percentage stone 100)
+	(disable-self)
+)
+
+#end-if	;if game-type == wonder-race
+
+
+
+;=============================================================================
+;		TRAINING VILLAGERS IN THE AGES
+;=============================================================================
+
+
+
+#load-if-not-defined WONDER-RACE
+
+;Rule1: initialisation of the VILLAGER-TRAIN - goal
+
+(defrule				;If
+	(not (goal TRAIN-VILLAGERS EXTRA))	;the goal TRAIN-VILLAGERS is not set to EXTRA (constant)
+=>				;then
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+)
+
+
+
+#load-if-not-defined DEATH-MATCH
+
+;WHEN TO TRAIN VILLAGERS IN DARK AGE
+;----------------------------------------------------------------
+
+
+
+#load-if-defined DIFFICULTY-EASIEST
+
+;Rule2 : when to train villagers in dark age -EASIEST
+
+(defrule				;If
+	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY);we have play FEUDAL-RESEARCH-TIME-EASIEST-EASY already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(or
+		(players-current-age any-computer >= feudal-age);is there any computer in feudal-age already?
+		(players-current-age any-human >= feudal-age);or is there any human in feudal-age already?
+	)
+	(food-amount > 470)			;the amount of food is greater than 470
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for feudal age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+)
+
+
+
+;Rule2 : when to train villagers in dark age -EASIEST
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY);we have play FEUDAL-RESEARCH-TIME-EASIEST-EASY already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(or
+		(players-current-age any-computer >= feudal-age);is there any computer in feudal-age already?
+		(players-current-age any-human >= feudal-age);or is there any human in feudal-age already?
+	)
+	(food-amount <= 470)			;the amount of food is less or equal than 470
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+)
+
+#end-if		;if difficulty type == easiest
+
+
+
+#load-if-defined DIFFICULTY-EASY
+
+;Rule3 : when to train villagers in dark age -EASY
+
+(defrule				;If
+	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY);we have play FEUDAL-RESEARCH-TIME-EASIEST-EASY already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(or
+		(players-current-age any-computer >= feudal-age);is there any computer in feudal-age already?
+		(players-current-age any-human >= feudal-age);or is there any human in feudal-age already?
+	)
+	(food-amount > 470)			;the amount of food is greater than 470
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for feudal age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+)
+
+
+
+;Rule3 : when to train villagers in dark age -EASY
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY);we have play FEUDAL-RESEARCH-TIME-EASIEST-EASY already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(or
+		(players-current-age any-computer >= feudal-age);is there any computer in feudal-age already?
+		(players-current-age any-human >= feudal-age);or is there any human in feudal-age already?
+	)
+	(food-amount <= 470)			;the amount of food is less or equal than 470
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+)
+
+#end-if				;if difficulty type == easy
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule4 : when to train villagers in dark age -MODERATE
+
+(defrule				;If
+	(game-time > FEUDAL-RESEARCH-TIME-MODERATE);we have play FEUDAL-RESEARCH-TIME-MODERATE already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(food-amount > 470)			;the amount of food is greater than 470
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for feudal age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+)
+
+
+
+;Rule4 : when to train villagers in dark age -MODERATE
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > FEUDAL-RESEARCH-TIME-MODERATE);we have play FEUDAL-RESEARCH-TIME-MODERATE already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(food-amount <= 470)			;the amount of food is less or equal than 470
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+)
+
+#end-if		;if difficulty type == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule5: when to train villagers in dark age -HARD, HARDEST -fast feudal
+
+(defrule				;If
+	(goal RESEARCHING-FEUDAL FAST-FEUDAL);goal RESEARCHING-FEUDAL to FAST-FEUDAL (constant)
+	(game-time > FEUDAL-RESEARCH-TIME-FAST-FEUDAL);we have play FEUDAL-RESEARCH-TIME-FAST-FEUDAL already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(or
+		(and
+			(food-amount > 460)	;the amount of food is greater than 460
+			(not (goal RUSH-CONTROL CASTLE));and goal RUSH-CONTROL is not set to CASTLE (constant)
+		)
+		(and
+			(unit-type-count-total villager > 29);or we have at least 29 villagers
+			(goal RUSH-CONTROL CASTLE);and goal RUSH-CONTROL to CASTLE (constant)
+		)
+	)
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for feudal age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+)
+
+
+
+;Rule5: when to train villagers in dark age -HARD, HARDEST -fast feudal
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-FEUDAL FAST-FEUDAL);goal RESEARCHING-FEUDAL to FAST-FEUDAL (constant)
+	(game-time > FEUDAL-RESEARCH-TIME-FAST-FEUDAL);we have play FEUDAL-RESEARCH-TIME-FAST-FEUDAL already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(or
+		(and
+			(goal RUSH-CONTROL CASTLE);goal RUSH-CONTROL is set to CASTLE (constant)
+  			(unit-type-count-total villager <= 29);we have less than 30 villagers
+		)
+		(and
+			(not (goal RUSH-CONTROL CASTLE));or goal RUSH-CONTROL is not set to CASTLE (constant)
+			(food-amount <= 460)		;the amount of food is less or equal than 460
+		)
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+)
+
+
+
+;Rule6: when to train villagers in dark age -HARD, HARDEST -middle feudal
+
+(defrule				;If
+	(goal RESEARCHING-FEUDAL MIDDLE-FEUDAL);goal RESEARCHING-FEUDAL to MIDDLE-FEUDAL (constant)
+	(game-time > FEUDAL-RESEARCH-TIME-MIDDLE-FEUDAL);we have play FEUDAL-RESEARCH-TIME-MIDDLE-FEUDAL already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(or
+		(food-amount > 460)		;the amount of food is greater than 460
+		(unit-type-count-total villager > 28);or we have at least 28 villagers
+	)
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for feudal age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+)
+
+
+
+;Rule6: when to train villagers in dark age -HARD, HARDEST -middle feudal
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-FEUDAL MIDDLE-FEUDAL);goal RESEARCHING-FEUDAL to MIDDLE-FEUDAL (constant)
+	(game-time > FEUDAL-RESEARCH-TIME-MIDDLE-FEUDAL);we have play FEUDAL-RESEARCH-TIME-MIDDLE-FEUDAL already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(food-amount <= 460)			;the amount of food is less or equal than 460
+	(unit-type-count-total villager <= 28)	;we have less than 29 villagers
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+)
+
+
+
+;Rule7: when to train villagers in dark age -HARD, HARDEST -late feudal
+
+(defrule				;If
+	(goal RESEARCHING-FEUDAL LATE-FEUDAL);goal RESEARCHING-FEUDAL to LATE-FEUDAL (constant)
+	(game-time > FEUDAL-RESEARCH-TIME-LATE-FEUDAL);we have play FEUDAL-RESEARCH-TIME-LATE-FEUDAL already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(or
+		(food-amount > 460)		;the amount of food is greater than 460
+		(unit-type-count-total villager > 28);or we have at least 28 villagers
+	)
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for feudal age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+)
+
+
+
+;Rule7: when to train villagers in dark age -HARD, HARDEST -late feudal
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-FEUDAL LATE-FEUDAL);goal RESEARCHING-FEUDAL to LATE-FEUDAL (constant)
+	(game-time > FEUDAL-RESEARCH-TIME-LATE-FEUDAL);we have play FEUDAL-RESEARCH-TIME-LATE-FEUDAL already (constant)
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(food-amount <= 460)			;the amount of food is less or equal than 460
+	(unit-type-count-total villager <= 28)	;we have less than 29 villagers
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+)
+
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+#end-if		;if not difficulty type == moderate
+
+
+
+;WHEN TO TRAIN VILLAGERS IN FEUDAL AGE
+;-------------------------------------------------------------------
+
+
+
+#load-if-defined DIFFICULTY-EASIEST
+
+;Rule8 : when to train villagers in feudal age -EASIEST
+
+(defrule				;If
+	(game-time > CASTLE-RESEARCH-TIME-EASIEST);we have play CASTLE-RESEARCH-TIME-EASIEST already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(or
+		(players-current-age any-computer >= castle-age);is there any computer in castle-age already?
+		(players-current-age any-human >= castle-age);or is there any human in castle-age already?
+	)
+	(food-amount > 760)			;the amount of food is greater than 760
+	(gold-amount > 200)			;the amount of gold is greater than 200
+	(or
+		(or
+			(building-type-count-total market > 0);number of markets greater than 0
+			(building-type-count-total stable > 0);or number of stables greater than 0
+		)
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for castle age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule8 : when to train villagers in feudal age -EASIEST
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > CASTLE-RESEARCH-TIME-EASIEST);we have play CASTLE-RESEARCH-TIME-EASIEST already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(or
+		(players-current-age any-computer >= castle-age);is there any computer in castle-age already?
+		(players-current-age any-human >= castle-age);or is there any human in castle-age already?
+	)
+	(or
+		(or
+			(or
+				(food-amount <= 760)	;the amount of food is less or equal than 760
+				(gold-amount <= 200)	;or the amount of gold is less or equal than 200
+			)
+			(building-type-count-total market == 0)	;or number of markets is 0
+		)
+		(building-type-count-total blacksmith == 0)	;or number of blacksmiths is 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+#end-if		;if difficulty type == easiest
+
+
+
+#load-if-defined DIFFICULTY-EASY
+
+;Rule9 : when to train villagers in feudal age -EASY
+
+(defrule				;If
+	(game-time > CASTLE-RESEARCH-TIME-EASY);we have play CASTLE-RESEARCH-TIME-EASY already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(or
+		(players-current-age any-computer >= feudal-age);is there any computer in feudal-age already?
+		(players-current-age any-human >= feudal-age);or is there any human in feudal-age already?
+	)
+	(food-amount > 760)			;the amount of food is greater than 760
+	(gold-amount > 200)			;the amount of gold is greater than 200
+	(or
+		(or
+			(building-type-count-total market > 0);number of markets greater than 0
+			(building-type-count-total stable > 0);or number of stables greater than 0
+		)
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for castle age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule9 : when to train villagers in feudal age -EASY
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > CASTLE-RESEARCH-TIME-EASY);we have play CASTLE-RESEARCH-TIME-EASY already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(or
+		(players-current-age any-computer >= feudal-age);is there any computer in feudal-age already?
+		(players-current-age any-human >= feudal-age);or is there any human in feudal-age already?
+	)
+	(or
+		(or
+			(or
+				(food-amount <= 760)	;the amount of food is less or equal than 760
+				(gold-amount <= 200)	;or the amount of gold is less or equal than 200
+			)
+			(building-type-count-total market == 0)	;or number of markets is 0
+		)
+		(building-type-count-total blacksmith == 0)	;or number of blacksmiths is 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+#end-if				;if difficulty type == easy
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule10 : when to train villagers in feudal age -MODERATE
+
+(defrule				;If
+	(game-time > CASTLE-RESEARCH-TIME-MODERATE);we have play CASTLE-RESEARCH-TIME-MODERATE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(food-amount > 760)			;the amount of food is greater than 760
+	(gold-amount > 200)			;the amount of gold is greater than 200
+	(or
+		(or
+			(building-type-count-total market > 0);number of markets greater than 0
+			(building-type-count-total stable > 0);or number of stables greater than 0
+		)
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for castle age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+;Rule10 : when to train villagers in feudal age -MODERATE
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > CASTLE-RESEARCH-TIME-MODERATE);we have play CASTLE-RESEARCH-TIME-MODERATE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(or
+		(or
+			(food-amount <= 760)	;the amount of food is less or equal than 760
+			(gold-amount <= 200)	;or the amount of gold is less or equal than 200
+		)
+		(building-type-count-total blacksmith == 0)	;or number of blacksmiths is 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+;Rule10 : when to train villagers in feudal age -MODERATE
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > CASTLE-RESEARCH-TIME-MODERATE);we have play CASTLE-RESEARCH-TIME-MODERATE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(building-type-count-total market == 0)	;or number of markets is 0
+	(building-type-count-total archery-range == 0);and number of archery-ranges is 0
+	(building-type-count-total stable == 0);and number of stables is 0
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+#end-if		;if difficulty type == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule11: when to train villagers in feudal age -HARD, HARDEST -fast castle
+
+(defrule				;If
+	(goal RESEARCHING-CASTLE FAST-CASTLE);goal RESEARCHING-CASTLE to FAST-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE);we have play CASTLE-RESEARCH-TIME-FAST-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(food-amount > 650)			;the amount of food is greater than 650
+	(gold-amount > 200)			;the amount of gold is greater than 200
+	(unit-type-count-total villager > 30)	;number of villagers greater than 30
+	(or
+		(or
+			(building-type-count-total market > 0);number of markets greater than 0
+			(building-type-count-total stable > 0);number of stables greater than 0
+		)
+		(building-type-count-total archery-range > 0);number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+=>
+	(set-goal TRAIN-VILLAGERS NO)			;don't train any villagers we must spare for castle age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule11: when to train villagers in feudal age -HARD, HARDEST -fast castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-CASTLE FAST-CASTLE);goal RESEARCHING-CASTLE to FAST-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE);we have play CASTLE-RESEARCH-TIME-FAST-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(or
+		(or
+			(or
+				(food-amount <= 650)	;the amount of food is less or equal than 650
+				(gold-amount <= 200)	;or the amount of gold is less or equal than 200
+			)
+			(building-type-count-total blacksmith == 0)	;or number of blacksmiths is 0
+		)
+		(unit-type-count-total villager <= 30);number of villagers less or equal than 30
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule11: when to train villagers in feudal age -HARD, HARDEST -fast castle
+
+(defrule				;If
+	(goal RESEARCHING-CASTLE FAST-CASTLE);goal RESEARCHING-CASTLE to FAST-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE);we have play CASTLE-RESEARCH-TIME-FAST-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(food-amount > 750)			;the amount of food is greater than 750
+	(gold-amount > 200)			;the amount of gold is greater than 200
+	(or
+		(or
+			(building-type-count-total market > 0);number of markets greater than 0
+			(building-type-count-total stable > 0);number of stables greater than 0
+		)
+		(building-type-count-total archery-range > 0);number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+=>
+	(set-goal TRAIN-VILLAGERS NO)			;don't train any villagers we must spare for castle age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule11: when to train villagers in feudal age -HARD, HARDEST -fast castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-CASTLE FAST-CASTLE);goal RESEARCHING-CASTLE to FAST-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE);we have play CASTLE-RESEARCH-TIME-FAST-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(or
+		(or
+			(food-amount <= 750)	;the amount of food is less or equal than 750
+			(gold-amount <= 200)	;or the amount of gold is less or equal than 200
+		)
+		(building-type-count-total blacksmith == 0)	;or number of blacksmiths is 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule11: when to train villagers in feudal age -HARD, HARDEST -fast castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-CASTLE FAST-CASTLE);goal RESEARCHING-CASTLE to FAST-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE);we have play CASTLE-RESEARCH-TIME-FAST-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(building-type-count-total market == 0)	;number of markets is 0
+	(building-type-count-total archery-range == 0);number of archery-ranges is 0
+	(building-type-count-total stable == 0);number of stables is 0
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule12: when to train villagers in feudal age -HARD, HARDEST -middle castle
+
+(defrule				;If
+	(goal RESEARCHING-CASTLE MIDDLE-CASTLE);goal RESEARCHING-CASTLE to MIDDLE-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE);we have play CASTLE-RESEARCH-TIME-MIDDLE-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(food-amount > 750)			;the amount of food is greater than 750
+	(gold-amount > 200)			;the amount of gold is greater than 200
+	(or
+		(or
+			(building-type-count-total market > 0);number of markets greater than 0
+			(building-type-count-total stable > 0);or number of stables greater than 0
+		)
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for castle age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+;Rule12: when to train villagers in feudal age -HARD, HARDEST -middle castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-CASTLE MIDDLE-CASTLE);goal RESEARCHING-CASTLE to MIDDLE-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE);we have play CASTLE-RESEARCH-TIME-MIDDLE-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(or
+		(or
+			(food-amount <= 750)	;the amount of food is less or equal than 750
+			(gold-amount <= 200)	;or the amount of gold is less or equal than 200
+		)
+		(building-type-count-total blacksmith == 0)	;or number of blacksmiths is 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+;Rule12: when to train villagers in feudal age -HARD, HARDEST -middle castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-CASTLE MIDDLE-CASTLE);goal RESEARCHING-CASTLE to MIDDLE-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE);we have play CASTLE-RESEARCH-TIME-MIDDLE-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(building-type-count-total market == 0)	;or number of markets is 0
+	(building-type-count-total archery-range == 0);number of archery-ranges is 0
+	(building-type-count-total stable == 0);number of stables is 0
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule13: when to train villagers in feudal age -HARD, HARDEST -late castle
+
+(defrule				;If
+	(goal RESEARCHING-CASTLE LATE-CASTLE);goal RESEARCHING-CASTLE to LATE-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE);we have play CASTLE-RESEARCH-TIME-LATE-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(food-amount > 750)			;the amount of food is greater than 750
+	(gold-amount > 200)			;the amount of gold is greater than 200
+	(or
+		(or
+			(building-type-count-total market > 0);number of markets greater than 0
+			(building-type-count-total stable > 0);or number of stables greater than 0
+		)
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for castle age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+;Rule13: when to train villagers in feudal age -HARD, HARDEST -late castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-CASTLE LATE-CASTLE);goal RESEARCHING-CASTLE to LATE-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE);we have play CASTLE-RESEARCH-TIME-LATE-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(or
+		(or
+			(food-amount <= 750)	;the amount of food is less or equal than 750
+			(gold-amount <= 200)	;or the amount of gold is less or equal than 200
+		)
+		(building-type-count-total blacksmith == 0)	;or number of blacksmiths is 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+;Rule13: when to train villagers in feudal age -HARD, HARDEST -late castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-CASTLE LATE-CASTLE);goal RESEARCHING-CASTLE to LATE-CASTLE (constant)
+	(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE);we have play CASTLE-RESEARCH-TIME-LATE-CASTLE already (constant)
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(building-type-count-total market == 0)	;number of markets is 0
+	(building-type-count-total archery-range == 0);number of archery-ranges is 0
+	(building-type-count-total stable == 0);number of stables is 0
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+#end-if		;if not difficulty type == moderate
+
+
+
+;WHEN TO TRAIN VILLAGERS IN CASTLE-AGE
+;-------------------------------------------------------------------
+
+
+
+#load-if-defined DIFFICULTY-EASIEST
+
+;Rule8 : when to train villagers in castle age -EASIEST
+
+(defrule				;If
+	(game-time > IMPERIAL-RESEARCH-TIME-EASIEST);we have play IMPERIAL-RESEARCH-TIME-EASIEST already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(players-current-age any-computer >= imperial-age);is there any computer in imperial-age already?
+		(players-current-age any-human >= imperial-age);or is there any human in imperial-age already?
+	)
+	(food-amount > 950)			;the amount of food is greater than 950
+	(gold-amount > 750)			;the amount of gold is greater than 750
+	(or
+		(and
+			(building-type-count-total university > 0);number of universities greater than 0
+			(building-type-count-total monastery > 0);number of monasteries greater than 0
+		)
+		(building-type-count-total castle > 0);or number of castles greater than 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for imperial age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule8 : when to train villagers in castle age -EASIEST
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-EASIEST);we have play IMPERIAL-RESEARCH-TIME-EASIEST already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(players-current-age any-computer >= imperial-age);is there any computer in imperial-age already?
+		(players-current-age any-human >= imperial-age);or is there any human in imperial-age already?
+	)
+	(or
+		(food-amount <= 950)		;the amount of food is less or equal than 950
+		(gold-amount <= 750)		;or the amount of gold is less or equal than 750
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule8 : when to train villagers in castle age -EASIEST
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-EASIEST);we have play IMPERIAL-RESEARCH-TIME-EASIEST already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(players-current-age any-computer >= imperial-age);is there any computer in imperial-age already?
+		(players-current-age any-human >= imperial-age);or is there any human in imperial-age already?
+	)
+	(or
+		(and
+			(building-type-count-total university == 0);number of universities is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+		(and
+			(building-type-count-total monastery == 0);or number of monasteries is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+#end-if		;if difficulty type == easiest
+
+
+
+#load-if-defined DIFFICULTY-EASY
+
+;Rule9 : when to train villagers in castle age -EASY
+
+(defrule				;If
+	(game-time > IMPERIAL-RESEARCH-TIME-EASY);we have play IMPERIAL-RESEARCH-TIME-EASY already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(players-current-age any-computer >= imperial-age);is there any computer in imperial-age already?
+		(players-current-age any-human >= imperial-age);or is there any human in imperial-age already?
+	)
+	(food-amount > 950)			;the amount of food is greater than 950
+	(gold-amount > 750)			;the amount of gold is greater than 750
+	(or
+		(and
+			(building-type-count-total university > 0);number of universities greater than 0
+			(building-type-count-total monastery > 0);number of monasteries greater than 0
+		)
+		(building-type-count-total castle > 0);or number of castles greater than 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for imperial age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule9 : when to train villagers in castle age -EASY
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-EASY);we have play IMPERIAL-RESEARCH-TIME-EASY already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(players-current-age any-computer >= imperial-age);is there any computer in imperial-age already?
+		(players-current-age any-human >= imperial-age);or is there any human in imperial-age already?
+	)
+	(or
+		(food-amount <= 950)		;the amount of food is less or equal than 950
+		(gold-amount <= 750)		;or the amount of gold is less or equal than 750
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule9 : when to train villagers in castle age -EASY
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-EASY);we have play IMPERIAL-RESEARCH-TIME-EASY already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(players-current-age any-computer >= imperial-age);is there any computer in imperial-age already?
+		(players-current-age any-human >= imperial-age);or is there any human in imperial-age already?
+	)
+	(or
+		(and
+			(building-type-count-total university == 0);number of universities is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+		(and
+			(building-type-count-total monastery == 0);or number of monasteries is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+#end-if				;if difficulty type == easy
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule10 : when to train villagers in castle age -MODERATE
+
+(defrule				;If
+	(game-time > IMPERIAL-RESEARCH-TIME-MODERATE);we have play IMPERIAL-RESEARCH-TIME-MODERATE already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(food-amount > 950)			;the amount of food is greater than 950
+	(gold-amount > 750)			;the amount of gold is greater than 750
+	(or
+		(and
+			(building-type-count-total university > 0);number of universities greater than 0
+			(building-type-count-total monastery > 0);number of monasteries greater than 0
+		)
+		(building-type-count-total castle > 0);or number of castles greater than 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for imperial age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule10 : when to train villagers in castle age -MODERATE
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-MODERATE);we have play IMPERIAL-RESEARCH-TIME-MODERATE already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(food-amount <= 950)		;the amount of food is less or equal than 950
+		(gold-amount <= 750)		;or the amount of gold is less or equal than 750
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule10 : when to train villagers in castle age -MODERATE
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-MODERATE);we have play IMPERIAL-RESEARCH-TIME-MODERATE already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(and
+			(building-type-count-total university == 0);number of universities is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+		(and
+			(building-type-count-total monastery == 0);or number of monasteries is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+#end-if		;if difficulty type == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule11: when to train villagers in castle age -HARD, HARDEST -fast castle
+
+(defrule				;If
+	(goal RESEARCHING-IMPERIAL FAST-IMPERIAL);goal RESEARCHING-IMPERIAL to FAST-IMPERIAL (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL);we have play IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(food-amount > 950)			;the amount of food is greater than 950
+	(gold-amount > 750)			;the amount of gold is greater than 750
+	(or
+		(and
+			(building-type-count-total university > 0);number of universities greater than 0
+			(building-type-count-total monastery > 0);number of monasteries greater than 0
+		)
+		(building-type-count-total castle > 0);or number of castles greater than 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for imperial age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule11: when to train villagers in castle age -HARD, HARDEST -fast castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-IMPERIAL FAST-IMPERIAL);goal RESEARCHING-IMPERIAL to FAST-IMPERIAL (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL);we have play IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(food-amount <= 950)		;the amount of food is less or equal than 950
+		(gold-amount <= 750)		;or the amount of gold is less or equal than 750
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule11: when to train villagers in castle age -HARD, HARDEST -fast castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-IMPERIAL FAST-IMPERIAL);goal RESEARCHING-IMPERIAL to FAST-IMPERIAL (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL);we have play IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(and
+			(building-type-count-total university == 0);number of universities is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+		(and
+			(building-type-count-total monastery == 0);or number of monasteries is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule12: when to train villagers in castle age -HARD, HARDEST -middle castle
+
+(defrule				;If
+	(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL);goal RESEARCHING-IMPERIAL to MIDDLE-IMPERIAL (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL);we have play IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(food-amount > 950)			;the amount of food is greater than 950
+	(gold-amount > 750)			;the amount of gold is greater than 750
+	(or
+		(and
+			(building-type-count-total university > 0);number of universities greater than 0
+			(building-type-count-total monastery > 0);number of monasteries greater than 0
+		)
+		(building-type-count-total castle > 0);or number of castles greater than 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for imperial age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule12: when to train villagers in castle age -HARD, HARDEST -middle castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL);goal RESEARCHING-IMPERIAL to MIDDLE-IMPERIAL (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL);we have play IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(food-amount <= 950)		;the amount of food is less or equal than 950
+		(gold-amount <= 750)		;or the amount of gold is less or equal than 750
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule12: when to train villagers in castle age -HARD, HARDEST -middle castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL);goal RESEARCHING-IMPERIAL to MIDDLE-IMPERIAL (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL);we have play IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(and
+			(building-type-count-total university == 0);number of universities is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+		(and
+			(building-type-count-total monastery == 0);or number of monasteries is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule13: when to train villagers in castle age -HARD, HARDEST -late castle
+
+(defrule				;If
+	(goal RESEARCHING-IMPERIAL LATE-IMPERIAL);goal RESEARCHING-IMPERIAL to LATE-IMPERIAL (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL);we have play IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(food-amount > 950)			;the amount of food is greater than 950
+	(gold-amount > 750)			;the amount of gold is greater than 750
+	(or
+		(and
+			(building-type-count-total university > 0);number of universities greater than 0
+			(building-type-count-total monastery > 0);number of monasteries greater than 0
+		)
+		(building-type-count-total castle > 0);or number of castles greater than 0
+	)
+=>
+	(set-goal TRAIN-VILLAGERS NO)		;don't train any villagers we must spare for imperial age
+	(set-escrow-percentage food 100)		;100 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 100)		;100 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule13: when to train villagers in castle age -HARD, HARDEST -late castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-IMPERIAL LATE-IMPERIAL);goal RESEARCHING-IMPERIAL to LATE-IMPERIAL (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL);we have play IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(food-amount <= 950)		;the amount of food is less or equal than 950
+		(gold-amount <= 750)		;or the amount of gold is less or equal than 750
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;Rule13: when to train villagers in castle age -HARD, HARDEST -late castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(goal RESEARCHING-IMPERIAL LATE-IMPERIAL);goal RESEARCHING-IMPERIAL to LATE-IMPERIAL (constant)
+	(game-time > IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL);we have play IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL already (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(or
+		(and
+			(building-type-count-total university == 0);number of universities is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+		(and
+			(building-type-count-total monastery == 0);or number of monasteries is 0
+			(building-type-count-total castle == 0);and number of castles is 0
+		)
+	)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+#end-if		;if not difficulty type == moderate
+
+
+
+;Rule13: when to train villagers in castle age -HARD, HARDEST -late castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(goal ADVANCING-TO-AGE IMPERIAL-AGE)	;goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+
+;*******************************************
+;*******************************************
+#else		;if game type != death-match
+;*******************************************
+;*******************************************
+
+
+
+(defrule				;If
+	(current-age-time >= 60)		;we played at least 60 seconds in our current age
+	(current-age < castle-age)		;we aren't in castle- or imperial-age
+=>				;then
+	(set-goal TRAIN-VILLAGERS NO)		;the AI sets goal TRAIN-VILLAGERS to NO (constant)
+)
+
+(defrule				;If
+	(current-age-time >= 120)		;we played at least 120 seconds in our current age
+	(current-age == castle-age)		;we are in castle-age
+=>				;then
+	(set-goal TRAIN-VILLAGERS NO)		;the AI sets goal TRAIN-VILLAGERS to NO (constant)
+)
+
+;Rule13: when to train villagers in castle age -HARD, HARDEST -late castle
+
+(defrule				;If
+	(goal TRAIN-VILLAGERS NO)		;goal TRAIN-VILLAGERS to NO (constant)
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(goal ADVANCING-TO-AGE IMPERIAL-AGE)	;goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial age
+	(not (goal TRAIN-VILLAGERS EXTRA))	;the goal TRAIN-VILLAGERS is not set to EXTRA (constant)
+=>				;then
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+	(set-escrow-percentage food 0)		;0 percent of our food resources are escrow-resources
+	(set-escrow-percentage gold 0)		;0 percent of our gold resources are escrow-resources
+)
+
+
+;*******************************************
+;*******************************************
+#end-if		;if game type == death-match
+
+
+
+;WHEN TO TRAIN VILLAGERS IN IMPERIAL AGE
+;----------------------------------------------------------------------
+
+
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial age
+	(not (goal TRAIN-VILLAGERS EXTRA))	;the goal TRAIN-VILLAGERS is not set to EXTRA (constant)
+=>				;then
+	(set-goal TRAIN-VILLAGERS YES)		;the AI sets goal TRAIN-VILLAGERS to YES (constant)
+)
+
+
+
+;TRAINING THE VILLAGERS
+;---------------------------------------
+
+
+
+#load-if-defined DIFFICULTY-EASIEST
+
+;Rule25: train VILLAGERS1- EASIEST
+
+(defrule				;If
+	(or
+		(unit-type-count villager < TRADE-REPLACES-VILLAGER-EASIEST);number of villagers less than TRADE-REPLACES-VILLAGER-EASIEST (constant)
+		(and
+			(nand
+				(game-time > 3000)	;we played greater than 50min
+				(player-in-game any-ally);we have an ally
+			)
+ 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-EASIEST);number of villagers less than IMPERIAL-AGE-VILLAGER-EASIEST (constant)
+		)
+	)
+ 	(can-train villager)			;the AI can train a villager
+	(goal TRAIN-VILLAGERS YES)		;goal TRAIN-VILLAGERS to YES (constant)
+	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
+=>				;then
+ 	(train villager)				;the AI trains a villager
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+(defrule				;If
+	(game-time > 3000)			;we played at least 50min already
+	(unit-type-count villager > TRADE-REPLACES-VILLAGER-EASIEST);number of villagers greater than TRADE-REPLACES-VILLAGER-EASIEST (constant)
+	(player-in-game any-ally)		;we have got an ally
+	;(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next dropsite is greater than 5 tiles
+	(civilian-population >= POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is greater or equal POPULATION-MAX (constant)
+=>					;then
+	(delete-unit villager)			;the AI deletes a villager
+)
+
+#end-if		;if difficulty == easiest
+
+
+
+#load-if-defined DIFFICULTY-EASY
+
+;Rule26: train VILLAGERS2- EASY
+
+(defrule				;If
+ 	(or
+		(unit-type-count villager < TRADE-REPLACES-VILLAGER-EASY);number of villagers less than TRADE-REPLACES-VILLAGER-EASY (constant)
+		(and
+			(nand
+				(game-time > 3000)	;we played greater than 50min
+				(player-in-game any-ally);we have an ally
+			)
+ 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-EASY);number of villagers less than IMPERIAL-AGE-VILLAGER-EASY (constant)
+		)
+	)
+ 	(can-train villager)			;the AI can train a villager
+	(goal TRAIN-VILLAGERS YES)		;goal TRAIN-VILLAGERS to YES (constant)
+	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
+=>				;then
+ 	(train villager)				;the AI trains a villager
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+(defrule				;If
+	(game-time > 3000)			;we played at least 50min already
+	(unit-type-count villager > TRADE-REPLACES-VILLAGER-EASY);number of villagers greater than TRADE-REPLACES-VILLAGER-EASY (constant)
+	(player-in-game any-ally)		;we have got an ally
+	;(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next dropsite is greater than 5 tiles
+	(civilian-population >= POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is greater or equal POPULATION-MAX (constant)
+=>					;then
+	(delete-unit villager)			;the AI deletes a villager
+)
+
+#end-if		;if difficulty == easy
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule27: train VILLAGERS3-MODERATE
+
+(defrule				;If
+ 	(or
+		(unit-type-count villager < TRADE-REPLACES-VILLAGER-MODERATE);number of villagers less than TRADE-REPLACES-VILLAGER-MODERATE (constant)
+		(and
+			(nand
+				(game-time > 3000)	;we played greater than 50min
+				(player-in-game any-ally);we have an ally
+			)
+ 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-MODERATE);number of villagers less than IMPERIAL-AGE-VILLAGER-MODERATE (constant)
+		)
+	)
+ 	(can-train villager)			;the AI can train a villager
+	(goal TRAIN-VILLAGERS YES)		;goal TRAIN-VILLAGERS to YES (constant)
+	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
+=>				;then
+ 	(train villager)				;the AI trains a villager
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+(defrule				;If
+	(game-time > 3000)			;we played at least 50min already
+	(unit-type-count villager > TRADE-REPLACES-VILLAGER-MODERATE);number of villagers greater than TRADE-REPLACES-VILLAGER-MODERATE (constant)
+	(player-in-game any-ally)		;we have got an ally
+	;(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next dropsite is greater than 5 tiles
+	(civilian-population >= POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is greater or equal POPULATION-MAX (constant)
+=>					;then
+	(delete-unit villager)			;the AI deletes a villager
+)
+
+#end-if		;if difficulty == moderate
+
+
+
+(defrule
+	(current-age == castle-age)
+	(goal RUSH-CONTROL RUSHING)
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(research-available ri-long-swordsman)
+	(goal TRAIN-VILLAGERS YES)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+	(unit-type-count-total villager > 28)
+=>
+	(set-goal TRAIN-VILLAGERS NO)
+)
+
+(defrule
+	(current-age == castle-age)
+	(goal RUSH-CONTROL RUSHING)
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(food-amount > 250)
+	(goal TRAIN-VILLAGERS NO)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+=>
+	(set-goal TRAIN-VILLAGERS YES)
+)
+
+(defrule
+	(current-age == castle-age)
+	(goal RUSH-CONTROL RUSHING)
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(research-available ri-pikeman)
+	(goal TRAIN-VILLAGERS YES)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+	(unit-type-count-total villager > 28)
+=>
+	(set-goal TRAIN-VILLAGERS NO)
+)
+
+(defrule
+	(current-age == castle-age)
+	(goal RUSH-CONTROL RUSHING)
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(or
+		(or
+			(research-available ri-iron-casting)
+			(research-available ri-chain-mail)
+		)
+		(unit-type-count-total villager < 28)
+	)
+	(goal TRAIN-VILLAGERS YES)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+=>
+	(set-goal TRAIN-VILLAGERS NO)
+)
+
+
+
+#load-if-defined DIFFICULTY-HARD
+
+;Rule28: train VILLAGERS4-HARD
+
+(defrule				;If
+ 	(or
+		(unit-type-count villager < TRADE-REPLACES-VILLAGER-HARD);number of villagers less than TRADE-REPLACES-VILLAGER-HARD (constant)
+		(and
+			(nand
+				(game-time > 3000);we played greater than 50min
+				(player-in-game any-ally);we have an ally
+			)
+ 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-HARD);number of villagers less than IMPERIAL-AGE-VILLAGER-HARD (constant)
+		)
+	)
+ 	(can-train villager)			;the AI can train a villager
+	(goal TRAIN-VILLAGERS YES)		;goal TRAIN-VILLAGERS to YES (constant)
+	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
+=>				;then
+ 	(train villager)				;the AI trains a villager
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+(defrule				;If
+	(game-time > 3000)			;we played at least 50min already
+	(unit-type-count villager > TRADE-REPLACES-VILLAGER-HARD);number of villagers greater than TRADE-REPLACES-VILLAGER-HARD (constant)
+	(player-in-game any-ally)		;we have got an ally
+	;(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next dropsite is greater than 5 tiles
+	(civilian-population >= POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is greater or equal POPULATION-MAX (constant)
+=>					;then
+	(delete-unit villager)			;the AI deletes a villager
+)
+
+#end-if		;if difficulty == hard
+
+
+#load-if-defined DIFFICULTY-HARDEST
+
+;Rule29: train VILLAGERS4-HARDEST
+
+(defrule				;If
+ 	(or
+		(unit-type-count villager < TRADE-REPLACES-VILLAGER-HARDEST);number of villagers less than TRADE-REPLACES-VILLAGER-HARDEST (constant)
+		(and
+			(nand
+				(game-time > 3000)	;we played greater than 50min
+				(player-in-game any-ally);we have an ally
+			)
+ 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-HARDEST);number of villagers less than IMPERIAL-AGE-VILLAGER-HARDEST (constant)
+		)
+	)
+ 	(can-train villager)			;the AI can train a villager
+	(goal TRAIN-VILLAGERS YES)		;goal TRAIN-VILLAGERS to YES (constant)
+	(civilian-population < POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is less than POPULATION-MAX (constant)
+=>				;then
+ 	(train villager)				;the AI trains a villager
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+(defrule				;If
+	(game-time > 3000)			;we played at least 50min already
+	(unit-type-count villager > TRADE-REPLACES-VILLAGER-HARDEST);number of villagers greater than TRADE-REPLACES-VILLAGER-HARDEST (constant)
+	(player-in-game any-ally)		;we have got an ally
+	;(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next dropsite is greater than 5 tiles
+	(civilian-population >= POPULATION-MAX)	;our civilian-population (villagers + fishing-ships + trade carts +trade cogs) is greater or equal POPULATION-MAX (constant)
+=>					;then
+	(delete-unit villager)			;the AI deletes a villager
+)
+
+#end-if		;if difficulty == hardest
+
+
+
+;EXTRA VILLAGERS
+;-------------------------------
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+
+;Rule30: train VILLAGERS6-COMMAND DETECTING-EASIEST, EASY
+
+(defrule				;If
+ 	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY);number of villagers less than IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY (constant)
+ 	(can-train villager)			;the AI can train a villager
+	(goal TRAIN-VILLAGERS EXTRA)		;goal TRAIN-VILLAGERS to EXTRA (constant)
+=>				;then
+ 	(train villager)				;the AI trains a villager
+)
+
+#end-if		;if not difficulty == moderate
+#end-if		;if not difficulty == hard
+#end-if		;if not difficulty == hardest
+
+
+
+#load-if-defined DIFFICULTY-MODERATE
+
+;Rule31: train VILLAGERS6-COMMAND DETECTING-MODERATE
+
+(defrule				;If
+ 	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE);number of villagers less than IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE (constant)
+ 	(can-train villager)			;the AI can train a villager
+	(goal TRAIN-VILLAGERS EXTRA)		;goal TRAIN-VILLAGERS to EXTRA (constant)
+=>				;then
+ 	(train villager)				;the AI trains a villager
+)
+
+#end-if		;if difficulty == moderate
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule32: train VILLAGERS6-COMMAND DETECTING-HARD, HARDEST
+
+(defrule				;If
+ 	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-COMMAND-HARD-HARDEST);number of villagers less than IMPERIAL-AGE-VILLAGER-COMMAND-HARD-HARDEST (constant)
+ 	(can-train villager)			;the AI can train a villagers
+	(goal TRAIN-VILLAGERS EXTRA)		;goal TRAIN-VILLAGERS to EXTRA (constant)
+=>				;then
+ 	(train villager)				;the AI trains a villager
+)
+
+#end-if		;if not difficulty == easiest
+#end-if		;if not difficulty == easy
+#end-if		;if not difficulty == moderate
+
+
+
+#else		;if not game type == wonder race
+
+
+
+;TRAINING THE VILLAGERS IN WONDER-RACE - GAMES
+;---------------------------------------------------------------------------------
+
+
+
+#load-if-defined DIFFICULTY-EASIEST
+
+;Rule33: train villagers if we play wonder race and easiest-difficulty
+
+(defrule				;If
+	(unit-type-count-total villager < 5)		;number of villagers less than 5
+	(can-train villager)			;the AI can train a villager
+=>				;then
+	(train villager)				;the AI trains a villager
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+#end-if		;if difficulty type == easiest
+
+
+
+#load-if-defined DIFFICULTY-EASY
+
+;Rule34: train villagers if we play wonder race and easy-difficulty
+
+(defrule				;If
+	(unit-type-count-total villager < 10)		;number of villagers less than 10
+	(can-train villager)			;the AI can train a villager
+=>				;then
+	(train villager)				;the AI trains a villager
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+#end-if		;if difficulty type == easy
+
+
+
+;Rule35: train villagers if we play wonder race and moderate, hard or hardest - difficulty (dark-age)
+
+(defrule				;If
+	(current-age == dark-age)			;the age, the AI is in, is dark age
+	(difficulty <= moderate)			;we are playing on moderate, hard or hardest - difficulty
+	(civilian-population < 26)			;number of inhabitants less than 26
+	(can-train-with-escrow villager)		;the AI can train a villager (with escrow-resources)
+	(not (can-research-with-escrow feudal-age))	;the AI cannot research to the feudal-age (with escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(train villager)				;the AI trains villagers
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule36: train villagers if we play wonder race and moderate, hard or hardest - difficulty (feudal-age)
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal age
+	(difficulty <= moderate)			;we are playing on moderate, hard or hardest - difficulty
+	(civilian-population < 35)			;number of inhabitants less than 35
+	(can-train-with-escrow villager)		;the AI can train a villager (with escrow-resources)
+	(not (can-research-with-escrow castle-age))	;the AI cannot research to the castle-age (with escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(train villager)				;the AI trains villagers
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule37: train villagers if we play wonder race and moderate, hard or hardest - difficulty (castle-age)
+
+(defrule				;If
+	(current-age == castle-age)			;the age, the AI is in, is castle age
+	(difficulty <= moderate)			;we are playing on moderate, hard or hardest - difficulty
+	(civilian-population < 40)			;number of inhabitants less than 40
+	(can-train-with-escrow villager)		;the AI can train a villager (with escrow-resources)
+	(not (can-research-with-escrow imperial-age));the AI cannot research to the imperial-age (with escrow-resources)
+=>				;then
+	(release-escrow food)			;the AI releases the food-escrow-resources
+	(train villager)				;the AI trains villagers
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule38: train villagers if we play wonder race and moderate, hard or hardest - difficulty (imperial-age)
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial age
+	(difficulty <= moderate)			;we are playing on moderate, hard or hardest - difficulty
+	(civilian-population < 45)			;number of inhabitants less than 45
+	(can-train villager)			;the AI can train a villager
+=>				;then
+	(train villager)				;the AI trains villagers
+;	(chat-local-to-self "train VILLAGER")	;the AI sends the chat as a local one to itselfs
+)
+
+
+#end-if		;if game type == wonder race
+
+
+;=====END; The Duke Training Villagers.per=====
+;=====ALL RIGHTS RESERVED====================

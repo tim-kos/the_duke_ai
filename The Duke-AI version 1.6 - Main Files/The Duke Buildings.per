@@ -1,0 +1,3701 @@
+;			The Duke Buildings.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;STUFF FOR THE TOWN-SIZE
+
+
+
+;Rule1: set the town size in the dark age
+
+(defrule
+	(current-age == dark-age)
+	(not (civ-selected hun))
+=>
+	(set-strategic-number sn-minimum-town-size 6)
+	(set-strategic-number sn-maximum-town-size 10)
+	(disable-self)
+)
+
+;Rule1: set the town size in the dark age
+
+(defrule
+	(current-age == dark-age)
+	(civ-selected hun)
+=>
+	(set-strategic-number sn-minimum-town-size 6)
+	(set-strategic-number sn-maximum-town-size 8)
+	(disable-self)
+)
+
+;Rule1: set the town size in the dark age
+
+(defrule
+	(current-age == feudal-age)
+	(not (civ-selected hun))
+=>
+	(set-strategic-number sn-minimum-town-size 6)
+	(set-strategic-number sn-maximum-town-size 12)
+	(disable-self)
+)
+
+;Rule1: set the town size in the dark age
+
+(defrule
+	(current-age == feudal-age)
+	(civ-selected hun)
+=>
+	(set-strategic-number sn-minimum-town-size 6)
+	(set-strategic-number sn-maximum-town-size 10)
+	(disable-self)
+)
+
+;Rule4: set the town size in the castle age
+
+(defrule
+	(current-age == castle-age)
+	(not (civ-selected hun))
+	(goal RUSH-CONTROL RUSHING)
+=>
+	(set-strategic-number sn-minimum-town-size 12)
+	(set-strategic-number sn-maximum-town-size 18)
+	(disable-self)
+)
+
+;Rule4: set the town size in the castle age
+
+(defrule
+	(current-age == castle-age)
+	(civ-selected hun)
+	(goal RUSH-CONTROL RUSHING)
+=>
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 16)
+	(disable-self)
+)
+
+;Rule4: set the town size in the castle age
+
+(defrule
+	(current-age == castle-age)
+	(not (civ-selected hun))
+	(goal RUSH-CONTROL NO)
+=>
+	(set-strategic-number sn-minimum-town-size 14)
+	(set-strategic-number sn-maximum-town-size 20)
+	(disable-self)
+)
+
+;Rule4: set the town size in the castle age
+
+(defrule
+	(current-age == castle-age)
+	(civ-selected hun)
+	(goal RUSH-CONTROL NO)
+=>
+	(set-strategic-number sn-minimum-town-size 12)
+	(set-strategic-number sn-maximum-town-size 18)
+	(disable-self)
+)
+
+;Rule5: set the town size in imperial age
+
+(defrule
+	(current-age == imperial-age)
+=>
+	(set-strategic-number sn-minimum-town-size min-imperial-town-size)
+	(set-strategic-number sn-maximum-town-size max-imperial-town-size)
+	(disable-self)
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;HOUSING
+
+
+
+#load-if-not-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+;Rule6: build HOUSES - in games which aren't deathmatch games
+
+(defrule				;If
+	(or
+		(and
+			(game-time < 300)	;we played less than 5 min
+			(housing-headroom <= 2)	;and the difference between housecapacity and units less or equal 2
+		)
+		(and
+			(game-time >= 300)	;we played at least 5 min
+			(housing-headroom <= 4)	;and the difference between housecapacity and units less or equal 4
+		)
+	)
+ 	(can-build house)				;the AI can build a house
+	(population-headroom != 0)		;the difference between population-cap and housecapacity not equal 0
+=>				;then
+	(build house)				;the AI builds a house
+;	(chat-local-to-self "build HOUSE")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule6: build HOUSES - in games which aren't deathmatch games
+
+(defrule				;If
+	(or
+		(and
+			(game-time < 300)	;we played less than 5 min
+			(housing-headroom <= 2)	;and the difference between housecapacity and units less or equal 2
+		)
+		(and
+			(game-time >= 300)	;we played at least 5 min
+			(housing-headroom <= 8)	;and the difference between housecapacity and units less or equal 8
+		)
+	)
+ 	(can-build house)			;the AI can build a house
+	(population-headroom != 0)		;the difference between population-cap and housecapacity not equal 0
+	(current-age > dark-age)		;we are not in the dark age
+	(or
+		(goal RUSH-CONTROL CASTLE)	;goal RUSH-CONTROL to CASTLE (constant)
+		(goal RUSH-CONTROL RUSHING)	;or goal RUSH-CONTROL RUSHING (constant)
+	)
+=>				;then
+	(build house)				;the AI builds a house
+;	(chat-local-to-self "build HOUSE")	;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#else		;if not game-type == death-match
+;***********************************************
+;***********************************************
+
+;Rule7: build HOUSES - in deathmatch games
+
+(defrule				;If
+	(or
+		(and
+			(difficulty >= easy)	;we are playing easy or easiest - difficulty
+			(housing-headroom <= 6)	;and the difference between housecapacity and units less or equal 6
+		)
+		(and
+			(difficulty <= moderate)	;or we are playing moderate, hard or hardest - difficulty
+			(housing-headroom <= 20)	;and the difference between housecapacity and units less or equal 20
+		)
+	)
+ 	(can-build house)				;the AI can build a house
+	(population-headroom != 0)		;the difference between population-cap and housecapacity not equal 0
+=>				;then
+	(build house)				;the AI builds a house
+;	(chat-local-to-self "build HOUSE")		;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if game-type == death-match
+
+
+
+;REBUILD TOWN-CENTER
+;-------------------------------------
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule8: rebuild TOWN-CENTER-MODERATE, HARD, HARDEST
+
+(defrule				;If
+ 	(current-age >= dark-age)			;the age, the AI is in, is greater or equal than dark-age
+ 	(building-type-count-total town-center == 0);number of town-centers equal 0
+ 	(can-build town-center)			;the AI can build a house
+	(not (map-type nomad))			;we are not playing on the nomad map
+=>				;then
+ 	(build town-center)			;the AI builds a town-center
+;	(chat-local-to-self "rebuild TOWN-CENTER");the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;BUILD TOWN-CENTER IN NOMAD-MAP
+;----------------------------------------------------------
+
+
+
+;Rule8: build TOWN-CENTER
+
+(defrule				;If
+	(map-type nomad)			;we are playing on nomad map
+   	(game-time > 30)				;time greater than 30 seconds
+	(building-type-count town-center < 1)	;number of town-centers less than 1
+	(can-build town-center)			;the AI can build a town-center
+	(resource-found wood)			;the AI found some wood already
+=>				;then
+ 	(build town-center)			;the AI builds a town-center
+;	(chat-local-to-self "rebuild TOWN-CENTER");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;LUMBER CAMPS
+
+
+
+#load-if-not-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+
+;Rule10: build LUMBER-CAMP first one when we found some wood in wonder race games
+
+(defrule				;If
+ 	(resource-found wood)			;the AI found some wood
+	(can-build-with-escrow lumber-camp)	;the AI can build a lumber-camp (with escrow-resources)
+	(building-type-count-total lumber-camp < 1);number of lumber-camps less than 1
+	(building-type-count-total mill > 0)	;number of millss greater than 1
+	(or
+		(civ-selected hun)		;we play the huns
+		(building-type-count house > 0);or number of houses greater than 0
+	)
+	(unit-type-count-total villager > 10)	;number of villagers greater than 10
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(build lumber-camp)			;the AI builds a lumber-camp
+;	(chat-local-to-self "build LUMBER-CAMP")	;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#else		;if not game-type == death-match
+;***********************************************
+;***********************************************
+
+;Rule9: build LUMBER-CAMP first one when we found some wood in games which aren't wonder race games
+
+(defrule				;If
+	(can-build lumber-camp)			;the AI can build a lumber-camp
+	(building-type-count-total lumber-camp < 1)	;number of lumber-camps less than 1
+	(building-type-count-total town-center > 0)	;number of town-centers greater than 0
+	(or
+		(civ-selected hun)		;we play the huns
+		(building-type-count house > 0);or number of houses greater than 0
+	)
+=>				;then
+ 	(build lumber-camp)			;the AI builds a lumber-camp
+;	(chat-local-to-self "build LUMBER-CAMP")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if game-type == death match
+
+
+
+;*******************************************************************
+;*******************************************************************
+;EXTRA LUMBER-CAMPS // The villagers won't get the ood from only one lumber camp
+
+
+
+;Rule15: build EXTRA-LUMBERCAMP if the wood is too far away
+
+(defrule				;If
+	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+	(can-build lumber-camp)			;the AI can build a lumber camp
+	(resource-found wood)			;the AI finds some wood
+	(dropsite-min-distance wood > 7)		;the distance between the resource and the next lumber-camp is greater than 7
+	(building-type-count-total barracks > 0)	;number of barrackses greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+=>				;then
+	(build lumber-camp)			;the AI builds a lumber camp
+;	(chat-local-to-self "build LUMBER-CAMP")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;GOLD- AND STONE-MINING
+
+
+
+#load-if-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+;Rule16: build MINING-CAMP GOLD in dark-age and we found some gold (it mustn't be so far from the next camp) and we play wonder race
+
+(defrule				;If
+ 	(resource-found gold)			;the AI found some gold
+	(dropsite-min-distance gold > 4)		;the distance between the gold and the next mining-camp is greater than 4
+ 	(can-build mining-camp)			;the AI can-build a mining-camp
+	(building-type-count-total mining-camp < 1);number of mining-camps less than 1
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(or
+		(current-age >= feudal-age)	;the age, the AI is in, is greater or equal than feudal-age
+		(goal ADVANCING-TO-AGE FEUDAL-AGE);or goal ADVANCING-TO-AGE to FEUDAL-AGE 8constant)
+	)
+=>				;then
+ 	(build mining-camp)			;the AI builds a mining-camp near the gold
+;	(chat-local-to-self "build MINING-CAMP for GOLD");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule17: build MINING-CAMP STONE if we found some stone (it mustn't be so far from the next camp) and we play wonder race
+
+(defrule				;If
+	(resource-found stone)			;the AI found some stone
+	(dropsite-min-distance stone > 4)		;the distance between the stones and the next mining-camp is greater than 4
+ 	(can-build mining-camp)			;the AI can-build a mining-camp
+	(building-type-count-total mining-camp == 1);number of mining-camps is 1
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(or
+		(current-age >= feudal-age)	;the age, the AI is in, is greater or equal than feudal-age
+		(goal ADVANCING-TO-AGE FEUDAL-AGE);or goal ADVANCING-TO-AGE to FEUDAL-AGE 8constant)
+	)
+=>				;then
+ 	(build mining-camp)			;the AI builds a mining-camp near the gold
+;	(chat-local-to-self "build MINING-CAMP for STONE");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule18: build MINING-CAMP GOLD in imperial-age and we found some gold (it mustn't be so far from the next camp) and we play wonder race
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is equal than imperial-age
+ 	(resource-found gold)			;the AI found some gold
+	(dropsite-min-distance gold > 4)		;the distance between the gold and the next mining-camp is greater than 4
+ 	(can-build-with-escrow mining-camp)	;the AI can-build a mining-camp (with escrow-resources)
+	(building-type-count-total mining-camp < 6);number of mining-camps less than 6
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources (constant)
+ 	(build mining-camp)			;the AI builds a mining-camp near the gold
+;	(chat-local-to-self "build MINING-CAMP for GOLD");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule19: build MINING-CAMP STONE in dark-age and we found some stone (it mustn't be so far from the next camp) and we play wonder race
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is equal than imperial-age
+	(resource-found stone)			;the AI found some stone
+	(dropsite-min-distance stone > 4)		;the distance between the stones and the next mining-camp is greater than 4
+ 	(can-build-with-escrow mining-camp)	;the AI can-build a mining-camp (with escrow-resources)
+	(building-type-count-total mining-camp < 6);number of mining-camps less than 6
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(building-type-count-total market > 0)	;number of markets greater than 0
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources (constant)
+ 	(build mining-camp)			;the AI builds a mining-camp near the gold
+;	(chat-local-to-self "build MINING-CAMP for STONE");the AI sends the chat as a local one to itselfs
+)
+
+
+;***********************************************
+;***********************************************
+#end-if		;if game type == wonder race
+
+
+
+#load-if-not-defined WONDER-RACE
+#load-if-not-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+;Rule20: build MINING-CAMPS through the ages
+
+(defrule				;If
+ 	(or
+		(current-age >= feudal-age)	;the age, the AI is in, is greater or equal than feudal-age
+		(goal ADVANCING-TO-AGE FEUDAL-AGE);or goal ADVANCING-TO-AGE to FEUDAL-AGE 8constant)
+	)
+	(resource-found gold)			;the AI found some gold
+	(dropsite-min-distance gold > 4)		;and the distance between the gold and the next mining-camp is greater than 7
+ 	(can-build mining-camp)			;the AI can build a mining-camp
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build mining-camp)			;the AI builds a mining-camp near the gold, that was found
+;	(chat-local-to-self "build MINING-CAMP")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule20: build MINING-CAMPS through the other ages
+
+(defrule				;If
+ 	(or
+		(current-age >= castle-age)	;the age, the AI is in, is greater or equal than castle-age
+		(goal ADVANCING-TO-AGE CASTLE-AGE)	;or goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	)
+	(or
+		(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+		(goal ABLE-TO-RESEARCH-WHEN-RUSH YES);or goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+	)
+	(resource-found stone)				;the AI found some stone
+	(dropsite-min-distance stone > 4)		;and the distance between the stone and the next mining-camp is greater than 7
+ 	(can-build mining-camp)				;the AI can build a mining-camp
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(building-type-count-total barracks > 0)	;number of barrackses greater than 0
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(building-type-count-total mining-camp > 0)	;number of miningcamps greater than 0
+=>				;then
+ 	(build mining-camp)				;the AI builds a mining-camp near the gold, that was found
+;	(chat-local-to-self "build MINING-CAMP")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule20: build MINING-CAMPS to prevent being rushed (build a tower)
+
+(defrule				;If
+ 	(current-age == feudal-age)			;the age, the AI is in, is greater or equal than castle-age
+	(players-military-population any-enemy >= THREE-PERCENT-POP);any enemy has more than TWOPERCENT-POP soldiers (constnat)
+	(goal RUSH-CONTROL NO)				;goal RUSH-CONTROL to NO (constant)
+	(resource-found stone)				;the AI found some stone
+	(dropsite-min-distance stone > 4)		;and the distance between the stone and the next mining-camp is greater than 7
+ 	(can-build mining-camp)				;the AI can build a mining-camp
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(building-type-count-total barracks > 0)	;number of barrackses greater than 0
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(building-type-count-total mining-camp > 0)	;number of miningcamps greater than 0
+=>				;then
+ 	(build mining-camp)				;the AI builds a mining-camp near the gold, that was found
+;	(chat-local-to-self "build MINING-CAMP")	;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#else		;if not game-type == death-match
+;***********************************************
+;***********************************************
+;Rule21: build MINING-CAMPS THROUGH THE OTHER AGES
+
+(defrule				;If
+	(or
+		(and
+			(resource-found gold)	;the AI found some gold
+			(dropsite-min-distance gold > 4);and the distance between the gold and the next mining-camp is greater than 7
+		)
+		(and
+			(resource-found stone)	;or the AI found some stone
+			(dropsite-min-distance stone > 4);and the distance between the stones and the next mining-camp is greater than 7
+		)
+	)
+ 	(can-build mining-camp)			;the AI can build a mining-camp
+	(building-type-count-total mining-camp < 20);number of mining-camps less than 20
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+=>				;then
+ 	(build mining-camp)			;the AI builds a mining-camp near the gold, that was found
+;	(chat-local-to-self "build MINING-CAMP")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if game-type == death-match
+#end-if		;if not game-type == wonder-race
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;MILLS
+
+
+;Rule22: build MILL (FIRST) when we found some berry-bush, deer or fish
+
+(defrule				;If
+	(or
+		(resource-found food)		;the AI found some forage
+		(current-age-time > 250)		;or time in the current age greater than 250 seconds
+	)
+	(can-build mill)				;the AI can build a mill
+	(building-type-count-total mill < 1)		;number of mills less than 1
+=>				;then
+ 	(build mill)				;the AI builds a mill near the forage, that was found
+;	(chat-local-to-self "build MILL")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+#load-if-not-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+
+
+#load-if-not-defined YUCATAN-MAP
+
+;Rule23: build EXTRA MILLS to collect gather the last berry-bushes, deers, boars and fishes on the map to save wood (we could use the wood to build farms)
+
+(defrule				;If
+	(resource-found food)			;the AI found some forage
+	(can-build mill)				;the AI can build a mill
+	(or
+		(unit-type-count 122 > 0) ;Mill on Hunters I
+		(unit-type-count 216 > 0)
+	)
+	(building-type-count-total mill == 1);number of mills is 1
+	(unit-type-count 354 == 0)		;female forager
+	(unit-type-count 120 == 0)		;male forager
+	(wood-amount > 300)			;the amount of wood is greater than 300
+	(building-type-count-total town-center > 0);number of town-centers greater than 0
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>				;then
+ 	(build mill)				;the AI builds a mill near the forage, that was found
+;	(chat-local-to-self "build MILL")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule23: build EXTRA MILLS to collect gather the last berry-bushes, deers, boars and fishes on the map to save wood (we could use the wood to build farms)
+
+(defrule				;If
+	(resource-found food)			;the AI found some forage
+	(can-build mill)				;the AI can build a mill
+	(or
+		(unit-type-count 56 > 0) ;Mill on Fishermen
+		(unit-type-count 57 > 0)
+	)
+	(building-type-count-total mill == 2);number of mills is 2
+	(unit-type-count 354 == 0)		;female forager
+	(unit-type-count 120 == 0)		;male forager
+	(wood-amount > 300)			;the amount of wood is greater than 300
+	(building-type-count-total town-center > 0);number of town-centers greater than 0
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>				;then
+ 	(build mill)				;the AI builds a mill near the forage, that was found
+;	(chat-local-to-self "build MILL")		;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#else			;if we do not play on the yucatan map
+;***********************************************
+;***********************************************
+
+;Rule23: build EXTRA MILLS to collect gather the last berry-bushes, deers, boars and fishes on the map to save wood (we could use the wood to build farms)
+
+(defrule				;If
+	(resource-found food)			;the AI found some forage
+	(can-build mill)				;the AI can build a mill
+	(building-type-count-total mill == 1);number of mills is 1
+	(or
+		(unit-type-count 354 > 0)	;female forager
+		(unit-type-count 120 > 0)	;male forager
+	)
+	(wood-amount > 200)			;the amount of wood is greater than 300
+	(building-type-count-total town-center > 0);number of town-centers greater than 0
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>				;then
+ 	(build mill)				;the AI builds a mill near the forage, that was found
+;	(chat-local-to-self "build MILL")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule23: build EXTRA MILLS to collect gather the last berry-bushes, deers, boars and fishes on the map to save wood (we could use the wood to build farms)
+
+(defrule				;If
+	(resource-found food)			;the AI found some forage
+	(can-build mill)				;the AI can build a mill
+	(or
+		(unit-type-count 122 > 0) ;Mill on Hunters I
+		(unit-type-count 216 > 0)
+	)
+	(building-type-count-total mill == 2);number of mills is 2
+	(unit-type-count 354 == 0)		;female forager
+	(unit-type-count 120 == 0)		;male forager
+	(wood-amount > 200)			;the amount of wood is greater than 300
+	(building-type-count-total town-center > 0);number of town-centers greater than 0
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>				;then
+ 	(build mill)				;the AI builds a mill near the forage, that was found
+;	(chat-local-to-self "build MILL")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule23: build EXTRA MILLS to collect gather the last berry-bushes, deers, boars and fishes on the map to save wood (we could use the wood to build farms)
+
+(defrule				;If
+	(resource-found food)			;the AI found some forage
+	(can-build mill)				;the AI can build a mill
+	(or
+		(unit-type-count 56 > 0) ;Mill on Fishermen
+		(unit-type-count 57 > 0)
+	)
+	(building-type-count-total mill == 3);number of mills is 3
+	(unit-type-count 354 == 0)		;female forager
+	(unit-type-count 120 == 0)		;male forager
+	(wood-amount > 200)			;the amount of wood is greater than 300
+	(building-type-count-total town-center > 0);number of town-centers greater than 0
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>				;then
+ 	(build mill)				;the AI builds a mill near the forage, that was found
+;	(chat-local-to-self "build MILL")		;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if we play on the yucatan map
+
+;Rule23: build EXTRA MILLS to collect gather the last berry-bushes, deers, boars and fishes on the map to save wood (we could use the wood to build farms)
+
+(defrule				;If
+ 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
+	(resource-found food)			;the AI found some forage
+	(dropsite-min-distance food >= 4)	;the distance between the mill and the resource is greater or equal than 4
+	(can-build mill)				;the AI can build a mill
+	(building-type-count-total mill < 5);number of mills less than 5
+	(wood-amount > 300)			;the amount of wood is greater than 300
+	(building-type-count-total town-center > 0);number of town-centers greater than 0
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>				;then
+ 	(build mill)				;the AI builds a mill near the forage, that was found
+;	(chat-local-to-self "build MILL")		;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if game-type == wonder race
+
+
+
+;Rule24: build EXTRA MILLS when we have got many farms
+
+(defrule				;If
+	(or
+		(or
+			(and
+				(building-type-count-total farm > 20);number of farms greater than 20
+				(building-type-count-total mill < 2);and number of mill less than 2
+			)
+			(and
+				(building-type-count-total farm > 30);or number of farms greater than 30
+				(building-type-count-total mill < 3);and number of mill less than 3
+			)
+		)
+		(and
+			(building-type-count-total farm > 40);or number of farms greater than 40
+			(building-type-count-total mill < 4);and number of mill less than 4
+		)
+	)
+	(can-build mill)				;the AI can build a mill
+	(wood-amount > 400)			;the amount of wood is greater than 400
+=>				;then
+	(build mill)				;the AI builds a mill
+;	(chat-local-to-self "build MILL (many farms)");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;FARMING
+;---------------
+
+
+
+#load-if-not-defined WONDER-RACE
+
+
+;Rule31: build FARMS-dark-age when we haven't got sheeps or turkeys anymore
+
+(defrule				;If
+ 	(current-age == dark-age)			;the age, the AI is in, is dark-age
+ 	(can-build farm)				;the AI can-build a farm
+	(building-type-count-total farm < 12);number of farms is less than 12 (constant)
+	(or
+		(and
+			(unit-type-count SHEEP < 2)	;number of sheeps less than 2
+			(unit-type-count TURKEY < 2)	;and number of turkeys less than 2
+		)
+		(current-age-time > 360)		;or time in the current age greater than 360 seconds
+	)
+	(game-time > 300)				;time greather than 300 seconds
+	(goal BOAR-CHEATING NO)				;goal BOAR-CHEATING to NO (constant)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule31: build FARMS-dark-age when we haven't got sheeps or turkeys anymore
+
+(defrule				;If
+ 	(current-age == dark-age)			;the age, the AI is in, is dark-age
+ 	(can-build farm)				;the AI can-build a farm
+	(building-type-count-total farm < 14);number of farms is less than 14 (constant)
+	(or
+		(and
+			(unit-type-count SHEEP < 2)	;number of sheeps less than 2
+			(unit-type-count TURKEY < 2)	;and number of turkeys less than 2
+		)
+		(current-age-time > 360)		;or time in the current age greater than 360 seconds
+	)
+	(game-time > 300)				;time greather than 300 seconds
+	(goal BOAR-CHEATING YES)			;goal BOAR-CHEATING to YES (constant)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule33: build FARMS-feudal-age when we haven't got so many sheeps or turkeys anymore so that we have to change to berry-bushes or even to farms
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(building-type-count-total farm < 12)		;number of farms less than 12
+	(or
+		(and
+			(unit-type-count SHEEP < 2)	;number of sheeps less than 2
+			(unit-type-count TURKEY < 2)	;and number of turkeys less than 2
+		)
+		(current-age-time > 360)		;or time in the current age greater than 360 seconds
+	)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(nand
+		(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	)
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule34: build FARMS-feudal-age when we don't have any other food source so we have to completely change to farms
+
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+ 		(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
+	)
+	(building-type-count-total farm <= max-castle-farm);number of farms is less or equal than max-castle-farm (constant)
+	(or
+		(building-type-count-total market > 0)	;number of markets greater than 0
+		(or
+			(building-type-count-total archery-range > 0)	;or number of archery-ranges greater than 0
+			(building-type-count-total stable > 0)	;or number of stables greater than 0
+		)
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule34: build FARMS-feudal-age when we don't have any other food source so we have to completely change to farms
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(sheep-and-forage-too-far)		;we can't see any forage or sheep
+		(current-age-time > 600)		;or we play at least 10 min in the feudal-age
+	)
+	(building-type-count-total farm <= max-feudal-farm);number of farms is less or equal than max-feudal-farm (constant)
+	(or
+		(building-type-count-total market > 0)	;number of markets greater than 0
+		(building-type-count-total archery-range > 0)	;or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(nand
+		(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule34: build FARMS-feudal-age when we don't have any other food source so we have to completely change to farms
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(sheep-and-forage-too-far)		;we can't see any forage or sheep
+		(current-age-time > 600)		;or we play at least 10 min in the feudal-age
+	)
+	(building-type-count-total farm <= max-feudal-farm);number of farms is less or equal than max-feudal-farm (constant)
+	(building-type-count-total stable > 0)		;number of stables greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(nand
+		(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule34: build FARMS-feudal-age when we don't have any other food source so we have to completely change to farms
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(sheep-and-forage-too-far)		;we can't see any forage or sheep
+		(current-age-time > 600)		;or we play at least 10 min in the feudal-age
+	)
+	(building-type-count-total farm <= 8)	;number of farms is less or equal than 8
+	(or
+		(building-type-count-total market > 0)	;number of markets greater than 0
+		(building-type-count-total archery-range > 0)	;or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(idle-farm-count == 0)			;we have at least 0 idle farms
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule34: build FARMS-feudal-age when we don't have any other food source so we have to completely change to farms
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(sheep-and-forage-too-far)		;we can't see any forage or sheep
+		(current-age-time > 600)		;or we play at least 10 min in the feudal-age
+	)
+	(building-type-count-total barracks >= 4);number of barracks greater or equal than 4
+	(building-type-count-total farm <= max-feudal-farm);and number of farms is less or equal than max-feudal-farm (constant)
+	(or
+		(building-type-count-total market > 0)	;number of markets greater than 0
+		(building-type-count-total archery-range > 0)	;or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(idle-farm-count == 0)			;we have at least 0 idle farms
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule34: build FARMS-feudal-age when we don't have any other food source so we have to completely change to farms
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(sheep-and-forage-too-far)		;we can't see any forage or sheep
+		(current-age-time > 600)		;or we play at least 10 min in the feudal-age
+	)
+	(building-type-count-total farm <= 8)	;number of farms is less or equal than 8
+	(building-type-count-total stable > 0)	;number of stables greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(idle-farm-count == 0)			;we have at least 0 idle farms
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule34: build FARMS-feudal-age when we don't have any other food source so we have to completely change to farms
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(sheep-and-forage-too-far)		;we can't see any forage or sheep
+		(current-age-time > 600)		;or we play at least 10 min in the feudal-age
+	)
+	(building-type-count-total barracks >= 4);number of barracks greater or equal than 4
+	(building-type-count-total farm <= max-feudal-farm);and number of farms is less or equal than max-feudal-farm (constant)
+	(building-type-count-total stable > 0)	;number of stables greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(idle-farm-count == 0)			;we have at least 0 idle farms
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule35: build FARMS-castle-age when we haven't got any sheeps so that we have to change to farms
+
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is castle-age
+ 	(can-build farm)				;the AI can build a farm
+	(building-type-count-total farm < max-feudal-farm);number of farms less than max-feudal-farm (constant)
+	(or
+		(and
+			(unit-type-count SHEEP < 2)	;number of sheeps less than 2
+			(unit-type-count TURKEY < 2)	;and number of turkeys less than 2
+		)
+		(current-age-time > 360)		;or time in the current age greater than 360 seconds
+	)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(or
+		(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+		(idle-farm-count < 2)			;or number of idle farms less than 2
+	)
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule36: build FARMS-castle-age when we haven't got any food source except farms anymore so that we have to completely change to farms
+
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is castle-age
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(sheep-and-forage-too-far)		;we can't see any forage or sheep
+		(current-age-time > 600)		;or we play at least 10 min in the castle-age
+	)
+	(building-type-count-total farm <= max-castle-farm);number of farms is less or equal than max-castle-farm (constant)
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(difficulty >= easy)		;or we are playing on easiest or easy - difficulty
+	)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+	(or
+		(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+		(idle-farm-count < 2)			;or number of idle farms less than 2
+	)
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule35: build FARMS-castle-age and imperial-age when we haven't got any sheeps and there no farms which are idle
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-build farm)				;the AI can build a farm
+	(idle-farm-count < 1)				;number of idle-farms is 0
+	(unit-type-count SHEEP < 2)			;number of sheeps less than 2
+	(unit-type-count TURKEY < 2)			;number of turkeys less than 2
+	(wood-amount > 100)				;the amount of wood is greater than 100
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule39: build FARMS - in the imperial-age when we haven't got any sheeps or turkeys anymore
+
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-ag
+ 	(can-build farm)				;the AI can build a farm
+	(building-type-count-total farm < max-castle-farm)	;number of farms less than max-castle-farm (constant)
+	(or
+		(and
+			(unit-type-count SHEEP < 2)	;number of sheeps less than 2
+			(unit-type-count TURKEY < 2)	;and number of turkeys less than 2
+		)
+		(current-age-time > 600)		;or we play at least 10 min in the castle-age
+	)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule40: build FARMS - in the imperial-age when we haven't got any sheeps or turkeys and berry-bushes so that we have to change to farms
+
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-ag
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(sheep-and-forage-too-far)		;we can't see any forage or sheep
+		(current-age-time > 900)		;or we play at least 15 min in the imperial-age
+	)
+	(building-type-count-total farm <= max-imperial-farm);number of farms is less or equal than max-imperial-farm (constant)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;***********************************************
+;***********************************************
+#else		;if not game type == wonder race
+;***********************************************
+;***********************************************
+
+
+
+;Rule31: build FARMS-dark-age when we haven't got sheeps or turkeys anymore
+
+(defrule				;If
+ 	(current-age == dark-age)			;the age, the AI is in, is dark-age
+ 	(can-build farm)				;the AI can-build a farm
+	(building-type-count-total farm <= max-dark-farm);number of farms is less or equal than max-dark-farm (constant)
+	(or
+		(and
+			(unit-type-count SHEEP < 2)	;number of sheeps less than 2
+			(unit-type-count TURKEY < 2)	;and number of turkeys less than 2
+		)
+		(current-age-time > 360)		;or time in the current age greater than 360 seconds
+	)
+	(game-time > 300)				;time greather than 300 seconds
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule33: build FARMS-feudal-age when we haven't got so many sheeps or turkeys anymore so that we have to change to berry-bushes or even to farms
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(building-type-count-total farm < 8)		;number of farms less than 8
+	(or
+		(and
+			(unit-type-count SHEEP < 2)	;number of sheeps less than 2
+			(unit-type-count TURKEY < 2)	;and number of turkeys less than 2
+		)
+		(current-age-time > 360)		;or time in the current age greater than 360 seconds
+	)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule34: build FARMS-feudal-age when we don't have any other food source so we have to completely change to farms
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(can-build farm)				;the AI can build a farm
+	(or
+		(sheep-and-forage-too-far)		;we can't see any forage or sheep
+		(current-age-time > 600)		;or we play at least 10 min in the feudal-age
+	)
+	(building-type-count-total farm <= max-feudal-farm);number of farms is less or equal than max-feudal-farm (constant)
+	(or
+		(or
+			(building-type-count-total market > 0)	;number of markets greater than 0
+			(building-type-count-total archery-range > 0)	;number of archery-ranges greater than 0
+		)
+		(building-type-count-total stable > 0)	;number of stables greater than 0
+	)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule35: build FARMS-castle-age when we haven't got any sheeps so that we have to change to farms
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+ 	(can-build farm)				;the AI can build a farm
+	(building-type-count-total farm < 15)	;number of farms less than 15; save some wood for the wonder
+	(or
+		(and
+			(unit-type-count SHEEP < 2)	;number of sheeps less than 2
+			(unit-type-count TURKEY < 2)	;and number of turkeys less than 2
+		)
+		(current-age-time > 360)		;or time in the current age greater than 360 seconds
+	)
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+ 	(build farm)				;the AI builds a farm near the town-center
+;	(chat-local-to-self "build FARM")		;the AI sends the chat as a local one to itselfs
+)
+
+
+#end-if		;if game type == wonder race
+;***********************************************
+;***********************************************
+
+
+
+
+;Rule42: build extra farms part
+
+(defrule				;If
+	(current-age == imperial-age);or the age, the AI is in, is feudal-age
+	(building-type-count-total farm >= max-imperial-farm);and number of farms greater or equal than max-imperial-farm (constant)
+	(idle-farm-count < 1)			;there is a farmer on each farm
+	(can-build farm)				;the AI can build  a farm
+	(current-age-time > 1200)		;time in the current age greater than 20 min; to prevent some bugs when doing a castle-age-rush or special strategies
+	(building-type-count-total lumber-camp > 0)	;number of lumbercamps greater than 0
+=>				;then
+	(build farm)				;the AI builds a farm
+;	(chat-local-to-self "build extra farm")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;CIVIL BUILDINGS
+
+
+
+#load-if-not-defined DEFEND-WONDER
+;***********************************************
+;***********************************************
+
+#load-if-not-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+#load-if-not-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+;Rule43: build BLACKSMITH - to build one of the required buildings to research to the castle-age in random map- or defend-the-wonder - games (or king of the hill)
+
+(defrule				;If
+	(building-type-count-total blacksmith < 1)	;number of blacksmiths less than 1
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-build blacksmith)			;the AI can build a blacksmith
+	(or
+		(building-type-count-total mining-camp > 0);number of mining-camps greater than 0
+		(gold-amount >= 200)		;or te amount of gold is greater or equal than 200
+	)
+	(or
+		(not (goal RUSH-CONTROL RUSHING));goal RUSH-CONTROL is not set to RUSHING (constant)
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+=>				;then
+ 	(build blacksmith)				;the AI builds a blacksmith
+;	(chat-local-to-self "build BLACKSMITH")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#else		;if not game-type == death-match
+;***********************************************
+;***********************************************
+
+;Rule44: build BLACKSMITH - to build one of the required buildings to research to the castle-age in death-match games
+
+(defrule				;If
+	(building-type-count-total blacksmith < 2)	;number of blacksmiths less than 2
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-build blacksmith)			;the AI can build a blacksmith
+	(not (starting-age == post-imperial-age))	;if this is not a post-imperial-age - death-match
+=>				;then
+ 	(build blacksmith)				;the AI builds a blacksmith
+;	(chat-local-to-self "build BLACKSMITH")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if game-type == death-match
+
+;***********************************************
+;***********************************************
+#else		;if not game-type == wonder-race
+;***********************************************
+;***********************************************
+
+;Rule45: build MARKET in imperial age with escrow-resources
+
+(defrule				;If
+ 	(building-type-count-total market < 1)	;number of markets less than 1
+ 	(can-build-with-escrow market)		;the AI can build a market (with escrow-resources)
+=>				 ;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+ 	(build market)				;the AI builds a market
+;	(chat-local-to-self "build MARKET")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule46: build BLACKSMITH- to build one of the required buildings to research to the castle-age
+
+(defrule				;If
+	(building-type-count-total blacksmith < 1)	;number of blacksmiths less than 1
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-build blacksmith)			;the AI can build a blacksmith
+	(building-type-count-total market > 0)	;number of markets greater than 0
+	(not (starting-age == post-imperial-age))	;in post-imperial-age - death-matches don't build an university
+=>				;then
+ 	(build blacksmith)				;the AI builds a blacksmith
+;	(chat-local-to-self "build BLACKSMITH")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if game-type == wonder race
+
+;***********************************************
+;***********************************************
+#end-if		;if not game-type == defend-wonder
+
+
+;Rule47: build MARKET- to build the other required building to research to the castle-age
+
+(defrule				;If
+ 	(building-type-count-total market < 1)	;number of markets less than 1
+ 	(can-build market)			;the AI can build a market
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count-total stable == 0)	;number of stables is 0
+	(building-type-count-total archery-range == 0);number of archery-ranges is 0
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;and goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+	(current-age-time > 300)		;time in the castle-age greater than 5 min
+=>				 ;then
+ 	(build market)				;the AI builds a market
+;	(chat-local-to-self "build MARKET")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule77: build MARKETS in feudal-age when we do a castle-age-rush
+
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or eqwual than feudal-age
+	(building-type-count-total market < 1);number of markets less than 1
+ 	(can-build market)			;the AI can build a market
+	(or
+		(civ-selected aztec)		;we play the aztecs
+		(civ-selected mayan)		;or we play the mayans
+	)
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+=>				;then
+ 	(build market)				;the AI builds a market
+;	(chat-local-to-self "build MARKET");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule47: build MARKET- to build the other required building to research to the castle-age
+
+(defrule				;If
+ 	(building-type-count-total market < 1)	;number of markets less than 1
+ 	(can-build market)			;the AI can build a market
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+	(current-age-time > 300)		;time in the castle-age greater than 5 min
+=>				 ;then
+ 	(build market)				;the AI builds a market
+;	(chat-local-to-self "build MARKET")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule47: build MARKET- to build the other required building to research to the castle-age
+
+(defrule				;If
+ 	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
+ 	(building-type-count-total market < 1)	;number of markets less than 1
+ 	(can-build market)			;the AI can build a market
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count-total town-center > 1);number of town centers greater than 1
+=>				 ;then
+ 	(build market)				;the AI builds a market
+;	(chat-local-to-self "build MARKET")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+#load-if-not-defined DEFEND-WONDER
+;***********************************************
+;***********************************************
+
+#load-if-not-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+#load-if-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+;Rule48: build UNIVERSITY in death-matches
+
+(defrule				;If
+	(or
+		(difficulty > moderate)		;we are playing on easy or easiest - difficulty
+		(building-type-count-total town-center > 1);or number of town-centers greater than 0
+	)
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(building-type-count-total university < 1)	;number of universities less than 1
+ 	(can-build university)			;the AI can build an university
+	(not (starting-age == post-imperial-age))	;in post-imperial-age - death-matches don't build an university
+=>				;then
+ 	(build university)				;the AI builds an university
+;	(chat-local-to-self "build UNIVERSITY")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#else		;if game-type == death-match
+;***********************************************
+;***********************************************
+
+;Rule49: build UNIVERSITY, if we don't do a rush
+
+(defrule				;If
+	(or
+		(difficulty > moderate)		;we are playing on easy or easiest - difficulty
+		(building-type-count-total town-center > 1);or number of town-centers greater than 0
+	)
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(building-type-count-total university < 1);number of universities less than 1
+	(building-type-count-total monastery > 0);number of monasteries greater than 0
+ 	(can-build university)			;the AI can build an university
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(not (starting-age == post-imperial-age))	;in post-imperial-age - death-matches don't build an university
+=>				;then
+ 	(build university)				;the AI builds an university
+;	(chat-local-to-self "build UNIVERSITY")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule50: build UNIVERSITY, if we do a rush
+
+(defrule				;If
+	(or
+		(difficulty > moderate)		;we are playing on easy or easiest - difficulty
+		(building-type-count-total town-center > 1);or number of town-centers greater than 0
+	)
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(building-type-count-total university < 1);number of universities less than 1
+	(building-type-count-total monastery > 0);number of monasteries greater than 0
+ 	(can-build university)			;the AI can build an university
+	(or
+		(goal RUSH-CONTROL CASTLE)	;the goal RUSH-CONTROL is not set to CASTLE (constant)
+		(goal RUSH-CONTROL RUSHING)	;or the goal RUSH-CONTROL is not set to RUSHING (constant)
+	)
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES);goal ABLE-TO-RESEARCH-WHEN RUSH to YES (constant)
+=>				;then
+ 	(build university)				;the AI builds an university
+;	(chat-local-to-self "build UNIVERSITY")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if not game-type == death-match
+
+
+;Rule51: build MONASTERY, if we don't do a rush
+
+(defrule				;If
+	(or
+		(difficulty > moderate)		;we are playing on easy or easiest - difficulty
+		(building-type-count-total town-center > 1);or number of town-centers greater than 0
+	)
+	(building-type-count-total monastery == 0)	;number of monasteries equal 0
+	(can-build monastery)			;the AI can-build a monastery
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(build monastery)				;the AI builds the monastery
+;	(chat-local-to-self "build MONASTERY")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule51: build MONASTERY, if we don't do a rush
+
+(defrule				;If
+	(or
+		(difficulty > moderate)		;we are playing on easy or easiest - difficulty
+		(building-type-count-total town-center > 1);or number of town-centers greater than 0
+	)
+	(building-type-count-total monastery == 1)	;number of monasteries equal 0
+	(building-type-count-total town-center > 2 );number of town-centers greater than 2
+	(wood-amount > 400)				;the amount of wood is greater than 400
+	(can-build monastery)			;the AI can-build a monastery
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+=>				;then
+	(build monastery)				;the AI builds the monastery
+;	(chat-local-to-self "build MONASTERY")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule52: build MONASTERY, if we do a rush
+
+(defrule				;If
+	(or
+		(difficulty > moderate)		;we are playing on easy or easiest - difficulty
+		(building-type-count-total town-center > 1);or number of town-centers greater than 0
+	)
+	(building-type-count-total monastery == 0)	;number of monasteries equal 0
+	(can-build monastery)			;the AI can-build a monastery
+	(or
+		(goal RUSH-CONTROL CASTLE)	;the goal RUSH-CONTROL is not set to CASTLE (constant)
+		(goal RUSH-CONTROL RUSHING)	;or the goal RUSH-CONTROL is not set to RUSHING (constant)
+	)
+	(or
+		(goal ABLE-TO-RESEARCH-WHEN-RUSH YES);goal ABLE-TO-RESEARCH-WHEN RUSH to YES (constant)
+		(wood-amount > 400)			;the amount of wood is greater than 400
+	)
+=>				;then
+	(build monastery)				;the AI builds the monastery
+;	(chat-local-to-self "build MONASTERY")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#else		;if not game-type == wonder-race
+;***********************************************
+;***********************************************
+
+
+;Rule53: build MONASTERY
+
+(defrule				;If
+	(building-type-count-total monastery < 1)	;number of monasteries less than 1
+ 	(current-age == castle-age)			;the age, the AI is in, is castle-age
+ 	(can-build monastery)			;the AI can build a monastery
+=>				;then
+ 	(build monastery)				;the AI builds a monastery
+;	(chat-local-to-self "build MONASTERY")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule53: build UNIVERSITY
+
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is castle-age
+ 	(building-type-count-total university < 1)	;number of universities less than 1
+ 	(can-build university)			;the AI can build an university
+=>				 ;then
+ 	(build university)				;the AI builds an university
+;	(chat-local-to-self "build UNIVERSITY")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if game-type == wonder race
+
+;***********************************************
+;***********************************************
+#else		;if not game-type == defend-wonder
+;***********************************************
+;***********************************************
+
+;Rule53: build MONASTERY
+
+(defrule				;If
+	(building-type-count-total monastery < 1)	;number of monasteries less than 1
+ 	(can-build monastery)			;the AI can build a monastery
+=>				;then
+ 	(build monastery)				;the AI builds a monastery
+;	(chat-local-to-self "build MONASTERY")	;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if game-type == defend-wonder
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;MILITARY BUILDINGS
+
+
+
+#load-if-not-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+
+
+;BARRACKS
+;*******************************************************************
+;*******************************************************************
+
+
+
+;Rule54: don't build barracks if don't need any
+
+(defrule				;If
+	(true)					;this condition is alays true
+=>				;then
+	(set-goal ABLE-TO-BUILD-BARRACKS NO);the AI sets goal ABLE-TO-BUILD-BARRACKS to NO (constant)
+)
+
+
+
+;Rule55: set the ABLE-TO-BUILD-BARRACKS - goal if we need a barrracks
+
+(defrule				;If
+	(or
+		(or
+			(or
+				(or
+					(or
+						(goal PRIMARY-COMBAT-UNIT INFANTRY);goal PRIMARY-COMBAT-UNIT to INFANTRY (constant)
+						(goal SECONDARY-COMBAT-UNIT INFANTRY);or goal SECONDARY-COMBAT-UNIT to INFANTRY (constant)
+					)
+					(goal PRIMARY-COMBAT-UNIT EAGLEMAN);or goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+				)
+				(goal SECONDARY-COMBAT-UNIT EAGLEMAN);or goal SECONDARY-COMBAT-UNIT to EAGLEMAN (constant)
+			)
+			(goal PRIMARY-COMBAT-UNIT SPEARMAN);or goal PRIMARY-COMBAT-UNIT to SPEARMAN (constant)
+		)
+		(goal SECONDARY-COMBAT-UNIT SPEARMAN);or goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
+	)
+=>				;then
+	(set-goal ABLE-TO-BUILD-BARRACKS YES);the AI sets goal ABLE-TO-BUILD-BARRACKS to YES (constant)
+)
+
+
+
+;Rule55: set the ABLE-TO-BUILD-BARRACKS - goal if we need a barrracks
+
+(defrule				;If
+	(or
+		(goal PRIMARY-COMBAT-UNIT INFANTRY1);goal PRIMARY-COMBAT-UNIT to INFANTRY1 (constant)
+		(goal SECONDARY-COMBAT-UNIT INFANTRY1);or goal SECONDARY-COMBAT-UNIT to INFANTRY1 (constant)
+	)
+=>				;then
+	(set-goal ABLE-TO-BUILD-BARRACKS YES);the AI sets goal ABLE-TO-BUILD-BARRACKS to YES (constant)
+)
+
+
+
+;***********************************************
+;***********************************************
+;BARRACKS ON EASIEST AND EASY - DIFFICULTY
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+;Rule56: build BARRACKS, the first one
+
+(defrule				;If
+	(current-age >= feudal-age)		;the age, the AI is in, is feudal-age
+	(can-build barracks)			;the AI can build barracks
+	(current-age-time > 320)			;the time in feudal-age greater than 320 seconds
+	(building-type-count-total barracks < 1)	;number of barracks less than 1
+=>				;then
+	(build barracks)				;the AI builds a barracks
+;	(chat-local-to-self "build first BARRACKS")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule57: build BARRACKS in feudal-age
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(can-build barracks)			;the AI can build barracks
+	(current-age-time > 320)			;the time in feudal-age greater than 320 seconds
+	(building-type-count-total barracks < barracks-building-feudal);number of barracks less than barracks-building-feudal (constant)
+	(goal ABLE-TO-BUILD-BARRACKS YES)	;goal ABLE-TO-BUILD-BARRACKS YES (constant)
+	(wood-amount > 600)			;the amount of wood is greater than 600
+=>				;then
+	(build barracks)				;the AI builds a barracks
+;	(chat-local-to-self "build BARRACKS")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule58: build BARRACKS in castle-age
+
+(defrule				;If
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(can-build barracks)			;the AI can build barracks
+	(current-age-time > 320)			;the time in castle-age greater than 320 seconds
+	(building-type-count-total barracks < barracks-building-castle);number of barracks less than barracks-building-castle (constant)
+	(goal ABLE-TO-BUILD-BARRACKS YES)	;goal ABLE-TO-BUILD-BARRACKS YES (constant)
+	(wood-amount > 600)			;the amount of wood is greater than 600
+=>				;then
+	(build barracks)				;the AI builds a barracks
+;	(chat-local-to-self "build BARRACKS")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule59: build BARRACKS in imperial-age
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is castle-age
+	(can-build barracks)			;the AI can build barracks
+	(current-age-time > 320)			;the time in imperial-age greater than 320 seconds
+	(building-type-count-total barracks < barracks-building-imperial);number of barracks less than barracks-building-imperial (constant)
+	(goal ABLE-TO-BUILD-BARRACKS YES)	;goal ABLE-TO-BUILD-BARRACKS YES (constant)
+	(wood-amount > 600)			;the amount of wood is greater than 600
+=>				;then
+	(build barracks)				;the AI builds a barracks
+;	(chat-local-to-self "build BARRACKS")	;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == hardest
+
+
+
+;***********************************************
+;***********************************************
+;BARRACKS ON MODERATE, HARD AND HARDEST - DIFFICULTY
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule60: build BARRACKS in the dark age
+
+(defrule				;If
+ 	(current-age == dark-age)			;the age, the AI is in, is dark-age
+ 	(can-build barracks)				;the AI can build barracks
+	(building-type-count-total barracks < 1)	;number of barracks less than 1
+	(goal ADVANCING-TO-AGE FEUDAL-AGE)		;goal ADVANCING-TO-AGE to FEUDAL-AGE (constant)
+=>				;then
+ 	(build barracks)				;the AI builds barracks
+;	(chat-local-to-self "build BARRACKS")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule60: build BARRACKS in the feudal age
+
+(defrule				;If
+ 	(current-age == feudal-age)			;the age, the AI is in, is equal than feudal-age
+ 	(can-build barracks)				;the AI can build barracks
+	(or
+		(building-type-count-total barracks < 1);number of barracks less than 1
+		(and
+			(building-type-count-total barracks < 2);number of barracks less than 2
+			(wood-amount > 400)		;and the amount of wood is greater than 400
+		)
+	)
+	(or
+		(goal RUSH-CONTROL FEUDAL)		;goal RUSH-CONTROL to FEUDAL (constant)
+		(goal RUSH-CONTROL RUSHING)		;or goal RUSH-CONTROL to RUSHING (constant)
+	)
+=>				;then
+ 	(build barracks)				;the AI builds barracks
+;	(chat-local-to-self "build BARRACKS");the AI sends the chat as a local one to itselfs
+)
+
+;Rule60: build BARRACKS in the feudal age
+
+(defrule				;If
+ 	(current-age == feudal-age)			;the age, the AI is in, is equal than feudal-age
+ 	(can-build barracks)				;the AI can build barracks
+	(building-type-count-total barracks < 1)	;number of barracks less than 1
+=>				;then
+ 	(build barracks)				;the AI builds barracks
+;	(chat-local-to-self "build BARRACKS");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule60: build BARRACKS in the feudal age
+
+(defrule				;If
+	(current-age >= feudal-age)			;the age, the AI is in, is greater or equal than feudal-age
+ 	(can-build barracks)				;the AI can build barracks
+	(building-type-count-total barracks < 4)	;number of barracks less than 4
+	(or
+		(building-type-count-total archery-range > 0)	;number of archery-ranges greater than 0
+		(building-type-count-total market > 0)	;number of markets greater than 0
+	)
+	(or
+		(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+		(goal RUSH-CONTROL RUSHING)		;or goal RUSH-CONTROL to RUSHING (constant)
+	)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)		;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+=>				;then
+ 	(build barracks)				;the AI builds barracks
+;	(chat-local-to-self "build BARRACKS");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule78: build BARRACKS in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(or
+		(and
+			(building-type-count-total barracks < 2);number of barrackses less than 2
+			(or
+				(wood-amount > 450)		;the amount of wood is greater than 450
+				(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+			)
+		)
+		(building-type-count-total barracks < 1);or number of barrackses less than 1
+	)
+ 	(can-build barracks)			;the AI can build a barracks
+	(goal ABLE-TO-BUILD-BARRACKS YES);goal ABLE-TO-BUILD-BARRACKS to YES (constant)
+=>				;then
+ 	(build barracks)			;the AI builds a barracks
+;	(chat-local-to-self "build BARRACKS");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build BARRACKS in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(building-type-count-total barracks < barracks-building-imperial);number of barrackses less than barracks-building-imperial (constant)
+	(or
+		(wood-amount > 450)		;the amount of wood is greater than 450
+		(building-type-count-total town-center > 1);or number of town-centers greater than 1
+	)
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+	(building-type-count-total archery-range >= 2)	;number of archery-ranges greater or equal than 2
+ 	(can-build barracks)			;the AI can build a barracks
+	(goal ABLE-TO-BUILD-BARRACKS YES)		;goal ABLE-TO-BUILD-BARRACKS to YES (constant)
+=>				;then
+ 	(build barracks)			;the AI builds a barracks
+;	(chat-local-to-self "build BARRACKS");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build BARRACKS in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(building-type-count-total barracks < barracks-building-imperial);number of barrackses less than barracks-building-imperial (constant)
+	(or
+		(wood-amount > 450)		;the amount of wood is greater than 450
+		(building-type-count-total town-center > 1);or number of town-centers greater than 1
+	)
+	(goal ABLE-TO-BUILD-STABLE YES);goal ABLE-TO-BUILD-STABLE to YES (constant)
+	(building-type-count-total stable >= 2)	;number of stables greater or equal than 2
+ 	(can-build barracks)			;the AI can build a barracks
+	(goal ABLE-TO-BUILD-BARRACKS YES)		;goal ABLE-TO-BUILD-BARRACKS to YES (constant)
+	(wood-amount > 300)			;the amount of wood is greater than 300
+=>				;then
+ 	(build barracks)			;the AI builds a barracks
+;	(chat-local-to-self "build BARRACKS");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build BARRACKS in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(building-type-count-total barracks < barracks-building-imperial);number of barrackses less than barracks-building-imperial (constant)
+	(or
+		(wood-amount > 450)		;the amount of wood is greater than 450
+		(building-type-count-total town-center > 1);or number of town-centers greater than 1
+	)
+	(goal ABLE-TO-BUILD-STABLE NO);goal ABLE-TO-BUILD-STABLE to NO (constant)
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE NO);goal ABLE-TO-BUILD-ARCHERY-RANGE to NO (constant)
+ 	(can-build barracks)			;the AI can build a barracks
+	(goal ABLE-TO-BUILD-BARRACKS YES)		;goal ABLE-TO-BUILD-BARRACKS to YES (constant)
+	(wood-amount > 300)			;the amount of wood is greater than 300
+=>				;then
+ 	(build barracks)			;the AI builds a barracks
+;	(chat-local-to-self "build BARRACKS");the AI sends the chat as a local one to itselfs
+)
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule68: build BARRACKS- HARD, HARDEST (imperial-age) if we have built plenty of barracks and have much wood then build more barrackses
+(defrule				;If
+	(difficulty <= hard)			;the difficulty-type is hard or hardest
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(building-type-count-total barracks >= barracks-building-imperial);number of barracks greater or equal than barracks-building-imperial (constant)
+ 	(building-type-count-total barracks < 12)	;number of barracks less than 12
+ 	(can-build barracks)			;the AI can build barracks
+	(goal ABLE-TO-BUILD-BARRACKS YES)	;goal ABLE-TO-BUILD-BARRACKS YES (constant)
+	(wood-amount > 500)			;the amount of wood is greater than 500
+=>				;then
+ 	(build barracks)				;the AI builds barracks
+	(set-strategic-number sn-maximum-town-size 36)
+;	(chat-local-to-self "build BARRACKS")	;the AI sends the chat as a local one to itselfs
+)
+
+#end-if		;if not difficulty == moderate
+
+#load-if-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule69: build BARRACKS, in death-match games keep at least five handy (<= moderate)
+(defrule				;If
+ 	(building-type-count-total barracks < 5)	;number of barracks less than 5
+ 	(can-build barracks)			;the AI can build barracks
+	(wood-amount > 700)			;the amount of wood is greater than 700
+=>				;then
+ 	(build barracks)				;the AI builds barracks
+;	(chat-local-to-self "build BARRACKS")	;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+;Rule69: build BARRACKS, in death-match games keep at least two handy (> moderate)
+(defrule				;If
+ 	(building-type-count-total barracks < 2)	;number of barracks less than 2
+ 	(can-build barracks)			;the AI can build barracks
+	(wood-amount > 700)			;the amount of wood is greater than 700
+=>				;then
+ 	(build barracks)				;the AI builds barracks
+;	(chat-local-to-self "build BARRACKS")	;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == hardest
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+;***********************************************
+;***********************************************
+#end-if		;if game-type == death-match
+
+
+
+;*******************************************************************
+;*******************************************************************
+;STABLE
+
+
+
+;Rule82: don't build stable if we don't need any
+
+(defrule				;If
+	(true)					;this condition is always true
+=>				;then
+	(set-goal ABLE-TO-BUILD-STABLE NO)	;the AI sets goal ABLE-TO-BUILD-STABLE to NO (constant)
+)
+
+
+
+;Rule83: set the ABLE-TO-BUILD-STABLE - goal if we need a stable part 1
+
+(defrule				;If
+	(or
+		(or
+			(goal PRIMARY-COMBAT-UNIT LCAVALRY);goal PRIMARY-COMBAT-UNIT to LCAVALRY (constant)
+			(goal PRIMARY-COMBAT-UNIT KNIGHT);or goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+		)
+		(goal PRIMARY-COMBAT-UNIT CAMEL);or goal PRIMARY-COMBAT-UNIT to CAMEL (constant)
+	)
+=>				;then
+	(set-goal ABLE-TO-BUILD-STABLE YES)	;the AI sets goal ABLE-TO-BUILD-STABLE to YES (constant)
+)
+
+
+
+;Rule84: set the ABLE-TO-BUILD-STABLE - goal if we need a stable part 2
+
+(defrule				;If
+	(or
+		(or
+			(goal SECONDARY-COMBAT-UNIT LCAVALRY);goal SECONDARY-COMBAT-UNIT to LCAVALRY (constant)
+			(goal SECONDARY-COMBAT-UNIT KNIGHT);or goal SECONDARY-COMBAT-UNIT to KNIGHT (constant)
+		)
+		(goal SECONDARY-COMBAT-UNIT CAMEL);or goal SECONDARY-COMBAT-UNIT to CAMEL (constant)
+	)
+=>				;then
+	(set-goal ABLE-TO-BUILD-STABLE YES)	;the AI sets goal ABLE-TO-BUILD-STABLE to YES (constant)
+)
+
+
+
+;***********************************************
+;***********************************************
+;STABLES ON EASIEST AND EASY - DIFFICULTY
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+
+
+;Rule85: build STABLES in feudal-age
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(can-build stable)				;the AI can build a stable
+	(current-age-time > 320)			;the time in feudal-age greater than 320 seconds
+	(or
+		(and
+			(building-type-count-total stable < stable-building-feudal);number of stables less than stable-building-feudal (constant)
+			(wood-amount > 500)	;and the amount of wood is greater than 500
+		)
+		(building-type-count-total stable < 1);or number of stables less than 1
+	)
+	(goal ABLE-TO-BUILD-STABLE YES)	;goal ABLE-TO-BUILD-STABLE to YES (constant)
+=>				;then
+	(build stable)				;the AI builds a stable
+;	(chat-local-to-self "build STABLE")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule86: build STABLES in castle-age
+
+(defrule				;If
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(can-build stable)				;the AI can build a stable
+	(current-age-time > 300)			;the time in castle-age greater than 300 seconds
+	(or
+		(and
+			(building-type-count-total stable < stable-building-castle);number of stables less than stable-building-castle (constant)
+			(wood-amount > 400)	;and the amount of wood is greater than 400
+		)
+		(building-type-count-total stable < 1);or number of stables less than 1
+	)
+	(goal ABLE-TO-BUILD-STABLE YES)	;goal ABLE-TO-BUILD-STABLE to YES (constant)
+=>				;then
+	(build stable)				;the AI builds a stable
+;	(chat-local-to-self "build STABLE")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule87: build STABLES in imperial-age
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is castle-age
+	(can-build stable)				;the AI can build a stable
+	(current-age-time > 230)			;the time in imperial-age greater than 230 seconds
+	(or
+		(and
+			(building-type-count-total stable < stable-building-imperial);number of stables less than stable-building-imperial (constant)
+			(wood-amount > 400)	;and the amount of wood is greater than 400
+		)
+		(building-type-count-total stable < 1);or number of stables less than 1
+	)
+	(goal ABLE-TO-BUILD-STABLE YES);goal ABLE-TO-BUILD-STABLE to YES (constant)
+=>				;then
+	(build stable)				;the AI builds a stable
+;	(chat-local-to-self "build STABLE")		;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == hardest
+
+
+
+;***********************************************
+;***********************************************
+;STABLES ON MODERATE, HARD AND HARDEST - DIFFICULTY
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+
+
+;Rule78: build STABLES in feudal-age
+
+(defrule				;If
+ 	(current-age == feudal-age)			;the age, the AI is in, is feudal-age
+	(building-type-count-total stable < 1);number of stables less than 1
+	(building-type-count-total archery-range < 1);number of archery-ranges less than 1
+ 	(can-build stable)			;the AI can build a stable
+	(not (goal ABLE-TO-BUILD-ARCHERY-RANGE YES));goal ABLE-TO-BUILD-ARCHERY-RANGE is not set to YES (constant)
+	(or
+		(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+		(goal RUSH-CONTROL NO)		;or goal RUSH-CONTROL to NO (constant)
+	)
+=>				;then
+ 	(build stable)			;the AI builds a stable
+;	(chat-local-to-self "build STABLE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build STABLES in feudal-age
+
+(defrule				;If
+ 	(current-age == feudal-age)			;the age, the AI is in, is feudal-age
+	(building-type-count-total stable < 1);number of stables less than 1
+ 	(can-build stable)			;the AI can build a stable
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal ABLE-TO-BUILD-STABLE YES);goal ABLE-TO-BUILD-STABLE to YES (constant)
+=>				;then
+ 	(build stable)			;the AI builds a stable
+;	(chat-local-to-self "build STABLE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build STABLES in feudal-age
+
+(defrule				;If
+ 	(current-age == feudal-age)			;the age, the AI is in, is feudal-age
+	(building-type-count-total stable < 1);number of stables less than 1
+ 	(can-build stable)			;the AI can build a stable
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal ABLE-TO-BUILD-STABLE YES);goal ABLE-TO-BUILD-STABLE to YES (constant)
+	(wood-amount > 250)			;the amount of wod is greater tahn 250
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+=>				;then
+ 	(build stable)			;the AI builds a stable
+;	(chat-local-to-self "build STABLE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule5: build stable if we do the castle rush
+
+(defrule				;If
+	(current-age >= castle-age)			;the age, the AI is in, is castle-age or imperial-age
+	(goal RUSH-CONTROL RUSHING)			;goal RUSH-CONTROL to RUSHING (constant)
+	(building-type-count-total stable < 2)	;number of stables less than 2
+	(can-build stable)			;the AI can build a stable
+	(wood-amount > 250)			;the amount of wod is greater than 250
+	(goal ABLE-TO-TRAIN-UNITS YES)		;goal ABLE-TO-TRAIN-UNITS to YES (constant)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)		;goal ABLE-TO-TRAIN-LAND-UNITS to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)		;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+=>				;then
+	(build stable)				;the AI builds the stable
+;	(chat-local-to-self "build STABLE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build STABLES in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(or
+		(and
+			(building-type-count-total stable < 2);number of stables less than 2
+			(or
+				(wood-amount > 450)		;the amount of wood is greater than 450
+				(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+			)
+		)
+		(building-type-count-total stable < 1);or number of stables less than 1
+	)
+ 	(can-build stable)			;the AI can build a stable
+	(goal ABLE-TO-BUILD-STABLE YES);goal ABLE-TO-BUILD-STABLE to YES (constant)
+=>				;then
+ 	(build stable)			;the AI builds a stable
+;	(chat-local-to-self "build STABLE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build STABLES in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(building-type-count-total stable < stable-building-imperial);number of stables less than stable-building-imperial (constant)
+	(or
+		(wood-amount > 450)		;the amount of wood is greater than 450
+		(building-type-count-total town-center > 1);or number of town-centers greater than 1
+	)
+	(goal ABLE-TO-BUILD-BARRACKS YES);goal ABLE-TO-BUILD-BARRACKS to YES (constant)
+	(building-type-count-total barracks >= 2)	;number of barrackses greater or equal than 2
+ 	(can-build stable)			;the AI can build a stable
+	(goal ABLE-TO-BUILD-STABLE YES)		;goal ABLE-TO-BUILD-STABLE to YES (constant)
+	(wood-amount > 300)			;the amount of wood is greater than 300
+=>				;then
+ 	(build stable)			;the AI builds a stable
+;	(chat-local-to-self "build STABLE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build STABLES in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(building-type-count-total stable < stable-building-imperial);number of stables less than stable-building-imperial (constant)
+	(or
+		(wood-amount > 450)		;the amount of wood is greater than 450
+		(building-type-count-total town-center > 1);or number of town-centers greater than 1
+	)
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+	(building-type-count-total archery-range >= 2)	;number of archery-ranges greater or equal than 2
+ 	(can-build stable)			;the AI can build a stable
+	(goal ABLE-TO-BUILD-STABLE YES)		;goal ABLE-TO-BUILD-STABLE to YES (constant)
+	(wood-amount > 300)			;the amount of wood is greater than 300
+=>				;then
+ 	(build stable)			;the AI builds a stable
+;	(chat-local-to-self "build STABLE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build STABLES in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(building-type-count-total stable < stable-building-imperial);number of stables less than stable-building-imperial (constant)
+	(or
+		(wood-amount > 450)		;the amount of wood is greater than 450
+		(building-type-count-total town-center > 1);or number of town-centers greater than 1
+	)
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE NO);goal ABLE-TO-BUILD-ARCHERY-RANGE to NO (constant)
+	(goal ABLE-TO-BUILD-BARRACKS NO);goal ABLE-TO-BUILD-BARRACKS to NO (constant)
+ 	(can-build stable)			;the AI can build a stable
+	(goal ABLE-TO-BUILD-STABLE YES)		;goal ABLE-TO-BUILD-STABLE to YES (constant)
+	(wood-amount > 300)			;the amount of wood is greater than 300
+=>				;then
+ 	(build stable)			;the AI builds a stable
+;	(chat-local-to-self "build STABLE");the AI sends the chat as a local one to itselfs
+)
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule92: build STABLE in imperial-age if we have built plenty of stables and have much wood then build more stables
+(defrule				;If
+	(difficulty <= hard)			;the difficulty-type is hard or hardest
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(building-type-count-total stable >= stable-building-imperial);number of stable greater or equal than stable-building-imperial (constant)
+ 	(building-type-count-total stable < 12)	;number of stables less than 12
+ 	(can-build stable)				;the AI can build a stable
+	(goal ABLE-TO-BUILD-STABLE YES)	;goal ABLE-TO-BUILD-STABLE YES (constant)
+	(wood-amount > 500)			;the amount of wood is greater than 900
+=>				;then
+ 	(build stable)				;the AI builds stable
+	(set-strategic-number sn-maximum-town-size 36)
+;	(chat-local-to-self "build STABLE")		;the AI sends the chat as a local one to itselfs
+)
+
+#end-if		;if not difficulty == moderate
+
+#load-if-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule93: build STABLE, in death-match games keep at least five handy (<= moderate)
+(defrule				;If
+ 	(building-type-count-total stable < 5)	;number of stables less than 5
+ 	(can-build stable)				;the AI can build a stable
+	(wood-amount > 700)			;the amount of wood is greater than 700
+=>				;then
+ 	(build stable)				;the AI builds a stable
+;	(chat-local-to-self "build STABLE")		;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+;Rule93: build STABLE, in death-match games keep at least two handy (> moderate)
+(defrule				;If
+ 	(building-type-count-total stable < 2)	;number of stables less than 2
+ 	(can-build stable)				;the AI can build a stable
+	(wood-amount > 700)			;the amount of wood is greater than 700
+=>				;then
+ 	(build stable)				;the AI builds a stable
+;	(chat-local-to-self "build STABLE")		;the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == hardest
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+;***********************************************
+;***********************************************
+#end-if		;if game-type == death-match
+
+
+
+;*******************************************************************
+;*******************************************************************
+;ARCHERY-RANGE
+
+
+
+;Rule70: don't build archery-range if we don't need any
+
+(defrule				;If
+	(true)					;this condition is always true
+=>				;then
+	(set-goal ABLE-TO-BUILD-ARCHERY-RANGE NO);the AI sets goal ABLE-TO-BUILD-ARCHERY-RANGE to NO (constant)
+)
+
+
+
+;Rule71: set the ABLE-TO-BUILD-ARCHERY-RANGE - goal if need an archery-range part 1
+
+(defrule				;If
+	(or
+		(or
+			(goal PRIMARY-COMBAT-UNIT CROSSBOW);goal PRIMARY-COMBAT-UNIT to CROSSBOW (constant)
+			(goal PRIMARY-COMBAT-UNIT CAVARCHER);or goal PRIMARY-COMBAT-UNIT to CAVARCHER (constant)
+		)
+		(goal PRIMARY-COMBAT-UNIT SKIRMISHER);or goal PRIMARY-COMBAT-UNIT to SKIRMISHER (constant)
+	)
+=>				;then
+	(set-goal ABLE-TO-BUILD-ARCHERY-RANGE YES)	;the AI sets goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+)
+
+
+
+;Rule72: set the ABLE-TO-BUILD-ARCHERY-RANGE  - goal if need an archery-range part 2
+
+(defrule
+	(or
+		(or
+			(goal SECONDARY-COMBAT-UNIT CROSSBOW);goal SECONDARY-COMBAT-UNIT to CROSSBOW (constant)
+			(goal SECONDARY-COMBAT-UNIT CAVARCHER);or goal SECONDARY-COMBAT-UNIT to CAVARCHER (constant)
+		)
+		(goal SECONDARY-COMBAT-UNIT SKIRMISHER);or goal SECONDARY-COMBAT-UNIT to SKIRMISHER (constant)
+	)
+=>
+	(set-goal ABLE-TO-BUILD-ARCHERY-RANGE YES)	;the AI sets goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+)
+
+
+
+;***********************************************
+;***********************************************
+;ARCHERY-RANGES ON EASIEST AND EASY - DIFFICULTY
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+;Rule60: build ARCHERY-RANGE in the feudal age
+
+(defrule				;If
+ 	(current-age == feudal-age)			;the age, the AI is in, is equal than feudal-age
+ 	(can-build archery-range)			;the AI can build archery-ranges
+	(or
+		(building-type-count-total archery-range < 1);number of barracks less than 1
+		(and
+			(building-type-count-total archery-range < 2);number of archery-ranges less than 2
+			(wood-amount > 400)		;and the amount of wood is greater than 600
+		)
+	)
+	(or
+		(goal RUSH-CONTROL FEUDAL)		;goal RUSH-CONTROL to FEUDAL (constant)
+		(goal RUSH-CONTROL RUSHING)		;or goal RUSH-CONTROL to RUSHING (constant)
+	)
+=>				;then
+ 	(build archery-range)				;the AI builds archery-ranges
+;	(chat-local-to-self "build ARCHERY-RANGE")	;the AI sends the chat as a local one to itselfs
+)
+
+;Rule73: build ARCHERY-RANGE in feudal-age
+
+(defrule				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(can-build archery-range)			;the AI can build archery-range
+	(current-age-time > 420)			;the time in feudal-age greater than 420 seconds
+	(or
+		(and
+			(building-type-count-total archery-range < archery-range-building-feudal);number of archery-ranges less than archery-range-building-feudal (constant)
+			(wood-amount > 600)			;the amount of wood is greater than 600
+		)
+		(building-type-count-total archery-range < 1);or number of archery-ranges less than 1
+	)
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+=>				;then
+	(build archery-range)			;the AI builds an archery-range
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule77: build ARCHERY-RANGES in feudal-age when we do a castle-age-rush
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count-total archery-range < 1);number of archery-ranges less than 1
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(or
+		(civ-selected aztec)		;we play the aztecs
+		(civ-selected mayan)		;or we play the mayans
+	)
+=>				;then
+ 	(build archery-range)			;the AI builds barracks
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule74: build ARCHERY-RANGE in castle-age
+
+(defrule				;If
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(can-build archery-range)			;the AI can build archery-range
+	(current-age-time > 420)			;the time in feudal-age greater than 420 seconds
+	(or
+		(and
+			(building-type-count-total archery-range < archery-range-building-castle);number of archery-ranges less than archery-range-building-castle (constant)
+			(wood-amount > 600)	;the amount of wood is greater than 600
+		)
+		(building-type-count-total archery-range < 1);or number of archery-ranges less than 1
+	)
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+=>				;then
+	(build archery-range)			;the AI builds an archery-range
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule75: build ARCHERY-RANGE in imperial-age
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(can-build archery-range)			;the AI can build archery-range
+	(current-age-time > 230)			;the time in feudal-age greater than 420 seconds
+	(or
+		(and
+			(building-type-count-total archery-range < archery-range-building-imperial);number of archery-ranges less than archery-range-building-imperial (constant)
+			(wood-amount > 600)			;the amount of wood is greater than 600
+		)
+		(building-type-count-total archery-range < 1);or number of archery-ranges less than 1
+	)
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+=>				;then
+	(build archery-range)			;the AI builds an archery-range
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == hardest
+
+
+
+;***********************************************
+;***********************************************
+;ARCHERY-RANGES ON MODERATE, HARD AND HARDEST - DIFFICULTY
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule76: build ARCHERY-RANGES in feudal-age if we do a flush
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(not (goal RUSH-CONTROL NO))		;goal RUSH-CONTROL is not set to NO (constant)
+	(not (goal RUSH-CONTROL CASTLE))	;goal RUSH-CONTROL is not set to CASTLE (constant)
+	(or
+		(and
+			(and
+				(wood-amount > 500);the amount of wood is greater than 500
+				(building-type-count-total archery-range < 2);number of archery-ranges less than 2
+			)
+			(goal ABLE-TO-RESEARCH-WHEN-RUSH YES);and goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+		)
+		(building-type-count-total archery-range < 1);or number of archery-ranges less than 1
+	)
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(building-type-count-total barracks > 0)	;number of barracks greater than 0
+=>				;then
+ 	(build archery-range)			;the AI builds barracks
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule77: build ARCHERY-RANGES in feudal-age when we do a castle-age-rush
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count-total archery-range < 1);number of archery-ranges less than 1
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+=>				;then
+ 	(build archery-range)			;the AI builds barracks
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule77: build ARCHERY-RANGES in feudal-age when we do a castle-age-rush
+
+(defrule				;If
+ 	(current-age >= feudal-age)		;the age, the AI is in, is greater or eqwual than feudal-age
+	(building-type-count-total archery-range < 1);number of archery-ranges less than 1
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(or
+		(civ-selected aztec)		;we play the aztecs
+		(civ-selected mayan)		;or we play the mayans
+	)
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+=>				;then
+ 	(build archery-range)			;the AI builds barracks
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build ARCHERY-RANGES in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(or
+		(and
+			(building-type-count-total archery-range < 2);number of archery-ranges less than 2
+			(or
+				(wood-amount > 450)		;the amount of wood is greater than 450
+				(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+			)
+		)
+		(building-type-count-total archery-range < 1);or number of archery-ranges less than 1
+	)
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+=>				;then
+ 	(build archery-range)			;the AI builds an archery-range
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build ARCHERY-RANGES in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(building-type-count-total archery-range < archery-range-building-imperial);number of archery-ranges less than archery-range-building-imperial (constant)
+	(or
+		(wood-amount > 450)		;the amount of wood is greater than 450
+		(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+	)
+	(goal ABLE-TO-BUILD-BARRACKS YES)		;goal ABLE-TO-BUILD-BARRACKS to YES (constant)
+	(building-type-count-total barracks >= 2)	;number of barracks greater or equal than 2
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+	(wood-amount > 300)			;the amount of wood is greater than 300
+=>				;then
+ 	(build archery-range)			;the AI builds an archery-range
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build ARCHERY-RANGES in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(building-type-count-total archery-range < archery-range-building-imperial);number of archery-ranges less than archery-range-building-imperial (constant)
+	(or
+		(wood-amount > 450)		;the amount of wood is greater than 450
+		(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+	)
+	(goal ABLE-TO-BUILD-STABLE YES)		;goal ABLE-TO-BUILD-STABLE to YES (constant)
+	(building-type-count-total stable >= 2)	;number of stables greater or equal than 2
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+	(wood-amount > 300)			;the amount of wood is greater than 300
+=>				;then
+ 	(build archery-range)			;the AI builds an archery-range
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule78: build ARCHERY-RANGES in castle-age and imperial-age
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(building-type-count-total archery-range < archery-range-building-imperial);number of archery-ranges less than archery-range-building-imperial (constant)
+	(or
+		(wood-amount > 450)		;the amount of wood is greater than 450
+		(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+	)
+	(goal ABLE-TO-BUILD-BARRACKS NO)	;goal ABLE-TO-BUILD-BARRACKS to NO (constant)
+	(goal ABLE-TO-BUILD-STABLE NO)		;goal ABLE-TO-BUILD-STABLE to NO (constant)
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+	(wood-amount > 300)			;the amount of wood is greater than 300
+=>				;then
+ 	(build archery-range)			;the AI builds an archery-range
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule80: build ARCHERY-RANGE in imperial-age if we have built plenty of archery-ranges and have much wood then build more archery-ranges
+(defrule				;If
+	(difficulty <= hard)			;the difficulty-type is hard or hardest
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(building-type-count-total archery-range >= archery-range-building-imperial);number of archery-ranges greater or equal than archery-range-building-imperial (constant)
+ 	(building-type-count-total archery-range < 12);number of archery-ranges less than 12
+ 	(can-build archery-range)			;the AI can build archery-range
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+	(wood-amount > 500)			;the amount of wood is greater than 700
+=>				;then
+ 	(build archery-range)			;the AI builds an archery-range
+	(set-strategic-number sn-maximum-town-size 36)
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+#end-if		;if not difficulty == moderate
+
+#load-if-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule81: build ARCHERY-RANGE, in death-match games keep at least five handy (<= moderate)
+(defrule				;If
+ 	(building-type-count-total archery-range < 5)	;number of archery-ranges less than 5
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(wood-amount > 700)			;the amount of wood is greater than 700
+=>				;then
+ 	(build archery-range)			;the AI builds an archery-range
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+;Rule81: build ARCHERY-RANGE, in death-match games keep at least two handy (> moderate)
+(defrule				;If
+ 	(building-type-count-total archery-range < 2)	;number of archery-ranges less than 2
+ 	(can-build archery-range)			;the AI can build an archery-range
+	(wood-amount > 700)			;the amount of wood is greater than 700
+=>				;then
+ 	(build archery-range)			;the AI builds an archery-range
+;	(chat-local-to-self "build ARCHERY-RANGE");the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == hardest
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+;***********************************************
+;***********************************************
+#end-if		;if game-type == death-match
+
+
+
+;*******************************************************************
+;*******************************************************************
+;SIEGE-WORKSHOP
+
+
+
+;***********************************************
+;***********************************************
+;SIEGE-WORKSHOPS ON EASIEST AND EASY - DIFFICULTY
+
+
+
+#load-if-not-defined DIFFICULTY-MODERATE
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
+;***********************************************
+;***********************************************
+
+;Rule94: build SIEGE-WORKSHOPS in castle-age
+
+(defrule				;If
+	(current-age == castle-age)			;the age, the AI is in, is castle-age
+	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(current-age-time > 620)			;the time in castle-age greater than 620 seconds
+	(or
+		(building-type-count-total siege-workshop < 1);number of siege-workshops less than 1
+		(and
+			(building-type-count-total siege-workshop < siege-workshop-building-castle);or number of siege-workshops less than siege-workshop-building-castle (constant)
+			(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO));and the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+		)
+	)
+	(wood-amount > 500)			;the amount of wood is greater than 500
+=>				;then
+	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule95: build SIEGE-WORKSHOPS in imperial-age
+
+(defrule				;If
+	(current-age == imperial-age)		;the age, the AI is in, is castle-age
+	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(current-age-time > 530)			;the time in imperial-age greater than 530 seconds
+	(or
+		(building-type-count-total siege-workshop < 1);number of siege-workshops less than 1
+		(and
+			(building-type-count-total siege-workshop < siege-workshop-building-imperial);or number of siege-workshops less than siege-workshop-building-imperial (constant)
+			(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO));and the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+		)
+	)
+	(wood-amount > 500)			;the amount of wood is greater than 500
+=>				;then
+	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == moderate
+#end-if		;if not difficulty type == hard
+#end-if		;if not difficulty type == hardest
+
+
+
+;***********************************************
+;***********************************************
+;SIEGE-WORKSHOPS ON MODERATE, HARD AND HARDEST - DIFFICULTY
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule96: build SIEGE-WORKSHOP in castle-age; part 1
+
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is castle-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO));or the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET));or the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to TREBUCHET (constant)
+	(building-type-count-total siege-workshop < 1);or number of siege-workshops less than 1
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(wood-amount > 350)		;the amount of wood is greater than 350
+	(building-type-count-total town-center > 1);number of town-cenetrs greater than 1
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 1
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule97: build SIEGE-WORKSHOP in castle-age; part 2
+
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is castle-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO));or the goal SECONDARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+	(not (goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET));or the goal SECONDARY-COMBAT-SIEGE-UNIT is not set to TREBUCHET (constant)
+	(building-type-count-total siege-workshop < 1);or number of siege-workshops less than 1
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(wood-amount > 350)		;the amount of wood is greater than 350
+	(building-type-count-total town-center > 1);number of town-cenetrs greater than 1
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 1
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule98: build SIEGE-WORKSHOP in castle-age; part 3
+
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is castle-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO));or the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET));or the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to TREBUCHET (constant)
+	(building-type-count-total siege-workshop < siege-workshop-building-castle);number of siege-workshops less than siege-workshop-building-castle (constant)
+	(wood-amount > 500)		;the amount of wood is greater than 500
+	(building-type-count-total town-center > 1);number of town-cenetrs greater than 1
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 1
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule99: build SIEGE-WORKSHOP in castle-age; part 4
+
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is castle-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO));or the goal SECONDARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+	(not (goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET));or the goal SECONDARY-COMBAT-SIEGE-UNIT is not set to TREBUCHET (constant)
+	(building-type-count-total siege-workshop < siege-workshop-building-castle);number of siege-workshops less than siege-workshop-building-castle (constant)
+	(wood-amount > 500)		;the amount of wood is greater than 500
+	(building-type-count-total town-center > 1);number of town-cenetrs greater than 1
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 1
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule100: build SIEGE-WORKSHOP in castle-age and imperial-age if we do a rush; part 1
+
+(defrule				;If
+ 	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(building-type-count-total siege-workshop < 1);and number of siege-workshops less than 1
+	(wood-amount > 300)			;the amount of wood is greater than 300
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+	(building-type-count-total town-center > 1)	;number of town-centers greater than 1
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule101: build SIEGE-WORKSHOP in imperial-age if we do a rush; part 2
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(building-type-count-total siege-workshop < 1);and number of siege-workshops less than 1
+	(wood-amount > 400)			;the amount of wood is greater than 400
+	(goal RUSH-CONTROL RUSHING)		;goal RUSH-CONTROL to RUSHING (constant)
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule102: build SIEGE-WORKSHOP in imperial-age; part 1
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO));or the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET));or the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to TREBUCHET (constant)
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(building-type-count-total siege-workshop < 1);number of siege-workshops less than 1
+	(building-type-count-total town-center > 1);number of town-cenetrs greater than 1
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 1
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule103: build SIEGE-WORKSHOP in imperial-age; part 2
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO));or the goal SECONDARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+	(not (goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET));or the goal SECONDARY-COMBAT-SIEGE-UNIT is not set to TREBUCHET (constant)
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(building-type-count-total siege-workshop < 1);number of siege-workshops less than 1
+	(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 1
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule104: build SIEGE-WORKSHOP in imperial-age; part 3
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO));or the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET));or the goal PRIMARY-COMBAT-SIEGE-UNIT is not set to TREBUCHET (constant)
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(building-type-count-total siege-workshop < siege-workshop-building-imperial);and number of siege-workshops less than siege-workshop-building-imperial (constant)
+	(wood-amount > 400)		;the amount of wood is greater than 400
+	(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 1
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule105: build SIEGE-WORKSHOP in imperial-age; part 4
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO));or the goal SECONDARY-COMBAT-SIEGE-UNIT is not set to NO (constant)
+	(not (goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET));or the goal SECONDARY-COMBAT-SIEGE-UNIT is not set to TREBUCHET (constant)
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(building-type-count-total siege-workshop < siege-workshop-building-imperial);and number of siege-workshops less than siege-workshop-building-imperial (constant)
+	(wood-amount > 400)		;the amount of wood is greater than 400
+	(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 1
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+;Rule105: build SIEGE-WORKSHOP in imperial-age; part 5
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION);goal PRIMARY-COMBAT-SIEGE-UNIT to SCORPION (constant)
+	(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+	(building-type-count-total siege-workshop < siege-workshop-building-imperial);and number of siege-workshops less than siege-workshop-building-imperial (constant)
+	(wood-amount > 250)		;the amount of wood is greater than 250
+	(building-type-count-total town-center > 1);or number of town-cenetrs greater than 1
+	(building-type-count-total monastery > 0)	;number of monasteries greater than 1
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+
+#load-if-defined DEATH-MATCH
+;***********************************************
+;***********************************************
+
+;Rule106: build SIEGE-WORKSHOP, in death-match games keep at least two handy
+(defrule				;If
+ 	(building-type-count-total siege-workshop < 2);number of siege-workshops less than 2
+ 	(can-build siege-workshop)		;the AI can build a siege-workshop
+	(wood-amount > 700)			;the amount of wood is greater than 700
+=>				;then
+ 	(build siege-workshop)			;the AI builds a siege-workshop
+;	(chat-local-to-self "build SIEGE-WORKSHOP");the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if game-type == death-match
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;DEFENDING BUILDINGS
+
+
+
+;WALLS
+;***********************************************
+;***********************************************
+
+
+
+;Rule107: define the WALL-PLACEMENT
+
+(defrule				;If
+	(not (map-type fortress))			;we aren't playing on nomad
+	(not (map-type arena))			;we aren't playing on arena
+	(difficulty <= easy)			;we are playing on easy, moderate, hard or hardest - difficulty
+=>				;then
+	(enable-wall-placement 2)			;the AI enables wall building on the perimeter 2
+	(disable-self)				;but only one-time
+)
+
+
+
+#load-if-not-defined DEFEND-WONDER
+;***********************************************
+;***********************************************
+
+;Rule113: build the WALL
+
+(defrule				;If
+	(or
+		(map-type black-forest)		;we are playing on the black-forest-map
+		(map-type yucatan)		;or we are playing on the yucatan-map
+	)
+	(difficulty <= easy)			;we are playing on easy, moderate, hard or hardest - difficulty
+	(can-build-wall-with-escrow 2 stone-wall-line);the AI can build a stone wall on the perimeter 2 (with escrow-resources)
+	(wall-completed-percentage 2 < 100)		;the AI didn't finish building the wall
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(build-wall 2 stone-wall-line)		;the AI builds a stone wall on the perimeter 2
+)
+
+
+
+;Rule115: build GATES- only when we build a wall of course
+
+(defrule				;If
+	(wall-completed-percentage 2 > 0)		;we started building the wall
+ 	(current-age > dark-age)			;the age, the AI is in, is dark-age
+ 	(building-type-count-total gate < 7);number of gates less than 7
+ 	(can-build-gate-with-escrow 2)		;the AI can build a gate on the perimeter 2 (in the wall) (with escrow-resources)
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(build-gate 2)				;the AI builds a gate on the perimeter 2 (in the wall)
+)
+
+;Rule116: delete walls if we didn't finish building at least 7 gates
+
+(defrule				;If
+	(wall-completed-percentage 2 == 100)	;we finished building the walls
+	(building-type-count-total gate < 7);number of gates less than 7
+=>				;then
+	(delete-building stone-wall-line)		;the AI deletes some of the walls
+)
+#end-if		;if not game-type == defend-the-wonder
+;***********************************************
+;***********************************************
+
+
+
+;CASTLES
+;***********************************************
+;***********************************************
+
+
+
+;Rule117: build CASTLES all the numbers here a scaled to the difficulty level; if we do not want to sling-shot through the castle-age
+
+(defrule				;If
+	(or
+		(and
+ 			(current-age == castle-age);the age, the AI is in, is castle-age
+ 			(building-type-count-total castle < castle-building-castle);and number of castles less than castle-building-castle (constant)
+		)
+		(and
+ 			(current-age == imperial-age);or the age, the AI is in, is imperial-age
+ 			(building-type-count-total castle < castle-building-imperial);and number of castles less than castle-building-imperial (constant)
+		)
+	)
+ 	(can-build-with-escrow castle)		;the AI can build a castle (with escrow-resources)
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(build castle)				;the AI builds a castle
+;	(chat-local-to-self "build CASTLE")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;TOWERS
+;***********************************************
+;***********************************************
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+;Rule119: build BOMBARD-TOWERS- MODERATE, HARD, HARDEST when we are able to build them
+
+(defrule				;If
+ 	(current-age >= imperial-age)		;the age, the AI is in, is greather or equal than imperial-age
+	(or
+		(difficulty <= hard)
+ 		(building-type-count-total bombard-tower < 5);number of bombard towers less than 5 (in moderate games)
+	)
+ 	(can-build bombard-tower)			;the AI can build a bombard-tower
+	(or
+		(building-type-count-total castle >= 2);number of castles greater or equal than 2
+		(death-match-game)		;or we are playing death-match
+	)
+=>				;then
+ 	(build bombard-tower)			;the AI builds a bombard-tower
+;	(chat-local-to-self "build BOMBARD-TOWER");the AI sends the chat as a local one to itselfs
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+#load-if-defined DEATH-MATCH
+
+;Rule120: build WATCH-TOWERS (feudal-age) in deathmatch-games
+
+(defrule				;If
+ 	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+ 	(building-type-count-total watch-tower < watch-tower-building-feudal);number of watch-tower less than watch-tower-building-feudal (constant)
+ 	(can-build watch-tower)			;the AI can build a watch-tower
+=>				;then
+ 	(build watch-tower)			;the AI builds a watch-tower
+;	(chat-local-to-self "build TOWER")		;the AI sends the chat as a local one to itselfs
+)
+
+#end-if
+
+
+
+;Rule121: build WATCH-TOWERS all the numbers here are scaled to the difficulty level part 2 (castle-age)
+
+(defrule				;If
+ 	(current-age >= feudal-age)			;the age, the AI is in, is greater or equal than feudal-age
+ 	(building-type-count-total watch-tower < 1)	;and number of watch-tower less than 1
+ 	(can-build watch-tower)			;the AI can build a watch-tower
+	(players-military-population any-enemy > THREE-PERCENT-POP);any enemy has more then THREE-PERCENT-POP soldiers (constant)
+=>			;then
+ 	(build watch-tower)			;the AI builds a watch-tower
+;	(chat-local-to-self "build TOWER")		;the AI sends the chat as a local one to itselfs
+)
+
+
+
+#load-if-not-defined GOTHIC-CIV
+#load-if-not-defined HUN-CIV
+
+;Rule121: build WATCH-TOWERS all the numbers here are scaled to the difficulty level part 2 (castle-age)
+
+(defrule				;If
+ 	(current-age == castle-age)			;the age, the AI is in, is castle-age
+ 	(building-type-count-total watch-tower < watch-tower-building-castle);and number of watch-tower less than watch-tower-building-castle (constant)
+ 	(can-build watch-tower)			;the AI can build a watch-tower
+	(building-type-count-total castle >= 2);and number of castles greater or equal than 2
+=>			;then
+ 	(build watch-tower)			;the AI builds a watch-tower
+;	(chat-local-to-self "build TOWER")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule122: build WATCH-TOWERS all the numbers here are scaled to the difficulty level part 3 (imperial-age)
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+ 	(building-type-count-total watch-tower < watch-tower-building-imperial);number of watch-tower less than watch-tower-building-imperial (constant)
+ 	(can-build watch-tower)			;the AI can build a watch-tower
+	(or
+		(building-type-count-total castle >= 2);number of castles greater or equal than 2
+		(death-match-game)		;or we are playing death-match
+	)
+	(not (can-build bombard-tower))		;the AI cannot build a bombard tower
+=>				;then
+ 	(build watch-tower)			;the AI builds a watch-tower
+;	(chat-local-to-self "build TOWER")		;the AI sends the chat as a local one to itselfs
+)
+
+#end-if		;if not civ == gothic
+#end-if		;if not civ == hun
+
+
+
+;TOWN-CENTERS
+;***********************************************
+;***********************************************
+
+
+
+;Rule127: build TOWN-CENTERS all the numbers here are scaled to the difficulty level; if we don't do any rush; castle-age
+
+(defrule				;If
+ 	(current-age == castle-age)		;the age, the AI is in, is greater or equal than castle-age
+ 	(building-type-count-total town-center < town-center-building-castle);and number of town-centers less than town-center-building-castle (constant)
+ 	(can-build-with-escrow town-center)	;the AI can build a town-center (with escrow-resources)
+	(or
+		(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+		(or
+			(goal ABLE-TO-RESEARCH-WHEN-RUSH YES);or goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+			(and
+				(wood-amount > 400);the amount of wood is greater than 400
+				(current-age-time > 360);and we have been playing 6min already in castle-age
+			)
+		)
+	)
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(build town-center)			;the AI builds a castle
+;	(chat-local-to-self "build TOWN-CENTER");the AI sends the chat as a local one to itselfs
+)
+
+
+
+;Rule127: build TOWN-CENTERS all the numbers here are scaled to the difficulty level; if we don't do any rush; imperial-age
+
+(defrule				;If
+ 	(current-age == imperial-age)		;the age, the AI is in, is greater or equal than imperial-age
+ 	(building-type-count-total town-center < town-center-building-imperial);and number of town-centers less than town-center-building-imperial (constant)
+ 	(can-build-with-escrow town-center)	;the AI can build a town-center (with escrow-resources)
+	(or
+		(goal RUSH-CONTROL NO)		;goal RUSH-CONTROL to NO (constant)
+		(or
+			(goal ABLE-TO-RESEARCH-WHEN-RUSH YES);or goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+			(and
+				(wood-amount > 400);the amount of wood is greater than 400
+				(current-age-time > 360);and we have been playing 6min already in castle-age
+			)
+		)
+	)
+=>				;then
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+ 	(build town-center)			;the AI builds a castle
+;	(chat-local-to-self "build TOWN-CENTER")	;the AI sends the chat as a local one to itselfs
+)
+
+
+
+;***********************************************
+;***********************************************
+#end-if		;if not game type == wonder race
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;DOCKS
+
+
+
+#load-if-not-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+
+
+;Rule130: build first dock
+
+(defrule				;If
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		)
+		(goal MAP-KIND WATER-MAP)	;or goal MAP-KIND to WATER-MAP (constant)
+	)
+	(building-type-count-total dock == 0)	;number of docks equal 0
+	(building-type-count-total barracks > 0)	;number of barrackses greater than 0
+	(building-type-count-total archery-range > 0)	;number of archery-ranges greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(can-build dock)				;the AI can build a dock
+	(building-type-count-total lumber-camp >= 1);number of lumber camps greater or equal than 1
+	(or
+		(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+		(current-age >= castle-age)		;or the age, the AI is in, is castle-age or imperial-age
+	)
+=>				;then
+	(build dock)				;the AI builds a dock
+;	(chat-local-to-self "build DOCK")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule130: build first dock
+
+(defrule				;If
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		)
+		(goal MAP-KIND WATER-MAP)	;or goal MAP-KIND to WATER-MAP (constant)
+	)
+	(building-type-count-total dock == 0)	;number of docks equal 0
+	(building-type-count-total barracks > 0)	;number of barrackses greater than 0
+	(building-type-count-total stable > 0)	;number of stables greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(can-build dock)				;the AI can build a dock
+	(building-type-count-total lumber-camp >= 1);number of lumber camps greater or equal than 1
+	(or
+		(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+		(current-age >= castle-age)		;or the age, the AI is in, is castle-age or imperial-age
+	)
+=>				;then
+	(build dock)				;the AI builds a dock
+;	(chat-local-to-self "build DOCK")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule131: build docks when we have got a blacksmith, a market and enough wood
+
+(defrule				;If
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		)
+		(goal MAP-KIND WATER-MAP)	;or goal MAP-KIND to WATER-MAP (constant)
+	)
+	(building-type-count-total dock < 2)		;number of docks less than 2
+	(building-type-count-total barracks > 0)	;number of barrackses greater than 0
+	(building-type-count-total archery-range > 0)	;number of archery-ranges greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(can-build dock)				;the AI can build a dock
+	(wood-amount > 200)			;the amount of wood is greater than 200
+	(building-type-count-total lumber-camp >= 1);number of lumber camps greater or equal than 1
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 400)			;or the amount of wood is greater than 400
+	)
+=>				;then
+	(build dock)				;the AI builds a dock
+;	(chat-local-to-self "build DOCK")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule131: build docks when we have got a blacksmith, a market and enough wood
+
+(defrule				;If
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		)
+		(goal MAP-KIND WATER-MAP)	;or goal MAP-KIND to WATER-MAP (constant)
+	)
+	(building-type-count-total dock < 2)		;number of docks less than 2
+	(building-type-count-total barracks > 0)	;number of barrackses greater than 0
+	(building-type-count-total stable > 0)	;number of stables greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(can-build dock)				;the AI can build a dock
+	(wood-amount > 200)			;the amount of wood is greater than 200
+	(building-type-count-total lumber-camp >= 1);number of lumber camps greater or equal than 1
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 400)			;or the amount of wood is greater than 400
+	)
+=>				;then
+	(build dock)				;the AI builds a dock
+;	(chat-local-to-self "build DOCK")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule132: build docks when we are in castle age and have enough wood
+
+(defrule				;If
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		)
+		(goal MAP-KIND WATER-MAP)	;or goal MAP-KIND to WATER-MAP (constant)
+	)
+	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle-age
+	(wood-amount > 300)			;the amount of wood is greater than 300
+	(building-type-count-total dock < 3)		;number of docks less than 3
+	(can-build dock)				;the AI can build a dock
+	(building-type-count-total lumber-camp >= 1);number of lumber camps greater or equal than 1
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 400)			;or the amount of wood is greater than 400
+	)
+=>
+	(build dock)				;the AI builds a dock
+;	(chat-local-to-self "build DOCK")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule133: build docks in imperial age when we have got enough wood and there is much water on the map, so that there are navy wars
+
+(defrule				;If
+	(or
+		(goal MAP-KIND WATER-MAP)	;goal MAP-KIND to WATER-MAP (constant)
+		(goal MAP-KIND ISLAND-MAP)	;goal MAP-KIND to ISLAND-MAP (constant)
+	)
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(wood-amount > 300)			;the amount of wood is greater than 300
+	(difficulty <= moderate)	;we are playing on moderate, hard or hardest - difficulty
+	(building-type-count-total dock < 4);number of docks less than 4
+	(can-build dock)				;the AI can build a dock
+	(building-type-count-total lumber-camp >= 1);number of lumber camps greater or equal than 1
+	(or
+		(building-type-count-total town-center > 1);number of town centers greater than 1
+		(wood-amount > 400)			;or the amount of wood is greater than 400
+	)
+=>				;then
+	(build dock)				;the AI builds a dock
+;	(chat-local-to-self "build DOCK")		;the AI sends the chat as a local one to itselfs
+)
+
+;Rule133: build docks in imperial age when we have got enough wood and there is much water on the map, so that there are navy wars
+
+(defrule				;If
+	(or
+		(goal MAP-KIND WATER-MAP)	;goal MAP-KIND to WATER-MAP (constant)
+		(goal MAP-KIND ISLAND-MAP)	;goal MAP-KIND to ISLAND-MAP (constant)
+	)
+	(current-age == imperial-age)		;the age, the AI is in, is imperial-age
+	(wood-amount > 1000)			;the amount of wood is greater than 1000
+	(difficulty <= hard)			;we are playing on hard or hardest - difficulty
+	(building-type-count-total dock < 6);number of docks less than 6
+	(can-build dock)				;the AI can build a dock
+	(building-type-count-total lumber-camp >= 1);number of lumber camps greater or equal than 1
+=>				;then
+	(build dock)				;the AI builds a dock
+;	(chat-local-to-self "build DOCK")		;the AI sends the chat as a local one to itselfs
+)
+
+#load-if-defined DEFEND-WONDER
+;***********************************************
+;***********************************************
+
+;Rule134: build docks when we play "defend-the-wonder" (number of docks scaled to the water size)
+
+(defrule				;If
+	(or
+		(and
+			(goal MAP-KIND WATER-MAP);goal MAP-KIND to ISLAND-MAP (constant)
+			(building-type-count-total dock < 2);and number of docks less than 2
+		)
+		(and
+			(not (goal MAP-KIND LAND-MAP));or the goal MAP-KIND is not set to LAND-MAP (constant)
+			(building-type-count-total dock == 0);and number of docks equal 0
+		)
+	)
+	(can-build dock)				;the AI can build a dock
+	(building-type-count-total lumber-camp >= 1);number of lumber camps greater or equal than 1
+=>				;then
+	(build dock)				;the AI builds a dock
+;	(chat-local-to-self "build DOCK")		;the AI sends the chat as a local one to itselfs
+)
+;***********************************************
+;***********************************************
+#end-if		;if game type == defend-the-wonder
+
+;***********************************************
+;***********************************************
+#else		;if not game-type == wonder-race
+;***********************************************
+;***********************************************
+
+;Rule135: build a dock when we have got a lumber camp
+
+(defrule				;If
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		)
+		(goal MAP-KIND WATER-MAP)	;or goal MAP-KIND to WATER-MAP (constant)
+	)
+	(building-type-count-total dock == 0)	;number of docks is 0
+	(building-type-count-total lumber-camp > 0)	;number of lumber camps greater than 0
+	(can-build dock)				;the AI can build a dock
+=>				;then
+	(build dock)				;the AI builds a dock
+)
+
+;Rule136: build docks when we have got much wood (in feudal age)
+
+(defrule				;If
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		)
+		(goal MAP-KIND WATER-MAP)	;or goal MAP-KIND to WATER-MAP (constant)
+	)
+	(current-age >= feudal-age)		;the age, the AI is in, is not the dark age
+	(wood-amount > 400)			;the amount of wood is greater than 400
+	(building-type-count-total dock < 2)		;number of docks less than 2
+	(can-build dock)				;the AI can build a dock
+=>				;then
+	(build dock)				;the AI builds a dock
+)
+
+;Rule137: build docks when we have got much wood (in castle age)
+
+(defrule				;If
+	(or
+		(or
+			(goal MAP-KIND RIVERS-MAP);goal MAP-KIND to RIVERS-MAP (constant)
+			(goal MAP-KIND ISLAND-MAP);or goal MAP-KIND to ISLAND-MAP (constant)
+		)
+		(goal MAP-KIND WATER-MAP)	;or goal MAP-KIND to WATER-MAP (constant)
+	)
+	(current-age >= castle-age)			;the age, the AI is in, is greater or equal than castle age
+	(wood-amount > 1000)			;the amount of wood is greater than 1000
+	(building-type-count-total dock < 2)		;number of docks less than 2
+	(can-build dock)				;the AI can build a dock
+=>				;then
+	(build dock)				;the AI builds a dock
+)
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;BUILD THE WONDER IN WONDER RACE GAMES
+
+
+
+;Rule137 and 138: build the wonder in wonder race games
+
+(defrule
+	(true)
+=>
+	(set-goal WONDER-ATTEMPT YES)
+)
+
+(defrule				;If
+	(goal WONDER-ATTEMPT YES)		;goal WONDER-ATTEMPT to YES (constant)
+	(can-build-with-escrow wonder)		;the AI can build a wonder (with escrow-resources)
+=>				;then
+	(set-strategic-number sn-percent-civilian-builders 95)
+	(set-strategic-number sn-cap-civilian-builders 40)
+	(set-strategic-number sn-percent-civilian-gatherers 5);there is a very good description of all SNs in the cpsb.doc
+	(release-escrow wood)			;the AI releases the wood-escrow-resources
+	(release-escrow gold)			;the AI releases the gold-escrow-resources
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(build wonder)				;the AI builds a wonder (with escrow-resources)
+	(set-goal WONDER-ATTEMPT POSSIBLE)	;the AI sets goal WONDER-ATTEMPT to POSSIBLE (constant)
+	(chat-to-player every-ally "39 Okay, I have got the resources to build a wonder!");the AI sends the chat as a local one to its allies
+)
+
+;***********************************************
+;***********************************************
+#end-if		;if game-type == wonder race
+
+
+
+;************************************************************************************************************
+;************************************************************************************************************
+;FORWARD BUILDINGS
+
+
+;===============================
+;ATTACK-PERSONALITY: ATTACKER
+;===============================
+
+
+
+#load-if-not-defined WONDER-RACE
+
+
+;**********************************
+;**********************************
+;BOMBARD-TOWES AND CASTLES
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+;***********************************************
+;***********************************************
+
+#load-if-defined KOREAN-CIV
+
+;Rule19: if we are the koreans we can do a bombard-tower-rush
+
+(defrule				;If
+	(can-build bombard-tower);the AI is able to build a bombard tower
+	(building-type-count-total castle >= 2);number of castle greater or equal than 2
+	(building-type-count-total market > 0);number of markets greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+	(goal ATTACK-PERSONALITY ATTACKER)	;goal ATTACK-PERSONALITY to ATTACKER (constant)
+=>				;then
+	(build-forward bombard-tower)	;the AI builds a bombard tower near the enemy's town
+)
+
+#end-if		;if civ == korean
+
+
+
+#load-if-defined TURKISH-CIV
+
+;Rule19: if we are the koreans we can do a bombard-tower-rush
+
+(defrule				;If
+	(difficulty <= moderate)		;we are playing on moderate, hard or hardest-difficulty
+	(can-build bombard-tower);the AI is able to build a bombard tower
+	(building-type-count-total castle >= 2);number of castle greater or equal than 2
+	(building-type-count-total market > 0);number of markets greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+	(goal ATTACK-PERSONALITY ATTACKER)	;goal ATTACK-PERSONALITY to ATTACKER (constant)
+=>				;then
+	(build-forward bombard-tower)	;the AI builds a bombard tower near the enemy's town
+)
+
+#end-if		;if civ == turkish
+
+;***********************************************
+;***********************************************
+#end-if		;if not difficulty type == easiest
+#end-if		;if not difficulty type == easy
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule20: build FORWARD-CASTLE-HARD, HARDEST
+
+(defrule				;If
+	(goal ATTACK-PERSONALITY ATTACKER);goal PERSONALITY to ATTACKER (constant)
+	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
+	(players-current-age any-enemy < castle-age);we are ahead in age
+	(can-build-with-escrow castle)		;the AI can build castle (with escrow-resources)
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(build-forward castle)			;the AI build stable near the enemy
+;	(chat-local-to-self "build FORWARD-CASTLE");the AI sends the chat as a local one to itselfs
+)
+
+;Rule20: build FORWARD-CASTLE-HARD, HARDEST
+
+(defrule				;If
+	(goal ATTACK-PERSONALITY ATTACKER);goal PERSONALITY to ATTACKER (constant)
+	(current-age >= castle-age)		;the age, the AI is in, is greater or equal than castle-age
+	(or
+		(goal RUSH-CONTROL RUSHING);goal RUSH-CONTROL to RUSHING (constant)
+		(and
+			(building-type-count-total castle > 1)	;number of castles greater than 1
+			(building-type-count-total castle < 14)	;number of castles less than 14
+		)
+	)
+	(can-build-with-escrow castle)		;the AI can build castle (with escrow-resources)
+	(building-type-count-total market > 0);number of markets greater than 0
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>				;then
+	(release-escrow stone)			;the AI releases the stone-escrow-resources
+	(build-forward castle)			;the AI build stable near the enemy
+;	(chat-local-to-self "build FORWARD-CASTLE");the AI sends the chat as a local one to itselfs
+)
+
+
+
+#end-if		;if not difficulty-type == easiest
+#end-if		;if not difficulty-type == easy
+#end-if		;if not difficulty-type == moderate
+
+
+
+;***********************************
+;***********************************
+;BARRACKS
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule3: build FORWARD-BARRACKS-HARD, HARDEST
+
+(defrule				;If
+	(goal ATTACK-PERSONALITY ATTACKER);goal PERSONALITY to ATTACKER (constant)
+	(can-build barracks)			;the AI can build barracks
+	(goal ABLE-TO-BUILD-BARRACKS YES)	;goal ABLE-TO-BUILD-BARRACKS to YES (constant)
+	(wood-amount > 500)			;the amount of wood is greater than 500
+	(building-type-count-total market > 0)	;number of markets greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(building-type-count-total barracks >= 3)	;number of barrackses greater or equal than 3
+=>				;then
+	(build-forward barracks)			;the AI builds barracks near the enemy
+)
+
+#end-if		;if not difficulty-type == moderate
+#end-if		;if not difficulty-type == easy
+#end-if		;if not difficulty-type == easiest
+
+
+
+;***********************************
+;***********************************
+;ARCHERY-RANGE
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule9: build FORWARD-ARCHERY-RANGE-HARD, HARDEST
+
+(defrule				;If
+	(goal ATTACK-PERSONALITY ATTACKER);goal PERSONALITY to ATTACKER (constant)
+	(can-build archery-range)			;the AI can build archery-range
+	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES);goal ABLE-TO-BUILD-ARCHERY-RANGE to YES (constant)
+	(wood-amount > 500)			;the amount of wood is greater than 500
+	(building-type-count-total market > 0)	;number of markets greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(building-type-count-total archery-range >= 3);number of archery-ranges greater or equal than 3
+=>				;then
+	(build-forward archery-range)		;the AI builds archery-range near the enemy
+)
+
+#end-if		;if not difficulty-type == moderate
+#end-if		;if not difficulty-type == easy
+#end-if		;if not difficulty-type == easiest
+
+
+
+;***********************************
+;***********************************
+;STABLE
+
+
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
+
+;Rule15: build FORWARD-STABLE-HARD, HARDEST
+
+(defrule				;If
+	(goal ATTACK-PERSONALITY ATTACKER);goal PERSONALITY to ATTACKER (constant)
+	(can-build stable)				;the AI can build stable
+	(goal ABLE-TO-BUILD-STABLE YES)	;goal ABLE-TO-BUILD-STABLE to YES (constant)
+	(wood-amount > 500)			;the amount of wood is greater than 500
+	(building-type-count-total market > 0)	;number of markets greater than 0
+	(building-type-count-total blacksmith > 0)	;number of blacksmiths greater than 0
+	(building-type-count-total stable >= 3)	;number of stables greater or equal than 3
+=>				;then
+	(build-forward stable)			;the AI builds stable near the enemy
+)
+
+#end-if		;if not difficulty-type == moderate
+#end-if		;if not difficulty-type == easy
+#end-if		;if not difficulty-type == easiest
+
+
+
+;==================
+;FORWARD BUILDERS
+;==================
+
+
+
+;Rule27: initialisation of the number of forward builders
+
+(defrule				;If
+	(true)					;this condition is always true
+=>				;then
+	(set-strategic-number sn-number-forward-builders 0);we have 0 villager who is able to build buildings near the enemies' towns
+	(disable-self)				;only initialisation
+)
+
+
+#end-if		;if not game type == wonder race
+
+
+;=====END; The Duke Buildings.per=====
+;=====ALL RIGHTS RESERVED========

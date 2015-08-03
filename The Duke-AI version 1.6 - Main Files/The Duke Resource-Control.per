@@ -1,0 +1,1738 @@
+;		The Duke Resource-Control.per
+
+;This AI was made by hard work by Tim Koschützki [tim_kos / DarkAngelBGE]
+;For all new features and changed things in gameplay check the readme-file
+;For questions, opinions and bugreport here my E-mail adress: DarkAngelBGE@aol.com
+;for other information read the readme-file
+
+;========================================================================
+
+
+;========================================================================
+;		ALL THE STUFF TO HAVE A NICE ECONOMY
+;========================================================================
+
+
+
+(load "The Duke-AI version 1.6 - Main Files\The Duke Training Villagers")
+
+
+
+;=============================================================================
+;		stuff for resource-controlling
+;=============================================================================
+
+
+
+;*****************************************************
+;*****************************************************
+
+
+
+#load-if-not-defined DEATH-MATCH
+;***********************************
+;***********************************
+
+
+;THIS IS USED FOR EVERY AGE
+(defrule
+	(goal RESOURCE-NEEDED GOLD)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+=>
+	(set-goal RESOURCE-NEEDED NO)
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+)
+
+
+
+;RESOURCE-CONTROL IN DARK-AGE
+;==============================
+
+
+
+(defrule 				;If
+	(current-age == dark-age)			;the age, the AI is in, is dark-age
+	(unit-type-count villager < 10)			;number of villagers less than 10
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 100);100 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 0);0 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager == 10)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 84)
+	(set-strategic-number sn-wood-gatherer-percentage 16)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager >= 11)
+	(unit-type-count villager <= 12)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 70)
+	(set-strategic-number sn-wood-gatherer-percentage 16)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager >= 13)
+	(unit-type-count villager <= 14)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 59)
+	(set-strategic-number sn-wood-gatherer-percentage 41)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager >= 15)
+	(unit-type-count villager <= 16)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 52)
+	(set-strategic-number sn-wood-gatherer-percentage 48)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager >= 17)
+	(unit-type-count villager <= 18)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 48)
+	(set-strategic-number sn-wood-gatherer-percentage 52)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager >= 19)
+	(unit-type-count villager <= 20)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 54)
+	(set-strategic-number sn-wood-gatherer-percentage 46)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager >= 21)
+	(unit-type-count villager <= 22)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 58)
+	(set-strategic-number sn-wood-gatherer-percentage 42)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager >= 23)
+	(unit-type-count villager <= 24)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 62)
+	(set-strategic-number sn-wood-gatherer-percentage 38)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager >= 25)
+	(unit-type-count villager <= 26)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 64)
+	(set-strategic-number sn-wood-gatherer-percentage 36)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(unit-type-count villager > 27)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 67)
+	(set-strategic-number sn-wood-gatherer-percentage 33)
+	(set-strategic-number sn-gold-gatherer-percentage 0)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+(defrule
+	(current-age == dark-age)
+	(building-type-count-total mining-camp > 0)
+	(goal ADVANCING-TO-AGE FEUDAL-AGE)
+=>
+	(set-strategic-number sn-food-gatherer-percentage 50)
+	(set-strategic-number sn-wood-gatherer-percentage 40)
+	(set-strategic-number sn-gold-gatherer-percentage 10)
+	(set-strategic-number sn-stone-gatherer-percentage 0)
+	(disable-self)
+)
+
+
+
+;RESOURCE-CONTROL IN FEUDAL-AGE
+;================================
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count mining-camp == 0)	;number of mining-camps is 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 60);60 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+;IF WE DO A RUSH
+;-----------------------------
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(not (goal RUSH-CONTROL NO))		;the goal RUSH-CONTROL is not set to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to NO (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 35);35 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+;**************************
+;**************************
+;IF WE STARTED THE RUSH
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(not (goal RUSH-CONTROL NO))		;the goal RUSH-CONTROL is not set to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(not (goal RUSH-CONTROL NO))		;the goal RUSH-CONTROL is not set to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+
+;IF WE DON'T DO A RUSH
+;-----------------------------
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(food-amount < 800)			;the amount of food is less than 800
+	(gold-amount >= 200)			;the amount of food is greater or equal than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(and
+			(building-type-count-total stable < 1)	;number of stables less than 1
+			(building-type-count-total archery-range < 1);and number of archery-ranges less than 1
+		)
+		(building-type-count-total blacksmith < 1);or number of blacksmiths less than 1
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 45);45 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 10);10 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(food-amount < 800)			;the amount of food is less than 800
+	(gold-amount < 200)			;the amount of food is less than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(and
+			(building-type-count-total stable < 1)	;number of stables less than 1
+			(building-type-count-total archery-range < 1);and number of archery-ranges less than 1
+		)
+		(building-type-count-total blacksmith < 1);or number of blacksmiths less than 1
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(food-amount >= 800)			;the amount of food is greater or equal than 800
+	(gold-amount >= 200)			;the amount of food is greater or equal than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(and
+			(building-type-count-total stable < 1)	;number of stables less than 1
+			(building-type-count-total archery-range < 1);and number of archery-ranges less than 1
+		)
+		(building-type-count-total blacksmith < 1);or number of blacksmiths less than 1
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 35);35 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 50);50 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(food-amount >= 800)			;the amount of food is greater or equal than 800
+	(gold-amount < 200)			;the amount of food is less than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(and
+			(building-type-count-total stable < 1)	;number of stables less than 1
+			(building-type-count-total archery-range < 1);and number of archery-ranges less than 1
+		)
+		(building-type-count-total blacksmith < 1);or number of blacksmiths less than 1
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 30);30 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 50);50 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(food-amount < 800)			;the amount of food is less than 800
+	(gold-amount >= 200)			;the amount of food is greater or equal than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(building-type-count-total stable > 0)	;number of stables greater than 0
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 60);60 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 10);10 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(food-amount < 800)			;the amount of food is less than 800
+	(gold-amount < 200)			;the amount of food is less than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(building-type-count-total stable > 0)	;number of stables greater than 0
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(food-amount >= 800)			;the amount of food is greater or equal than 800
+	(gold-amount >= 200)			;the amount of food is greater or equal than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(building-type-count-total stable > 0)	;number of stables greater than 0
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(food-amount >= 800)			;the amount of food is greater or equal than 800
+	(gold-amount < 200)			;the amount of food is less than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+	(or
+		(building-type-count-total stable > 0)	;number of stables greater than 0
+		(building-type-count-total archery-range > 0);or number of archery-ranges greater than 0
+	)
+	(building-type-count-total blacksmith > 0);number of blacksmiths greater than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 25);25 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 25);25 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+;************************************
+;************************************
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(food-amount < 800)			;the amount of food is less than 800
+	(gold-amount >= 200)			;the amount of food is greater or equal than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 35);35 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 10);10 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(food-amount < 800)			;the amount of food is less than 800
+	(gold-amount < 200)			;the amount of food is less than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(food-amount >= 800)			;the amount of food is greater or equal than 800
+	(gold-amount >= 200)			;the amount of food is greater or equal than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(food-amount >= 800)			;the amount of food is greater or equal than 800
+	(gold-amount < 200)			;the amount of food is less than 200
+	(goal ADVANCING-TO-AGE NO)		;goal ADVANCING-TO-AGE to NO (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 30);30 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 35);35 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 30);30 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+
+
+;************************************
+;************************************
+
+
+
+#load-if-not-defined HUN-CIV	;huns need less wood, because they do not need to house
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(or
+		(goal SECONDARY-COMBAT-UNIT SPEARMAN);goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
+		(goal SECONDARY-COMBAT-UNIT SKIRMISHER);or goal SECONDARY-COMBAT-UNIT to SKIRMISHER (constant)
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 48);48 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 27);27 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 25);25 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(goal SECONDARY-COMBAT-UNIT INFANTRY1)	;goal SECONDARY-COMBAT-UNIT to INFANTRY1 (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 52);52 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 22);22 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 25);25 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+#else		;if civ != huns
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(or
+		(goal SECONDARY-COMBAT-UNIT SPEARMAN);goal SECONDARY-COMBAT-UNIT to SPEARMAN (constant)
+		(goal SECONDARY-COMBAT-UNIT SKIRMISHER);or goal SECONDARY-COMBAT-UNIT to SKIRMISHER (constant)
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 49);49 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 23);23 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 28);28 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PRIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(goal SECONDARY-COMBAT-UNIT INFANTRY1)	;goal SECONDARY-COMBAT-UNIT to INFANTRY1 (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 53);53 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 20);20 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 27);27 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+#end-if		;if civ == huns
+
+
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(building-type-count-total barracks < 4);number of barracks less than 4
+	(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 30);30 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 35);35 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 35);35 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+(defrule 				;If
+	(current-age == feudal-age)		;the age, the AI is in, is feudal-age
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(building-type-count-total barracks >= 4);number of barracks greater or equal than 4
+	(goal ADVANCING-TO-AGE CASTLE-AGE)	;goal ADVANCING-TO-AGE to CASTLE-AGE (constant)
+	(goal RUSH-CONTROL CASTLE)		;goal RUSH-CONTROL to CASTLE (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PRIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 32);32 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 26);26 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 42);42 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+;RESOURCE-CONTROL IN CASTLE-AGE
+;===============================
+
+
+
+;now only used for wonder race (the following code)
+
+;IF WE DO NOT DO A RUSH
+;*****************************
+
+;IF FOOD IS AT NEED
+;------------------------------
+(defrule
+	(current-age == castle-age)
+	(food-amount < MIN-FOOD-AMOUNT-CASTLE)
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+	(goal RUSH-CONTROL NO)
+=>
+ 	(set-goal RESOURCE-NEEDED FOOD)
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+;	(chat-local-to-self "food needed")
+)
+;***********************
+(defrule
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+	(current-age == castle-age)
+	(food-amount >= MIN-FOOD-AMOUNT-CASTLE)
+	(goal RESOURCE-NEEDED FOOD)
+	(goal RUSH-CONTROL NO)
+=>
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+)
+
+
+
+;IF WOOD IS AT NEED
+;-------------------------------
+(defrule
+	(current-age == castle-age)
+	(wood-amount < MIN-WOOD-AMOUNT-CASTLE)
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+	(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL))
+	(goal RUSH-CONTROL NO)
+=>
+ 	(set-goal RESOURCE-NEEDED WOOD)
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+;	(chat-local-to-self "wood needed")
+)
+;***********************
+(defrule
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+	(current-age == castle-age)
+	(wood-amount >= MIN-WOOD-AMOUNT-CASTLE)
+	(goal RESOURCE-NEEDED WOOD)
+	(goal RUSH-CONTROL NO)
+=>
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+)
+
+
+
+;IF GOLD IS AT NEED
+;------------------------------
+(defrule
+	(current-age == castle-age)
+	(gold-amount < MIN-GOLD-AMOUNT-CASTLE)
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(goal RUSH-CONTROL NO)
+=>
+ 	(set-goal RESOURCE-NEEDED GOLD)
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+;	(chat-local-to-self "gold needed")
+)
+;***********************
+(defrule
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+	(current-age == castle-age)
+	(gold-amount >= MIN-GOLD-AMOUNT-CASTLE)
+	(goal RESOURCE-NEEDED GOLD)
+	(goal RUSH-CONTROL NO)
+=>
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+)
+
+
+
+(defrule
+	(current-age == castle-age)
+	(food-amount >= MIN-FOOD-AMOUNT-CASTLE-RUSH)
+	(wood-amount >= MIN-WOOD-AMOUNT-CASTLE-RUSH)
+	(gold-amount >= MIN-GOLD-AMOUNT-CASTLE-RUSH)
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+	(goal RUSH-CONTROL NO)
+=>
+	(set-goal RESOURCE-NEEDED NO)
+)
+
+
+
+#load-if-not-defined WONDER-RACE
+;***********************************************
+;***********************************************
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(building-type-count mining-camp == 0)	;number of mining-camps is 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 60);60 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+;IF WE DO A RUSH
+;-----------------------------
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(not (goal RUSH-CONTROL NO))		;the goal RUSH-CONTROL is not set to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PIMARY-COMBAT-UNIT to KNIGHT (constant)
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to NO (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 56);56 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 22);22 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 22);22 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(not (goal RUSH-CONTROL NO))		;the goal RUSH-CONTROL is not set to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to NO (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 35);35 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 20);20 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 45);45 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+;**************************
+;**************************
+;IF WE STARTED THE RUSH
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(not (goal RUSH-CONTROL NO))		;the goal RUSH-CONTROL is not set to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PIMARY-COMBAT-UNIT to KNIGHT (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 52);52 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 25);25 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 23);23 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(not (goal RUSH-CONTROL NO))		;the goal RUSH-CONTROL is not set to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)	;goal PIMARY-COMBAT-UNIT to KNIGHT (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 25);25 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 23);23 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 2);2 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(not (goal RUSH-CONTROL NO))		;the goal RUSH-CONTROL is not set to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 32);32 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 23);23 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 45);45 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(not (goal RUSH-CONTROL NO))		;the goal RUSH-CONTROL is not set to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)	;goal ABLE-TO-RESEARCH-WHEN-RUSH to YES (constant)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)	;goal PIMARY-COMBAT-UNIT to EAGLEMAN (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 30);30 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 23);23 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 43);43 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 2);2 percent of the gatherers gather stone
+)
+
+
+
+;IF WE DON'T DO A RUSH
+;-----------------------------
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(building-type-count-total town-center == 1);number of town-centers is 1
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 35);35 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+;************************************
+;************************************
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next dropsite is greater than 5
+	(building-type-count-total town-center >= 2);number of town-centers is greater or equal than 2
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 32);32 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 23);23 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+;************************************
+;************************************
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(building-type-count-total town-center == 1);number of town-centers is 1
+	(wood-amount < 275)			;the amount of wood is less than 275
+	(stone-amount < 100)			;the amount of sone is less than 100
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 35);35 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(building-type-count-total town-center == 1);number of town-centers is 1
+	(wood-amount >= 275)			;the amount of wood is greater or equal than 275
+	(stone-amount < 100)			;the amount of sone is less than 100
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(building-type-count-total town-center == 1);number of town-centers is 1
+	(wood-amount >= 275)			;the amount of wood is greater or equal than 275
+	(stone-amount >= 100)			;the amount of sone is greater or equal than 100
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 42);42 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 23);23 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(building-type-count-total town-center == 1);number of town-centers is 1
+	(wood-amount < 275)			;the amount of wood is less than 275
+	(stone-amount >= 100)			;the amount of sone is greater or equal than 100
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 42);42 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 38);38 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+
+
+;************************************
+;************************************
+
+
+
+(defrule 				;If
+	(current-age == castle-age)		;the age, the AI is in, is castle-age
+	(goal RUSH-CONTROL NO)			;goal RUSH-CONTROL to NO (constant)
+	(building-type-count mining-camp > 0)	;number of mining-camps is greater than 0
+	(dropsite-min-distance stone <= 5)	;the distance between the stone resource and the next dropsite is less or equal than 5
+	(building-type-count-total town-center >= 2);number of town-centers is greater or equal than 2
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+;RESOURCE-CONTROL IN IMPERIAL-AGE
+;==================================
+
+
+
+;IF FOOD IS AT NEED
+;------------------------------
+(defrule
+	(current-age == imperial-age)
+	(food-amount < MIN-FOOD-AMOUNT-IMPERIAL)
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+=>
+ 	(set-goal RESOURCE-NEEDED FOOD)
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+;	(chat-local-to-self "food needed")
+)
+;***********************
+(defrule
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+	(current-age == imperial-age)
+	(food-amount >= MIN-FOOD-AMOUNT-IMPERIAL)
+	(goal RESOURCE-NEEDED FOOD)
+=>
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+)
+
+
+
+;IF WOOD IS AT NEED
+;-------------------------------
+(defrule
+	(current-age == imperial-age)
+	(wood-amount < MIN-WOOD-AMOUNT-IMPERIAL)
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+=>
+ 	(set-goal RESOURCE-NEEDED WOOD)
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+;	(chat-local-to-self "wood needed")
+)
+;***********************
+(defrule
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+	(current-age == imperial-age)
+	(wood-amount >= MIN-WOOD-AMOUNT-IMPERIAL)
+	(goal RESOURCE-NEEDED WOOD)
+=>
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+)
+
+
+
+;IF GOLD IS AT NEED
+;------------------------------
+(defrule
+	(current-age == imperial-age)
+	(gold-amount < MIN-GOLD-AMOUNT-IMPERIAL)
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+=>
+ 	(set-goal RESOURCE-NEEDED GOLD)
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+;	(chat-local-to-self "gold needed")
+)
+;***********************
+(defrule
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL NO)
+	(current-age == imperial-age)
+	(gold-amount >= MIN-GOLD-AMOUNT-IMPERIAL)
+	(goal RESOURCE-NEEDED GOLD)
+=>
+	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+)
+
+
+
+(defrule
+	(current-age == imperial-age)
+	(food-amount >= MIN-FOOD-AMOUNT-IMPERIAL)
+	(wood-amount >= MIN-WOOD-AMOUNT-IMPERIAL)
+	(gold-amount >= MIN-GOLD-AMOUNT-IMPERIAL)
+	(goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
+=>
+ 	(set-goal RESOURCE-NEEDED NO)
+)
+
+
+
+;STUFF FOR BUILDING A WONDER
+;--------------------------------------------------
+
+
+
+(defrule
+	(goal WONDER-ATTEMPT POSSIBLE)
+	(wood-amount < 1000)
+	(gold-amount > 1000)
+	(stone-amount > 1000)
+=>
+	(set-goal RESOURCE-NEEDED WOOD)
+)
+
+
+
+(defrule
+	(goal WONDER-ATTEMPT POSSIBLE)
+	(wood-amount > 1000)
+	(gold-amount < 1000)
+	(stone-amount > 1000)
+=>
+	(set-goal RESOURCE-NEEDED GOLD)
+)
+
+
+
+;RESOURCE-NEEDED NO
+;----------------------------------
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED NO)		;goal RESOURCE-NEEDED to NO (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 70);70 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED NO)		;goal RESOURCE-NEEDED to NO (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED NO)		;goal RESOURCE-NEEDED to NO (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 60);60 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED NO)		;goal RESOURCE-NEEDED to NO (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+;RESOURCE-NEEDED WOOD
+;---------------------------------------
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED WOOD)	;goal RESOURCE-NEEDED to WOOD (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 60);60 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED WOOD)	;goal RESOURCE-NEEDED to WOOD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 10);10 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED WOOD)	;goal RESOURCE-NEEDED to WOOD (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED WOOD)	;goal RESOURCE-NEEDED to WOOD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 10);10 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+
+
+;RESOURCE-NEEDED FOOD
+;-------------------------------------
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED FOOD)		;goal RESOURCE-NEEDED to FOOD (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 70);70 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED FOOD)		;goal RESOURCE-NEEDED to FOOD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 65);65 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 25);25 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 10);10 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED FOOD)		;goal RESOURCE-NEEDED to FOOD (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 65);65 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 25);25 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED FOOD)		;goal RESOURCE-NEEDED to FOOD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 65);65 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 20);20 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 10);10 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+
+
+;RESOURCE-NEEDED GOLD
+;--------------------------------------
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED GOLD)		;goal RESOURCE-NEEDED to GOLD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 25);25 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 25);25 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+	(goal RESOURCE-NEEDED GOLD)		;goal RESOURCE-NEEDED to GOLD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+
+
+;***********************************************
+;***********************************************
+#else		;if not game type == wonder race
+;***********************************************
+;***********************************************
+
+
+
+;RESOURCE-NEEDED NO
+;----------------------------------
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED NO)		;goal RESOURCE-NEEDED to NO (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 70);70 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED NO)		;goal RESOURCE-NEEDED to NO (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED NO)		;goal RESOURCE-NEEDED to NO (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 55);55 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 15);15 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED NO)		;goal RESOURCE-NEEDED to NO (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+;RESOURCE-NEEDED WOOD
+;---------------------------------------
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED WOOD)	;goal RESOURCE-NEEDED to WOOD (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50);50 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 50);50 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED WOOD)	;goal RESOURCE-NEEDED to WOOD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED WOOD)	;goal RESOURCE-NEEDED to WOOD (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>			;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 15);15 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED WOOD)	;goal RESOURCE-NEEDED to WOOD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+
+
+;RESOURCE-NEEDED FOOD
+;-------------------------------------
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED FOOD)		;goal RESOURCE-NEEDED to FOOD (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 60);60 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED FOOD)		;goal RESOURCE-NEEDED to FOOD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 55);55 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED FOOD)		;goal RESOURCE-NEEDED to FOOD (constant)
+	(or
+		(dropsite-min-distance gold > 5)	;the distance between the gold resource and the next mining-camp is greather than 5
+		(dropsite-min-distance gold < 0)	;or the distance between the gold resource and the next mining-camp is less than 0
+	)
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 55);65 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 35);35 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 0);0 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED FOOD)		;goal RESOURCE-NEEDED to FOOD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 55);55 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 20);20 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 15);15 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+;RESOURCE-NEEDED GOLD
+;--------------------------------------
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED GOLD)		;goal RESOURCE-NEEDED to GOLD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(or
+		(dropsite-min-distance stone > 5)	;the distance between the stone resource and the next mining-camp is greather than 5
+		(dropsite-min-distance stone < 0)	;or the distance between the stone resource and the next mining-camp is less than 0
+	)
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 25);25 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 0);0 percent of the gatherers gather stone
+)
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal RESOURCE-NEEDED GOLD)		;goal RESOURCE-NEEDED to GOLD (constant)
+	(dropsite-min-distance gold <= 5)		;the distance between the gold resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance gold >= 0)		;the distance between the gold resource and the next mining-camp is greather or equal than 0
+	(dropsite-min-distance stone <= 5)		;the distance between the stone resource and the next mining-camp is less or equal than 5
+	(dropsite-min-distance stone >= 0)		;the distance between the stone resource and the next mining-camp is greather or equal than 0
+	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))	;not goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40);40 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 10);10 percent of the gatherers gather stone
+)
+
+
+
+;*******************************************************
+;*******************************************************
+;WHAT TO DO IF WE ARE ADVANCING TO THE IMPERIAL-AGE ?
+
+
+
+(defrule 				;If
+	(current-age == castle-age)			;the age, the AI is in, is equal castle-age
+	(goal ADVANCING-TO-AGE IMPERIAL-AGE)	;goal ADVANCING-TO-AGE to IMPERIAL-AGE (constant)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 0);0 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 40);40 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 30);30 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 30);30 percent of the gatherers gather stone
+)
+
+
+
+;*******************************************************
+;*******************************************************
+;WHAT TO DO IF WE ARE IN IMPERIAL-AGE ?
+
+(defrule 				;If
+	(current-age == imperial-age)			;the age, the AI is in, is imperial-age
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 10);10 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 30);30 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 30);30 percent of the gatherers gather stone
+)
+
+
+#end-if		;if game type == wonder race
+;***********************************************
+;***********************************************
+
+
+
+;***********************************
+;***********************************
+#else		;if not game type == deathmatch
+;***********************************
+;***********************************
+
+
+
+(defrule 				;If
+	(true)				;this condition is always true
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45);45 percent of the gatherers gather food
+ 	(set-strategic-number sn-wood-gatherer-percentage 30);30 percent of the gatherers gather wood
+ 	(set-strategic-number sn-gold-gatherer-percentage 20);20 percent of the gatherers gather gold
+ 	(set-strategic-number sn-stone-gatherer-percentage 5);5 percent of the gatherers gather stone
+)
+
+;***********************************
+;***********************************
+#end-if
+
+
+;=====END; The Duke Resource-Control(Land).per=====
+;=====ALL RIGHTS RESERVED====================
