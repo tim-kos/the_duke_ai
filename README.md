@@ -89,3 +89,8 @@ The only difference between hard and hardest, is that in hardest goes everything
 If hardest is too easy for you, then play against 2 or 3 or even more The Duke-AIs, but I think a 2 vs 2 cheating The Dukes on hardest should be hard enough! By the way, on hardest the duke cheats a little bit. On hard the duke does not cheat.
 
 The Duke-AI can take on 3 standard computer opponents which are teamed together (not always, but often) and in one test it could beat phoenixknight and often beats alliance-AI by Dr. Mabuse.
+
+## Todo
+
+* Find out why the duke builds so many mining camps all over the place in late games trying to find the last gold drop-site.
+* Build more no-gold units if there is no allied market (or we have no allies) and we do not own a gold drop-site.
