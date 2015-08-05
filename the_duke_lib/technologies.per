@@ -215,23 +215,6 @@
 	(building-type-count-total lumber-camp >= 1)
 	(strategic-number sn-wood-gatherer-percentage > 0)
 	(not (research-available ri-wheel-barrow))
-	(goal RUSH-CONTROL NO)
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-double-bit-axe)
-;               (chat-local-to-self "research DOUBLE-BIT-AXE")
-)
-;50 WOOD, 100 FOOD
-(defrule
- 	(or
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
- 		(current-age >= castle-age)
-	)
- 	(can-research-with-escrow ri-double-bit-axe)
-	(building-type-count-total lumber-camp >= 1)
-	(strategic-number sn-wood-gatherer-percentage > 0)
-	(not (research-available ri-wheel-barrow))
 =>
 	(release-escrow food)
 	(release-escrow wood)
