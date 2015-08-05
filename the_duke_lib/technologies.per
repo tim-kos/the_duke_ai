@@ -584,8 +584,8 @@
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(not (research-available ri-hand-cart))
 	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 700)
+		(building-type-count-total town-center > 2)
+		(wood-amount > 500)
 	)
 	(goal RUSH-CONTROL NO)
 =>
@@ -599,6 +599,8 @@
  	(current-age == castle-age)
  	(can-research-with-escrow ri-gold-shaft-mining)
 	(building-type-count-total lumber-camp >= 1)
+	(building-type-count-total mining-camp >= 1)
+	(building-type-count-total town-center > 1)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(not (research-available ri-wheel-barrow))
 	(or
@@ -655,11 +657,11 @@
 	(building-type-count-total mining-camp >= 2)
 	(strategic-number sn-stone-gatherer-percentage > 0)
 	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-gold-shaft-mining))
 	(goal RUSH-CONTROL NO)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 800)
-	)
+	(building-type-count-total town-center > 2)
+	(wood-amount > 300)
+	(food-amount > 300)
 =>
 	(release-escrow food)
 	(release-escrow wood)
@@ -686,43 +688,6 @@
  	(research ri-stone-shaft-mining)
 ;               (chat-local-to-self "research STONE-SHAFT-MINING")
 )
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule137: research STONE-SHAFT-MINING-MODERATE, HARD, HARDEST, if we don't do a rush
-;150 WOOD, 200 FOOD
-(defrule
- 	(can-research-with-escrow ri-stone-shaft-mining)
-	;(strategic-number sn-stone-gatherer-percentage > 0)
-	(or
-		(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL))
-		(and
-			(goal ADVANCING-TO-AGE IMPERIAL-AGE)
-			(timer-triggered T-ABLE-TO-PAY-RESOURCES)
-		)
-	)
-	(not (research-available ri-hand-cart))
-	(goal RUSH-CONTROL NO)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 700)
-	)
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-stone-shaft-mining)
-;               (chat-local-to-self "research STONE-SHAFT-MINING")
-)
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
 
 ;***********************************************
 ;***********************************************
