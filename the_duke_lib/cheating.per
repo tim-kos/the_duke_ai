@@ -720,37 +720,6 @@
 #end-if		;if post imperial age start
 
 
-
-#load-if-defined DIFFICULTY-HARD
-
-;Rule15: extra cheating if we are attacker and play on hard; and we don't cheat the boar resources
-
-(defrule
-	(timer-triggered T-GET-RESOURCE)
-	(goal BOAR-CHEATING NO)
-=>
-	(disable-timer T-GET-RESOURCE)
-	(cc-add-resource wood 300)
-	(cc-add-resource food 300)
-	(cc-add-resource gold 300)
-	(cc-add-resource stone 300)
-	(enable-timer T-GET-RESOURCE 1200)
-)
-
-(defrule
-	(timer-triggered T-GET-RESOURCE)
-	(goal BOAR-CHEATING YES)
-=>
-	(disable-timer T-GET-RESOURCE)
-	(cc-add-resource wood 300)
-	;(cc-add-resource food 300)
-	(cc-add-resource gold 300)
-	(cc-add-resource stone 300)
-	(enable-timer T-GET-RESOURCE 1200)
-)
-
-#end-if		;if difficulty == hard
-
 #load-if-defined DIFFICULTY-HARDEST
 
 ;Rule16: extra cheating if we are attacker and play on hardest
