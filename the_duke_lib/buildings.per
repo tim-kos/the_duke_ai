@@ -445,8 +445,7 @@
 ;MILLS
 
 
-;Rule22: build MILL (FIRST) when we found some berry-bush, deer or fish
-
+;build MILL (FIRST) when we found some berry-bush, deer or fish
 (defrule
 	(or
 		(resource-found food)
@@ -459,6 +458,19 @@
 ;	(chat-local-to-self "build MILL")
 )
 
+
+;extra mill if we found deer
+(defrule
+	(dropsite-min-distance food > 8)
+	(dropsite-min-distance food < 25)
+	(building-type-count-total lumber-camp > 0)
+	(building-type-count-total mill < 3)
+	(resource-found food)
+	(can-build mill)
+=>
+	(build mill)
+;	(chat-local-to-self "build MILL")
+)
 
 
 #load-if-not-defined WONDER-RACE
@@ -594,26 +606,34 @@
 
 
 ;Rule24: build EXTRA MILLS when we have got many farms
+(defrule
+	(building-type-count farm > 15)
+	(building-type-count lumber-camp > 0)
+	(building-type-count-total mill < 2)
+	(can-build mill)
+=>
+	(build mill)
+)
 
 (defrule
 	(or
 		(or
 			(and
-				(building-type-count-total farm > 20)
-				(building-type-count-total mill < 2)
+				(building-type-count-total farm > 25)
+				(building-type-count-total mill < 3)
 			)
 			(and
-				(building-type-count-total farm > 30)
-				(building-type-count-total mill < 3)
+				(building-type-count-total farm > 35)
+				(building-type-count-total mill < 4)
 			)
 		)
 		(and
-			(building-type-count-total farm > 40)
-			(building-type-count-total mill < 4)
+			(building-type-count-total farm > 45)
+			(building-type-count-total mill < 5)
 		)
 	)
 	(can-build mill)
-	(wood-amount > 400)
+	(building-type-count lumber-camp > 0)
 =>
 	(build mill)
 ;	(chat-local-to-self "build MILL (many farms)")
