@@ -119,7 +119,7 @@
  	(current-age == feudal-age)
  	(unit-type-count-total spearman-line < 5)
  	(can-train spearman-line)
-	(players-military-population any-enemy > THREE-PERCENT-POP)
+	(players-military-population any-enemy > 5)
 =>			;then
  	(train spearman)
 )
@@ -310,7 +310,7 @@
  	(current-age == feudal-age)
  	(unit-type-count-total skirmisher-line < 5)
  	(can-train skirmisher-line)
-	(players-military-population any-enemy > THREE-PERCENT-POP)
+	(players-military-population any-enemy > 5)
 =>			;then
  	(train skirmisher)
 )
@@ -2033,7 +2033,7 @@
 (defrule
 	(military-population < SEVEN-PERCENT-POP)
 	(current-age == castle-age)
-	(players-military-population any-enemy >= SEVEN-PERCENT-POP)
+	(players-military-population any-enemy >= 5)
 	(can-build stable)
 	(town-under-attack)
 	(building-type-count-total stable < 2)
@@ -2047,7 +2047,7 @@
 (defrule
 	(military-population < SEVEN-PERCENT-POP)
 	(current-age == castle-age)
-	(players-military-population any-enemy >= SEVEN-PERCENT-POP)
+	(players-military-population any-enemy >= 5)
 	(can-train knight-line)
 	(town-under-attack)
 =>
