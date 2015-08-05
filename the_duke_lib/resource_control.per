@@ -10,12 +10,79 @@
 ;*****************************************************
 ;*****************************************************
 
+(defrule
+  (not  (research-available ri-loom))
+  (unit-type-count villager > 15)
+  (dropsite-min-distance hunting > 1)
+  (dropsite-min-distance hunting <= 31)
+=>
+  (up-retask-gatherers food c: 1)
+  (set-strategic-number sn-maximum-hunt-drop-distance 31)
+  (set-strategic-number sn-minimum-number-hunters 1)
+  (set-strategic-number sn-enable-boar-hunting 2)
+  (enable-timer T-HUNTING 90)
+  (disable-self)
+)
 
 (defrule
-  (true)
+  (unit-type-count villager > 15)
+  (strategic-number sn-minimum-number-hunters == 1)
+  (unit-type-count villager-hunter > 0)
 =>
-	(set-strategic-number sn-enable-boar-hunting 2)
-	(disable-self)
+  (set-strategic-number sn-minimum-number-hunters 0)
+)
+
+(defrule
+  (unit-type-count villager > 15)
+  (dropsite-min-distance boar-hunting < 8)
+  (strategic-number sn-maximum-hunt-drop-distance == 31)
+=>
+  (set-strategic-number sn-minimum-number-hunters 8)
+  (set-strategic-number sn-minimum-boar-hunt-group-size 6)
+  (up-request-hunters c: 4)
+  (disable-self)
+)
+
+(defrule
+  (unit-type-count villager > 15)
+  (timer-triggered T-HUNTING)
+  (strategic-number sn-enable-boar-hunting >= 1)
+  (or (and  (dropsite-min-distance boar-hunting < 8)
+      (strategic-number sn-minimum-boar-hunt-group-size != 10))
+    (game-time > 400))
+  (strategic-number sn-maximum-hunt-drop-distance == 31)
+=>
+  (up-retask-gatherers boar-food c: 2)
+  (enable-timer T-HUNTING 30)
+  (set-strategic-number sn-minimum-boar-hunt-group-size 0)
+  (set-strategic-number sn-minimum-number-hunters 10)
+  (set-strategic-number sn-maximum-hunt-drop-distance 32)
+  (disable-self)
+)
+
+(defrule
+  (unit-type-count villager > 15)
+  (dropsite-min-distance boar-hunting < 9)
+  (or (and  (strategic-number sn-maximum-hunt-drop-distance == 32)
+      (timer-triggered T-HUNTING))
+    (and  (dropsite-min-distance live-boar < 9)
+      (up-remaining-boar-amount < 330)))
+=>
+  (up-retask-gatherers boar-food c: 2)
+  (up-retask-gatherers food c: 3)
+  (set-strategic-number sn-minimum-boar-hunt-group-size 10)
+  (up-request-hunters c: 3)
+  (disable-self)
+)
+
+(defrule
+  (game-time > 540)
+=>
+  (set-strategic-number sn-minimum-number-hunters 0)
+  (set-strategic-number sn-minimum-boar-hunt-group-size 6)
+  (set-strategic-number sn-maximum-hunt-drop-distance 30)
+  (set-strategic-number sn-enable-boar-hunting 1)
+  (disable-self)
 )
 
 #load-if-not-defined DEATH-MATCH

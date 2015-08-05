@@ -11,6 +11,7 @@
 	(set-strategic-number sn-special-attack-influence1 0)
 	(set-strategic-number sn-percent-attack-soldiers 100)
 	(set-strategic-number sn-percent-attack-boats 100)
+	(set-strategic-number sn-attack-intelligence 1)
 	(disable-self)
 )
 
@@ -99,22 +100,6 @@
 =>
 	(chat-to-player every-ally "39 Attack the enemy now! He has got all the relics!")
 	(disable-self)
-)
-
-(defrule
-	(enemy-captured-relics)
-=>
-	(set-strategic-number sn-special-attack-type1 1)
-	(set-strategic-number sn-special-attack-influence1 100)
-	(set-strategic-number sn-percent-attack-soldiers 100)
-)
-
-(defrule
-	(not (enemy-captured-relics))
-=>
-	(set-strategic-number sn-special-attack-type1 0)
-	(set-strategic-number sn-special-attack-influence1 0)
-	(set-strategic-number sn-percent-attack-soldiers 100)
 )
 
 #end-if		;if not victory-condition-conquest

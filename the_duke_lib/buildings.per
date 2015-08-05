@@ -180,12 +180,12 @@
 ;Rule8: rebuild TOWN-CENTER-MODERATE, HARD, HARDEST
 
 (defrule
- 	(current-age >= dark-age)
  	(building-type-count-total town-center == 0)
  	(can-build town-center)
 	(not (map-type nomad))
 =>
  	(build town-center)
+ 	(up-assign-builders c: 621 c: 6) ; town-center-foundation: 621
 ;	(chat-local-to-self "rebuild TOWN-CENTER")
 )
 ;***********************************************
@@ -266,21 +266,23 @@
 ;*******************************************************************
 ;EXTRA LUMBER-CAMPS // The villagers won't get the ood from only one lumber camp
 
-
-
 ;Rule15: build EXTRA-LUMBERCAMP if the wood is too far away
 
 (defrule
 	(current-age >= feudal-age)
+	(strategic-number sn-wood-gatherer-percentage > 0)
 	(can-build lumber-camp)
 	(resource-found wood)
 	(dropsite-min-distance wood > 3)
+	(dropsite-min-distance wood < 480)
 	(building-type-count-total barracks > 0)
 	(building-type-count-total blacksmith > 0)
+	(up-pending-objects c: lumber-camp <= 1)
 =>
 	(build lumber-camp)
 ;	(chat-local-to-self "build LUMBER-CAMP")
 )
+
 ;************************************************************************************************************
 ;GOLD- AND STONE-MINING
 
@@ -659,7 +661,6 @@
 		(current-age-time > 360)
 	)
 	(game-time > 300)
-	(goal BOAR-CHEATING NO)
 	(building-type-count-total lumber-camp > 0)
 =>
  	(build farm)
@@ -860,13 +861,6 @@
  	(current-age == castle-age)
  	(can-build farm)
 	(building-type-count-total farm < max-feudal-farm)
-	(or
-		(and
-			(unit-type-count SHEEP < 2)
-			(unit-type-count TURKEY < 2)
-		)
-		(current-age-time > 360)
-	)
 	(building-type-count-total lumber-camp > 0)
 	(or
 		(goal RUSH-CONTROL NO)
@@ -1743,11 +1737,10 @@
 (defrule
 	(current-age == feudal-age)
 	(can-build stable)
-	(current-age-time > 320)
 	(or
 		(and
 			(building-type-count-total stable < stable-building-feudal)
-			(wood-amount > 500)
+			(wood-amount > 400)
 		)
 		(building-type-count-total stable < 1)
 	)
@@ -1757,10 +1750,26 @@
 ;	(chat-local-to-self "build STABLE")
 )
 
+;build a second stable when advancing to the castle age to spam knights
+;quickly in case we get under attack
+(defrule
+	(can-build stable)
+	(building-type-count-total stable < 2)
+	(or
+		(and
+			(goal ADVANCING-TO-AGE CASTLE-AGE)
+			(current-age == feudal-age)
+		)
+		(current-age >= castle-age)
+	)
+=>
+	(build stable)
+;	(chat-local-to-self "build STABLE")
+)
+
 (defrule
 	(current-age == castle-age)
 	(can-build stable)
-	(current-age-time > 300)
 	(or
 		(and
 			(building-type-count-total stable < stable-building-castle)
@@ -1777,7 +1786,6 @@
 (defrule
 	(current-age == imperial-age)
 	(can-build stable)
-	(current-age-time > 230)
 	(or
 		(and
 			(building-type-count-total stable < stable-building-imperial)
@@ -2743,6 +2751,7 @@
  	(building-type-count-total watch-tower < 1)
  	(can-build watch-tower)
 	(players-military-population any-enemy > THREE-PERCENT-POP)
+	(stone-amount > 150)
 =>			;then
  	(build watch-tower)
 ;	(chat-local-to-self "build TOWER")
@@ -2759,7 +2768,7 @@
  	(current-age == castle-age)
  	(building-type-count-total watch-tower < watch-tower-building-castle)
  	(can-build watch-tower)
-	(building-type-count-total castle >= 2)
+	(building-type-count-total castle >= 3)
 =>			;then
  	(build watch-tower)
 ;	(chat-local-to-self "build TOWER")
@@ -2795,28 +2804,23 @@
 (defrule
  	(current-age == castle-age)
  	(building-type-count-total town-center < town-center-building-castle)
- 	(can-build-with-escrow town-center)
+ 	(food-amount >= 200)
+ 	(can-build town-center)
 	(or
 		(goal RUSH-CONTROL NO)
-		(or
-			(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
-			(and
-				(wood-amount > 400)
-				(current-age-time > 360)
-			)
-		)
+		(wood-amount > 400)
 	)
+	(up-pending-objects c: town-center <= 1)
 =>
-	(release-escrow wood)
-	(release-escrow stone)
  	(build town-center)
+ 	(up-assign-builders c: 621 c: 6) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 
 (defrule
  	(current-age == imperial-age)
  	(building-type-count-total town-center < town-center-building-imperial)
- 	(can-build-with-escrow town-center)
+ 	(can-build town-center)
 	(or
 		(goal RUSH-CONTROL NO)
 		(or
@@ -2828,9 +2832,8 @@
 		)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow stone)
  	(build town-center)
+ 	(up-assign-builders c: 621 c: 6) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 ;***********************************************

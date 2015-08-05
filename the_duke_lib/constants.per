@@ -157,10 +157,6 @@
 		(defconst DO-WE-HAVE-WOOD 20)
 		;(defconst NO 0)
 
-;goal 21 = BOAR-CHEATING - checks if the AI should cheat resources, because it cannot hunt boars (fault in the game engine)
-		(defconst BOAR-CHEATING 21)
-		;(defconst NO 0)
-
 ;goal 22 = ATTACK-PERSONALITY - used to define whether the AI is an attacker or a defender
 		(defconst ATTACK-PERSONALITY 22)
 		(defconst ATTACKER 1)
@@ -320,6 +316,7 @@
 (defconst T-GET-RESOURCE 8)
 (defconst T-COMBAT-COMBOS 9)
 (defconst T-RESIGN 10)
+(defconst T-HUNTING 11)
 ;---------------------------------------
 
 
@@ -3192,3 +3189,20 @@
 (defconst NUMBER-GATES 5)
 
 #end-if
+
+(defconst villager-shepherd 973)
+(defconst villager-forager 974)
+(defconst villager-farmer 975)
+(defconst villager-hunter 976)
+(defconst villager-fisherman 977)
+(defconst villager-food 978)
+(defconst villager-wood 979)
+(defconst villager-stone 980)
+(defconst villager-gold 981)
+(defconst villager-builder 982)
+(defconst villager-repairer 983)
+(defconst villager-base 984)
+
+(defconst forage-food 907)
+(defconst deer-food 909)
+(defconst boar-food 910)
