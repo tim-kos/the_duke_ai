@@ -225,7 +225,7 @@
 
 (defrule
  	(resource-found wood)
-	(can-build-with-escrow lumber-camp)
+	(can-build lumber-camp)
 	(building-type-count-total lumber-camp < 1)
 	(building-type-count-total mill > 0)
 	(or
@@ -234,7 +234,6 @@
 	)
 	(unit-type-count-total villager > 10)
 =>
-	(release-escrow wood)
  	(build lumber-camp)
 ;	(chat-local-to-self "build LUMBER-CAMP")
 )
@@ -328,11 +327,10 @@
  	(current-age == imperial-age)
  	(resource-found gold)
 	(dropsite-min-distance gold > 4)
- 	(can-build-with-escrow mining-camp)
+ 	(can-build mining-camp)
 	(building-type-count-total mining-camp < 6)
 	(building-type-count-total lumber-camp > 0)
 =>
-	(release-escrow wood)
  	(build mining-camp)
 ;	(chat-local-to-self "build MINING-CAMP for GOLD")
 )
@@ -341,12 +339,11 @@
  	(current-age == imperial-age)
 	(resource-found stone)
 	(dropsite-min-distance stone > 4)
- 	(can-build-with-escrow mining-camp)
+ 	(can-build mining-camp)
 	(building-type-count-total mining-camp < 6)
 	(building-type-count-total lumber-camp > 0)
 	(building-type-count-total market > 0)
 =>
-	(release-escrow wood)
  	(build mining-camp)
 ;	(chat-local-to-self "build MINING-CAMP for STONE")
 )
@@ -1103,9 +1100,8 @@
 
 (defrule
  	(building-type-count-total market < 1)
- 	(can-build-with-escrow market)
+ 	(can-build market)
 =>				 ;then
-	(release-escrow wood)
  	(build market)
 ;	(chat-local-to-self "build MARKET")
 )
@@ -2643,7 +2639,6 @@
 	(wall-completed-percentage 2 < 100)
 	(current-age == imperial-age)
 =>
-	(release-escrow stone)
 	(build-wall 2 stone-wall-line)
 )
 
@@ -2653,7 +2648,6 @@
  	(building-type-count-total gate < 7)
  	(can-build-gate-with-escrow 2)
 =>
-	(release-escrow stone)
 	(build-gate 2)
 )
 
@@ -2688,9 +2682,8 @@
  			(building-type-count-total castle < castle-building-imperial)
 		)
 	)
- 	(can-build-with-escrow castle)
+ 	(can-build castle)
 =>
-	(release-escrow stone)
  	(build castle)
 ;	(chat-local-to-self "build CASTLE")
 )
@@ -2741,22 +2734,6 @@
 )
 
 #end-if
-
-
-
-;Rule121: build WATCH-TOWERS all the numbers here are scaled to the difficulty level part 2 (castle-age)
-
-(defrule
- 	(current-age >= feudal-age)
- 	(building-type-count-total watch-tower < 1)
- 	(can-build watch-tower)
-	(players-military-population any-enemy > THREE-PERCENT-POP)
-	(stone-amount > 150)
-=>			;then
- 	(build watch-tower)
-;	(chat-local-to-self "build TOWER")
-)
-
 
 
 #load-if-not-defined GOTHIC-CIV
@@ -3102,7 +3079,7 @@
 
 (defrule
 	(goal WONDER-ATTEMPT YES)
-	(can-build-with-escrow wonder)
+	(can-build wonder)
 =>
 	(set-strategic-number sn-percent-civilian-builders 95)
 	(set-strategic-number sn-cap-civilian-builders 40)
@@ -3196,9 +3173,8 @@
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(current-age >= castle-age)
 	(players-current-age any-enemy < castle-age)
-	(can-build-with-escrow castle)
+	(can-build castle)
 =>
-	(release-escrow stone)
 	(build-forward castle)
 ;	(chat-local-to-self "build FORWARD-CASTLE")
 )
@@ -3213,11 +3189,10 @@
 			(building-type-count-total castle < 14)
 		)
 	)
-	(can-build-with-escrow castle)
+	(can-build castle)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 =>
-	(release-escrow stone)
 	(build-forward castle)
 ;	(chat-local-to-self "build FORWARD-CASTLE")
 )

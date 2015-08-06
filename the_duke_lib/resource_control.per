@@ -502,10 +502,23 @@
 	(dropsite-min-distance stone > 5)
 	(goal ADVANCING-TO-AGE CASTLE-AGE)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 50)
- 	(set-strategic-number sn-wood-gatherer-percentage 25)
+ 	(set-strategic-number sn-food-gatherer-percentage 43)
+ 	(set-strategic-number sn-wood-gatherer-percentage 32)
  	(set-strategic-number sn-gold-gatherer-percentage 25)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+
+(defrule 				;If
+	(current-age == feudal-age)
+	(goal RUSH-CONTROL NO)
+	(building-type-count mining-camp > 0)
+	(dropsite-min-distance stone <= 5)
+	(goal ADVANCING-TO-AGE CASTLE-AGE)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40)
+ 	(set-strategic-number sn-wood-gatherer-percentage 30)
+ 	(set-strategic-number sn-gold-gatherer-percentage 25)
+ 	(set-strategic-number sn-stone-gatherer-percentage 5)
 )
 ;************************************
 
@@ -587,8 +600,8 @@
 		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
 	)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 48)
- 	(set-strategic-number sn-wood-gatherer-percentage 27)
+ 	(set-strategic-number sn-food-gatherer-percentage 43)
+ 	(set-strategic-number sn-wood-gatherer-percentage 32)
  	(set-strategic-number sn-gold-gatherer-percentage 25)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
@@ -601,8 +614,8 @@
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 52)
- 	(set-strategic-number sn-wood-gatherer-percentage 22)
+ 	(set-strategic-number sn-food-gatherer-percentage 48)
+ 	(set-strategic-number sn-wood-gatherer-percentage 27)
  	(set-strategic-number sn-gold-gatherer-percentage 25)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
@@ -620,8 +633,8 @@
 		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
 	)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 49)
- 	(set-strategic-number sn-wood-gatherer-percentage 23)
+ 	(set-strategic-number sn-food-gatherer-percentage 44)
+ 	(set-strategic-number sn-wood-gatherer-percentage 28)
  	(set-strategic-number sn-gold-gatherer-percentage 28)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
@@ -634,8 +647,8 @@
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 53)
- 	(set-strategic-number sn-wood-gatherer-percentage 20)
+ 	(set-strategic-number sn-food-gatherer-percentage 48)
+ 	(set-strategic-number sn-wood-gatherer-percentage 25)
  	(set-strategic-number sn-gold-gatherer-percentage 27)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
