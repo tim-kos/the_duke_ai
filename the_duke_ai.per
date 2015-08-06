@@ -33,48 +33,9 @@
 
 #load-if-not-defined VICTORY-CONQUEST
 #load-if-not-defined WONDER-RACE
-
-#load-if-defined DIFFICULTY-EASIEST
-
-	(load-random
-	  	0 "the_duke_lib\wonder"
-	)
-
+(load "the_duke_lib\wonder")
 #end-if
-;***********************************
-#load-if-defined DIFFICULTY-EASY
-
-	(load-random
-	  	20 "the_duke_lib\wonder"
-	)
-
 #end-if
-;***********************************
-#load-if-defined DIFFICULTY-MODERATE
-
-	(load-random
-	  	30 "the_duke_lib\wonder"
-	)
-
-#end-if
-;***********************************
-#load-if-defined DIFFICULTY-HARD
-
-	(load-random
-		30 "the_duke_lib\wonder"
-	)
-
-#end-if
-;***********************************
-#load-if-defined DIFFICULTY-HARDEST
-
-	(load-random
-		30 "the_duke_lib\wonder"
-	)
-
-#end-if
-#end-if		;if not game type == wonder race
-#end-if		;load if not defined victory conquest
 
 (load "the_duke_lib\unit_combos")
 (load "the_duke_lib\military")
@@ -82,7 +43,7 @@
 
 #load-if-defined DEFEND-WONDER
 (load "the_duke_lib\wonder_kill")
-#end-if		;if defend-wonder
+#end-if
 
 (load "the_duke_lib\resource_control")
 (load "the_duke_lib\training_villagers")

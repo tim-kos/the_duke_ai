@@ -1,12 +1,33 @@
+;reset the ADVANCING-TO-AGE - goal
 (defrule
-	(current-age <= feudal-age)
+	(current-age == dark-age)
 =>
-	(chat-local-to-self "in age advancement2")
+	(set-goal ADVANCING-TO-AGE NO)
+	(disable-self)
+)
+
+(defrule
+	(current-age == feudal-age)
+=>
+	(set-goal ADVANCING-TO-AGE NO)
+	(disable-self)
+)
+
+(defrule
+	(current-age == castle-age)
+=>
+	(set-goal ADVANCING-TO-AGE NO)
+	(disable-self)
+)
+
+(defrule
+	(current-age == imperial-age)
+=>
+	(set-goal ADVANCING-TO-AGE NO)
 	(disable-self)
 )
 
 #load-if-not-defined WONDER-RACE
-#load-if-not-defined DEATH-MATCH
 ;***********************************************
 ;***********************************************
 
@@ -16,12 +37,6 @@
 ;************************************************************************************************************
 ;AGE ADVANCEMENT
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
 
 ;Rule1: generate a random number if difficulty == hard or hardest that will define how long it'll take to advance to those several ages
 
@@ -172,85 +187,6 @@
 	(chat-local-to-self "LATE-IMPERIAL")
 	(disable-self)
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-(defrule
-	(current-age == dark-age)
-=>
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-
-
-(defrule
-	(current-age == feudal-age)
-=>
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-
-
-(defrule
-	(current-age == castle-age)
-=>
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-timer T-ABLE-TO-PAY-RESOURCES)
-	(disable-self)
-)
-
-
-
-(defrule
-	(current-age == imperial-age)
-=>
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-timer T-ABLE-TO-PAY-RESOURCES)
-	(disable-self)
-)
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-;Rule101: research FEUDAL-AGE1-EASY, EASIEST
-;500 FOOD
-(defrule
-	(difficulty >= easy)
- 	(current-age == dark-age)
- 	(can-research-with-escrow feudal-age)
-	(or
-		(players-current-age any-computer >= feudal-age)
-		(players-current-age any-human >= feudal-age)
-	)
-	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY)
-=>
-	(release-escrow food)
-	(research feudal-age)
-	(chat-to-player every-ally "39 I'm adavancing to the feudal-age now!")
-	(chat-local-to-self "advance to FEUDAL-AGE")
-	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
-)
-;***********************************************
-#end-if		;if not difficulty type == hardest
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == moderate
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
 
 ;Rule103: research FEUDAL-AGE3-MODERATE, HARD, HARDEST -fast feudal-age
 ;500 FOOD
@@ -292,68 +228,6 @@
 	(chat-local-to-self "advance to FEUDAL-AGE")
 	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-#load-if-defined DIFFICULTY-EASIEST
-;***********************************************
-;***********************************************
-
-;Rule106: research CASTLE-AGE1- EASIEST
-;800 FOOD, 200 GOLD
-(defrule
- 	(current-age == feudal-age)
- 	(game-time > CASTLE-RESEARCH-TIME-EASIEST)
- 	(can-research-with-escrow castle-age)
-	(or
-		(players-current-age any-computer >= castle-age)
-		(players-current-age any-human >= castle-age)
-	)
-=>
-	(release-escrow food)
-	(release-escrow gold)
- 	(research castle-age)
-	(chat-to-player every-ally "39 I'm advancing to the castle-age now!")
-	(chat-local-to-self "advance to CASTLE-AGE")
-	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
-	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
-)
-;***********************************************
-#end-if		;if difficulty type == easiest
-
-
-
-#load-if-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule107: research CASTLE-AGE2- EASY
-;800 FOOD, 200 GOLD
-(defrule
- 	(current-age == feudal-age)
- 	(game-time > CASTLE-RESEARCH-TIME-EASY)
- 	(can-research-with-escrow castle-age)
-=>
-	(release-escrow food)
-	(release-escrow gold)
- 	(research castle-age)
-	(chat-to-player every-ally "39 I'm advancing to the castle-age now!")
-	(chat-local-to-self "advance to CASTLE-AGE")
-	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
-	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
-)
-;***********************************************
-#end-if		;if difficulty type == easiest
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
 
 ;Rule109: research CASTLE-AGE4- MODERATE, HARD, HARDEST -fast castle-age
 ;800 FOOD, 200 GOLD
@@ -401,68 +275,6 @@
 	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-#load-if-defined DIFFICULTY-EASIEST
-;***********************************************
-;***********************************************
-
-;Rule112: research IMPERIAL-AGE1- EASIEST
-;1000 FOOD, 800 GOLD
-(defrule
- 	(current-age == castle-age)
- 	(game-time > IMPERIAL-RESEARCH-TIME-EASIEST)
- 	(can-research-with-escrow imperial-age)
-	(or
-		(players-current-age any-computer == imperial-age)
-		(players-current-age any-human == imperial-age)
-	)
-=>
-	(release-escrow food)
-	(release-escrow gold)
- 	(research imperial-age)
-	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!")
-	(chat-local-to-self "advance to IMPERIAL-AGE")
-	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
-	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
-)
-;***********************************************
-#end-if		;if difficulty type == easiest
-
-
-
-#load-if-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule113: research IMPERIAL-AGE2- EASY
-;1000 FOOD, 800 GOLD
-(defrule
- 	(current-age == castle-age)
- 	(game-time > IMPERIAL-RESEARCH-TIME-EASY)
- 	(can-research-with-escrow imperial-age)
-=>
-	(release-escrow food)
-	(release-escrow gold)
- 	(research imperial-age)
-	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!")
-	(chat-local-to-self "advance to IMPERIAL-AGE")
-	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
-	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
-)
-;***********************************************
-#end-if		;if difficulty type == easiest
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
 
 ;Rule115: research IMPERIAL-AGE4- HARD, HARDEST -fast imperial-age
 ;1000 FOOD, 800 GOLD
@@ -510,52 +322,10 @@
 	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
 
 ;***********************************************
 ;***********************************************
-#end-if		;if not game-type == death-match
-#end-if		;if not game type == wonder race
-
-
-;**************************************************************************
-;**************************************************************************
-
-#load-if-defined DEATH-MATCH
-
-;Rule29: reset the ADVANCING-TO-AGE - goal in the dark age
-
-(defrule
-	(current-age == dark-age)
-=>					;then
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-(defrule
-	(current-age == feudal-age)
-=>					;then
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-(defrule
-	(current-age == castle-age)
-=>					;then
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-(defrule
-	(current-age == imperial-age)
-=>					;then
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
+#else		;if not game type == wonder race
 
 (defrule
 	(can-research-with-escrow feudal-age)
@@ -563,92 +333,7 @@
 		(players-current-age every-human >= feudal-age)
 		(difficulty <= moderate)
 	)
-=>					;then
-	(release-escrow food)
-	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!")
-	(chat-local-to-self "advance to FEUDAL-AGE")
-	(research feudal-age)
-	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
-	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
-)
-
-(defrule
-	(can-research-with-escrow castle-age)
-	(or
-		(players-current-age every-human >= castle-age)
-		(difficulty <= moderate)
-	)
-=>					;then
-	(release-escrow food)
-	(release-escrow gold)
-	(chat-to-player every-ally "39 I'm advancing to the castle-age now!")
-	(chat-local-to-self "advance to CASTLE-AGE")
-	(research castle-age)
-	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
-	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
-)
-
-(defrule
-	(can-research-with-escrow imperial-age)
-	(or
-		(players-current-age every-human == imperial-age)
-		(difficulty <= moderate)
-	)
-=>					;then
-	(release-escrow food)
-	(release-escrow gold)
-	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!")
-	(chat-local-to-self "advance to IMPERIAL-AGE")
-	(research imperial-age)
-	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
-	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
-)
-;***********************************************
-#end-if		;if game type == death match
-
-
-
-#load-if-defined WONDER-RACE
-;***********************************************
-;***********************************************
-
-;Rule36: reset the ADVANCING-TO-AGE - goal in the dark age
-
-(defrule
-	(current-age == dark-age)
-=>					;then
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-(defrule
-	(current-age == feudal-age)
-=>					;then
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-(defrule
-	(current-age == castle-age)
-=>					;then
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-(defrule
-	(current-age == imperial-age)
-=>					;then
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-(defrule
-	(can-research-with-escrow feudal-age)
-	(or
-		(players-current-age every-human >= feudal-age)
-		(difficulty <= moderate)
-	)
-=>					;then
+=>
 	(chat-local-to-self "advance to FEUDAL-AGE")
 	(release-escrow food)
 	(research feudal-age)
@@ -662,7 +347,7 @@
 		(players-current-age every-human >= castle-age)
 		(difficulty <= moderate)
 	)
-=>					;then
+=>
 	(chat-local-to-self "advance to CASTLE-AGE")
 	(release-escrow food)
 	(release-escrow gold)
@@ -677,7 +362,7 @@
 		(players-current-age every-human == imperial-age)
 		(difficulty <= moderate)
 	)
-=>					;then
+=>
 	(chat-local-to-self "advance to IMPERIAL-AGE")
 	(release-escrow food)
 	(release-escrow gold)
@@ -686,4 +371,4 @@
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
 )
 ;***********************************************
-#end-if		;if game type == wonder race
+#end-if
