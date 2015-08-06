@@ -966,7 +966,10 @@
 	)
 	(or
 		(not (goal RUSH-CONTROL RUSHING))
-		(building-type-count-total archery-range > 0)
+		(or
+			(building-type-count-total archery-range > 0)
+			(building-type-count-total stable > 0)
+		)
 	)
 	(not (research-available ri-wheel-barrow))
 	(not (research-available ri-double-bit-axe))
@@ -2145,9 +2148,23 @@
 
 (defrule
  	(current-age == castle-age)
- 	(building-type-count-total town-center < town-center-building-castle)
+ 	(building-type-count-total town-center < 2)
  	(food-amount >= 200)
  	(can-build town-center)
+ 	(not (research-available ri-bow-saw))
+=>
+ 	(build town-center)
+ 	(up-assign-builders c: 621 c: 3) ; town-center-foundation: 621
+;	(chat-local-to-self "build TOWN-CENTER")
+)
+
+(defrule
+ 	(current-age == castle-age)
+ 	(building-type-count-total town-center < town-center-building-castle)
+ 	(can-build town-center)
+ 	(not (research-available ri-bow-saw))
+ 	(not (research-available ri-hand-cart))
+ 	(not (research-available ri-heavy-plow))
 =>
  	(build town-center)
  	(up-assign-builders c: 621 c: 3) ; town-center-foundation: 621

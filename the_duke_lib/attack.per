@@ -497,10 +497,7 @@
 	(military-population >= 10)
 	(players-building-count any-enemy > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
-	(or
-		(goal MILITARY-PARITY SUPERIOR)
-		(goal MILITARY-PARITY VASTLY-SUPERIOR)
-	)
+	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 =>
 	(enable-timer T-ATTACK 180)
@@ -518,10 +515,7 @@
 	(military-population >= 16)
 	(players-building-count any-enemy > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
-	(or
-		(goal MILITARY-PARITY SUPERIOR)
-		(goal MILITARY-PARITY VASTLY-SUPERIOR)
-	)
+	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 =>
 	(enable-timer T-ATTACK 180)
@@ -542,7 +536,10 @@
 	(players-building-count any-enemy > 0)
 	(timer-triggered T-ATTACK)
 	(goal ATTACK-PERSONALITY ATTACKER)
-	(goal MILITARY-PARITY VASTLY-SUPERIOR)
+	(or
+		(goal MILITARY-PARITY SUPERIOR)
+		(goal MILITARY-PARITY VASTLY-SUPERIOR)
+	)
 =>
 	(disable-timer T-ATTACK)
 	(enable-timer T-ATTACK 180)

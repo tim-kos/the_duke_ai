@@ -138,7 +138,6 @@
 ;HORSE-COLLAR 75 WOOD, 75 FOOD
 (defrule
  	(can-research ri-horse-collar)
-	(strategic-number sn-food-gatherer-percentage > 0)
 	(not (research-available ri-wheel-barrow))
 	(not (research-available ri-double-bit-axe))
 	(building-type-count-total farm > 8)
@@ -150,16 +149,16 @@
 ;HEAVY-PLOW 125 WOOD, 125 FOOD
 (defrule
  	(can-research ri-heavy-plow)
-	(strategic-number sn-food-gatherer-percentage > 0)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
 	(building-type-count-total farm > 15)
+	(building-type-count-total town-center > 1)
 	(or
 		(goal RUSH-CONTROL NO)
 		(and
 			(or
-				(unit-type-count-total eagle-warrior-line > EIGHT-PERCENT-POP)
-				(unit-type-count-total knight-line > FIVE-PERCENT-POP)
+				(unit-type-count-total eagle-warrior-line > 15)
+				(unit-type-count-total knight-line > 12)
 			)
 			(goal RUSH-CONTROL RUSHING)
 		)
@@ -172,7 +171,6 @@
 ;CROP ROTATION 250 WOOD, 250 FOOD
 (defrule
  	(can-research ri-crop-rotation)
-	(strategic-number sn-food-gatherer-percentage > 0)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-two-man-saw))
 	(building-type-count-total farm > 15)

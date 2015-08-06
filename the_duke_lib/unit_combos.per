@@ -3263,7 +3263,6 @@
 #load-if-not-defined DIFFICULTY-EASY
 
 
-
 (defrule
 	(current-age == feudal-age)
 	(goal ADVANCING-TO-AGE NO)
@@ -3294,20 +3293,28 @@
 			(and
 				(and
 					(goal RESEARCHING-IMPERIAL FAST-IMPERIAL)
-					(food-amount > 1100)
+					(food-amount > 1300)
 				)
-				(gold-amount > 900)
+				(gold-amount > 1000)
 			)
 			(and
 				(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL)
-				(military-population < TEN-PERCENT-POP)
+				(military-population < EIGHT-PERCENT-POP)
 			)
 		)
 		(goal RESEARCHING-IMPERIAL LATE-IMPERIAL)
 	)
 	(military-population < MILITARY-POPULATION-MAX)
-	(goal ADVANCING-TO-AGE NO)
-	(food-amount > 120) ;leave food for constant villager creation
+	(or
+		(and
+			(research-available ri-hand-cart)
+			(food-amount > 450) ;leave food for hand-cart
+		)
+		(and
+			(not (research-available ri-hand-cart))
+			(food-amount > 200) ;leave food for villager creation
+		)
+	)
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
@@ -3371,7 +3378,16 @@
 	(game-time <= 3000)
 	(goal ADVANCING-TO-AGE NO)
 	(current-age == castle-age)
-	(food-amount > 110) ;leave food for villager creation
+	(or
+		(and
+			(research-available ri-hand-cart)
+			(food-amount > 450) ;leave food for hand-cart
+		)
+		(and
+			(not (research-available ri-hand-cart))
+			(food-amount > 300) ;leave food for villager creation
+		)
+	)
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
@@ -3382,8 +3398,8 @@
 	(current-age == castle-age)
 	(goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	;(timer-triggered T-ABLE-TO-PAY-RESOURCES)
-	(military-population < FIVE-PERCENT-POP)
-	(food-amount > 120) ;leave food for villager creation
+	(military-population < 15)
+	(food-amount > 200) ;leave food for villager creation
 =>
 	;(disable-timer T-ABLE-TO-PAY-RESOURCES)
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
@@ -3397,7 +3413,7 @@
 
 (defrule
 	(current-age == imperial-age)
-	(food-amount > 100) ;leave food for villager creation
+	(food-amount > 200) ;leave food for villager creation and research
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
