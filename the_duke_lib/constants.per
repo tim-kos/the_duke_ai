@@ -2784,39 +2784,6 @@
 
 #load-if-not-defined WONDER-RACE
 
-#load-if-defined DIFFICULTY-EASIEST
-
-(defconst min-dark-town-size 14)
-(defconst max-dark-town-size 16)
-(defconst min-feudal-town-size 18)
-(defconst max-feudal-town-size 20)
-(defconst min-castle-town-size 20)
-(defconst max-castle-town-size 22)
-(defconst min-imperial-town-size 22)
-(defconst max-imperial-town-size 23)
-
-#end-if		;if Difficulty = Easiest
-
-;*********************************
-
-#load-if-defined DIFFICULTY-EASY
-
-(defconst min-dark-town-size 14)
-(defconst max-dark-town-size 16)
-(defconst min-feudal-town-size 18)
-(defconst max-feudal-town-size 20)
-(defconst min-castle-town-size 20)
-(defconst max-castle-town-size 22)
-(defconst min-imperial-town-size 22)
-(defconst max-imperial-town-size 23)
-
-#end-if		;if Difficulty = Easy
-
-;*********************************
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-
 (defconst min-dark-town-size 15)
 (defconst max-dark-town-size 18)
 (defconst min-feudal-town-size 14)
@@ -2826,15 +2793,7 @@
 (defconst min-imperial-town-size 24)
 (defconst max-imperial-town-size 28)
 
-
-#end-if		;if not difficulty = easy
-#end-if		;if not difficulty == easiest
-
-#end-if		;if not game type == wonder race
-
-
-
-#load-if-defined WONDER-RACE
+#else
 
 (defconst min-dark-town-size 12)
 (defconst max-dark-town-size 15)
@@ -2851,50 +2810,6 @@
 
 #load-if-not-defined WONDER-RACE
 
-#load-if-defined DIFFICULTY-EASIEST
-
-(defconst MIN-FOOD-AMOUNT-DARK 500)
-(defconst MIN-WOOD-AMOUNT-DARK 300)
-(defconst MIN-GOLD-AMOUNT-DARK 300)
-(defconst MIN-STONE-AMOUNT-DARK 200)
-(defconst MIN-FOOD-AMOUNT-FEUDAL 800)
-(defconst MIN-WOOD-AMOUNT-FEUDAL 400)
-(defconst MIN-GOLD-AMOUNT-FEUDAL 300)
-(defconst MIN-STONE-AMOUNT-FEUDAL 400)
-(defconst MIN-FOOD-AMOUNT-CASTLE 1000)
-(defconst MIN-WOOD-AMOUNT-CASTLE 500)
-(defconst MIN-GOLD-AMOUNT-CASTLE 800)
-(defconst MIN-STONE-AMOUNT-CASTLE 500)
-(defconst MIN-FOOD-AMOUNT-IMPERIAL 1000)
-(defconst MIN-WOOD-AMOUNT-IMPERIAL 600)
-(defconst MIN-GOLD-AMOUNT-IMPERIAL 900)
-(defconst MIN-STONE-AMOUNT-IMPERIAL 600)
-
-#end-if		;if difficulty type == easiest
-;*****************************************************
-#load-if-defined DIFFICULTY-EASY
-
-(defconst MIN-FOOD-AMOUNT-DARK 500)
-(defconst MIN-WOOD-AMOUNT-DARK 200)
-(defconst MIN-GOLD-AMOUNT-DARK 300)
-(defconst MIN-STONE-AMOUNT-DARK 400)
-(defconst MIN-FOOD-AMOUNT-FEUDAL 800)
-(defconst MIN-WOOD-AMOUNT-FEUDAL 400)
-(defconst MIN-GOLD-AMOUNT-FEUDAL 200)
-(defconst MIN-STONE-AMOUNT-FEUDAL 500)
-(defconst MIN-FOOD-AMOUNT-CASTLE 1000)
-(defconst MIN-WOOD-AMOUNT-CASTLE 600)
-(defconst MIN-GOLD-AMOUNT-CASTLE 800)
-(defconst MIN-STONE-AMOUNT-CASTLE 650)
-(defconst MIN-FOOD-AMOUNT-IMPERIAL 1000)
-(defconst MIN-WOOD-AMOUNT-IMPERIAL 600)
-(defconst MIN-GOLD-AMOUNT-IMPERIAL 900)
-(defconst MIN-STONE-AMOUNT-IMPERIAL 650)
-
-#end-if		;if difficulty type == easy
-;*****************************************************
-#load-if-defined DIFFICULTY-MODERATE
-
 (defconst MIN-FOOD-AMOUNT-DARK 500)
 (defconst MIN-WOOD-AMOUNT-DARK 200)
 (defconst MIN-GOLD-AMOUNT-DARK 300)
@@ -2912,141 +2827,7 @@
 (defconst MIN-GOLD-AMOUNT-IMPERIAL 400)
 (defconst MIN-STONE-AMOUNT-IMPERIAL 400)
 
-#end-if		;if difficulty type == moderate
-;*****************************************************
-#load-if-defined DIFFICULTY-HARD
-
-(defconst MIN-FOOD-AMOUNT-DARK 500)
-(defconst MIN-WOOD-AMOUNT-DARK 200)
-(defconst MIN-GOLD-AMOUNT-DARK 300)
-(defconst MIN-STONE-AMOUNT-DARK 400)
-(defconst MIN-FOOD-AMOUNT-FEUDAL 800)
-(defconst MIN-WOOD-AMOUNT-FEUDAL 400)
-(defconst MIN-GOLD-AMOUNT-FEUDAL 200)
-(defconst MIN-STONE-AMOUNT-FEUDAL 500)
-(defconst MIN-FOOD-AMOUNT-CASTLE 1000)
-(defconst MIN-WOOD-AMOUNT-CASTLE 600)
-(defconst MIN-GOLD-AMOUNT-CASTLE 800)
-(defconst MIN-STONE-AMOUNT-CASTLE 650)
-(defconst MIN-FOOD-AMOUNT-IMPERIAL 400)
-(defconst MIN-WOOD-AMOUNT-IMPERIAL 400)
-(defconst MIN-GOLD-AMOUNT-IMPERIAL 400)
-(defconst MIN-STONE-AMOUNT-IMPERIAL 400)
-
-#end-if		;if difficulty type == hard
-;*****************************************************
-#load-if-defined DIFFICULTY-HARDEST
-
-(defconst MIN-FOOD-AMOUNT-DARK 500)
-(defconst MIN-WOOD-AMOUNT-DARK 200)
-(defconst MIN-GOLD-AMOUNT-DARK 300)
-(defconst MIN-STONE-AMOUNT-DARK 400)
-(defconst MIN-FOOD-AMOUNT-FEUDAL 800)
-(defconst MIN-WOOD-AMOUNT-FEUDAL 400)
-(defconst MIN-GOLD-AMOUNT-FEUDAL 200)
-(defconst MIN-STONE-AMOUNT-FEUDAL 500)
-(defconst MIN-FOOD-AMOUNT-CASTLE 1000)
-(defconst MIN-WOOD-AMOUNT-CASTLE 600)
-(defconst MIN-GOLD-AMOUNT-CASTLE 800)
-(defconst MIN-STONE-AMOUNT-CASTLE 650)
-(defconst MIN-FOOD-AMOUNT-IMPERIAL 400)
-(defconst MIN-WOOD-AMOUNT-IMPERIAL 400)
-(defconst MIN-GOLD-AMOUNT-IMPERIAL 400)
-(defconst MIN-STONE-AMOUNT-IMPERIAL 400)
-
-#end-if		;if difficulty type == hardest
-
-#end-if		;if not game type == wonder race
-
-
-
-#load-if-defined WONDER-RACE
-
-#load-if-defined DIFFICULTY-EASIEST
-
-(defconst MIN-FOOD-AMOUNT-DARK 300)
-(defconst MIN-WOOD-AMOUNT-DARK 300)
-(defconst MIN-GOLD-AMOUNT-DARK 300)
-(defconst MIN-STONE-AMOUNT-DARK 200)
-(defconst MIN-FOOD-AMOUNT-FEUDAL 800)
-(defconst MIN-WOOD-AMOUNT-FEUDAL 400)
-(defconst MIN-GOLD-AMOUNT-FEUDAL 300)
-(defconst MIN-STONE-AMOUNT-FEUDAL 400)
-(defconst MIN-FOOD-AMOUNT-CASTLE 1000)
-(defconst MIN-WOOD-AMOUNT-CASTLE 500)
-(defconst MIN-GOLD-AMOUNT-CASTLE 800)
-(defconst MIN-STONE-AMOUNT-CASTLE 500)
-(defconst MIN-FOOD-AMOUNT-IMPERIAL 100)
-(defconst MIN-WOOD-AMOUNT-IMPERIAL 600)
-(defconst MIN-GOLD-AMOUNT-IMPERIAL 900)
-(defconst MIN-STONE-AMOUNT-IMPERIAL 600)
-
-#end-if		;if difficulty type == easiest
-;*****************************************************
-#load-if-defined DIFFICULTY-EASY
-
-(defconst MIN-FOOD-AMOUNT-DARK 500)
-(defconst MIN-WOOD-AMOUNT-DARK 200)
-(defconst MIN-GOLD-AMOUNT-DARK 300)
-(defconst MIN-STONE-AMOUNT-DARK 400)
-(defconst MIN-FOOD-AMOUNT-FEUDAL 800)
-(defconst MIN-WOOD-AMOUNT-FEUDAL 400)
-(defconst MIN-GOLD-AMOUNT-FEUDAL 200)
-(defconst MIN-STONE-AMOUNT-FEUDAL 500)
-(defconst MIN-FOOD-AMOUNT-CASTLE 1000)
-(defconst MIN-WOOD-AMOUNT-CASTLE 600)
-(defconst MIN-GOLD-AMOUNT-CASTLE 800)
-(defconst MIN-STONE-AMOUNT-CASTLE 650)
-(defconst MIN-FOOD-AMOUNT-IMPERIAL 100)
-(defconst MIN-WOOD-AMOUNT-IMPERIAL 600)
-(defconst MIN-GOLD-AMOUNT-IMPERIAL 900)
-(defconst MIN-STONE-AMOUNT-IMPERIAL 650)
-
-#end-if		;if difficulty type == easy
-;*****************************************************
-#load-if-defined DIFFICULTY-MODERATE
-
-(defconst MIN-FOOD-AMOUNT-DARK 500)
-(defconst MIN-WOOD-AMOUNT-DARK 200)
-(defconst MIN-GOLD-AMOUNT-DARK 300)
-(defconst MIN-STONE-AMOUNT-DARK 400)
-(defconst MIN-FOOD-AMOUNT-FEUDAL 800)
-(defconst MIN-WOOD-AMOUNT-FEUDAL 400)
-(defconst MIN-GOLD-AMOUNT-FEUDAL 200)
-(defconst MIN-STONE-AMOUNT-FEUDAL 500)
-(defconst MIN-FOOD-AMOUNT-CASTLE 1000)
-(defconst MIN-WOOD-AMOUNT-CASTLE 600)
-(defconst MIN-GOLD-AMOUNT-CASTLE 800)
-(defconst MIN-STONE-AMOUNT-CASTLE 1000)
-(defconst MIN-FOOD-AMOUNT-IMPERIAL 100)
-(defconst MIN-WOOD-AMOUNT-IMPERIAL 1000)
-(defconst MIN-GOLD-AMOUNT-IMPERIAL 1000)
-(defconst MIN-STONE-AMOUNT-IMPERIAL 1000)
-
-#end-if		;if difficulty type == moderate
-;*****************************************************
-#load-if-defined DIFFICULTY-HARD
-
-(defconst MIN-FOOD-AMOUNT-DARK 500)
-(defconst MIN-WOOD-AMOUNT-DARK 200)
-(defconst MIN-GOLD-AMOUNT-DARK 300)
-(defconst MIN-STONE-AMOUNT-DARK 400)
-(defconst MIN-FOOD-AMOUNT-FEUDAL 800)
-(defconst MIN-WOOD-AMOUNT-FEUDAL 400)
-(defconst MIN-GOLD-AMOUNT-FEUDAL 200)
-(defconst MIN-STONE-AMOUNT-FEUDAL 500)
-(defconst MIN-FOOD-AMOUNT-CASTLE 1000)
-(defconst MIN-WOOD-AMOUNT-CASTLE 600)
-(defconst MIN-GOLD-AMOUNT-CASTLE 800)
-(defconst MIN-STONE-AMOUNT-CASTLE 650)
-(defconst MIN-FOOD-AMOUNT-IMPERIAL 100)
-(defconst MIN-WOOD-AMOUNT-IMPERIAL 650)
-(defconst MIN-GOLD-AMOUNT-IMPERIAL 700)
-(defconst MIN-STONE-AMOUNT-IMPERIAL 650)
-
-#end-if		;if difficulty type == hard
-;*****************************************************
-#load-if-defined DIFFICULTY-HARDEST
+#else
 
 (defconst MIN-FOOD-AMOUNT-DARK 500)
 (defconst MIN-WOOD-AMOUNT-DARK 200)
@@ -3064,8 +2845,6 @@
 (defconst MIN-WOOD-AMOUNT-IMPERIAL 650)
 (defconst MIN-GOLD-AMOUNT-IMPERIAL 700)
 (defconst MIN-STONE-AMOUNT-IMPERIAL 650)
-
-#end-if		;if difficulty type == hardest
 
 #end-if		;if game type == wonder race
 

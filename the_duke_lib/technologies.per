@@ -1,10 +1,7 @@
 ;************************************************************************************************************
 ;TECHNOLOGIES IN TOWN-CENTER
 
-
-
-;Rule90: research LOOM
-;50 GOLD
+;LOOM - 50 GOLD
 (defrule
 	(or
 		(and
@@ -17,164 +14,91 @@
 		(game-time > 420)
 	)
  	(can-research-with-escrow ri-loom)
- 	(current-age >= dark-age)
 =>
 	(release-escrow gold)
  	(research ri-loom)
 ;	(chat-local-to-self "research LOOM")
 )
 
-
-
-#load-if-not-defined WONDER-RACE
-;***********************************************
-;***********************************************
-
-
-
-#load-if-not-defined DEATH-MATCH
-;***********************************************
-;***********************************************
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-;Rule91: research WHEEL-BARROW-EASIEST, EASY
-;175 FOOD, 50 WOOD
+;WHEEL-BARROW 175 FOOD, 50 WOOD
 (defrule
- 	(current-age >= feudal-age)
-	(can-research-with-escrow ri-wheel-barrow)
-	(difficulty >= easy)
+	(can-research ri-wheel-barrow)
 	(or
-		(current-age-time > 100)
-		(town-under-attack)
+		(unit-type-count villager > 20)
+		(and
+			(food-amount > 300)
+			(wood-amount > 300)
+		)
 	)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-wheel-barrow)
 ;	(chat-local-to-self "research WHEEL-BARROW")
 )
-;***********************************************
-#end-if		;if not difficulty type == hardest
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == moderate
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule92: research WHEEL-BARROW-MODERATE, HARD, HARDEST
-;175 FOOD, 50 WOOD
-(defrule
- 	(can-research-with-escrow ri-wheel-barrow)
-	(difficulty <= moderate)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-wheel-barrow)
-;	(chat-local-to-self "research WHEEL-BARROW")
-)
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-;Rule93: research HAND-CART-EASIEST, EASY
-;300 FOOD, 200 WOOD
+;HAND-CART - 300 FOOD, 200 WOOD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-hand-cart)
-	(difficulty >= easy)
+ 	(can-research ri-hand-cart)
 	(or
-		(current-age-time > 100)
+		(building-type-count-total town-center > 1)
 		(town-under-attack)
 	)
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-hand-cart)
-;	(chat-local-to-self "research HAND-CART")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule94: research HAND-CART-MODERATE, HARD, HARDEST; if we do not do a rush
-;300 FOOD, 200 WOOD
-(defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-hand-cart)
-	(difficulty <= moderate)
+	(or
+		(unit-type-count villager > 30)
+		(and
+			(food-amount > 500)
+			(wood-amount > 400)
+		)
+	)
 	(goal RUSH-CONTROL NO)
+	(not (research-available ri-bow-saw))
 =>
-	(release-escrow food)
-	(release-escrow wood)
 	(research ri-hand-cart)
 ;	(chat-local-to-self "research HAND-CART")
 )
+
 ;200 WOOD, 300 FOOD
 (defrule
  	(current-age == castle-age)
  	(can-research-with-escrow ri-hand-cart)
 	(building-type-count-total lumber-camp >= 1)
 	(or
-		(unit-type-count-total eagle-warrior-line > TEN-PERCENT-POP)
-		(unit-type-count-total knight-line > EIGHT-PERCENT-POP)
+		(or
+			(unit-type-count-total eagle-warrior-line > 20)
+			(unit-type-count-total knight-line > 10)
+		)
+		(current-age-time > 300)
 	)
-	(food-amount > 350)
-	(food-amount > 250)
 	(goal RUSH-CONTROL RUSHING)
-	(current-age-time > 300)
+	(unit-type-count villager > 30)
 =>
 	(release-escrow food)
 	(release-escrow wood)
 	(research ri-hand-cart)
-;               (chat-local-to-self "research HAND-CART")
+; (chat-local-to-self "research HAND-CART")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
 
 ;Rule95: research TOWN-WATCH
 ;75 FOOD
 (defrule
- 	(current-age >= feudal-age)
 	(food-amount > 600)
- 	(can-research-with-escrow ri-town-watch)
+ 	(can-research ri-town-watch)
 	(building-type-count town-center > 1)
 	(goal RUSH-CONTROL NO)
 =>
-	(release-escrow food)
  	(research ri-town-watch)
 ;	(chat-local-to-self "research TOWN-WATCH")
 )
+
 ;300 FOOD, 200 GOLD
 (defrule
 	(food-amount > 600)
 	(gold-amount > 500)
-	(can-research-with-escrow ri-town-patrol)
+	(can-research ri-town-patrol)
 	(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL))
-	(building-type-count town-center > 1)
+	(building-type-count town-center > 2)
 	(goal RUSH-CONTROL NO)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-town-patrol)
 ;	(chat-local-to-self "research TOWN-PATROL")
 )
@@ -182,1056 +106,193 @@
 ;TECHNOLOGIES IN LUMBER-CAMP
 
 
-
-;Rule118: research DOUBLE-BIT-AXE- EASIEST, EASY
-;50 WOOD, 100 FOOD
+;DOUBLE-BIT-AXE 50 WOOD, 100 FOOD
 (defrule
-	(difficulty >= easy)
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-double-bit-axe)
-	(building-type-count-total lumber-camp >= 1)
-	(current-age-time > 120)
-	(strategic-number sn-wood-gatherer-percentage > 0)
-	(not (research-available ri-wheel-barrow))
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-double-bit-axe)
-;               (chat-local-to-self "research DOUBLE-BIT-AXE")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule119: research DOUBLE-BIT-AXE-MODERATE, HARD, HARDEST
-;50 WOOD, 100 FOOD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-double-bit-axe)
+ 	(can-research ri-double-bit-axe)
 	(building-type-count-total lumber-camp >= 1)
 	(strategic-number sn-wood-gatherer-percentage > 0)
 	(not (research-available ri-wheel-barrow))
 =>
-	(release-escrow food)
-	(release-escrow wood)
 	(research ri-double-bit-axe)
-;               (chat-local-to-self "research DOUBLE-BIT-AXE")
-)
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-;Rule120: research BOW-SAW-EASY
-;100 WOOD, 150 FOOD
-(defrule
-	(difficulty == easy)
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-bow-saw)
-	(building-type-count-total lumber-camp >= 1)
-	(current-age-time > 120)
-	(strategic-number sn-wood-gatherer-percentage > 0)
-	(not (research-available ri-hand-cart))
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-bow-saw)
-;               (chat-local-to-self "research BOW-SAW")
+; (chat-local-to-self "research DOUBLE-BIT-AXE")
 )
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule121: research BOW-SAW-MODERATE, HARD, HARDEST; when we do a rush
-;100 WOOD, 150 FOOD
+;BOW-SAW 100 WOOD, 150 FOOD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-bow-saw)
-	(not (research-available ri-hand-cart))
-	(goal RUSH-CONTROL NO)
+ 	(can-research ri-bow-saw)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-bow-saw)
-;               (chat-local-to-self "research BOW-SAW")
+; (chat-local-to-self "research BOW-SAW")
 )
-;100 WOOD, 150 FOOD
-(defrule
- 	(current-age == castle-age)
- 	(can-research-with-escrow ri-bow-saw)
-	(building-type-count-total lumber-camp >= 1)
-	(not (research-available ri-wheel-barrow))
-	(or
-		(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP)
-		(unit-type-count-total knight-line > THREE-PERCENT-POP)
-	)
-	(food-amount > 300)
-	(goal RUSH-CONTROL RUSHING)
-	(current-age-time > 180)
-	(not (research-available ri-gold-mining))
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-bow-saw)
-;               (chat-local-to-self "research BOW-SAW")
-)
+
 ;200 WOOD, 300 FOOD
 (defrule
- 	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-two-man-saw)
-	(building-type-count-total lumber-camp >= 1)
-	(goal RUSH-CONTROL NO)
+ 	(can-research ri-two-man-saw)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-two-man-saw)
-;               (chat-local-to-self "research TWO-MAN-SAW")
+; (chat-local-to-self "research TWO-MAN-SAW")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
 
 ;************************************************************************************************************
 ;************************************************************************************************************
 ;TECHNOLOGIES IN MILL
 
 
-
-;Rule124: research HORSE-COLLAR-EASIEST, EASY
-;75 WOOD, 75 FOOD
+;HORSE-COLLAR 75 WOOD, 75 FOOD
 (defrule
-	(difficulty >= easy)
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-horse-collar)
-	(building-type-count-total mill  >= 1)
+ 	(can-research ri-horse-collar)
 	(strategic-number sn-food-gatherer-percentage > 0)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(building-type-count-total farm > 8)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-horse-collar)
-;               (chat-local-to-self "research HORSE-COLLAR")
+; (chat-local-to-self "research HORSE-COLLAR")
 )
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule125: research HORSE-COLLAR-MODERATE, HARD, HARDEST
-;75 WOOD, 75 FOOD
+;HEAVY-PLOW 125 WOOD, 125 FOOD
 (defrule
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-horse-collar)
-	(building-type-count-total mill >= 1)
+ 	(can-research ri-heavy-plow)
 	(strategic-number sn-food-gatherer-percentage > 0)
+	(not (research-available ri-hand-cart))
+	(not (research-available ri-bow-saw))
+	(building-type-count-total farm > 15)
 	(or
-		(not (goal RESEARCHING-CASTLE FAST-CASTLE))
+		(goal RUSH-CONTROL NO)
 		(and
-			(goal ADVANCING-TO-AGE CASTLE-AGE)
-			(timer-triggered T-ABLE-TO-PAY-RESOURCES)
+			(or
+				(unit-type-count-total eagle-warrior-line > EIGHT-PERCENT-POP)
+				(unit-type-count-total knight-line > FIVE-PERCENT-POP)
+			)
+			(goal RUSH-CONTROL RUSHING)
 		)
 	)
-	(not (research-available ri-wheel-barrow))
-	(goal RUSH-CONTROL NO)
 =>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-horse-collar)
-;               (chat-local-to-self "research HORSE-COLLAR")
-)
-;75 WOOD, 75 FOOD
-(defrule
- 	(current-age == castle-age)
- 	(can-research-with-escrow ri-horse-collar)
-	(building-type-count-total lumber-camp >= 1)
-	(not (research-available ri-wheel-barrow))
-	(or
-		(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP)
-		(unit-type-count-total knight-line > THREE-PERCENT-POP)
-	)
-	(food-amount > 300)
-	(goal RUSH-CONTROL RUSHING)
-	(current-age-time > 180)
-	(not (research-available ri-double-bit-axe))
-	;(not (research-available ri-gold-mining))
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-horse-collar)
-;       (chat-local-to-self "research HORSE-COLLAR")
-)
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-;Rule126: research HEAVY-PLOW-EASY
-;125 WOOD, 125 FOOD
-(defrule
-	(difficulty == easy)
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-heavy-plow)
-	(building-type-count-total mill  >= 1)
-	(current-age-time > 120)
-	(strategic-number sn-food-gatherer-percentage > 0)
-=>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-heavy-plow)
-;               (chat-local-to-self "research HEAVY-PLOW")
+; (chat-local-to-self "research HEAVY-PLOW")
 )
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule127: research HEAVY-PLOW-MODERATE, HARD, HARDEST
-;125 WOOD, 125 FOOD
+;CROP ROTATION 250 WOOD, 250 FOOD
 (defrule
- 	(can-research-with-escrow ri-heavy-plow)
-	(goal RUSH-CONTROL NO)
-	(not (research-available ri-hand-cart))
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-heavy-plow)
-;               (chat-local-to-self "research HEAVY-PLOW")
-)
-;125 WOOD, 125 FOOD
-(defrule
- 	(current-age == castle-age)
- 	(can-research-with-escrow ri-heavy-plow)
-	(building-type-count-total lumber-camp >= 1)
-	(not (research-available ri-wheel-barrow))
-	(or
-		(unit-type-count-total eagle-warrior-line > EIGHT-PERCENT-POP)
-		(unit-type-count-total knight-line > FIVE-PERCENT-POP)
-	)
-	(food-amount > 350)
-	(goal RUSH-CONTROL RUSHING)
-	(current-age-time > 300)
-	(not (research-available ri-bow-saw))
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-heavy-plow)
-;               (chat-local-to-self "research HEAVY-PLOW")
-)
-;250 WOOD, 250 FOOD
-(defrule
-	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-crop-rotation)
-	(building-type-count-total mill >= 1)
+ 	(can-research ri-crop-rotation)
 	(strategic-number sn-food-gatherer-percentage > 0)
 	(not (research-available ri-hand-cart))
+	(not (research-available ri-two-man-saw))
+	(building-type-count-total farm > 15)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-crop-rotation)
-;               (chat-local-to-self "research CROP-ROTATION")
+; (chat-local-to-self "research CROP-ROTATION")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
 
 ;************************************************************************************************************
 ;************************************************************************************************************
 ;TECHNOLOGIES IN MINING-CAMP
 
-
-
-;*******************************************************************
-;*******************************************************************
-;GOLD MINING
-
-
-
-;Rule130: research GOLD-MINING-EASY
-;75 WOOD, 100 FOOD
+;GOLD-MINING 75 WOOD, 100 FOOD
 (defrule
-	(difficulty == easy)
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-gold-mining)
-	(building-type-count-total mining-camp  >= 1)
-	(strategic-number sn-gold-gatherer-percentage > 0)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-gold-mining)
-;               (chat-local-to-self "research GOLD-MINING")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule131: research GOLD-MINING-MODERATE, HARD, HARDEST, if we don't do a rush
-;75 WOOD, 100 FOOD
-(defrule
- 	(can-research-with-escrow ri-gold-mining)
+ 	(can-research ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(or
 		(or
 			(not (goal RESEARCHING-CASTLE FAST-CASTLE))
-			(and
-				(goal ADVANCING-TO-AGE CASTLE-AGE)
-				(timer-triggered T-ABLE-TO-PAY-RESOURCES)
-			)
+   		(goal ADVANCING-TO-AGE CASTLE-AGE)
 		)
-		(current-age >= castle-age)
+		(and
+			(current-age >= castle-age)
+			(not (research-available ri-bow-saw))
+		)
 	)
 	(not (research-available ri-wheel-barrow))
-	(goal RUSH-CONTROL NO)
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
+	(or
+		(goal RUSH-CONTROL NO)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(or
+				(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP)
+				(unit-type-count-total knight-line > THREE-PERCENT-POP)
+			)
+		)
+	)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-gold-mining)
-;               (chat-local-to-self "research GOLD-MINING")
-)
-;75 WOOD, 100 FOOD
-(defrule
-	(or
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
- 		(current-age >= castle-age)
-	)
- 	(can-research-with-escrow ri-gold-mining)
-	(building-type-count-total mining-camp >= 1)
-	(strategic-number sn-gold-gatherer-percentage > 0)
-	(or
-		(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP)
-		(unit-type-count-total knight-line > THREE-PERCENT-POP)
-	)
-	(food-amount > 300)
-	(goal RUSH-CONTROL RUSHING)
-	(current-age-time > 180)
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-gold-mining)
-;               (chat-local-to-self "research GOLD-MINING")
-)
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
+; (chat-local-to-self "research GOLD-MINING")
 
-
-
-;Rule132: research GOLD-SHAFT-MINING-EASY
-;150 WOOD, 200 FOOD
-(defrule
-	(difficulty == easy)
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-gold-shaft-mining)
-	(building-type-count-total mining-camp  >= 1)
-	(strategic-number sn-gold-gatherer-percentage > 0)
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-gold-shaft-mining)
-;               (chat-local-to-self "research GOLD-SHAFT-MINING")
 )
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule133: research GOLD-SHAFT-MINING-MODERATE, HARD, HARDEST, if we don't do a rush
-;150 WOOD, 200 FOOD
+;GOLD-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
- 	(can-research-with-escrow ri-gold-shaft-mining)
+ 	(can-research ri-gold-shaft-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(not (research-available ri-hand-cart))
+	(not (research-available ri-bow-saw))
+	(not (research-available ri-heavy-plow))
 	(or
 		(building-type-count-total town-center > 2)
 		(wood-amount > 500)
 	)
-	(goal RUSH-CONTROL NO)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-gold-shaft-mining)
-;               (chat-local-to-self "research GOLD-SHAFT-MINING")
-)
-;150 WOOD, 200 FOOD
-(defrule
- 	(current-age == castle-age)
- 	(can-research-with-escrow ri-gold-shaft-mining)
-	(building-type-count-total lumber-camp >= 1)
-	(building-type-count-total mining-camp >= 1)
-	(building-type-count-total town-center > 1)
-	(strategic-number sn-gold-gatherer-percentage > 0)
-	(not (research-available ri-wheel-barrow))
 	(or
-		(unit-type-count-total eagle-warrior-line > EIGHT-PERCENT-POP)
-		(unit-type-count-total knight-line > FIVE-PERCENT-POP)
+		(goal RUSH-CONTROL NO)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(or
+				(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP)
+				(unit-type-count-total knight-line > THREE-PERCENT-POP)
+			)
+		)
 	)
-	(food-amount > 350)
-	(goal RUSH-CONTROL RUSHING)
-	(current-age-time > 300)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-gold-shaft-mining)
-;               (chat-local-to-self "research GOLD-SHAFT-MINING")
-)
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-;*******************************************************************
-;*******************************************************************
-;STONE MINING
-
-
-
-;Rule134: research STONE-MINING-EASY
-;125 WOOD, 125 FOOD
-(defrule
-	(difficulty == easy)
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-stone-mining)
-	(building-type-count-total mill  >= 1)
-	(strategic-number sn-stone-gatherer-percentage > 0)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-stone-mining)
-;               (chat-local-to-self "research STONE-MINING")
+ 	(research ri-gold-shaft-mining)
+; (chat-local-to-self "research GOLD-SHAFT-MINING")
 )
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule135: research STONE-MINING-MODERATE, HARD, HARDEST, if we don't do a rush
-;125 WOOD, 125 FOOD
+;STONE-MINING 125 WOOD, 125 FOOD
 (defrule
- 	(can-research-with-escrow ri-stone-mining)
-	(building-type-count-total mining-camp >= 2)
+ 	(can-research ri-stone-mining)
 	(strategic-number sn-stone-gatherer-percentage > 0)
-	(not (research-available ri-wheel-barrow))
 	(not (research-available ri-gold-shaft-mining))
-	(goal RUSH-CONTROL NO)
-	(building-type-count-total town-center > 2)
-	(wood-amount > 300)
-	(food-amount > 300)
+	(or
+		(goal RUSH-CONTROL NO)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(or
+				(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP)
+				(unit-type-count-total knight-line > THREE-PERCENT-POP)
+			)
+		)
+	)
+	(building-type-count-total town-center > 1)
+	(wood-amount > 200)
+	(food-amount > 200)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-stone-mining)
-;               (chat-local-to-self "research STONE-MINING")
+; (chat-local-to-self "research STONE-MINING")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
-
-
-;Rule136: research STONE-SHAFT-MINING-EASY
-;150 WOOD, 200 FOOD
+;STONE-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
-	(difficulty == easy)
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-stone-shaft-mining)
-	(building-type-count-total mining-camp  >= 1)
+ 	(can-research ri-stone-shaft-mining)
 	(strategic-number sn-stone-gatherer-percentage > 0)
+	(not (research-available ri-gold-shaft-mining))
+	(or
+		(goal RUSH-CONTROL NO)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(or
+				(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP)
+				(unit-type-count-total knight-line > THREE-PERCENT-POP)
+			)
+		)
+	)
+	(building-type-count-total town-center > 1)
+	(wood-amount > 400)
+	(food-amount > 400)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-stone-shaft-mining)
-;               (chat-local-to-self "research STONE-SHAFT-MINING")
+; (chat-local-to-self "research STONE-MINING")
 )
-
-;***********************************************
-;***********************************************
-#else		;if not game type == death match
-;***********************************************
-;***********************************************
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-;Rule91: research WHEEL-BARROW-EASIEST, EASY
-;175 FOOD, 50 WOOD
-(defrule
- 	(current-age >= imperial-age)
-	(can-research-with-escrow ri-wheel-barrow)
-	(difficulty >= easy)
-	(or
-		(current-age-time > 100)
-		(town-under-attack)
-	)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-wheel-barrow)
-;	(chat-local-to-self "research WHEEL-BARROW")
-)
-;***********************************************
-#end-if		;if not difficulty type == hardest
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == moderate
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule92: research WHEEL-BARROW-MODERATE, HARD, HARDEST
-;175 FOOD, 50 WOOD
-(defrule
- 	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-wheel-barrow)
-	(difficulty <= moderate)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-wheel-barrow)
-;	(chat-local-to-self "research WHEEL-BARROW")
-)
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-;Rule93: research HAND-CART-EASIEST, EASY
-;300 FOOD, 200 WOOD
-(defrule
-  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-hand-cart)
-	(difficulty >= easy)
-	(or
-		(current-age-time > 100)
-		(town-under-attack)
-	)
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-hand-cart)
-;	(chat-local-to-self "research HAND-CART")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule94: research HAND-CART-MODERATE, HARD, HARDEST; if we do not do a rush
-;300 FOOD, 200 WOOD
-(defrule
- 	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-hand-cart)
-	(difficulty <= moderate)
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-hand-cart)
-;	(chat-local-to-self "research HAND-CART")
-)
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-;Rule95: research TOWN-WATCH
-;75 FOOD
-;(defrule
-; 	(current-age >= imperial-age)
-;	(can-research-with-escrow ri-town-watch)
-;	(building-type-count town-center > 1)
-;=>
-;	(release-escrow food)
-;	(research ri-town-watch)
-;	(chat-local-to-self "research TOWN-WATCH")
-;)
-;300 FOOD, 200 GOLD
-;(defrule
-; 	(current-age >= imperial-age)
-;	(can-research-with-escrow ri-town-patrol)
-;	(building-type-count town-center > 1)
-;=>
-;	(release-escrow food)
-;	(release-escrow gold)
-;	(research ri-town-patrol)
-;	(chat-local-to-self "research TOWN-PATROL")
-;)
-;************************************************************************************************************
-;TECHNOLOGIES IN LUMBER-CAMP
-
-
-
-;Rule119: research DOUBLE-BIT-AXE
-;50 WOOD, 100 FOOD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-double-bit-axe)
-	(building-type-count-total lumber-camp >= 1)
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-double-bit-axe)
-;               (chat-local-to-self "research DOUBLE-BIT-AXE")
-)
-;100 WOOD, 150 FOOD
-(defrule
-	(current-age >= castle-age)
- 	(can-research-with-escrow ri-bow-saw)
-	(building-type-count-total lumber-camp >= 1)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-bow-saw)
-;               (chat-local-to-self "research BOW-SAW")
-)
-;200 WOOD, 300 FOOD
-(defrule
- 	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-two-man-saw)
-	(building-type-count-total lumber-camp >= 1)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-two-man-saw)
-;               (chat-local-to-self "research TWO-MAN-SAW")
-)
-;************************************************************************************************************
-;TECHNOLOGIES IN MILL
-
-
-
-;Rule125: research HORSE-COLLAR
-;75 WOOD, 75 FOOD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-horse-collar)
-	(building-type-count-total mill >= 1)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-horse-collar)
-;               (chat-local-to-self "research HORSE-COLLAR")
-)
-;125 WOOD, 125 FOOD
-(defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-heavy-plow)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-heavy-plow)
-;               (chat-local-to-self "research HEAVY-PLOW")
-)
-;250 WOOD, 250 FOOD
-(defrule
-	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-crop-rotation)
-	(building-type-count-total mill >= 1)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-crop-rotation)
-;               (chat-local-to-self "research CROP-ROTATION")
-)
-;************************************************************************************************************
-;TECHNOLOGIES IN MINING-CAMP
-
-
-
-;*******************************************************************
-;*******************************************************************
-;GOLD MINING
-
-
-
-;Rule131: research GOLD-MINING-MODERATE, HARD, HARDEST, if we do a rush
-;75 WOOD, 100 FOOD
-(defrule
- 	(can-research-with-escrow ri-gold-mining)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-gold-mining)
-;               (chat-local-to-self "research GOLD-MINING")
-)
-;150 WOOD, 200 FOOD
-(defrule
- 	(can-research-with-escrow ri-gold-shaft-mining)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-gold-shaft-mining)
-;               (chat-local-to-self "research GOLD-SHAFT-MINING")
-)
-;*******************************************************************
-;STONE MINING
-
-
-
-;Rule135: research STONE-MINING
-;125 WOOD, 125 FOOD
-;(defrule
-; 	(can-research-with-escrow ri-stone-mining)
-;=>
-;	(release-escrow food)
-;	(release-escrow wood)
-;	(research ri-stone-mining)
-;               (chat-local-to-self "research STONE-MINING")
-;)
-;150 WOOD, 200 FOOD
-;(defrule
-; 	(can-research-with-escrow ri-stone-shaft-mining)
-;=>
-;	(release-escrow food)
-;	(release-escrow wood)
-;	(research ri-stone-shaft-mining)
-;               (chat-local-to-self "research STONE-SHAFT-MINING")
-;)
-
-
-;***********************************************
-;***********************************************
-#end-if		;if game type == death-match
-
-
-
-;***********************************************
-;***********************************************
-#else		;if not game type == wonder race
-;***********************************************
-;***********************************************
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule138: research WHEEL-BARROW-MODERATE, HARD, HARDEST
-;175 FOOD, 50 WOOD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-wheel-barrow)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-wheel-barrow)
-;	(chat-local-to-self "research WHEEL-BARROW")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-;***********************************************
-;***********************************************
-
-;Rule139: research HAND-CART- HARD, HARDEST
-;300 FOOD, 200 WOOD
-(defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-hand-cart)
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-hand-cart)
-;	(chat-local-to-self "research HAND-CART")
-)
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-;************************************************************************************************************
-;************************************************************************************************************
-;TECHNOLOGIES IN LUMBER-CAMP
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule140: research DOUBLE-BIT-AXE-MODERATE, HARD, HARDEST
-;50 WOOD, 100 FOOD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-double-bit-axe)
-	(building-type-count-total lumber-camp >= 1)
-	(strategic-number sn-wood-gatherer-percentage > 0)
-	(not (research-available ri-wheel-barrow))
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-double-bit-axe)
-;               (chat-local-to-self "research DOUBLE-BIT-AXE")
-)
-;100 WOOD, 150 FOOD
-(defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-bow-saw)
-	(building-type-count-total lumber-camp >= 1)
-	(strategic-number sn-wood-gatherer-percentage > 0)
-	(not (research-available ri-hand-cart))
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-bow-saw)
-;               (chat-local-to-self "research BOW-SAW")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-;Rule142: research TWO-MAN-SAW-HARD, HARDEST
-;200 WOOD, 300 FOOD
-(defrule
- 	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-two-man-saw)
-	(building-type-count-total lumber-camp >= 1)
-	(strategic-number sn-wood-gatherer-percentage > 0)
-	(not (research-available ri-hand-cart))
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-two-man-saw)
-;               (chat-local-to-self "research TWO-MAN-SAW")
-)
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-#end-if		;if not difficulty type == moderate
-
-
-
-;************************************************************************************************************
-;************************************************************************************************************
-;TECHNOLOGIES IN MILL
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule143: research HORSE-COLLAR-MODERATE, HARD, HARDEST
-;75 WOOD, 75 FOOD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-horse-collar)
-	(building-type-count-total mill >= 1)
-	(strategic-number sn-food-gatherer-percentage > 0)
-	(not (research-available ri-wheel-barrow))
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-horse-collar)
-;               (chat-local-to-self "research HORSE-COLLAR")
-)
-;125 WOOD, 125 FOOD
-(defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-heavy-plow)
-	(building-type-count-total mill >= 1)
-	(strategic-number sn-food-gatherer-percentage > 0)
-	(not (research-available ri-hand-cart))
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-heavy-plow)
-;               (chat-local-to-self "research HEAVY-PLOW")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
-;Rule145: research CROP-ROTATION-HARD, HARDEST
-;250 WOOD, 250 FOOD
-;(defrule
-; 	(current-age >= castle-age)
-; 	(can-research-with-escrow ri-crop-rotation)
-;	(building-type-count-total mill  >= 1)
-;	(strategic-number sn-food-gatherer-percentage > 0)
-;	(building-type-count-total town-center > 1)
-;	(not (research-available ri-hand-cart))
-;=>
-;	(release-escrow food)
-;	(release-escrow wood)
-;	(research ri-crop-rotation)
-;               (chat-local-to-self "research CROP-ROTATION")
-;)
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-;************************************************************************************************************
-;************************************************************************************************************
-;TECHNOLOGIES IN MINING-CAMP
-
-
-
-;*******************************************************************
-;*******************************************************************
-;GOLD MINING
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule146: research GOLD-MINING-MODERATE, HARD, HARDEST
-;75 WOOD, 100 FOOD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-gold-mining)
-	(building-type-count-total mining-camp >= 1)
-	(strategic-number sn-gold-gatherer-percentage > 0)
-	(not (research-available ri-wheel-barrow))
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-gold-mining)
-;               (chat-local-to-self "research GOLD-MINING")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
-;Rule147: research GOLD-SHAFT-MINING-HARD, HARDEST
-;150 WOOD, 200 FOOD
-(defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-gold-shaft-mining)
-	(building-type-count-total mining-camp >= 1)
-	(strategic-number sn-gold-gatherer-percentage > 0)
-	(not (research-available ri-hand-cart))
-=>
-	(release-escrow food)
-	(release-escrow wood)
- 	(research ri-gold-shaft-mining)
-;               (chat-local-to-self "research GOLD-SHAFT-MINING")
-)
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-;*******************************************************************
-;*******************************************************************
-;STONE MINING
-
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule148: research STONE-MINING-MODERATE, HARD, HARDEST
-;125 WOOD, 125 FOOD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-stone-mining)
-	(building-type-count-total mining-camp >= 1)
-	(strategic-number sn-stone-gatherer-percentage > 0)
-	(not (research-available ri-wheel-barrow))
-=>
-	(release-escrow food)
-	(release-escrow wood)
-	(research ri-stone-mining)
-;               (chat-local-to-self "research STONE-MINING")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
-;Rule149: research STONE-SHAFT-MINING-HARD, HARDEST
-;150 WOOD, 200 FOOD
-;(defrule
-;	(difficulty <= hard)
-; 	(current-age >= castle-age)
-; 	(can-research-with-escrow ri-stone-shaft-mining)
-;	(building-type-count-total mining-camp >= 1)
-;	(strategic-number sn-stone-gatherer-percentage > 0)
-;	(not (research-available ri-hand-cart))
-;=>
-;	(release-escrow food)
-;	(release-escrow wood)
-; 	(research ri-stone-shaft-mining)
-;               (chat-local-to-self "research STONE-SHAFT-MINING")
-;)
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-;***********************************************
-;***********************************************
-#end-if		;if game type == wonder race
 
 
 #load-if-not-defined WONDER-RACE
@@ -1241,105 +302,75 @@
 ;TECHNOLOGIES IN MARKET
 
 
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule193: research CARTOGRAPHY- MODERATE, HARD, HARDEST
-;100 FOOD, 100 GOLD
+;CARTOGRAPHY 100 FOOD, 100 GOLD
 (defrule
- 	(can-research-with-escrow ri-cartography)
+ 	(can-research ri-cartography)
 	(player-in-game any-ally)
 	(or
 		(not (goal RESEARCHING-CASTLE FAST-CASTLE))
 		(current-age >= castle-age)
 	)
-	(or
-		(goal RUSH-CONTROL NO)
-		(current-age-time > 600)
-	)
+	(goal RUSH-CONTROL NO)
+	(foot-amount > 800)
+	(gold-amount > 700)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-cartography)
-;               (chat-local-to-self "research CARTOGRAPHY")
+; (chat-local-to-self "research CARTOGRAPHY")
 )
-;150 FOOD, 50 GOLD
+
+;COINAGE 150 FOOD, 50 GOLD
 (defrule
- 	(can-research-with-escrow ri-coinage)
+ 	(can-research ri-coinage)
 	(player-in-game any-ally)
 	(current-age >= castle-age)
-	(or
-		(goal RUSH-CONTROL NO)
-		(current-age-time > 900)
-	)
+	(goal RUSH-CONTROL NO)
+	(foot-amount > 1000)
+	(gold-amount > 1000)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-coinage)
-;               (chat-local-to-self "research COINAGE")
+; (chat-local-to-self "research COINAGE")
 )
-;200 FOOD, 100 GOLD
+
+;BANKING 200 FOOD, 100 GOLD
 (defrule
- 	(can-research-with-escrow ri-banking)
+ 	(can-research ri-banking)
 	(player-in-game any-ally)
 	(or
 		(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL))
 		(current-age == imperial-age)
 	)
+	(goal RUSH-CONTROL NO)
+	(foot-amount > 1000)
+	(gold-amount > 1000)
+=>
+ 	(research ri-banking)
+; (chat-local-to-self "research BANKING")
+)
+
+;CARAVAN 200 FOOD, 200 GOLD
+(defrule
+ 	(can-research ri-caravan)
+	(player-in-game any-ally)
 	(or
-		(goal RUSH-CONTROL NO)
-		(current-age-time > 900)
+		(unit-type-count-total trade-cart > 5)
+		(unit-type-count-total trade-cog > 5)
 	)
-	(food-amount > 600)
+	(foot-amount > 1000)
 	(gold-amount > 400)
 =>
-	(release-escrow food)
-	(release-escrow gold)
- 	(research ri-banking)
-;               (chat-local-to-self "research BANKING")
-)
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-;***********************************************
-;***********************************************
-
-;Rule196: research CARAVAN-  HARD, HARDEST
-;200 FOOD, 200 GOLD
-(defrule
- 	(can-research-with-escrow ri-caravan)
-	(player-in-game any-ally)
-	(current-age == imperial-age)
-	(or
-		(unit-type-count-total trade-cart > 2)
-		(unit-type-count-total trade-cog > 2)
-	)
-=>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-caravan)
-;               (chat-local-to-self "research CARAVAN")
+; (chat-local-to-self "research CARAVAN")
 )
-;300 FOOD, 200 GOLD
+
+;GUILDS 300 FOOD, 200 GOLD
 (defrule
- 	(current-age >= imperial-age)
  	(can-research-with-escrow ri-guilds)
-	(building-type-count-total market >= 1)
 	(food-amount > 1000)
 	(gold-amount > 800)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-guilds)
-;               (chat-local-to-self "research GUILDS")
+; (chat-local-to-self "research GUILDS")
 )
-;***********************************************
-#end-if		;if not difficulty == moderate
-
 
 
 ;************************************************************************************************************
@@ -1347,12 +378,9 @@
 ;TECHNOLOGIES IN UNIVERSITY
 
 
-
-;Rule198: research MASONRY- MODERATE, HARD, HARDEST
-;175 WOOD, 150 FOOD
+;MASONRY 175 WOOD, 150 FOOD
 (defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-masonry)
+ 	(can-research ri-masonry)
 	(building-type-count-total university >= 1)
 	(building-type-count-total castle >= 2)
 	(or
@@ -1360,118 +388,50 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 	(not (research-available ri-ballistics))
-	(building-type-count town-center > 1)
+	(building-type-count town-center > 2)
+	(food-amount > 800)
+	(wood-amount > 600)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-masonry)
-;               (chat-local-to-self "research MASONRY")
+; (chat-local-to-self "research MASONRY")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
-
-
-#load-if-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule199: research GUARD-TOWER- EASY
-;125 WOOD, 125 STONE
+;GUARD-TOWER 125 WOOD, 125 STONE
 (defrule
-	(difficulty == easy)
- 	(current-age >= castle-age)
  	(can-research-with-escrow ri-guard-tower)
-	(current-age-time > 400)
-	(building-type-count-total university >= 1)
-	(building-type-count-total watch-tower-line > 4)
-	(or
-		(current-age == imperial-age)
-		(goal ABLE-TO-TRAIN-UNITS YES)
-	)
-	(building-type-count town-center > 1)
-=>
-	(release-escrow wood)
-	(release-escrow food)
- 	(research ri-guard-tower)
-;               (chat-local-to-self "research GUARD-TOWER")
-)
-;***********************************************
-#end-if		;if difficulty type == easy
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule200: research GUARD-TOWER- MODERATE, HARD, HARDEST
-;125 WOOD, 125 STONE
-(defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-guard-tower)
-	(building-type-count-total university >= 1)
 	(building-type-count-total watch-tower-line > 1)
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 	(not (research-available ri-ballistics))
-	(building-type-count town-center > 1)
+	(building-type-count town-center > 2)
+	(food-amount > 800)
+	(wood-amount > 600)
+	(stone-amount > 300)
 =>
-	(release-escrow wood)
-	(release-escrow food)
 	(research ri-guard-tower)
-;               (chat-local-to-self "research GUARD-TOWER")
+; (chat-local-to-self "research GUARD-TOWER")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
-
-
-#load-if-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule201: research BALLISTICS- EASY
-;300 WOOD, 175 GOLD
+;MURDER-HOLES 200 FOOD, 200 STONE
 (defrule
-	(difficulty == easy)
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-ballistics)
-	(building-type-count-total university >= 1)
-	(or
-		(building-type-count-total watch-tower-line > 2)
-		(research-completed ri-guard-tower)
-	)
+ 	(can-research ri-murder-holes)
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
-	(building-type-count town-center > 1)
+	(building-type-count town-center > 2)
+	(food-amount > 600)
+	(wood-amount > 400)
 =>
-	(release-escrow wood)
-	(release-escrow gold)
- 	(research ri-ballistics)
-;               (chat-local-to-self "research BALLISTICS")
+ 	(research ri-murder-holes)
+; (chat-local-to-self "research MURDER-HOLES")
 )
-;***********************************************
-#end-if		;if difficulty type == easy
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule202: research BALLISTICS- MODERATE, HARD, HARDEST
-;300 WOOD, 175 GOLD
+;BALLISTICS 300 WOOD, 175 GOLD
 (defrule
- 	(can-research-with-escrow ri-ballistics)
+ 	(can-research ri-ballistics)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS YES)
 		(building-type-count-total castle >= 1)
@@ -1481,110 +441,47 @@
 		(current-age == imperial-age)
 	)
 	(not (research-available ri-murder-holes))
-	(building-type-count town-center > 1)
+	(building-type-count town-center > 2)
+	(food-amount > 600)
+	(wood-amount > 400)
 =>
-	(release-escrow wood)
-	(release-escrow gold)
 	(research ri-ballistics)
-;               (chat-local-to-self "research BALLISTICS")
+; (chat-local-to-self "research BALLISTICS")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
-
-
-#load-if-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule203: research MURDER-HOLES- EASY
-;200 FOOD, 200 STONE
+;FORTIFIED WALL 200 FOOD, 100 WOOD
 (defrule
-	(difficulty == easy)
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-murder-holes)
-	(building-type-count-total university >= 1)
-	(or
-		(building-type-count-total watch-tower-line > 2)
-		(building-type-count-total castle > 0)
-	)
-	(or
-		(current-age == imperial-age)
-		(goal ABLE-TO-TRAIN-UNITS YES)
-	)
-	(building-type-count town-center > 1)
-=>
-	(release-escrow food)
-	(release-escrow stone)
- 	(research ri-murder-holes)
-;               (chat-local-to-self "research MURDER-HOLES")
-)
-;***********************************************
-#end-if		;if difficulty type == easy
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule204: research MURDER-HOLES- MODERATE, HARD, HARDEST
-;200 FOOD, 200 STONE
-(defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-murder-holes)
-	(building-type-count-total university >= 1)
-	(or
-		(current-age == imperial-age)
-		(goal ABLE-TO-TRAIN-UNITS YES)
-	)
-	(building-type-count town-center > 1)
-=>
-	(release-escrow food)
-	(release-escrow stone)
- 	(research ri-murder-holes)
-;               (chat-local-to-self "research MURDER-HOLES")
-)
-;200 FOOD, 100 WOOD
-(defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-fortified-wall)
-	(building-type-count-total university >= 1)
+ 	(can-research ri-fortified-wall)
 	(wall-completed-percentage 2 > 60)
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 	(not (research-available ri-ballistics))
+	(not (research-available ri-murder-holes))
+	(food-amount > 600)
+	(wood-amount > 400)
 =>
-	(release-escrow food)
-	(release-escrow wood)
 	(research ri-fortified-wall)
-;               (chat-local-to-self "research FORTIFIED-WALL")
+; (chat-local-to-self "research FORTIFIED-WALL")
 )
-;350 FOOD, 100 GOLD
+
+;HEATED-SHOT 350 FOOD, 100 GOLD
 (defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-heated-shot)
+ 	(can-research ri-heated-shot)
 	(not (goal MAP-KIND LAND-MAP))
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 	(not (research-available ri-ballistics))
-
+	(not (research-available ri-murder-holes))
+	(food-amount > 600)
+	(wood-amount > 400)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-heated-shot)
-;               (chat-local-to-self "research HEATED-SHOT")
+; (chat-local-to-self "research HEATED-SHOT")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
 
 
 ;***********************************************
@@ -1594,29 +491,13 @@
 ;***********************************************
 
 
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule207: research STONECUTTING- MODERATE, HARD, HARDEST
-;200 WOOD, 300 FOOD
+;STONECUTTING 200 WOOD, 300 FOOD
 (defrule
- 	(current-age >= castle-age)
- 	(can-research-with-escrow ri-stonecutting)
-	(building-type-count-total university >= 1)
+ 	(can-research ri-stonecutting)
 =>
-	(release-escrow wood)
-	(release-escrow food)
 	(research ri-stonecutting)
-;               (chat-local-to-self "research STONECUTTING")
+; (chat-local-to-self "research STONECUTTING")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
 
 ;***********************************************
 ;***********************************************
