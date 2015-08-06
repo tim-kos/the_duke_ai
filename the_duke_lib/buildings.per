@@ -808,26 +808,41 @@
 
 (defrule
  	(can-build farm)
- 	(sheep-and-forage-too-far)
- 	(or
- 		(and
- 			(current-age == castle-age)
-			(building-type-count-total farm <= max-castle-farm)
-		)
-		(and
- 			(current-age == imperial-age)
-			(building-type-count-total farm <= max-imperial-farm)
-		)
-	)
+ 	(current-age == castle-age)
+	(building-type-count-total farm <= max-castle-farm)
 	(or
 		(building-type-count-total archery-range > 0)
-		(building-type-count-total stable > 0)
+		(or
+			(building-type-count-total stable > 0)
+			(building-type-count-total castle > 0)
+		)
 	)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total town-center > 1)
 	(not (research-available ri-hand-cart))
 	(building-type-count-total lumber-camp > 0)
-	(idle-farm-count < 2)
+	(idle-farm-count < 3)
+=>
+ 	(build farm)
+;	(chat-local-to-self "build FARM")
+)
+
+(defrule
+ 	(can-build farm)
+	(current-age == imperial-age)
+	(building-type-count-total farm <= max-imperial-farm)
+	(or
+		(building-type-count-total archery-range > 0)
+		(or
+			(building-type-count-total stable > 0)
+			(building-type-count-total castle > 0)
+		)
+	)
+	(building-type-count-total blacksmith > 0)
+	(building-type-count-total town-center > 1)
+	(not (research-available ri-hand-cart))
+	(building-type-count-total lumber-camp > 0)
+	(idle-farm-count < 3)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -923,14 +938,13 @@
 
 
 
-;Rule42: build extra farms part
+;Rule42: build extra farms
 
 (defrule
 	(current-age == imperial-age)
 	(building-type-count-total farm >= max-imperial-farm)
-	(idle-farm-count < 1)
+	(idle-farm-count < 2)
 	(can-build farm)
-	(current-age-time > 1200)
 	(building-type-count-total lumber-camp > 0)
 =>
 	(build farm)
@@ -2036,7 +2050,7 @@
 		(map-type yucatan)
 	)
 	(difficulty <= easy)
-	(can-build-wall-with-escrow 2 stone-wall-line)
+	(can-build-wall 2 stone-wall-line)
 	(wall-completed-percentage 2 < 100)
 	(current-age == imperial-age)
 =>
