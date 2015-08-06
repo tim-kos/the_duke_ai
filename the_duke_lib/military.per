@@ -431,24 +431,24 @@
 		(goal PRIMARY-COMBAT-UNIT KNIGHT)
 		(goal SECONDARY-COMBAT-UNIT KNIGHT)
 	)
-	(building-type-count stable >= 1)
 	(unit-type-count-total knight-line < FIFTY-PERCENT-POP)
 	(can-train knight-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
+	(food-amount > 100) ;leave some food for constant villager training
 =>
 	(train knight-line)
 )
 
 (defrule
 	(military-population >= EIGHT-PERCENT-POP)
-	(building-type-count stable >= 1)
 	(unit-type-count-total knight-line < FIVE-PERCENT-POP)
 	(can-train knight-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
+	(food-amount > 100) ;leave some food for constant villager training
 =>
 	(train knight-line)
 )
@@ -456,7 +456,6 @@
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(building-type-count stable >= 1)
 	(unit-type-count-total knight-line < FIFTY-PERCENT-POP)
 	(can-train knight-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -466,16 +465,17 @@
 		(unit-type-count-total knight-line < 8)
 		(not (research-available ri-scale-barding))
 	)
+	(food-amount > 100) ;leave some food for constant villager training
 =>
 	(train knight-line)
 )
 
 (defrule
-	(building-type-count stable >= 1)
 	(unit-type-count-total knight-line < FIFTY-PERCENT-POP)
 	(can-train paladin)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(food-amount > 100) ;leave some food for constant villager training
 =>
 	(train paladin)
 )

@@ -102,10 +102,7 @@
 
 (defrule
 	(or
-		(and
-			(game-time < 300)
-			(housing-headroom <= 2)
-		)
+		(housing-headroom <= 2)
 		(and
 			(game-time >= 300)
 			(housing-headroom <= 4)
@@ -120,10 +117,7 @@
 
 (defrule
 	(or
-		(and
-			(game-time < 300)
-			(housing-headroom <= 2)
-		)
+		(housing-headroom <= 2)
 		(and
 			(game-time >= 300)
 			(housing-headroom <= 8)
@@ -136,6 +130,18 @@
 		(goal RUSH-CONTROL CASTLE)
 		(goal RUSH-CONTROL RUSHING)
 	)
+=>
+	(build house)
+;	(chat-local-to-self "build HOUSE")
+)
+
+(defrule
+	(game-time >= 900)
+	(current-age-time > 120)
+	(housing-headroom <= 16)
+ 	(can-build house)
+	(population-headroom != 0)
+	(current-age >= castle-age)
 =>
 	(build house)
 ;	(chat-local-to-self "build HOUSE")
@@ -272,7 +278,13 @@
 	(strategic-number sn-wood-gatherer-percentage > 0)
 	(can-build lumber-camp)
 	(resource-found wood)
-	(dropsite-min-distance wood > 3)
+	(or
+		(and
+			(dropsite-min-distance wood > 3)
+			(building-type-count-total town-center > 1)
+		)
+		(dropsite-min-distance wood > 4)
+	)
 	(dropsite-min-distance wood < 480)
 	(building-type-count-total barracks > 0)
 	(building-type-count-total blacksmith > 0)
@@ -636,7 +648,7 @@
 (defrule
  	(current-age == dark-age)
  	(can-build farm)
-	(building-type-count-total farm < 12)
+	(building-type-count-total farm < 9)
 	(or
 		(and
 			(unit-type-count SHEEP < 2)
@@ -646,6 +658,7 @@
 	)
 	(game-time > 300)
 	(building-type-count-total lumber-camp > 0)
+	(idle-farm-count < 1)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -655,15 +668,10 @@
  	(current-age == dark-age)
  	(can-build farm)
 	(building-type-count-total farm < 14)
-	(or
-		(and
-			(unit-type-count SHEEP < 2)
-			(unit-type-count TURKEY < 2)
-		)
-		(current-age-time > 360)
-	)
+	(sheep-and-forage-too-far)
 	(game-time > 300)
 	(building-type-count-total lumber-camp > 0)
+	(idle-farm-count < 2)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -672,19 +680,20 @@
 (defrule
  	(current-age == feudal-age)
  	(can-build farm)
-	(building-type-count-total farm < 12)
-	(or
+ 	(or
+		(building-type-count-total farm < 9)
 		(and
-			(unit-type-count SHEEP < 2)
-			(unit-type-count TURKEY < 2)
+			(wood-amount > 100)
+			(building-type-count-total farm < 14)
 		)
-		(current-age-time > 360)
 	)
+	(sheep-and-forage-too-far)
 	(building-type-count-total lumber-camp > 0)
 	(nand
 		(goal RUSH-CONTROL CASTLE)
 		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	)
+	(idle-farm-count < 2)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -693,14 +702,14 @@
 (defrule
  	(current-age == feudal-age)
  	(can-build farm)
-	(or
-		(sheep-and-forage-too-far)
-		(current-age-time > 600)
-	)
+	(sheep-and-forage-too-far)
 	(building-type-count-total farm <= max-feudal-farm)
 	(or
 		(building-type-count-total market > 0)
-		(building-type-count-total archery-range > 0)
+		(or
+			(building-type-count-total archery-range > 0)
+			(building-type-count-total stable > 0)
+		)
 	)
 	(building-type-count-total blacksmith > 0)
 	(nand
@@ -708,6 +717,8 @@
 		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	)
 	(building-type-count-total lumber-camp > 0)
+	(idle-farm-count < 1)
+	(wood-amount > 150)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -716,30 +727,7 @@
 (defrule
  	(current-age == feudal-age)
  	(can-build farm)
-	(or
-		(sheep-and-forage-too-far)
-		(current-age-time > 600)
-	)
-	(building-type-count-total farm <= max-feudal-farm)
-	(building-type-count-total stable > 0)
-	(building-type-count-total blacksmith > 0)
-	(nand
-		(goal RUSH-CONTROL CASTLE)
-		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	)
-	(building-type-count-total lumber-camp > 0)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(current-age == feudal-age)
- 	(can-build farm)
-	(or
-		(sheep-and-forage-too-far)
-		(current-age-time > 600)
-	)
+	(sheep-and-forage-too-far)
 	(building-type-count-total farm <= 8)
 	(or
 		(building-type-count-total market > 0)
@@ -748,7 +736,7 @@
 	(building-type-count-total blacksmith > 0)
 	(goal RUSH-CONTROL CASTLE)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(idle-farm-count == 0)
+	(idle-farm-count < 2)
 	(building-type-count-total lumber-camp > 0)
 =>
  	(build farm)
@@ -758,10 +746,7 @@
 (defrule
  	(current-age == feudal-age)
  	(can-build farm)
-	(or
-		(sheep-and-forage-too-far)
-		(current-age-time > 600)
-	)
+	(sheep-and-forage-too-far)
 	(building-type-count-total barracks >= 4)
 	(building-type-count-total farm <= max-feudal-farm)
 	(or
@@ -771,7 +756,7 @@
 	(building-type-count-total blacksmith > 0)
 	(goal RUSH-CONTROL CASTLE)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(idle-farm-count == 0)
+	(idle-farm-count < 2)
 	(building-type-count-total lumber-camp > 0)
 =>
  	(build farm)
@@ -781,10 +766,7 @@
 (defrule
  	(current-age == feudal-age)
  	(can-build farm)
-	(or
-		(sheep-and-forage-too-far)
-		(current-age-time > 600)
-	)
+	(sheep-and-forage-too-far)
 	(building-type-count-total farm <= 8)
 	(building-type-count-total stable > 0)
 	(building-type-count-total blacksmith > 0)
@@ -800,10 +782,7 @@
 (defrule
  	(current-age == feudal-age)
  	(can-build farm)
-	(or
-		(sheep-and-forage-too-far)
-		(current-age-time > 600)
-	)
+	(sheep-and-forage-too-far)
 	(building-type-count-total barracks >= 4)
 	(building-type-count-total farm <= max-feudal-farm)
 	(building-type-count-total stable > 0)
@@ -821,7 +800,7 @@
  	(current-age >= castle-age)
  	(can-build farm)
  	(sheep-and-forage-too-far)
-	(building-type-count-total farm < 20)
+	(building-type-count-total farm < 16)
 	(building-type-count-total lumber-camp > 0)
 	(idle-farm-count == 0)
 =>
@@ -989,6 +968,9 @@
 		(not (goal RUSH-CONTROL RUSHING))
 		(building-type-count-total archery-range > 0)
 	)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build blacksmith)
 ;	(chat-local-to-self "build BLACKSMITH")
@@ -1079,47 +1061,48 @@
 (defrule
  	(building-type-count-total market < 1)
  	(can-build market)
-	(current-age == castle-age)
-	(goal RUSH-CONTROL RUSHING)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
-	(current-age-time > 300)
+	(current-age >= castle-age)
+	(building-type-count-total town-center > 2)
+	(wood-amount > 300)
 =>				 ;then
  	(build market)
 ;	(chat-local-to-self "build MARKET")
+)
+
+
+#load-if-defined DEFEND-WONDER
+(defrule
+	(building-type-count-total monastery < 1)
+ 	(can-build monastery)
+=>
+ 	(build monastery)
+;	(chat-local-to-self "build MONASTERY")
+)
+#end-if
+
+#load-if-defined WONDER-RACE
+(defrule
+	(building-type-count-total monastery < 1)
+ 	(current-age == castle-age)
+ 	(can-build monastery)
+=>
+ 	(build monastery)
+;	(chat-local-to-self "build MONASTERY")
 )
 
 (defrule
- 	(current-age >= castle-age)
- 	(building-type-count-total market < 1)
- 	(can-build market)
-	(goal RUSH-CONTROL NO)
-	(building-type-count-total town-center > 1)
+ 	(current-age == castle-age)
+ 	(building-type-count-total university < 1)
+ 	(can-build university)
 =>				 ;then
- 	(build market)
-;	(chat-local-to-self "build MARKET")
+ 	(build university)
+;	(chat-local-to-self "build UNIVERSITY")
 )
-
-
-
-#load-if-not-defined DEFEND-WONDER
-;***********************************************
-;***********************************************
-
-#load-if-not-defined WONDER-RACE
-;***********************************************
-;***********************************************
+#end-if
 
 #load-if-defined DEATH-MATCH
-;***********************************************
-;***********************************************
-
-;Rule48: build UNIVERSITY in death-matches
-
 (defrule
-	(or
-		(difficulty > moderate)
-		(building-type-count-total town-center > 1)
-	)
+	(building-type-count-total town-center > 1)
  	(current-age >= castle-age)
  	(building-type-count-total university < 1)
  	(can-build university)
@@ -1128,18 +1111,14 @@
  	(build university)
 ;	(chat-local-to-self "build UNIVERSITY")
 )
-;***********************************************
-#else		;if game-type == death-match
-;***********************************************
-;***********************************************
+#end-if
 
-;Rule49: build UNIVERSITY, if we don't do a rush
 
+#load-if-not-defined DEATH-MATCH
+#load-if-not-defined DEFEND-WONDER
+#load-if-not-defined WONDER-RACE
 (defrule
-	(or
-		(difficulty > moderate)
-		(building-type-count-total town-center > 1)
-	)
+	(building-type-count-total town-center > 1)
  	(current-age >= castle-age)
  	(building-type-count-total university < 1)
 	(building-type-count-total monastery > 0)
@@ -1152,123 +1131,33 @@
 )
 
 (defrule
-	(or
-		(difficulty > moderate)
-		(building-type-count-total town-center > 1)
-	)
- 	(current-age >= castle-age)
- 	(building-type-count-total university < 1)
-	(building-type-count-total monastery > 0)
- 	(can-build university)
-	(or
-		(goal RUSH-CONTROL CASTLE)
-		(goal RUSH-CONTROL RUSHING)
-	)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
-=>
- 	(build university)
-;	(chat-local-to-self "build UNIVERSITY")
-)
-;***********************************************
-#end-if		;if not game-type == death-match
-
-
-;Rule51: build MONASTERY, if we don't do a rush
-
-(defrule
-	(or
-		(difficulty > moderate)
-		(building-type-count-total town-center > 1)
-	)
-	(building-type-count-total monastery == 0)
-	(can-build monastery)
-	(goal RUSH-CONTROL NO)
-=>
-	(build monastery)
-;	(chat-local-to-self "build MONASTERY")
-)
-
-(defrule
-	(or
-		(difficulty > moderate)
-		(building-type-count-total town-center > 1)
-	)
-	(building-type-count-total monastery == 1)
-	(building-type-count-total town-center > 2 )
-	(wood-amount > 400)
-	(can-build monastery)
-	(goal RUSH-CONTROL NO)
-=>
-	(build monastery)
-;	(chat-local-to-self "build MONASTERY")
-)
-
-(defrule
-	(or
-		(difficulty > moderate)
-		(building-type-count-total town-center > 1)
-	)
-	(building-type-count-total monastery == 0)
+	(building-type-count-total town-center > 1)
+	(building-type-count-total monastery < 1)
 	(can-build monastery)
 	(or
-		(goal RUSH-CONTROL CASTLE)
-		(goal RUSH-CONTROL RUSHING)
-	)
-	(or
-		(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+		(goal RUSH-CONTROL NO)
 		(wood-amount > 400)
 	)
 =>
 	(build monastery)
 ;	(chat-local-to-self "build MONASTERY")
 )
-;***********************************************
-#else		;if not game-type == wonder-race
-;***********************************************
-;***********************************************
-
-
-;Rule53: build MONASTERY
 
 (defrule
-	(building-type-count-total monastery < 1)
- 	(current-age == castle-age)
- 	(can-build monastery)
+	(building-type-count-total monastery < 2)
+	(building-type-count-total town-center > 2)
+	(can-build monastery)
+	(or
+		(goal RUSH-CONTROL NO)
+		(wood-amount > 400)
+	)
 =>
- 	(build monastery)
+	(build monastery)
 ;	(chat-local-to-self "build MONASTERY")
 )
-
-(defrule
- 	(current-age == castle-age)
- 	(building-type-count-total university < 1)
- 	(can-build university)
-=>				 ;then
- 	(build university)
-;	(chat-local-to-self "build UNIVERSITY")
-)
-;***********************************************
-#end-if		;if game-type == wonder race
-
-;***********************************************
-;***********************************************
-#else		;if not game-type == defend-wonder
-;***********************************************
-;***********************************************
-
-;Rule53: build MONASTERY
-
-(defrule
-	(building-type-count-total monastery < 1)
- 	(can-build monastery)
-=>
- 	(build monastery)
-;	(chat-local-to-self "build MONASTERY")
-)
-;***********************************************
-#end-if		;if game-type == defend-wonder
-
-
+#end-if
+#end-if
+#end-if
 
 ;************************************************************************************************************
 ;************************************************************************************************************
@@ -1375,13 +1264,8 @@
 )
 
 (defrule
-	(or
-		(current-age >= feudal-age)
-		(and
- 			(current-age == dark-age)
- 			(goal ADVANCING-TO-AGE FEUDAL-AGE)
- 		)
- 	)
+	(current-age == dark-age)
+ 	(goal ADVANCING-TO-AGE FEUDAL-AGE)
  	(can-build barracks)
 	(building-type-count-total barracks < 1)
 =>
@@ -1403,6 +1287,9 @@
 		(goal RUSH-CONTROL FEUDAL)
 		(goal RUSH-CONTROL RUSHING)
 	)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
@@ -1592,7 +1479,10 @@
 	(or
 		(and
 			(building-type-count-total stable < stable-building-castle)
-			(wood-amount > 400)
+			(and
+				(wood-amount > 400)
+				(not (research-available ri-hand-cart))
+			)
 		)
 		(building-type-count-total stable < 1)
 	)
@@ -1608,7 +1498,10 @@
 	(or
 		(and
 			(building-type-count-total stable < stable-building-imperial)
-			(wood-amount > 400)
+			(and
+				(wood-amount > 400)
+				(not (research-available ri-hand-cart))
+			)
 		)
 		(building-type-count-total stable < 1)
 	)
@@ -1709,6 +1602,7 @@
 		(wood-amount > 450)
 		(building-type-count-total town-center > 1)
 	)
+	(not (research-available ri-hand-cart))
  	(can-build stable)
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(wood-amount > 300)
@@ -1843,7 +1737,10 @@
 	(or
 		(and
 			(building-type-count-total archery-range < archery-range-building-castle)
-			(wood-amount > 600)
+			(and
+				(wood-amount > 600)
+				(not (research-available ri-hand-cart))
+			)
 		)
 		(building-type-count-total archery-range < 1)
 	)
@@ -1862,7 +1759,10 @@
 	(or
 		(and
 			(building-type-count-total archery-range < archery-range-building-imperial)
-			(wood-amount > 600)
+			(and
+				(wood-amount > 600)
+				(not (research-available ri-hand-cart))
+			)
 		)
 		(building-type-count-total archery-range < 1)
 	)
@@ -1959,6 +1859,7 @@
 		(wood-amount > 450)
 		(building-type-count-total town-center > 2)
 	)
+	(not (research-available ri-hand-cart))
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(wood-amount > 300)
@@ -2003,7 +1904,10 @@
  	(current-age >= castle-age)
  	(can-build siege-workshop)
 	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET))
+	(nand
+		(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+		(building-type-count-total castle > 0)
+	)
 	(or
 		(building-type-count-total siege-workshop < 1)
 		(and
@@ -2024,7 +1928,10 @@
  	(current-age >= castle-age)
  	(can-build siege-workshop)
 	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO))
-	(not (goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET))
+	(nand
+		(goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+		(building-type-count-total castle > 0)
+	)
 	(or
 		(building-type-count-total siege-workshop < 1)
 		(and
@@ -2255,10 +2162,7 @@
 		(goal RUSH-CONTROL NO)
 		(or
 			(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
-			(and
-				(wood-amount > 400)
-				(current-age-time > 360)
-			)
+			(wood-amount > 400)
 		)
 	)
 =>

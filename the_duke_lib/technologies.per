@@ -13,9 +13,8 @@
 		)
 		(game-time > 420)
 	)
- 	(can-research-with-escrow ri-loom)
+ 	(can-research ri-loom)
 =>
-	(release-escrow gold)
  	(research ri-loom)
 ;	(chat-local-to-self "research LOOM")
 )
@@ -30,6 +29,7 @@
 			(wood-amount > 300)
 		)
 	)
+	(not (research-available ri-double-bit-axe))
 =>
  	(research ri-wheel-barrow)
 ;	(chat-local-to-self "research WHEEL-BARROW")
@@ -56,7 +56,6 @@
 			(wood-amount > 400)
 		)
 	)
-	(goal RUSH-CONTROL NO)
 	(not (research-available ri-bow-saw))
 =>
 	(research ri-hand-cart)
@@ -66,7 +65,7 @@
 ;200 WOOD, 300 FOOD
 (defrule
  	(current-age == castle-age)
- 	(can-research-with-escrow ri-hand-cart)
+ 	(can-research ri-hand-cart)
 	(building-type-count-total lumber-camp >= 1)
 	(or
 		(unit-type-count-total eagle-warrior-line > 20)
@@ -75,8 +74,6 @@
 	(goal RUSH-CONTROL RUSHING)
 	(unit-type-count villager > 30)
 =>
-	(release-escrow food)
-	(release-escrow wood)
 	(research ri-hand-cart)
 ; (chat-local-to-self "research HAND-CART")
 )
@@ -112,9 +109,6 @@
 ;DOUBLE-BIT-AXE 50 WOOD, 100 FOOD
 (defrule
  	(can-research ri-double-bit-axe)
-	(building-type-count-total lumber-camp >= 1)
-	(strategic-number sn-wood-gatherer-percentage > 0)
-	(not (research-available ri-wheel-barrow))
 =>
 	(research ri-double-bit-axe)
 ; (chat-local-to-self "research DOUBLE-BIT-AXE")
@@ -122,7 +116,6 @@
 
 ;BOW-SAW 100 WOOD, 150 FOOD
 (defrule
- 	(current-age >= castle-age)
  	(can-research ri-bow-saw)
 =>
  	(research ri-bow-saw)
@@ -367,7 +360,7 @@
 
 ;GUILDS 300 FOOD, 200 GOLD
 (defrule
- 	(can-research-with-escrow ri-guilds)
+ 	(can-research ri-guilds)
 	(food-amount > 1000)
 	(gold-amount > 800)
 =>
@@ -401,7 +394,7 @@
 
 ;GUARD-TOWER 125 WOOD, 125 STONE
 (defrule
- 	(can-research-with-escrow ri-guard-tower)
+ 	(can-research ri-guard-tower)
 	(building-type-count-total watch-tower-line > 1)
 	(or
 		(current-age == imperial-age)
@@ -523,18 +516,16 @@
 ;200 WOOD, 300 FOOD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-stonecutting)
+ 	(can-research ri-stonecutting)
 	(building-type-count-total university >= 1)
 	(not (research-available ri-ballistics))
 =>
-	(release-escrow wood)
-	(release-escrow food)
 	(research ri-stonecutting)
-;               (chat-local-to-self "research STONECUTTING")
+; (chat-local-to-self "research STONECUTTING")
 )
 ;500 FOOD, 600 WOOD
 (defrule
- 	(can-research-with-escrow ri-siege-engineers)
+ 	(can-research ri-siege-engineers)
 	(or
 		(or
 			(unit-type-count-total battering-ram-line > 1)
@@ -547,14 +538,12 @@
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-siege-engineers)
-;               (chat-local-to-self "research SIEGE-ENGINEERS")
+; (chat-local-to-self "research SIEGE-ENGINEERS")
 )
 ;500 FOOD, 600 WOOD
 (defrule
- 	(can-research-with-escrow ri-siege-engineers)
+ 	(can-research ri-siege-engineers)
 	(or
 		(unit-type-count-total bombard-cannon > 1)
 		(unit-type-count-total trebuchet > 1)
@@ -564,63 +553,53 @@
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-siege-engineers)
-;               (chat-local-to-self "research SIEGE-ENGINEERS")
+; (chat-local-to-self "research SIEGE-ENGINEERS")
 )
 ;200 WOOD, 300 FOOD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-architecture)
+ 	(can-research ri-architecture)
 	(building-type-count-total university >= 1)
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-architecture)
-;               (chat-local-to-self "research ARCHITECTURE")
+; (chat-local-to-self "research ARCHITECTURE")
 )
 ;500 WOOD, 350 STONE
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-keep)
+ 	(can-research ri-keep)
 	(building-type-count-total university >= 1)
 	(building-type-count-total watch-tower-line > 3)
 	(building-type-count-total castle >= 2)
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-keep)
-;               (chat-local-to-self "research KEEP")
+; (chat-local-to-self "research KEEP")
 )
 ;300 FOOD, 200 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-chemistry)
+ 	(can-research ri-chemistry)
 	(building-type-count-total university >= 1)
 	(not (research-available ri-ballistics))
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-chemistry)
-;               (chat-local-to-self "research CHEMISTRY")
+; (chat-local-to-self "research CHEMISTRY")
 )
 ;800 FOOD, 400 WOOD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-bombard-tower)
+ 	(can-research ri-bombard-tower)
 	(building-type-count-total university >= 1)
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
 	(research ri-bombard-tower)
-;               (chat-local-to-self "research BOMBARD-TOWER")
+; (chat-local-to-self "research BOMBARD-TOWER")
 )
 ;************************************************************************************************************
 ;TECHNOLOGIES IN MONASTERY
@@ -631,7 +610,7 @@
 ;325 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-atonement)
+ 	(can-research ri-atonement)
 	(building-type-count-total monastery >= 1)
 	(cc-players-unit-type-count any-enemy monk >= 4)
 	(or
@@ -645,14 +624,13 @@
 		(not (death-match-game))
 	)
 =>
-	(release-escrow gold)
  	(research ri-atonement)
 ;	(chat-local-to-self "research ATONEMENT")
 )
 ;140 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow  ri-fervor)
+ 	(can-research  ri-fervor)
 	(building-type-count-total monastery >= 1)
 	(unit-type-count monk >= 3)
 	(or
@@ -662,14 +640,13 @@
 	(goal RUSH-CONTROL NO)
 	(gold-amount > 300)
 =>
-	(release-escrow gold)
 	(research ri-fervor)
 ;	(chat-local-to-self "research FERVOR")
 )
 ;120 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-sanctity)
+ 	(can-research ri-sanctity)
 	(building-type-count-total monastery >= 1)
 	(unit-type-count monk >= 3)
 	(or
@@ -679,14 +656,13 @@
 	(goal RUSH-CONTROL NO)
 	(gold-amount > 300)
 =>
-	(release-escrow gold)
  	(research ri-sanctity)
 ;	(chat-local-to-self "research SANCTITY")
 )
 ;475 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-redemption)
+ 	(can-research ri-redemption)
 	(building-type-count-total monastery >= 1)
 	(unit-type-count monk >= 3)
 	(or
@@ -700,19 +676,17 @@
 		(not (death-match-game))
 	)
 =>
-	(release-escrow gold)
  	(research ri-redemption)
 ;	(chat-local-to-self "research REDEMPTION")
 )
 ;350 GOLD
 ;(defrule
 ;	(current-age >= castle-age)
-; 	(can-research-with-escrow ri-herbal-medicine)
+; (can-research ri-herbal-medicine)
 ;	(building-type-count-total monastery >= 1)
 ;	(not (goal RESOURCE-NEEDED GOLD))
 ;	(current-age-time > 500)
 ;=>
-;	(release-escrow gold)
 ;	(research ri-herbel-medicine)
 ;	(chat-local-to-self "research HERBAL-MEDICINE")
 ;)
@@ -725,7 +699,7 @@
 ;1000 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-heresy)
+ 	(can-research ri-heresy)
 	(building-type-count-total monastery >= 1)
 	(gold-amount > 1500)
 	(military-population > 30)
@@ -735,14 +709,13 @@
 	)
 	(goal RUSH-CONTROL NO)
 =>
-	(release-escrow gold)
  	(research ri-heresy)
 ;	(chat-local-to-self "research HERESY")
 )
 ;750 FOOD, 1000 GOLD
 (defrule
 	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-faith)
+ 	(can-research ri-faith)
 	(building-type-count-total monastery >= 2)
 	(gold-amount > 2000)
 	(military-population > 30)
@@ -752,39 +725,35 @@
 		(not (death-match-game))
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-faith)
 ;	(chat-local-to-self "research FAITH")
 )
 ;120 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-illumination)
+ 	(can-research ri-illumination)
 	(building-type-count-total monastery >= 1)
 	(unit-type-count monk >= 3)
 	(gold-amount > 500)
 =>
-	(release-escrow gold)
 	(research ri-illumination)
 ;	(chat-local-to-self "research ILLUMINATION")
 )
 ;200 GOLD
 (defrule
 	(current-age >= imperial-age)
-	(can-research-with-escrow ri-block-printing)
+	(can-research ri-block-printing)
 	(building-type-count-total monastery >= 1)
 	(unit-type-count monk >= 3)
 	(gold-amount > 500)
 =>
-	(release-escrow gold)
 	(research ri-block-printing)
 ;	(chat-local-to-self "research BLOCK-PRINTING")
 )
 ;400 FOOD, 800 GOLD
 (defrule
 	(current-age >= imperial-age)
-	(can-research-with-escrow ri-theocracy)
+	(can-research ri-theocracy)
 	(building-type-count-total monastery >= 1)
 	(unit-type-count monk >= 4)
 	(gold-amount > 1000)
@@ -793,8 +762,6 @@
 		(not (death-match-game))
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-theocracy)
 ;	(chat-local-to-self "research THEOCRACY")
 )
@@ -820,7 +787,7 @@
 ;75 FOOD
 (defrule
  	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-tracking)
+ 	(can-research ri-tracking)
 	(building-type-count-total barracks >= 1)
 	(or
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
@@ -835,14 +802,13 @@
 		(food-amount > 500)
 	)
 =>
-	(release-escrow food)
  	(research ri-tracking)
-;               (chat-local-to-self "research TRACKING")
+; (chat-local-to-self "research TRACKING")
 )
 ;200 FOOD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-squires)
+ 	(can-research ri-squires)
 	(building-type-count-total barracks >= 1)
 	(or
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
@@ -857,9 +823,8 @@
 		(food-amount > 500)
 	)
 =>
-	(release-escrow food)
  	(research ri-squires)
-;               (chat-local-to-self "research SQUIRES")
+; (chat-local-to-self "research SQUIRES")
 )
 ;***********************************************
 #end-if		;if not difficulty type == easiest
@@ -875,7 +840,7 @@
 ;100 FOOD, 40 GOLD
 (defrule
  	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-man-at-arms)
+ 	(can-research ri-man-at-arms)
 	(current-age-time > 300)
 	(building-type-count-total barracks >= 1)
 	(or
@@ -887,15 +852,13 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-man-at-arms)
-;               (chat-local-to-self "research MAN-AT-ARMS")
+; (chat-local-to-self "research MAN-AT-ARMS")
 )
 ;100 FOOD, 40 GOLD
 (defrule
  	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-man-at-arms)
+ 	(can-research ri-man-at-arms)
 	(current-age-time > 300)
 	(building-type-count-total barracks >= 1)
 	(or
@@ -907,10 +870,8 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-man-at-arms)
-;               (chat-local-to-self "research MAN-AT-ARMS")
+; (chat-local-to-self "research MAN-AT-ARMS")
 )
 ;***********************************************
 #else	;if defined difficulty easiest
@@ -922,7 +883,7 @@
 (defrule
 	(difficulty <= easy)
  	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-man-at-arms)
+ 	(can-research ri-man-at-arms)
 	(building-type-count-total barracks >= 1)
 	(or
 		(unit-type-count-total militiaman-line > 1)
@@ -935,10 +896,8 @@
 		)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-man-at-arms)
-;               (chat-local-to-self "research MAN-AT-ARMS")
+; (chat-local-to-self "research MAN-AT-ARMS")
 )
 ;***********************************************
 #end-if		;if not difficulty type == easiest
@@ -956,7 +915,7 @@
 ;200 FOOD, 65 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-long-swordsman)
+ 	(can-research ri-long-swordsman)
 	(building-type-count-total barracks >= 1)
 	(or
 		(unit-type-count-total militiaman-line > TWO-PERCENT-POP)
@@ -970,15 +929,13 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-long-swordsman)
-;               (chat-local-to-self "research LONG-SWORDSMAN")
+; (chat-local-to-self "research LONG-SWORDSMAN")
 )
 ;300 FOOD, 100 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-two-handed-swordsman)
+ 	(can-research ri-two-handed-swordsman)
 	(building-type-count-total barracks >= 1)
 	(or
 		(unit-type-count-total militiaman-line > THREE-PERCENT-POP)
@@ -992,10 +949,8 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-two-handed-swordsman)
-;               (chat-local-to-self "research TWO-HANDED-SWORDSMAN")
+; (chat-local-to-self "research TWO-HANDED-SWORDSMAN")
 )
 
 
@@ -1008,7 +963,7 @@
 ;750 FOOD, 350 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-champion)
+ 	(can-research ri-champion)
 	(building-type-count-total barracks >= 1)
 	(unit-type-count-total militiaman-line > FIVE-PERCENT-POP)
 	(or
@@ -1016,10 +971,8 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-champion)
-;               (chat-local-to-self "research CHAMPION")
+; (chat-local-to-self "research CHAMPION")
 )
 ;***********************************************
 #end-if		;if not difficulty type == moderate
@@ -1030,7 +983,7 @@
 ;215 FOOD, 90 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-pikeman)
+ 	(can-research ri-pikeman)
 	(building-type-count-total barracks >= 1)
 	(or
 		(unit-type-count-total spearman-line >= ONE-PERCENT-POP)
@@ -1044,15 +997,13 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-pikeman)
-;               (chat-local-to-self "research PIKEMAN")
+; (chat-local-to-self "research PIKEMAN")
 )
 ;215 FOOD, 90 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-halberdier)
+ 	(can-research ri-halberdier)
 	(building-type-count-total barracks >= 1)
 	(or
 		(unit-type-count-total spearman-line >= THREE-PERCENT-POP)
@@ -1062,15 +1013,13 @@
 		)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-halberdier)
-;               (chat-local-to-self "research HALBERDIER")
+; (chat-local-to-self "research HALBERDIER")
 )
 ;215 FOOD, 90 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-elite-eagle-warrior)
+ 	(can-research ri-elite-eagle-warrior)
 	(building-type-count-total barracks >= 1)
 	(or
 		(unit-type-count-total eagle-warrior-line >= THREE-PERCENT-POP)
@@ -1080,10 +1029,8 @@
 		)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-elite-eagle-warrior)
-;               (chat-local-to-self "research ELITE-EAGLE-WARRIOR")
+; (chat-local-to-self "research ELITE-EAGLE-WARRIOR")
 )
 ;************************************************************************************************************
 ;TECHNOLOGIES IN ARCHERY-RANGE
@@ -1094,7 +1041,7 @@
 ;125 FOOD, 75 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-crossbow)
+ 	(can-research ri-crossbow)
 	(building-type-count-total archery-range >= 1)
 	(unit-type-count-total archer-line > 0)
 	(or
@@ -1102,23 +1049,19 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-crossbow)
-;               (chat-local-to-self "research CROSSBOW")
+; (chat-local-to-self "research CROSSBOW")
 )
 
 ;350 FOOD, 300 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-arbalest)
+ 	(can-research ri-arbalest)
 	(building-type-count-total archery-range >= 1)
 	(unit-type-count-total archer-line >= FOUR-PERCENT-POP)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-arbalest)
-;               (chat-local-to-self "research ARBALEST")
+; (chat-local-to-self "research ARBALEST")
 )
 
 ;250 WOOD, 160 GOLD
@@ -1136,8 +1079,6 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow gold)
 	(research ri-elite-skirmisher)
 ; (chat-local-to-self "research ELITE-SKIRMISHER")
 )
@@ -1145,19 +1086,17 @@
 ;900 FOOD, 500 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-heavy-cavalry-archer)
+ 	(can-research ri-heavy-cavalry-archer)
 	(building-type-count-total archery-range >= 1)
 	(unit-type-count-total cavalry-archer-line >= FIVE-PERCENT-POP)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-heavy-cavalry-archer)
-;               (chat-local-to-self "research HEAVY-CAVALRY-ARCHER")
+; (chat-local-to-self "research HEAVY-CAVALRY-ARCHER")
 )
 ;350 FOOD, 250 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-thumb-ring)
+ 	(can-research ri-thumb-ring)
 	(building-type-count-total archery-range >= 1)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
@@ -1168,15 +1107,13 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-thumb-ring)
-;               (chat-local-to-self "research THUMB-RING")
+; (chat-local-to-self "research THUMB-RING")
 )
 ;200 FOOD, 250 GOLD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-parthian-tactics)
+ 	(can-research ri-parthian-tactics)
 	(building-type-count-total archery-range >= 1)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
@@ -1187,10 +1124,8 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-parthian-tactics)
-;               (chat-local-to-self "research PARTHIAN-TACTICS")
+; (chat-local-to-self "research PARTHIAN-TACTICS")
 )
 ;************************************************************************************************************
 ;TECHNOLOGIES IN STABLE
@@ -1201,7 +1136,7 @@
 ;250 FOOD
 (defrule
  	(current-age >= castle-age)
- 	(can-research-with-escrow ri-husbandry)
+ 	(can-research ri-husbandry)
 	(building-type-count-total stable >= 1)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
@@ -1213,14 +1148,13 @@
 	)
 	(not (research-available ri-bloodlines))
 =>
-	(release-escrow food)
  	(research ri-husbandry)
-;               (chat-local-to-self "research HUSBANDRY")
+; (chat-local-to-self "research HUSBANDRY")
 )
 ;150 FOOD, 100 GOLD
 (defrule
  	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-bloodlines)
+ 	(can-research ri-bloodlines)
 	(building-type-count-total stable >= 1)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
@@ -1231,29 +1165,25 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-bloodlines)
-;               (chat-local-to-self "research BLOODLINES")
+; (chat-local-to-self "research BLOODLINES")
 )
 ;150 FOOD, 50 GOLD
 (defrule
- 	(can-research-with-escrow ri-light-cavalry)
+ 	(can-research ri-light-cavalry)
 	(unit-type-count-total scout-cavalry-line > 1)
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-light-cavalry)
-;               (chat-local-to-self "research LIGHT-CAVALRY")
+; (chat-local-to-self "research LIGHT-CAVALRY")
 )
 ;500 FOOD, 600 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-hussar)
+ 	(can-research ri-hussar)
 	(building-type-count-total stable >= 1)
 	(or
 		(unit-type-count-total scout-cavalry-line >= THREE-PERCENT-POP)
@@ -1263,15 +1193,13 @@
 		)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-hussar)
-;               (chat-local-to-self "research HUSSAR")
+; (chat-local-to-self "research HUSSAR")
 )
 ;300 FOOD, 300 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-cavalier)
+ 	(can-research ri-cavalier)
 	(building-type-count-total stable >= 1)
 	(or
 		(unit-type-count-total knight-line >= TWO-PERCENT-POP)
@@ -1281,10 +1209,8 @@
 		)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-cavalier)
-;               (chat-local-to-self "research CAVALIER")
+; (chat-local-to-self "research CAVALIER")
 )
 
 
@@ -1298,28 +1224,24 @@
 (defrule
 	(difficulty <= hard)
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-paladin)
+ 	(can-research ri-paladin)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
 		(goal ABLE-TO-UPGRADE-CAVALRY YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-paladin)
-;               (chat-local-to-self "research PALADIN")
+; (chat-local-to-self "research PALADIN")
 )
 ;1300 FOOD, 750 GOLD
 (defrule
 	(difficulty <= hard)
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-heavy-camel)
+ 	(can-research ri-heavy-camel)
 	(unit-type-count-total camel-line >= FIVE-PERCENT-POP)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-heavy-camel)
-;               (chat-local-to-self "research HEAVY-CAMEL")
+; (chat-local-to-self "research HEAVY-CAMEL")
 )
 ;***********************************************
 #end-if		;if not difficulty type == moderate
@@ -1336,14 +1258,13 @@
 ;300 FOOD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-capped-ram)
+ 	(can-research ri-capped-ram)
 	(building-type-count-total siege-workshop >= 1)
 	(unit-type-count-total battering-ram-line > 1)
 	(food-amount > 700)
 =>
-	(release-escrow food)
 	(research ri-capped-ram)
-;               (chat-local-to-self "research CAPPED-RAM")
+; (chat-local-to-self "research CAPPED-RAM")
 )
 
 
@@ -1357,7 +1278,7 @@
 (defrule
 	(difficulty <= hard)
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-siege-ram)
+ 	(can-research ri-siege-ram)
 	(building-type-count-total siege-workshop >= 1)
 	(or
 		(goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
@@ -1369,9 +1290,8 @@
 		(not (death-match-game))
 	)
 =>
-	(release-escrow food)
  	(research ri-siege-ram)
-;               (chat-local-to-self "research SIEGE-RAM")
+; (chat-local-to-self "research SIEGE-RAM")
 )
 ;***********************************************
 #end-if		;if not difficulty type == moderate
@@ -1382,7 +1302,7 @@
 ;800 FOOD, 500 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-onager)
+ 	(can-research ri-onager)
 	(building-type-count-total siege-workshop >= 1)
 	(or
 		(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
@@ -1391,10 +1311,8 @@
 	(food-amount > 1000)
 	(gold-amount > 700)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-onager)
-;               (chat-local-to-self "research ONAGER")
+; (chat-local-to-self "research ONAGER")
 )
 
 
@@ -1407,7 +1325,7 @@
 ;1450 FOOD, 1000 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-siege-onager)
+ 	(can-research ri-siege-onager)
 	(building-type-count-total siege-workshop >= 1)
 	(or
 		(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
@@ -1420,10 +1338,8 @@
 		(not (death-match-game))
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-siege-onager)
-;               (chat-local-to-self "research SIEGE-ONAGER")
+; (chat-local-to-self "research SIEGE-ONAGER")
 )
 ;***********************************************
 #end-if		;if not difficulty type == moderate
@@ -1434,7 +1350,7 @@
 ;1000 FOOD, 1100 WOOD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-heavy-scorpion)
+ 	(can-research ri-heavy-scorpion)
 	(building-type-count-total siege-workshop >= 1)
 	(or
 		(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
@@ -1443,10 +1359,8 @@
 	(wood-amount > 1400)
 	(food-amount > 1500)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-heavy-scorpion)
-;               (chat-local-to-self "research HEAVY-SCORPION")
+; (chat-local-to-self "research HEAVY-SCORPION")
 )
 ;************************************************************************************************************
 ;TECHNOLOGIES IN DOCK
@@ -1462,14 +1376,12 @@
 (defrule
 	(building-type-count dock > 0)
 	(not (goal MAP-KIND LAND-MAP))
-	(can-research-with-escrow ri-heavy-demolition-ship)
+	(can-research ri-heavy-demolition-ship)
 	(unit-type-count-total demolition-ship-line > 1)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(wood-amount > 800)
 	(gold-amount > 800)
 =>
-	(release-escrow wood)
-	(release-escrow gold)
 	(research ri-heavy-demolition-ship)
 ;	(chat-local-to-self "research HEAVY-DEMOLITION-SHIP")
 )
@@ -1482,15 +1394,13 @@
 ;600 FOOD, 400 GOLD
 (defrule
 	(building-type-count dock > 0)
-	(can-research-with-escrow ri-dry-dock)
+	(can-research ri-dry-dock)
 	(not (goal MAP-KIND LAND-MAP))
 	(not (goal RUSH-CONTROL RUSHING))
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(food-amount > 800)
 	(gold-amount > 600)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-dry-dock)
 ;	(chat-local-to-self "research DRY-DOCK")
 )
@@ -1498,28 +1408,24 @@
 (defrule
 	(building-type-count dock > 0)
 	(warboat-count > FIVE-PERCENT-POP)
-	(can-research-with-escrow ri-shipwright)
+	(can-research ri-shipwright)
 	(not (goal RUSH-CONTROL RUSHING))
 	(not (goal MAP-KIND LAND-MAP))
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(food-amount > 1200)
 	(gold-amount > 500)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-shipwright)
 ;	(chat-local-to-self "research SHIPWRIGHT")
 )
 ;250 FOOD, 150 GOLD
 (defrule
 	(building-type-count dock > 0)
-	(can-research-with-escrow ri-careening)
+	(can-research ri-careening)
 	(not (goal RUSH-CONTROL RUSHING))
 	(not (goal MAP-KIND LAND-MAP))
 	(goal ABLE-TO-TRAIN-UNITS YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-careening)
 ;	(chat-local-to-self "research CAREENING")
 )
@@ -1527,7 +1433,7 @@
 (defrule
 	(building-type-count dock > 0)
 	(unit-type-count-total fire-ship-line > THREE-PERCENT-POP)
-	(can-research-with-escrow ri-fast-fire-ship)
+	(can-research ri-fast-fire-ship)
 	(not (goal MAP-KIND LAND-MAP))
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(or
@@ -1535,15 +1441,13 @@
 		(wood-amount > 575)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow gold)
 	(research ri-fast-fire-ship)
 ;	(chat-local-to-self "research FAST-FIRE-SHIP")
 )
 ;500 WOOD, 400 FOOD
 (defrule
 	(building-type-count dock > 0)
-	(can-research-with-escrow ri-cannon-galleon)
+	(can-research ri-cannon-galleon)
 	(not (goal MAP-KIND LAND-MAP))
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(or
@@ -1551,8 +1455,6 @@
 		(wood-amount > 775)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow food)
 	(research ri-cannon-galleon)
 ;	(chat-local-to-self "research CANNON-GALLEON")
 )
@@ -1568,15 +1470,13 @@
 (defrule
 	(building-type-count dock > 0)
 	(unit-type-count-total cannon-galleon > 0)
-	(can-research-with-escrow ri-deck-guns)
+	(can-research ri-deck-guns)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(or
 		(building-type-count-total town-center > 1)
 		(wood-amount > 800)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow gold)
 	(research ri-deck-guns)
 ;	(chat-local-to-self "research DECK-GUNS")
 )
@@ -1590,7 +1490,7 @@
 (defrule
 	(building-type-count dock > 0)
 	(unit-type-count-total galley-line > 1)
-	(can-research-with-escrow ri-war-galley)
+	(can-research ri-war-galley)
 	(nand
 		(civ-selected viking)
 		(building-type-count-total castle > 0)
@@ -1598,15 +1498,13 @@
 	(not (goal MAP-KIND LAND-MAP))
 	(goal ABLE-TO-TRAIN-UNITS YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-war-galley)
 ;	(chat-local-to-self "research WAR-GALLEY")
 )
 ;315 WOOD, 400 FOOD
 (defrule
 	(building-type-count dock > 0)
-	(can-research-with-escrow ri-galleon)
+	(can-research ri-galleon)
 	(nand
 		(civ-selected viking)
 		(building-type-count-total castle > 0)
@@ -1618,8 +1516,6 @@
 		(wood-amount > 590)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow food)
 	(research ri-galleon)
 ;	(chat-local-to-self "research GALLEON")
 )
@@ -1634,28 +1530,24 @@
 ;750 FOOD, 475 GOLD
 (defrule
 	(building-type-count dock > 0)
-	(can-research-with-escrow ri-elite-longboat)
+	(can-research ri-elite-longboat)
 	(unit-type-count-total longboat-line >= THREE-PERCENT-POP)
 	(not (goal MAP-KIND LAND-MAP))
 	(goal ABLE-TO-TRAIN-UNITS YES)
 =>
-	(release-escrow gold)
-	(release-escrow food)
 	(research ri-elite-longboat)
 ;	(chat-local-to-self "research ELITE-LONGBOAT")
 )
 ;1000 FOOD, 800 GOLD
 (defrule
 	(building-type-count dock > 0)
-	(can-research-with-escrow ri-elite-turtle-ship)
+	(can-research ri-elite-turtle-ship)
 	(unit-type-count-total turtle-ship-line >= THREE-PERCENT-POP)
 	(not (goal MAP-KIND LAND-MAP))
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(food-amount > 1200)
 	(gold-amount > 1000)
 =>
-	(release-escrow gold)
-	(release-escrow food)
 	(research ri-elite-turtle-ship)
 ;	(chat-local-to-self "research ELITE-TURTLE-SHIP")
 )
@@ -1674,22 +1566,18 @@
 ;400 WOOD, 400 STONE
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-hoardings)
+ 	(can-research ri-hoardings)
 	(building-type-count-total castle >= 3)
 =>
-	(release-escrow wood)
-	(release-escrow stone)
  	(research ri-hoardings)
 ;               (chat-local-to-self "research HOARDINGS")
 )
 ;150 FOOD, 150 GOLD
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-conscription)
+ 	(can-research ri-conscription)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-conscription)
 ;               (chat-local-to-self "research CONSCRIPTION")
 )
@@ -1698,13 +1586,11 @@
 ;we've got tons of goods
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-sappers)
+ 	(can-research ri-sappers)
 	(building-type-count-total castle >= 1)
 	(food-amount > 2000)
 	(gold-amount > 1500)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-sappers)
 ;               (chat-local-to-self "research SAPPERS")
 )
@@ -1721,15 +1607,11 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -1747,15 +1629,11 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -1773,16 +1651,12 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 	(research-completed ri-bracer)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -1800,15 +1674,11 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -1826,15 +1696,11 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -1852,7 +1718,7 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(or
 		(or
 			(cc-players-unit-type-count any-enemy archer-line >= 6)
@@ -1867,12 +1733,8 @@
 		)
 	)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -1890,25 +1752,21 @@
 ;Rule295: research PERFUSION-  MODERATE, HARD, HARDEST
 ;400 WOOD, 600 GOLD
 (defrule
- 	(can-research-with-escrow 457)
+ 	(can-research 457)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow wood)
-	(release-escrow gold)
  	(research 457)
-;               (chat-local-to-self "research UNIQUE-RESEARCH-perfusion")
+; (chat-local-to-self "research UNIQUE-RESEARCH-perfusion")
 )
 ;450 FOOD, 250 GOLD
 (defrule
- 	(can-research-with-escrow 16)
+ 	(can-research 16)
 	(building-type-count-total castle >= 1)
 	(unit-type-count-total huskarl-line >= TWO-PERCENT-POP)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research 16)
-;               (chat-local-to-self "research UNIQUE-RESEARCH-anarchy")
+; (chat-local-to-self "research UNIQUE-RESEARCH-anarchy")
 )
 
 
@@ -1926,16 +1784,12 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 	(cc-players-building-type-count any-enemy wonder > 0)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -1953,16 +1807,12 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 	(unit-type-count-total mangonel-line > ONE-PERCENT-POP)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -1980,16 +1830,12 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 	(unit-type-count-total mangonel-line > ONE-PERCENT-POP)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -2007,16 +1853,12 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 	(unit-type-count-total eagle-warrior-line > THREE-PERCENT-POP)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -2034,17 +1876,13 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 
 	(building-type-count siege-workshop > 0)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -2061,15 +1899,11 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -2086,15 +1920,11 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -2111,15 +1941,11 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -2136,15 +1962,11 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 2)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -2161,19 +1983,15 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 	(or
 		(unit-type-count-total bombard-cannon > 2)
 		(building-type-count-total bombard-tower > 2)
 	)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 
@@ -2190,15 +2008,11 @@
 ;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
- 	(can-research-with-escrow my-unique-research)
+ 	(can-research my-unique-research)
 	(building-type-count-total castle >= 1)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
-	(release-escrow stone)
  	(research my-unique-research)
-;               (chat-local-to-self "research UNIQUE-RESEARCH")
+; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
 #end-if			;if civ == viking
@@ -2211,15 +2025,12 @@
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
  	(current-age >= imperial-age)
- 	(can-research-with-escrow my-unique-unit-upgrade)
+ 	(can-research my-unique-unit-upgrade)
 	(building-type-count-total castle >= 1)
 	(unit-type-count-total my-unique-unit-line > THREE-PERCENT-POP)
 =>
-	(release-escrow food)
-	(release-escrow wood)
-	(release-escrow gold)
 	(research my-unique-unit-upgrade)
-;               (chat-local-to-self "research UNIQUE-UNIT-UPGRADE")
+; (chat-local-to-self "research UNIQUE-UNIT-UPGRADE")
 )
 ;***********************************************
 #end-if		;if not difficulty == easiest

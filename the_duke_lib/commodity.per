@@ -544,7 +544,7 @@
 
 (defrule
 	(wood-amount > 200)
-	(research-completed ri-double-bit-axe)
+	(not (research-available ri-double-bit-axe))
 	(or
 		(and
 			(food-amount < 800)

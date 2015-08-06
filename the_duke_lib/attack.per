@@ -454,7 +454,7 @@
 (defrule
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL RUSHING)
-	(military-population >= FOUR-PERCENT-POP)
+	(military-population >= 4)
 	(players-building-count any-enemy > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
@@ -475,7 +475,7 @@
 (defrule
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL RUSHING)
-	(military-population >= FOUR-PERCENT-POP)
+	(military-population >= 4)
 	(timer-triggered T-ATTACK)
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(goal MILITARY-PARITY VASTLY-SUPERIOR)
@@ -494,7 +494,7 @@
 (defrule
 	(current-age == castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(military-population >= TEN-PERCENT-POP)
+	(military-population >= 10)
 	(players-building-count any-enemy > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(or
@@ -515,7 +515,7 @@
 (defrule
 	(current-age == castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(military-population >= TWELVE-PERCENT-POP)
+	(military-population >= 16)
 	(players-building-count any-enemy > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(or
@@ -538,7 +538,7 @@
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(military-population >= EIGHT-PERCENT-POP)
+	(military-population >= 6)
 	(players-building-count any-enemy > 0)
 	(timer-triggered T-ATTACK)
 	(goal ATTACK-PERSONALITY ATTACKER)
@@ -571,6 +571,7 @@
 	(building-type-count-total watch-tower < 3)
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(building-type-count-total town-center > 1)
 =>
 	(build-forward watch-tower)
 )
