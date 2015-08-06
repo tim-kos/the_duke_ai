@@ -1,0 +1,445 @@
+;************************************************************************************************************
+;UNIQUE RESEARCH
+
+
+
+#load-if-defined AZTEC-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == aztec
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined BYZANTINE-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == byzantine
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined BRITON-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+  (research-completed ri-bracer)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == briton
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined CELTIC-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == celtic
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined CHINESE-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == chinese
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined FRANKISH-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (or
+    (or
+      (cc-players-unit-type-count any-enemy archer-line >= 6)
+      (cc-players-unit-type-count any-enemy chu-ko-nu-line >= 6)
+    )
+    (or
+      (or
+        (cc-players-unit-type-count any-enemy janissary-line >= 6)
+        (cc-players-unit-type-count any-enemy longbowman-line >= 6)
+      )
+      (cc-players-unit-type-count any-enemy mangudai-line >= 6)
+    )
+  )
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == frankish
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined GOTHIC-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research PERFUSION-  MODERATE, HARD, HARDEST
+;400 WOOD, 600 GOLD
+(defrule
+  (can-research 457)
+  (building-type-count-total castle >= 1)
+=>
+  (research 457)
+; (chat-local-to-self "research UNIQUE-RESEARCH-perfusion")
+)
+;450 FOOD, 250 GOLD
+(defrule
+  (can-research 16)
+  (building-type-count-total castle >= 1)
+  (unit-type-count-total huskarl-line >= TWO-PERCENT-POP)
+  (goal ABLE-TO-TRAIN-UNITS YES)
+=>
+  (research 16)
+; (chat-local-to-self "research UNIQUE-RESEARCH-anarchy")
+)
+
+
+#end-if     ;if civ == gothic
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined HUN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+  (cc-players-building-type-count any-enemy wonder > 0)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == hun
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined JAPANESE-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+  (unit-type-count-total mangonel-line > ONE-PERCENT-POP)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == japanese
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined KOREAN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+  (unit-type-count-total mangonel-line > ONE-PERCENT-POP)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == korean
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined MAYAN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+  (unit-type-count-total eagle-warrior-line > THREE-PERCENT-POP)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == mayan
+;***********************************************
+;***********************************************
+
+
+
+#load-if-defined MONGOL-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+
+  (building-type-count siege-workshop > 0)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == mongol
+;***********************************************
+;***********************************************
+
+
+#load-if-defined PERSIAN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == persian
+;***********************************************
+;***********************************************
+
+
+#load-if-defined SARACEN-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == saracen
+;***********************************************
+;***********************************************
+
+
+#load-if-defined SPANISH-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == spanish
+;***********************************************
+;***********************************************
+
+
+#load-if-defined TEUTONIC-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 2)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == teutonic
+;***********************************************
+;***********************************************
+
+
+#load-if-defined TURKISH-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+  (or
+    (unit-type-count-total bombard-cannon > 2)
+    (building-type-count-total bombard-tower > 2)
+  )
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+
+#end-if     ;if civ == turkish
+;***********************************************
+;***********************************************
+
+
+#load-if-defined VIKING-CIV
+;***********************************************
+;***********************************************
+
+
+;Rule295: research MY-UNIQUE-RESEARCH-  HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (can-research my-unique-research)
+  (building-type-count-total castle >= 1)
+=>
+  (research my-unique-research)
+; (chat-local-to-self "research UNIQUE-RESEARCH")
+)
+
+#end-if     ;if civ == viking
+;***********************************************
+;***********************************************
+
+
+
+;Rule297: research MY-UNIQUE-UNIT-UPGRADE-  MODERATE, HARD, HARDEST
+;lots of FOOD, lots of GOLD (maybe lots of WOOD)
+(defrule
+  (current-age >= imperial-age)
+  (can-research my-unique-unit-upgrade)
+  (building-type-count-total castle >= 1)
+  (unit-type-count-total my-unique-unit-line > THREE-PERCENT-POP)
+=>
+  (research my-unique-unit-upgrade)
+; (chat-local-to-self "research UNIQUE-UNIT-UPGRADE")
+)
+;***********************************************
+#end-if   ;if not difficulty == easiest
+#end-if   ;if not difficulty == easy
+
+;***********************************************
+;***********************************************
+#end-if   ;if not game type == wonder race
