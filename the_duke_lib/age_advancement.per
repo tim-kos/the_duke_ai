@@ -137,6 +137,7 @@
 	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!")
 	(chat-local-to-self "advance to FEUDAL-AGE")
 	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
+	(set-escrow-percentage food 0)
 )
 ;500 FOOD
 (defrule
@@ -150,6 +151,7 @@
 	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!")
 	(chat-local-to-self "advance to FEUDAL-AGE")
 	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
+	(set-escrow-percentage food 0)
 )
 
 ;Rule109: research CASTLE-AGE4- MODERATE, HARD, HARDEST -fast castle-age
@@ -167,6 +169,8 @@
 	(chat-local-to-self "advance to CASTLE-AGE")
 	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
 )
 ;800 FOOD, 200 GOLD
 (defrule
@@ -182,6 +186,8 @@
 	(chat-local-to-self "advance to CASTLE-AGE")
 	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
 )
 ;800 FOOD, 200 GOLD
 (defrule
@@ -197,6 +203,8 @@
 	(chat-local-to-self "advance to CASTLE-AGE")
 	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
 )
 
 ;Rule115: research IMPERIAL-AGE4- HARD, HARDEST -fast imperial-age
@@ -214,6 +222,8 @@
 	(chat-local-to-self "advance to IMPERIAL-AGE")
 	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
 )
 ;1000 FOOD, 800 GOLD
 (defrule
@@ -229,6 +239,8 @@
 	(chat-local-to-self "advance to IMPERIAL-AGE")
 	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
 )
 ;1000 FOOD, 800 GOLD
 (defrule
@@ -244,6 +256,8 @@
 	(chat-local-to-self "advance to IMPERIAL-AGE")
 	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
 )
 
 ;***********************************************
@@ -262,6 +276,7 @@
 	(research feudal-age)
 	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
+	(set-escrow-percentage food 0)
 )
 
 (defrule
@@ -277,6 +292,8 @@
 	(research castle-age)
 	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
 )
 
 (defrule
@@ -292,6 +309,8 @@
 	(research imperial-age)
 	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	(enable-timer T-ABLE-TO-PAY-RESOURCES 15)
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
 )
 ;***********************************************
 #end-if

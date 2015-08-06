@@ -3372,36 +3372,72 @@
 )
 
 
-
 (defrule
 	(goal RUSH-CONTROL RUSHING)
-	(game-time <= 3000)
-	(goal ADVANCING-TO-AGE NO)
 	(current-age == castle-age)
 	(or
-		(and
-			(research-available ri-hand-cart)
-			(food-amount > 450) ;leave food for hand-cart
-		)
-		(and
-			(not (research-available ri-hand-cart))
-			(food-amount > 300) ;leave food for villager creation
-		)
+		(research-available ri-hand-cart)
+		(building-type-count-total town-center < 2)
 	)
+	(food-amount > 450) ;leave food for hand-cart
+	(wood-amount > 400) ;leave wood for hand-cart and town-center
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
 
+(defrule
+	(goal RUSH-CONTROL RUSHING)
+	(current-age == castle-age)
+	(not (research-available ri-hand-cart))
+	(building-type-count-total town-center > 1)
+	(food-amount > 150) ;leave food for villagers
+	(wood-amount > 100) ;leave wood for research
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS YES)
+)
 
+(defrule
+	(goal RUSH-CONTROL NO)
+	(current-age == castle-age)
+	(or
+		(research-available ri-hand-cart)
+		(building-type-count-total town-center < 3)
+	)
+	(food-amount > 450) ;leave food for hand-cart
+	(wood-amount > 400) ;leave wood for hand-cart and town-center
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS YES)
+)
+
+(defrule
+	(goal RUSH-CONTROL NO)
+	(current-age == castle-age)
+	(not (research-available ri-hand-cart))
+	(building-type-count-total town-center > 2)
+	(food-amount > 200) ;leave food for villager creation
+	(wood-amount > 200) ;leave some wood for research
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS YES)
+)
+
+(defrule
+	(goal RUSH-CONTROL NO)
+	(current-age == castle-age)
+	(not (research-available ri-hand-cart))
+	(building-type-count-total town-center < 3)
+	(stone-amount < 100) ;if not enough stone for next TC, don't be sto strict
+	(food-amount > 200) ;leave food for villager creation
+	(wood-amount > 200) ;leave some wood for research
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS YES)
+)
 
 (defrule
 	(current-age == castle-age)
 	(goal ADVANCING-TO-AGE IMPERIAL-AGE)
-	;(timer-triggered T-ABLE-TO-PAY-RESOURCES)
 	(military-population < 15)
 	(food-amount > 200) ;leave food for villager creation
 =>
-	;(disable-timer T-ABLE-TO-PAY-RESOURCES)
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
 

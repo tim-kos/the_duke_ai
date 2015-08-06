@@ -1118,10 +1118,8 @@
 		(unit-type-count-total galley-line >= THREE-PERCENT-POP)
 	)
 =>					;then
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-fletching)
-;               (chat-local-to-self "research FLETCHING")
+; (chat-local-to-self "research FLETCHING")
 )
 ;100 FOOD, 50 GOLD
 (defrule
@@ -1134,10 +1132,8 @@
 		(goal ABLE-TO-UPGRADE-ARCHERS YES)
 	)
 =>					;then
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-fletching)
-;               (chat-local-to-self "research FLETCHING")
+; (chat-local-to-self "research FLETCHING")
 )
 ;***********************************************
 ;FORGING
@@ -1157,9 +1153,8 @@
 		(goal ABLE-TO-UPGRADE-INFANTRY YES)
 	)
 =>					;then
-	(release-escrow food)
  	(research ri-forging)
-;               (chat-local-to-self "research FORGING")
+; (chat-local-to-self "research FORGING")
 )
 ;150 FOOD
 (defrule
@@ -1174,9 +1169,8 @@
 		(goal ABLE-TO-UPGRADE-CAVALRY YES)
 	)
 =>					;then
-	(release-escrow food)
  	(research ri-forging)
-;               (chat-local-to-self "research FORGING")
+; (chat-local-to-self "research FORGING")
 )
 ;150 FOOD
 (defrule
@@ -1198,9 +1192,8 @@
 		(current-age == castle-age)
 	)
 =>					;then
-	(release-escrow food)
  	(research ri-forging)
-;               (chat-local-to-self "research FORGING")
+; (chat-local-to-self "research FORGING")
 )
 ;***********************************************
 ;SCALE-MAIL
@@ -1220,9 +1213,8 @@
 		(goal ABLE-TO-UPGRADE-INFANTRY YES)
 	)
 =>					;then
-	(release-escrow food)
 	(research ri-scale-mail)
-;               (chat-local-to-self "research SCALE-MAIL")
+; (chat-local-to-self "research SCALE-MAIL")
 )
 ;100 FOOD
 (defrule
@@ -1241,9 +1233,8 @@
 		(current-age == castle-age)
 	)
 =>					;then
-	(release-escrow food)
  	(research ri-scale-mail)
-;               (chat-local-to-self "research SCALE-MAIL")
+; (chat-local-to-self "research SCALE-MAIL")
 )
 ;***********************************************
 ;SCALE-BARDING
@@ -1263,9 +1254,8 @@
 		(goal ABLE-TO-UPGRADE-CAVALRY YES)
 	)
 =>
-	(release-escrow food)
  	(research ri-scale-barding)
-;               (chat-local-to-self "research SCALE-BARDING")
+; (chat-local-to-self "research SCALE-BARDING")
 )
 ;150 FOOD
 (defrule
@@ -1285,9 +1275,8 @@
 	)
 	(unit-type-count-total knight-line > 2)
 =>					;then
-	(release-escrow food)
  	(research ri-scale-barding)
-;               (chat-local-to-self "research SCALE-BARDING")
+; (chat-local-to-self "research SCALE-BARDING")
 )
 ;***********************************************
 ;PADDED-ARCHER-ARMOR
@@ -1308,9 +1297,8 @@
 		(goal ABLE-TO-UPGRADE-ARCHERS YES)
 	)
 =>
-	(release-escrow food)
 	(research ri-padded-archer-armor)
-;               (chat-local-to-self "research PADDED-ARCHER-ARMOR")
+; (chat-local-to-self "research PADDED-ARCHER-ARMOR")
 )
 ;*******************************************************************
 ;CASTLE-AGE
@@ -1333,10 +1321,8 @@
 		(goal ABLE-TO-UPGRADE-INFANTRY YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-iron-casting)
-;               (chat-local-to-self "research IRON-CASTING")
+; (chat-local-to-self "research IRON-CASTING")
 )
 ;220 FOOD, 120 GOLD
 (defrule
@@ -1348,10 +1334,8 @@
 		(goal ABLE-TO-UPGRADE-CAVALRY YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-iron-casting)
-;               (chat-local-to-self "research IRON-CASTING")
+; (chat-local-to-self "research IRON-CASTING")
 )
 ;150 FOOD
 (defrule
@@ -1372,10 +1356,8 @@
 		(unit-type-count-total eagle-warrior-line > 1)
 	)
 =>					;then
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-iron-casting)
-;               (chat-local-to-self "research IRON-CASTING")
+; (chat-local-to-self "research IRON-CASTING")
 )
 ;***********************************************
 ;BODKIN-ARROW
@@ -1393,10 +1375,8 @@
 		(goal ABLE-TO-UPGRADE-ARCHERS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-bodkin-arrow)
-;               (chat-local-to-self "research BODKIN-ARROW")
+; (chat-local-to-self "research BODKIN-ARROW")
 )
 ;220 FOOD, 120 GOLD
 (defrule
@@ -1408,10 +1388,8 @@
 		(unit-type-count-total galley-line >= THREE-PERCENT-POP)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-bodkin-arrow)
-;               (chat-local-to-self "research BOKIN-ARROW")
+; (chat-local-to-self "research BOKIN-ARROW")
 )
 ;***********************************************
 ;CHAIN-BARDING
@@ -1428,10 +1406,8 @@
 		(goal ABLE-TO-UPGRADE-CAVALRY YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-chain-barding)
-;               (chat-local-to-self "research CHAIN-BARDING")
+; (chat-local-to-self "research CHAIN-BARDING")
 )
 ;***********************************************
 ;LEATHER-ARCHER-ARMOR
@@ -1449,10 +1425,8 @@
 		(goal ABLE-TO-UPGRADE-ARCHERS YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-leather-archer-armor)
-;               (chat-local-to-self "research LEATHER-ARCHER-ARMOR")
+; (chat-local-to-self "research LEATHER-ARCHER-ARMOR")
 )
 ;***********************************************
 ;CHAIN-MAIL
@@ -1469,10 +1443,8 @@
 		(goal ABLE-TO-UPGRADE-INFANTRY YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-chain-mail)
-;               (chat-local-to-self "research CHAIN-MAIL")
+; (chat-local-to-self "research CHAIN-MAIL")
 )
 ;200 FOOD, 100 GOLD
 (defrule
@@ -1481,10 +1453,8 @@
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(unit-type-count-total eagle-warrior-line > 3)
 =>					;then
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-chain-mail)
-;               (chat-local-to-self "research CHAIN-MAIL")
+; (chat-local-to-self "research CHAIN-MAIL")
 )
 ;*******************************************************************
 ;IMPERIAL-AGE
@@ -1508,10 +1478,8 @@
 		(goal ABLE-TO-UPGRADE-CAVALRY YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-blast-furnace)
-;               (chat-local-to-self "research BLAST-FURNACE")
+; (chat-local-to-self "research BLAST-FURNACE")
 )
 ;275 FOOD, 225 GOLD
 (defrule
@@ -1532,10 +1500,8 @@
 		(unit-type-count-total eagle-warrior-line > 8)
 	)
 =>					;then
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-blast-furnace)
-;               (chat-local-to-self "research BLAST-FURNACE")
+; (chat-local-to-self "research BLAST-FURNACE")
 )
 ;***********************************************
 ;PLATE-MAIL
@@ -1550,10 +1516,8 @@
  	(can-research-with-escrow ri-plate-mail)
 	(goal ABLE-TO-UPGRADE-INFANTRY YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-plate-mail)
-;               (chat-local-to-self "research PLATE-MAIL")
+; (chat-local-to-self "research PLATE-MAIL")
 )
 ;***********************************************
 ;PLATE-BARDING
@@ -1568,10 +1532,8 @@
  	(can-research-with-escrow ri-plate-barding)
 	(goal ABLE-TO-UPGRADE-CAVALRY YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-plate-barding)
-;               (chat-local-to-self "research PLATE-BARDING")
+; (chat-local-to-self "research PLATE-BARDING")
 )
 ;***********************************************
 ;BRACER
@@ -1592,10 +1554,8 @@
 		(unit-type-count-total galley-line >= FIVE-PERCENT-POP)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-bracer)
-;               (chat-local-to-self "research BRACER")
+; (chat-local-to-self "research BRACER")
 )
 ;***********************************************
 ;RING-ARCHER-ARMOR
@@ -1610,10 +1570,8 @@
  	(can-research-with-escrow ri-ring-archer-armor)
 	(goal ABLE-TO-UPGRADE-ARCHERS YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-ring-archer-armor)
-;               (chat-local-to-self "research RING-ARCHER-ARMOR")
+; (chat-local-to-self "research RING-ARCHER-ARMOR")
 )
 ;***********************************************
 #else		;if not game-type == death-match
@@ -1631,10 +1589,8 @@
 (defrule
  	(can-research-with-escrow ri-fletching)
 =>					;then
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-fletching)
-;               (chat-local-to-self "research FLETCHING")
+; (chat-local-to-self "research FLETCHING")
 )
 ;150 FOOD
 (defrule
@@ -1647,9 +1603,8 @@
 		(unit-type-count-total eagle-warrior-line > 0)
 	)
 =>					;then
-	(release-escrow food)
  	(research ri-forging)
-;               (chat-local-to-self "research FORGING")
+; (chat-local-to-self "research FORGING")
 )
 ;150 FOOD
 (defrule
@@ -1662,9 +1617,8 @@
 		(unit-type-count-total camel-line > 0)
 	)
 =>					;then
-	(release-escrow food)
  	(research ri-forging)
-;               (chat-local-to-self "research FORGING")
+; (chat-local-to-self "research FORGING")
 )
 ;100 FOOD
 (defrule
@@ -1677,9 +1631,8 @@
 		(unit-type-count-total eagle-warrior-line > 0)
 	)
 =>					;then
-	(release-escrow food)
 	(research ri-scale-mail)
-;               (chat-local-to-self "research SCALE-MAIL")
+; (chat-local-to-self "research SCALE-MAIL")
 )
 ;150 FOOD
 (defrule
@@ -1692,9 +1645,8 @@
 		(unit-type-count-total camel-line > 0)
 	)
 =>
-	(release-escrow food)
  	(research ri-scale-barding)
-;               (chat-local-to-self "research SCALE-BARDING")
+; (chat-local-to-self "research SCALE-BARDING")
 )
 ;100 FOOD
 (defrule
@@ -1709,9 +1661,8 @@
 		(unit-type-count-total cavalry-archer-line > 0)
 	)
 =>
-	(release-escrow food)
 	(research ri-padded-archer-armor)
-;               (chat-local-to-self "research PADDED-ARCHER-ARMOR")
+; (chat-local-to-self "research PADDED-ARCHER-ARMOR")
 )
 ;*******************************************************************
 ;CASTLE-AGE
@@ -1729,10 +1680,8 @@
 		(unit-type-count-total eagle-warrior-line > 0)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-iron-casting)
-;               (chat-local-to-self "research IRON-CASTING")
+; (chat-local-to-self "research IRON-CASTING")
 )
 ;220 FOOD, 120 GOLD
 (defrule
@@ -1745,19 +1694,15 @@
 		(unit-type-count-total camel-line > 0)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-iron-casting)
-;               (chat-local-to-self "research IRON-CASTING")
+; (chat-local-to-self "research IRON-CASTING")
 )
 ;220 FOOD, 120 GOLD
 (defrule
  	(can-research-with-escrow ri-bodkin-arrow)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-bodkin-arrow)
-;               (chat-local-to-self "research BODKIN-ARROW")
+; (chat-local-to-self "research BODKIN-ARROW")
 )
 ;250 FOOD, 150 GOLD
 (defrule
@@ -1770,10 +1715,8 @@
 		(unit-type-count-total camel-line > 0)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-chain-barding)
-;               (chat-local-to-self "research CHAIN-BARDING")
+; (chat-local-to-self "research CHAIN-BARDING")
 )
 ;150 FOOD, 150 GOLD
 (defrule
@@ -1786,10 +1729,8 @@
 		(unit-type-count-total cavalry-archer-line > 0)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-leather-archer-armor)
-;               (chat-local-to-self "research LEATHER-ARCHER-ARMOR")
+; (chat-local-to-self "research LEATHER-ARCHER-ARMOR")
 )
 ;200 FOOD, 100 GOLD
 (defrule
@@ -1802,10 +1743,8 @@
 		(unit-type-count-total eagle-warrior-line > 0)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-chain-mail)
-;               (chat-local-to-self "research CHAIN-MAIL")
+; (chat-local-to-self "research CHAIN-MAIL")
 )
 ;*******************************************************************
 ;IMPERIAL-AGE
@@ -1823,10 +1762,8 @@
 		(unit-type-count-total eagle-warrior-line > 0)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-blast-furnace)
-;               (chat-local-to-self "research BLAST-FURNACE")
+; (chat-local-to-self "research BLAST-FURNACE")
 )
 ;300 FOOD, 150 GOLD
 (defrule
@@ -1839,10 +1776,8 @@
 		(unit-type-count-total eagle-warrior-line > 0)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-plate-mail)
-;               (chat-local-to-self "research PLATE-MAIL")
+; (chat-local-to-self "research PLATE-MAIL")
 )
 ;350 FOOD, 200 GOLD
 (defrule
@@ -1855,10 +1790,8 @@
 		(unit-type-count-total camel-line > 0)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-plate-barding)
-;               (chat-local-to-self "research PLATE-BARDING")
+; (chat-local-to-self "research PLATE-BARDING")
 )
 ;300 FOOD, 200 GOLD
 (defrule
@@ -1866,10 +1799,8 @@
  	(current-age >= imperial-age)
  	(can-research-with-escrow ri-bracer)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-bracer)
-;               (chat-local-to-self "research BRACER")
+; (chat-local-to-self "research BRACER")
 )
 ;250 FOOD, 250 GOLD
 (defrule
@@ -1882,10 +1813,8 @@
 		(unit-type-count-total cavalry-archer-line > 0)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-ring-archer-armor)
-;               (chat-local-to-self "research RING-ARCHER-ARMOR")
+; (chat-local-to-self "research RING-ARCHER-ARMOR")
 )
 ;***********************************************
 #end-if		;if game-type == death-match

@@ -188,14 +188,8 @@
  	(can-research ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(or
-		(or
-			(not (goal RESEARCHING-CASTLE FAST-CASTLE))
-   		(goal ADVANCING-TO-AGE CASTLE-AGE)
-		)
-		(and
-			(current-age >= castle-age)
-			(not (research-available ri-bow-saw))
-		)
+		(not (goal RESEARCHING-CASTLE FAST-CASTLE))
+ 		(goal ADVANCING-TO-AGE CASTLE-AGE)
 	)
 	(not (research-available ri-wheel-barrow))
 	(not (research-available ri-double-bit-axe))
@@ -213,7 +207,29 @@
 =>
  	(research ri-gold-mining)
 ; (chat-local-to-self "research GOLD-MINING")
+)
 
+;GOLD-MINING 75 WOOD, 100 FOOD
+(defrule
+ 	(can-research ri-gold-mining)
+	(strategic-number sn-gold-gatherer-percentage > 0)
+	(current-age >= castle-age)
+	(not (research-available ri-bow-saw))
+	(not (research-available ri-hand-cart))
+	(building-type-count-total town-center > 1)
+	(or
+		(goal RUSH-CONTROL NO)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(or
+				(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP)
+				(unit-type-count-total knight-line > THREE-PERCENT-POP)
+			)
+		)
+	)
+=>
+ 	(research ri-gold-mining)
+; (chat-local-to-self "research GOLD-MINING")
 )
 
 ;GOLD-SHAFT-MINING 150 WOOD, 200 FOOD
