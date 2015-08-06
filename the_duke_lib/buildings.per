@@ -374,13 +374,13 @@
 )
 
 (defrule
- 	(or
-		(current-age >= castle-age)
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
-	)
+	(current-age >= feudal-age)
 	(or
 		(goal RUSH-CONTROL NO)
-		(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+		(or
+			(building-type-count-total town-center > 1)
+			(stone-amount < 100)
+		)
 	)
 	(resource-found stone)
 	(dropsite-min-distance stone > 4)
@@ -394,21 +394,6 @@
 ;	(chat-local-to-self "build MINING-CAMP")
 )
 
-(defrule
- 	(current-age == feudal-age)
-	(players-military-population any-enemy >= THREE-PERCENT-POP)
-	(goal RUSH-CONTROL NO)
-	(resource-found stone)
-	(dropsite-min-distance stone > 4)
- 	(can-build mining-camp)
-	(building-type-count-total blacksmith > 0)
-	(building-type-count-total barracks > 0)
-	(building-type-count-total lumber-camp > 0)
-	(building-type-count-total mining-camp > 0)
-=>
- 	(build mining-camp)
-;	(chat-local-to-self "build MINING-CAMP")
-)
 ;***********************************************
 #else		;if not game-type == death-match
 ;***********************************************
@@ -706,30 +691,6 @@
 )
 
 (defrule
- 	(current-age >= feudal-age)
- 	(can-build farm)
-	(or
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
- 		(current-age >= castle-age)
-	)
-	(building-type-count-total farm <= max-castle-farm)
-	(or
-		(building-type-count-total market > 0)
-		(or
-			(building-type-count-total archery-range > 0)
-			(building-type-count-total stable > 0)
-		)
-	)
-	(building-type-count-total blacksmith > 0)
-	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(building-type-count-total lumber-camp > 0)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
  	(current-age == feudal-age)
  	(can-build farm)
 	(or
@@ -859,82 +820,41 @@
 (defrule
  	(current-age >= castle-age)
  	(can-build farm)
+ 	(sheep-and-forage-too-far)
 	(building-type-count-total farm < 20)
 	(building-type-count-total lumber-camp > 0)
-	(or
-		(goal RUSH-CONTROL NO)
-		(idle-farm-count < 2)
-	)
+	(idle-farm-count == 0)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
 )
 
 (defrule
- 	(current-age >= castle-age)
  	(can-build farm)
-	(or
-		(sheep-and-forage-too-far)
-		(current-age-time > 600)
+ 	(sheep-and-forage-too-far)
+ 	(or
+ 		(and
+ 			(current-age == castle-age)
+			(building-type-count-total farm <= max-castle-farm)
+		)
+		(and
+ 			(current-age == imperial-age)
+			(building-type-count-total farm <= max-imperial-farm)
+		)
 	)
-	(building-type-count-total farm <= max-castle-farm)
+	(or
+		(building-type-count-total archery-range > 0)
+		(building-type-count-total stable > 0)
+	)
+	(building-type-count-total blacksmith > 0)
 	(building-type-count-total town-center > 1)
 	(building-type-count-total lumber-camp > 0)
-	(or
-		(goal RUSH-CONTROL NO)
-		(idle-farm-count < 2)
-	)
+	(idle-farm-count < 2)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
 )
 
-(defrule
- 	(current-age >= castle-age)
- 	(can-build farm)
-	(idle-farm-count < 1)
-	(unit-type-count SHEEP < 2)
-	(unit-type-count TURKEY < 2)
-	(wood-amount > 100)
-	(building-type-count-total lumber-camp > 0)
-	(building-type-count-total town-center > 2)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(current-age >= imperial-age)
- 	(can-build farm)
-	(building-type-count-total farm < max-castle-farm)
-	(or
-		(and
-			(unit-type-count SHEEP < 2)
-			(unit-type-count TURKEY < 2)
-		)
-		(current-age-time > 600)
-	)
-	(building-type-count-total lumber-camp > 0)
-	(building-type-count-total town-center > 2)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(current-age >= imperial-age)
- 	(can-build farm)
-	(or
-		(sheep-and-forage-too-far)
-		(current-age-time > 900)
-	)
-	(building-type-count-total farm <= max-imperial-farm)
-	(building-type-count-total lumber-camp > 0)
-	(building-type-count-total town-center > 2)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
 ;***********************************************
 #else		;if not game type == wonder race
 ;***********************************************
@@ -1405,24 +1325,16 @@
 =>
 	(set-goal ABLE-TO-BUILD-BARRACKS YES)
 )
-;***********************************************
-;BARRACKS ON EASIEST AND EASY - DIFFICULTY
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-;Rule56: build BARRACKS, the first one
-
+;build the first BARRACKS
 (defrule
 	(current-age >= feudal-age)
 	(can-build barracks)
-	(current-age-time > 320)
 	(building-type-count-total barracks < 1)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
 	(build barracks)
 ;	(chat-local-to-self "build first BARRACKS")
@@ -1431,7 +1343,6 @@
 (defrule
 	(current-age == feudal-age)
 	(can-build barracks)
-	(current-age-time > 320)
 	(building-type-count-total barracks < barracks-building-feudal)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
 	(wood-amount > 600)
@@ -1441,53 +1352,38 @@
 )
 
 (defrule
-	(current-age == castle-age)
 	(can-build barracks)
-	(current-age-time > 320)
-	(building-type-count-total barracks < barracks-building-castle)
+	(or
+		(and
+			(building-type-count-total barracks < barracks-building-castle)
+			(current-age == castle-age)
+		)
+		(and
+			(building-type-count-total barracks < barracks-building-imperial)
+			(current-age == imperial-age)
+		)
+	)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(wood-amount > 600)
+	(wood-amount > 400)
+	(not (research-available ri-hand-cart))
+	(not (research-available ri-bow-saw))
+	(not (research-available ri-heavy-plow))
+	(building-type-count-total town-center > 1)
 =>
 	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
 (defrule
-	(current-age == imperial-age)
-	(can-build barracks)
-	(current-age-time > 320)
-	(building-type-count-total barracks < barracks-building-imperial)
-	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(wood-amount > 600)
-=>
-	(build barracks)
-;	(chat-local-to-self "build BARRACKS")
-)
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-
-
-;***********************************************
-;***********************************************
-;BARRACKS ON MODERATE, HARD AND HARDEST - DIFFICULTY
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule60: build BARRACKS in the dark age
-
-(defrule
- 	(current-age == dark-age)
+	(or
+		(current-age >= feudal-age)
+		(and
+ 			(current-age == dark-age)
+ 			(goal ADVANCING-TO-AGE FEUDAL-AGE)
+ 		)
+ 	)
  	(can-build barracks)
 	(building-type-count-total barracks < 1)
-	(goal ADVANCING-TO-AGE FEUDAL-AGE)
 =>
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
@@ -1507,15 +1403,6 @@
 		(goal RUSH-CONTROL FEUDAL)
 		(goal RUSH-CONTROL RUSHING)
 	)
-=>
- 	(build barracks)
-;	(chat-local-to-self "build BARRACKS")
-)
-
-(defrule
- 	(current-age == feudal-age)
- 	(can-build barracks)
-	(building-type-count-total barracks < 1)
 =>
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
@@ -1563,7 +1450,7 @@
 	(building-type-count-total barracks < barracks-building-imperial)
 	(or
 		(wood-amount > 450)
-		(building-type-count-total town-center > 1)
+		(building-type-count-total town-center > 2)
 	)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(building-type-count-total archery-range >= 2)
@@ -1579,7 +1466,7 @@
 	(building-type-count-total barracks < barracks-building-imperial)
 	(or
 		(wood-amount > 450)
-		(building-type-count-total town-center > 1)
+		(building-type-count-total town-center > 2)
 	)
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(building-type-count-total stable >= 2)
@@ -1594,44 +1481,16 @@
 (defrule
  	(current-age >= castle-age)
 	(building-type-count-total barracks < barracks-building-imperial)
-	(or
-		(wood-amount > 450)
-		(building-type-count-total town-center > 1)
-	)
-	(goal ABLE-TO-BUILD-STABLE NO)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE NO)
+	(wood-amount > 550)
+	(building-type-count-total town-center > 2)
  	(can-build barracks)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(wood-amount > 300)
 =>
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
-#load-if-not-defined DIFFICULTY-MODERATE
-
-;Rule68: build BARRACKS- HARD, HARDEST (imperial-age) if we have built plenty of barracks and have much wood then build more barrackses
-(defrule
-	(difficulty <= hard)
- 	(current-age == imperial-age)
- 	(building-type-count-total barracks >= barracks-building-imperial)
- 	(building-type-count-total barracks < 12)
- 	(can-build barracks)
-	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(wood-amount > 500)
-=>
- 	(build barracks)
-	(set-strategic-number sn-maximum-town-size 36)
-)
-
-#end-if		;if not difficulty == moderate
-
 #load-if-defined DEATH-MATCH
-;***********************************************
-;***********************************************
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
 ;***********************************************
 ;***********************************************
 
@@ -1644,35 +1503,6 @@
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-;Rule69: build BARRACKS, in death-match games keep at least two handy (> moderate)
-(defrule
- 	(building-type-count-total barracks < 2)
- 	(can-build barracks)
-	(wood-amount > 700)
-=>
- 	(build barracks)
-;	(chat-local-to-self "build BARRACKS")
-)
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-;***********************************************
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
 ;***********************************************
 ;***********************************************
@@ -1721,16 +1551,7 @@
 ;STABLES ON EASIEST AND EASY - DIFFICULTY
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-
-
-;Rule85: build STABLES in feudal-age
+;build STABLES in feudal-age
 
 (defrule
 	(current-age == feudal-age)
@@ -1796,27 +1617,9 @@
 	(build stable)
 ;	(chat-local-to-self "build STABLE")
 )
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
 
 
-
-;***********************************************
-;***********************************************
-;STABLES ON MODERATE, HARD AND HARDEST - DIFFICULTY
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-
-
-;Rule78: build STABLES in feudal-age
+;build STABLES in feudal-age
 
 (defrule
  	(current-age == feudal-age)
@@ -1828,6 +1631,9 @@
 		(goal RUSH-CONTROL CASTLE)
 		(goal RUSH-CONTROL NO)
 	)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build stable)
 ;	(chat-local-to-self "build STABLE")
@@ -1839,6 +1645,9 @@
  	(can-build stable)
 	(goal RUSH-CONTROL CASTLE)
 	(goal ABLE-TO-BUILD-STABLE YES)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build stable)
 ;	(chat-local-to-self "build STABLE")
@@ -1852,6 +1661,9 @@
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(wood-amount > 250)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build stable)
 ;	(chat-local-to-self "build STABLE")
@@ -1897,8 +1709,6 @@
 		(wood-amount > 450)
 		(building-type-count-total town-center > 1)
 	)
-	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(building-type-count-total barracks >= 2)
  	(can-build stable)
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(wood-amount > 300)
@@ -1906,65 +1716,8 @@
  	(build stable)
 ;	(chat-local-to-self "build STABLE")
 )
-
-(defrule
- 	(current-age >= castle-age)
-	(building-type-count-total stable < stable-building-imperial)
-	(or
-		(wood-amount > 450)
-		(building-type-count-total town-center > 1)
-	)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(building-type-count-total archery-range >= 2)
- 	(can-build stable)
-	(goal ABLE-TO-BUILD-STABLE YES)
-	(wood-amount > 300)
-=>
- 	(build stable)
-;	(chat-local-to-self "build STABLE")
-)
-
-(defrule
- 	(current-age >= castle-age)
-	(building-type-count-total stable < stable-building-imperial)
-	(or
-		(wood-amount > 450)
-		(building-type-count-total town-center > 1)
-	)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE NO)
-	(goal ABLE-TO-BUILD-BARRACKS NO)
- 	(can-build stable)
-	(goal ABLE-TO-BUILD-STABLE YES)
-	(wood-amount > 300)
-=>
- 	(build stable)
-;	(chat-local-to-self "build STABLE")
-)
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-;Rule92: build STABLE in imperial-age if we have built plenty of stables and have much wood then build more stables
-(defrule
-	(difficulty <= hard)
- 	(current-age == imperial-age)
- 	(building-type-count-total stable >= stable-building-imperial)
- 	(building-type-count-total stable < 12)
- 	(can-build stable)
-	(goal ABLE-TO-BUILD-STABLE YES)
-	(wood-amount > 500)
-=>
- 	(build stable)
-	(set-strategic-number sn-maximum-town-size 36)
-)
-
-#end-if		;if not difficulty == moderate
 
 #load-if-defined DEATH-MATCH
-;***********************************************
-;***********************************************
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
 ;***********************************************
 ;***********************************************
 
@@ -1977,34 +1730,6 @@
  	(build stable)
 ;	(chat-local-to-self "build STABLE")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-;Rule93: build STABLE, in death-match games keep at least two handy (> moderate)
-(defrule
- 	(building-type-count-total stable < 2)
- 	(can-build stable)
-	(wood-amount > 700)
-=>
- 	(build stable)
-;	(chat-local-to-self "build STABLE")
-)
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-;***********************************************
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
 ;***********************************************
 ;***********************************************
@@ -2053,14 +1778,7 @@
 ;ARCHERY-RANGES ON EASIEST AND EASY - DIFFICULTY
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-;Rule60: build ARCHERY-RANGE in the feudal age
+;ARCHERY-RANGE in the feudal age
 
 (defrule
  	(current-age == feudal-age)
@@ -2076,6 +1794,9 @@
 		(goal RUSH-CONTROL FEUDAL)
 		(goal RUSH-CONTROL RUSHING)
 	)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2084,7 +1805,6 @@
 (defrule
 	(current-age == feudal-age)
 	(can-build archery-range)
-	(current-age-time > 420)
 	(or
 		(and
 			(building-type-count-total archery-range < archery-range-building-feudal)
@@ -2093,6 +1813,9 @@
 		(building-type-count-total archery-range < 1)
 	)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
 	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2106,6 +1829,9 @@
 		(civ-selected aztec)
 		(civ-selected mayan)
 	)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2114,7 +1840,6 @@
 (defrule
 	(current-age == castle-age)
 	(can-build archery-range)
-	(current-age-time > 420)
 	(or
 		(and
 			(building-type-count-total archery-range < archery-range-building-castle)
@@ -2123,6 +1848,9 @@
 		(building-type-count-total archery-range < 1)
 	)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
+	(not (research-available ri-hand-cart))
+	(not (research-available ri-bow-saw))
+	(not (research-available ri-heavy-plow))
 =>
 	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2131,7 +1859,6 @@
 (defrule
 	(current-age == imperial-age)
 	(can-build archery-range)
-	(current-age-time > 230)
 	(or
 		(and
 			(building-type-count-total archery-range < archery-range-building-imperial)
@@ -2140,29 +1867,15 @@
 		(building-type-count-total archery-range < 1)
 	)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
+	(not (research-available ri-hand-cart))
+	(not (research-available ri-bow-saw))
+	(not (research-available ri-heavy-plow))
 =>
 	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
 
-
-
-;***********************************************
-;***********************************************
-;ARCHERY-RANGES ON MODERATE, HARD AND HARDEST - DIFFICULTY
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule76: build ARCHERY-RANGES in feudal-age if we do a flush
+;ARCHERY-RANGES in feudal-age if we do a flush
 
 (defrule
  	(current-age == feudal-age)
@@ -2179,7 +1892,9 @@
 		(building-type-count-total archery-range < 1)
 	)
  	(can-build archery-range)
-	(building-type-count-total barracks > 0)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2190,6 +1905,9 @@
 	(building-type-count-total archery-range < 1)
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2204,6 +1922,9 @@
 		(civ-selected mayan)
 	)
 	(goal RUSH-CONTROL NO)
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2223,6 +1944,9 @@
 	)
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
+	(not (research-available ri-hand-cart))
+	(not (research-available ri-bow-saw))
+	(not (research-available ri-heavy-plow))
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2233,10 +1957,8 @@
 	(building-type-count-total archery-range < archery-range-building-imperial)
 	(or
 		(wood-amount > 450)
-		(building-type-count-total town-center > 1)
+		(building-type-count-total town-center > 2)
 	)
-	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(building-type-count-total barracks >= 2)
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(wood-amount > 300)
@@ -2244,69 +1966,12 @@
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
-
-(defrule
- 	(current-age >= castle-age)
-	(building-type-count-total archery-range < archery-range-building-imperial)
-	(or
-		(wood-amount > 450)
-		(building-type-count-total town-center > 1)
-	)
-	(goal ABLE-TO-BUILD-STABLE YES)
-	(building-type-count-total stable >= 2)
- 	(can-build archery-range)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(wood-amount > 300)
-=>
- 	(build archery-range)
-;	(chat-local-to-self "build ARCHERY-RANGE")
-)
-
-(defrule
- 	(current-age >= castle-age)
-	(building-type-count-total archery-range < archery-range-building-imperial)
-	(or
-		(wood-amount > 450)
-		(building-type-count-total town-center > 1)
-	)
-	(goal ABLE-TO-BUILD-BARRACKS NO)
-	(goal ABLE-TO-BUILD-STABLE NO)
- 	(can-build archery-range)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(wood-amount > 300)
-=>
- 	(build archery-range)
-;	(chat-local-to-self "build ARCHERY-RANGE")
-)
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-;Rule80: build ARCHERY-RANGE in imperial-age if we have built plenty of archery-ranges and have much wood then build more archery-ranges
-(defrule
-	(difficulty <= hard)
- 	(current-age == imperial-age)
- 	(building-type-count-total archery-range >= archery-range-building-imperial)
- 	(building-type-count-total archery-range < 12)
- 	(can-build archery-range)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(wood-amount > 500)
-=>
- 	(build archery-range)
-	(set-strategic-number sn-maximum-town-size 36)
-)
-
-#end-if		;if not difficulty == moderate
 
 #load-if-defined DEATH-MATCH
 ;***********************************************
 ;***********************************************
 
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule81: build ARCHERY-RANGE, in death-match games keep at least five handy (<= moderate)
+;ARCHERY-RANGE, in death-match games keep at least five handy (<= moderate)
 (defrule
  	(building-type-count-total archery-range < 5)
  	(can-build archery-range)
@@ -2315,35 +1980,6 @@
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-;Rule81: build ARCHERY-RANGE, in death-match games keep at least two handy (> moderate)
-(defrule
- 	(building-type-count-total archery-range < 2)
- 	(can-build archery-range)
-	(wood-amount > 700)
-=>
- 	(build archery-range)
-;	(chat-local-to-self "build ARCHERY-RANGE")
-)
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-;***********************************************
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
 ;***********************************************
 ;***********************************************
 #end-if		;if game-type == death-match
@@ -2361,121 +1997,24 @@
 ;SIEGE-WORKSHOPS ON EASIEST AND EASY - DIFFICULTY
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-;***********************************************
-;***********************************************
-
-;Rule94: build SIEGE-WORKSHOPS in castle-age
+;Rule96: build SIEGE-WORKSHOP in castle-age; part 1
 
 (defrule
-	(current-age == castle-age)
-	(can-build siege-workshop)
-	(current-age-time > 620)
-	(or
-		(building-type-count-total siege-workshop < 1)
-		(and
-			(building-type-count-total siege-workshop < siege-workshop-building-castle)
-			(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
-		)
-	)
-	(wood-amount > 500)
-=>
-	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
-	(current-age == imperial-age)
-	(can-build siege-workshop)
-	(current-age-time > 530)
+ 	(current-age >= castle-age)
+ 	(can-build siege-workshop)
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
+	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET))
 	(or
 		(building-type-count-total siege-workshop < 1)
 		(and
 			(building-type-count-total siege-workshop < siege-workshop-building-imperial)
-			(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
+			(wood-amount > 500)
 		)
 	)
-	(wood-amount > 500)
-=>
-	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-;***********************************************
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-
-
-;***********************************************
-;***********************************************
-;SIEGE-WORKSHOPS ON MODERATE, HARD AND HARDEST - DIFFICULTY
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule96: build SIEGE-WORKSHOP in castle-age; part 1
-
-(defrule
- 	(current-age == castle-age)
- 	(can-build siege-workshop)
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET))
-	(building-type-count-total siege-workshop < 1)
-	(goal RUSH-CONTROL NO)
 	(wood-amount > 350)
-	(building-type-count-total town-center > 1)
+	(building-type-count-total town-center > 2)
 	(building-type-count-total monastery > 0)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age == castle-age)
- 	(can-build siege-workshop)
-	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO))
-	(not (goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET))
-	(building-type-count-total siege-workshop < 1)
-	(goal RUSH-CONTROL NO)
-	(wood-amount > 350)
-	(building-type-count-total town-center > 1)
-	(building-type-count-total monastery > 0)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age == castle-age)
- 	(can-build siege-workshop)
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET))
-	(building-type-count-total siege-workshop < siege-workshop-building-castle)
-	(wood-amount > 500)
-	(building-type-count-total town-center > 1)
-	(building-type-count-total monastery > 0)
-	(goal RUSH-CONTROL NO)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age == castle-age)
- 	(can-build siege-workshop)
-	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO))
-	(not (goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET))
-	(building-type-count-total siege-workshop < siege-workshop-building-castle)
-	(wood-amount > 500)
-	(building-type-count-total town-center > 1)
-	(building-type-count-total monastery > 0)
-	(goal RUSH-CONTROL NO)
+	(building-type-count-total university > 0)
 =>
  	(build siege-workshop)
 ;	(chat-local-to-self "build SIEGE-WORKSHOP")
@@ -2484,94 +2023,19 @@
 (defrule
  	(current-age >= castle-age)
  	(can-build siege-workshop)
-	(building-type-count-total siege-workshop < 1)
-	(wood-amount > 300)
-	(goal RUSH-CONTROL RUSHING)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
-	(building-type-count-total town-center > 1)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age == imperial-age)
- 	(can-build siege-workshop)
-	(building-type-count-total siege-workshop < 1)
-	(wood-amount > 400)
-	(goal RUSH-CONTROL RUSHING)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age == imperial-age)
- 	(can-build siege-workshop)
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET))
-	(goal RUSH-CONTROL NO)
-	(building-type-count-total siege-workshop < 1)
-	(building-type-count-total town-center > 1)
-	(building-type-count-total monastery > 0)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age == imperial-age)
- 	(can-build siege-workshop)
 	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO))
 	(not (goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET))
-	(goal RUSH-CONTROL NO)
-	(building-type-count-total siege-workshop < 1)
-	(building-type-count-total town-center > 1)
+	(or
+		(building-type-count-total siege-workshop < 1)
+		(and
+			(building-type-count-total siege-workshop < siege-workshop-building-imperial)
+			(wood-amount > 500)
+		)
+	)
+	(wood-amount > 350)
+	(building-type-count-total town-center > 2)
 	(building-type-count-total monastery > 0)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age == imperial-age)
- 	(can-build siege-workshop)
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET))
-	(goal RUSH-CONTROL NO)
-	(building-type-count-total siege-workshop < siege-workshop-building-imperial)
-	(wood-amount > 400)
-	(building-type-count-total town-center > 1)
-	(building-type-count-total monastery > 0)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age == imperial-age)
- 	(can-build siege-workshop)
-	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO))
-	(not (goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET))
-	(goal RUSH-CONTROL NO)
-	(building-type-count-total siege-workshop < siege-workshop-building-imperial)
-	(wood-amount > 400)
-	(building-type-count-total town-center > 1)
-	(building-type-count-total monastery > 0)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age == imperial-age)
- 	(can-build siege-workshop)
-	(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(goal RUSH-CONTROL NO)
-	(building-type-count-total siege-workshop < siege-workshop-building-imperial)
-	(wood-amount > 250)
-	(building-type-count-total town-center > 1)
-	(building-type-count-total monastery > 0)
+	(building-type-count-total university > 0)
 =>
  	(build siege-workshop)
 ;	(chat-local-to-self "build SIEGE-WORKSHOP")
@@ -2592,11 +2056,6 @@
 )
 ;***********************************************
 #end-if		;if game-type == death-match
-
-;***********************************************
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
 
 
@@ -2777,22 +2236,14 @@
 ;***********************************************
 
 
-
-;Rule127: build TOWN-CENTERS all the numbers here are scaled to the difficulty level; if we don't do any rush; castle-age
-
 (defrule
  	(current-age == castle-age)
  	(building-type-count-total town-center < town-center-building-castle)
  	(food-amount >= 200)
  	(can-build town-center)
-	(or
-		(goal RUSH-CONTROL NO)
-		(wood-amount > 400)
-	)
-	(up-pending-objects c: town-center <= 1)
 =>
  	(build town-center)
- 	(up-assign-builders c: 621 c: 6) ; town-center-foundation: 621
+ 	(up-assign-builders c: 621 c: 3) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 
@@ -2812,7 +2263,7 @@
 	)
 =>
  	(build town-center)
- 	(up-assign-builders c: 621 c: 6) ; town-center-foundation: 621
+ 	(up-assign-builders c: 621 c: 3) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 ;***********************************************

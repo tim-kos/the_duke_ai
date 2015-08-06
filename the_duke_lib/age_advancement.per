@@ -3,9 +3,9 @@
 	(current-age == dark-age)
 =>
 	(set-goal ADVANCING-TO-AGE NO)
-	(set-goal RESEARCHING-FEUDAL 0)
-	(set-goal RESEARCHING-CASTLE 0)
-	(set-goal RESEARCHING-IMPERIAL 0)
+	(set-goal RESEARCHING-FEUDAL NOTICE)
+	(set-goal RESEARCHING-CASTLE NOTICE)
+	(set-goal RESEARCHING-IMPERIAL NOTICE)
 	(disable-self)
 )
 
@@ -65,7 +65,7 @@
 (defrule
 	(game-time > 14)
 	(current-age == dark-age)
-	(goal RESEARCHING-FEUDAL 0)
+	(goal RESEARCHING-FEUDAL NOTICE)
 =>
 	(set-goal RESEARCHING-FEUDAL LATE-FEUDAL)
 	(chat-local-to-self "LATE-FEUDAL")
@@ -87,7 +87,7 @@
 
 (defrule
 	(game-time > 14)
-	(goal RESEARCHING-CASTLE 0)
+	(goal RESEARCHING-CASTLE NOTICE)
 	(current-age <= feudal-age)
 =>
 	(set-goal RESEARCHING-CASTLE FAST-CASTLE)
@@ -117,7 +117,7 @@
 
 (defrule
 	(game-time > 14)
-	(goal RESEARCHING-IMPERIAL 0)
+	(goal RESEARCHING-IMPERIAL NOTICE)
 	(current-age <= castle-age)
 =>
 	(set-goal RESEARCHING-IMPERIAL LATE-IMPERIAL)

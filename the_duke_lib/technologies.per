@@ -40,8 +40,14 @@
  	(current-age >= castle-age)
  	(can-research ri-hand-cart)
 	(or
-		(building-type-count-total town-center > 1)
-		(town-under-attack)
+		(or
+			(building-type-count-total town-center > 1)
+			(town-under-attack)
+		)
+		(and
+			(food-amount > 500)
+			(wood-amount > 400)
+		)
 	)
 	(or
 		(unit-type-count villager > 30)
@@ -63,11 +69,8 @@
  	(can-research-with-escrow ri-hand-cart)
 	(building-type-count-total lumber-camp >= 1)
 	(or
-		(or
-			(unit-type-count-total eagle-warrior-line > 20)
-			(unit-type-count-total knight-line > 10)
-		)
-		(current-age-time > 300)
+		(unit-type-count-total eagle-warrior-line > 20)
+		(unit-type-count-total knight-line > 10)
 	)
 	(goal RUSH-CONTROL RUSHING)
 	(unit-type-count villager > 30)
@@ -1104,6 +1107,7 @@
  	(research ri-crossbow)
 ;               (chat-local-to-self "research CROSSBOW")
 )
+
 ;350 FOOD, 300 GOLD
 (defrule
  	(current-age >= imperial-age)
@@ -1116,16 +1120,17 @@
  	(research ri-arbalest)
 ;               (chat-local-to-self "research ARBALEST")
 )
+
 ;250 WOOD, 160 GOLD
 (defrule
- 	(can-research-with-escrow ri-elite-skirmisher)
+ 	(can-research ri-elite-skirmisher)
+ 	(unit-type-count-total skirmisher-line >= 7)
 	(or
-		(unit-type-count-total skirmisher-line >= TWO-PERCENT-POP)
-		(or
-			(goal PRIMARY-COMBAT-UNIT SKIRMISHER)
-			(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-		)
+		(goal PRIMARY-COMBAT-UNIT SKIRMISHER)
+		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
 	)
+	(wood-amount > 300)
+	(building-type-count-total town-center > 1)
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
@@ -1134,8 +1139,9 @@
 	(release-escrow wood)
 	(release-escrow gold)
 	(research ri-elite-skirmisher)
-;               (chat-local-to-self "research ELITE-SKIRMISHER")
+; (chat-local-to-self "research ELITE-SKIRMISHER")
 )
+
 ;900 FOOD, 500 GOLD
 (defrule
  	(current-age >= imperial-age)
