@@ -189,7 +189,6 @@
 	(not (map-type nomad))
 =>
  	(build town-center)
- 	(up-assign-builders c: 621 c: 6) ; town-center-foundation: 621
 ;	(chat-local-to-self "rebuild TOWN-CENTER")
 )
 ;***********************************************
@@ -2161,6 +2160,7 @@
  	(building-type-count-total watch-tower < watch-tower-building-castle)
  	(can-build watch-tower)
 	(building-type-count-total castle >= 3)
+	(building-type-count-total town-center >= 3)
 =>			;then
  	(build watch-tower)
 ;	(chat-local-to-self "build TOWER")
@@ -2175,6 +2175,7 @@
 		(death-match-game)
 	)
 	(not (can-build bombard-tower))
+	(building-type-count-total town-center >= 3)
 =>
  	(build watch-tower)
 ;	(chat-local-to-self "build TOWER")
@@ -2198,7 +2199,6 @@
  	(not (research-available ri-bow-saw))
 =>
  	(build town-center)
- 	(up-assign-builders c: 621 c: 3) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 
@@ -2211,7 +2211,6 @@
  	(not (research-available ri-heavy-plow))
 =>
  	(build town-center)
- 	(up-assign-builders c: 621 c: 3) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 
@@ -2228,7 +2227,6 @@
 	)
 =>
  	(build town-center)
- 	(up-assign-builders c: 621 c: 3) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 ;***********************************************
