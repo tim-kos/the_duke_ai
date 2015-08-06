@@ -3,6 +3,9 @@
 	(current-age == dark-age)
 =>
 	(set-goal ADVANCING-TO-AGE NO)
+	(set-goal RESEARCHING-FEUDAL 0)
+	(set-goal RESEARCHING-CASTLE 0)
+	(set-goal RESEARCHING-IMPERIAL 0)
 	(disable-self)
 )
 
@@ -49,19 +52,10 @@
 ;************************************************
 ;FEUDAL-AGE
 
-
-;Rule5: define the "Middle-Feudal" -Strategy
-
 (defrule
 	(game-time > 14)
 	(current-age == dark-age)
-	(or
-		(and
-			(random-number >= 5)
-			(goal RUSH-CONTROL NO)
-		)
-		(goal RUSH-CONTROL FEUDAL)
-	)
+	(goal RUSH-CONTROL FEUDAL)
 =>
 	(set-goal RESEARCHING-FEUDAL MIDDLE-FEUDAL)
 	(chat-local-to-self "MIDDLE-FEUDAL")
@@ -71,70 +65,15 @@
 (defrule
 	(game-time > 14)
 	(current-age == dark-age)
-	(goal RUSH-CONTROL CASTLE)
+	(goal RESEARCHING-FEUDAL 0)
 =>
 	(set-goal RESEARCHING-FEUDAL LATE-FEUDAL)
 	(chat-local-to-self "LATE-FEUDAL")
 	(disable-self)
 )
 
-(defrule
-	(game-time > 14)
-	(goal RUSH-CONTROL NO)
-	(random-number < 5)
-	(current-age == dark-age)
-=>
-	(set-goal RESEARCHING-FEUDAL LATE-FEUDAL)
-	(chat-local-to-self "LATE-FEUDAL")
-	(disable-self)
-)
 ;************************************************
 ;CASTLE-AGE
-
-
-
-;Rule11: define the "Fast-Castle" -Strategy (attacker)
-
-(defrule
-	(game-time > 14)
-	(or
-		(or
-			(goal RUSH-CONTROL CASTLE)
-			(goal RESEARCHING-FEUDAL LATE-FEUDAL)
-		)
-		(and
-			(goal RESEARCHING-FEUDAL MIDDLE-FEUDAL)
-			(not (goal RUSH-CONTROL FEUDAL))
-		)
-	)
-	(current-age <= feudal-age)
-=>
-	(set-goal RESEARCHING-CASTLE FAST-CASTLE)
-	(chat-local-to-self "FAST-CASTLE")
-	(disable-self)
-)
-
-(defrule
-	(game-time > 14)
-	(goal RUSH-CONTROL NO)
-	(current-age <= feudal-age)
-	(random-number < 6)
-=>
-	(set-goal RESEARCHING-CASTLE FAST-CASTLE)
-	(chat-local-to-self "FAST-CASTLE")
-	(disable-self)
-)
-
-(defrule
-	(game-time > 14)
-	(goal RUSH-CONTROL NO)
-	(random-number >= 6)
-	(current-age <= feudal-age)
-=>
-	(set-goal RESEARCHING-CASTLE MIDDLE-CASTLE)
-	(chat-local-to-self "MIDDLE-CASTLE")
-	(disable-self)
-)
 
 (defrule
 	(game-time > 14)
@@ -145,6 +84,17 @@
 	(chat-local-to-self "LATE-CASTLE")
 	(disable-self)
 )
+
+(defrule
+	(game-time > 14)
+	(goal RESEARCHING-CASTLE 0)
+	(current-age <= feudal-age)
+=>
+	(set-goal RESEARCHING-CASTLE FAST-CASTLE)
+	(chat-local-to-self "FAST-CASTLE")
+	(disable-self)
+)
+
 ;************************************************
 ;IMPERIAL-AGE
 
@@ -154,9 +104,8 @@
 
 (defrule
 	(game-time > 14)
-	(random-number <= 4)
 	(or
-		(goal RUSH-CONTROL NO	)
+		(goal RUSH-CONTROL NO)
 		(goal RUSH-CONTROL FEUDAL)
 	)
 	(current-age <= castle-age)
@@ -168,19 +117,7 @@
 
 (defrule
 	(game-time > 14)
-	(or
-		(and
-			(and
-				(random-number > 4)
-				(random-number <= 9)
-			)
-			(or
-				(goal RUSH-CONTROL NO)
-				(goal RUSH-CONTROL FEUDAL)
-			)
-		)
-		(goal RUSH-CONTROL CASTLE)
-	)
+	(goal RESEARCHING-IMPERIAL 0)
 	(current-age <= castle-age)
 =>
 	(set-goal RESEARCHING-IMPERIAL LATE-IMPERIAL)
@@ -188,20 +125,6 @@
 	(disable-self)
 )
 
-;Rule103: research FEUDAL-AGE3-MODERATE, HARD, HARDEST -fast feudal-age
-;500 FOOD
-(defrule
- 	(current-age == dark-age)
- 	(game-time > FEUDAL-RESEARCH-TIME-FAST-FEUDAL)
- 	(can-research-with-escrow feudal-age)
-	(goal RESEARCHING-FEUDAL FAST-FEUDAL)
-=>
-	(release-escrow food)
-	(research feudal-age)
-	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!")
-	(chat-local-to-self "advance to FEUDAL-AGE")
-	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
-)
 ;500 FOOD
 (defrule
  	(current-age == dark-age)

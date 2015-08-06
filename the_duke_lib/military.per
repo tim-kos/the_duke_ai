@@ -20,7 +20,6 @@
 		(goal PRIMARY-COMBAT-UNIT INFANTRY)
 		(goal SECONDARY-COMBAT-UNIT INFANTRY)
 	)
-	(building-type-count barracks >= 1)
 	(unit-type-count-total militiaman-line < FIFTY-PERCENT-POP)
 	(can-train militiaman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -35,7 +34,6 @@
 		(goal PRIMARY-COMBAT-UNIT INFANTRY1)
 		(goal SECONDARY-COMBAT-UNIT INFANTRY1)
 	)
-	(building-type-count barracks >= 1)
 	(unit-type-count-total militiaman-line < FIFTY-PERCENT-POP)
 	(can-train militiaman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -48,7 +46,6 @@
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(building-type-count barracks >= 1)
 	(unit-type-count-total militiaman-line < FIFTY-PERCENT-POP)
 	(can-train militiaman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -67,7 +64,6 @@
 )
 
 (defrule
-	(building-type-count barracks >= 1)
 	(military-population >= FOURTY-FIVE-PERCENT-POP)
 	(can-train champion)
 	(unit-type-count-total trebuchet > 0)
@@ -93,19 +89,18 @@
 			(goal SECONDARY-COMBAT-UNIT SPEARMAN)
 		)
 	)
-	(building-type-count barracks >= 1)
 	(unit-type-count-total spearman-line < FIFTY-PERCENT-POP)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
+	(building-type-count-total town-center > 1)
 =>
 	(train spearman-line)
 )
 
 (defrule
 	(military-population >= NINE-PERCENT-POP)
-	(building-type-count barracks >= 1)
 	(unit-type-count-total spearman-line < EIGHT-PERCENT-POP)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -127,7 +122,6 @@
 (defrule
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL RUSHING)
-	(building-type-count barracks >= 1)
 	(unit-type-count-total spearman-line < FIFTY-PERCENT-POP)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -139,16 +133,16 @@
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(building-type-count barracks >= 1)
 	(unit-type-count-total spearman-line < FIFTY-PERCENT-POP)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+	(building-type-count-total stable > 0)
 	(or
-		(unit-type-count-total knight-line < 8)
-		(not (research-available ri-scale-barding))
+		(unit-type-count-total knight-line >= 4)
+		(food-amount > 500)
 	)
 =>
 	(train spearman-line)
@@ -157,17 +151,13 @@
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(building-type-count barracks >= 1)
 	(unit-type-count-total spearman-line < FIFTY-PERCENT-POP)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(or
-		(unit-type-count-total eagle-warrior-line < 8)
-		(not (research-available ri-scale-mail))
-	)
+	(not (research-available ri-scale-mail))
 =>
 	(train spearman-line)
 )
@@ -175,7 +165,6 @@
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(building-type-count barracks >= 1)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
@@ -197,7 +186,6 @@
 		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 		(goal SECONDARY-COMBAT-UNIT EAGLEMAN)
 	)
-	(building-type-count barracks >= 1)
 	(unit-type-count-total eagle-warrior-line < FIFTY-PERCENT-POP)
 	(can-train eagle-warrior-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -211,7 +199,6 @@
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(building-type-count barracks >= 1)
 	(or
 		(and
 			(food-amount > 300)
@@ -230,7 +217,6 @@
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	;(building-type-count barracks >= 1)
 	(unit-type-count-total eagle-warrior-line < FIFTY-PERCENT-POP)
 	(can-train eagle-warrior-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
