@@ -1091,8 +1091,12 @@
  	(can-train villager)
 	(goal TRAIN-VILLAGERS YES)
 	(civilian-population < POPULATION-MAX)
-	(timer-triggered T-VILLAGER-TRAINING)
+	(or
+		(timer-triggered T-VILLAGER-TRAINING)
+		(difficulty >= hard)
+	)
 =>
+ 	(train villager)
  	(train villager)
  	(enable-timer T-VILLAGER-TRAINING TIME-BETWEEN-VILLAGER-TRAINING)
 ;	(chat-local-to-self "train VILLAGER")
