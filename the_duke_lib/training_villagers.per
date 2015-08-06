@@ -35,7 +35,12 @@
 	(disable-self)
 )
 
-
+(defrule
+	(true)
+=>
+	(enable-timer T-VILLAGER-TRAINING 0)
+	(disable-self)
+)
 
 #load-if-defined WONDER-RACE
 
@@ -74,9 +79,6 @@
 ;=============================================================================
 
 
-
-#load-if-not-defined WONDER-RACE
-
 ;Rule1: initialisation of the VILLAGER-TRAIN - goal
 
 (defrule
@@ -94,12 +96,11 @@
 
 
 
-#load-if-defined DIFFICULTY-EASIEST
-
-;Rule2 : when to train villagers in dark age -EASIEST
+#load-if-not-defined DIFFICULTY-HARD
+#load-if-not-defined DIFFICULTY-HARDEST
 
 (defrule
-	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY)
+	(game-time > FEUDAL-RESEARCH-TIME)
 	(current-age == dark-age)
 	(or
 		(players-current-age any-computer >= feudal-age)
@@ -113,11 +114,11 @@
 
 (defrule
 	(goal TRAIN-VILLAGERS NO)
-	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY)
+	(game-time > FEUDAL-RESEARCH-TIME)
 	(current-age == dark-age)
 	(or
-		(players-current-age any-computer >= feudal-age)
-		(players-current-age any-human >= feudal-age)
+		(players-current-age any-computer < feudal-age)
+		(players-current-age any-human < feudal-age)
 	)
 	(food-amount <= 470)
 =>
@@ -125,71 +126,8 @@
 	(set-escrow-percentage food 0)
 )
 
-#end-if		;if difficulty type == easiest
-
-
-
-#load-if-defined DIFFICULTY-EASY
-
-;Rule3 : when to train villagers in dark age -EASY
-
-(defrule
-	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY)
-	(current-age == dark-age)
-	(or
-		(players-current-age any-computer >= feudal-age)
-		(players-current-age any-human >= feudal-age)
-	)
-	(food-amount > 470)
-=>
-	(set-goal TRAIN-VILLAGERS NO)
-	(set-escrow-percentage food 100)
-)
-
-(defrule
-	(goal TRAIN-VILLAGERS NO)
-	(game-time > FEUDAL-RESEARCH-TIME-EASIEST-EASY)
-	(current-age == dark-age)
-	(or
-		(players-current-age any-computer >= feudal-age)
-		(players-current-age any-human >= feudal-age)
-	)
-	(food-amount <= 470)
-=>
-	(set-goal TRAIN-VILLAGERS YES)
-	(set-escrow-percentage food 0)
-)
-
-#end-if				;if difficulty type == easy
-
-
-
-#load-if-defined DIFFICULTY-MODERATE
-
-;Rule4 : when to train villagers in dark age -MODERATE
-
-(defrule
-	(game-time > FEUDAL-RESEARCH-TIME-MODERATE)
-	(current-age == dark-age)
-	(food-amount > 470)
-=>
-	(set-goal TRAIN-VILLAGERS NO)
-	(set-escrow-percentage food 100)
-)
-
-(defrule
-	(goal TRAIN-VILLAGERS NO)
-	(game-time > FEUDAL-RESEARCH-TIME-MODERATE)
-	(current-age == dark-age)
-	(food-amount <= 470)
-=>
-	(set-goal TRAIN-VILLAGERS YES)
-	(set-escrow-percentage food 0)
-)
-
-#end-if		;if difficulty type == moderate
-
-
+#end-if	;if not hard
+#end-if ;if not hardest
 
 #load-if-not-defined DIFFICULTY-EASIEST
 #load-if-not-defined DIFFICULTY-EASY
@@ -1139,117 +1077,38 @@
 ;---------------------------------------
 
 
-
-#load-if-defined DIFFICULTY-EASIEST
-
-;Rule25: train VILLAGERS1- EASIEST
-
-(defrule
-	(or
-		(unit-type-count villager < TRADE-REPLACES-VILLAGER-EASIEST)
-		(and
-			(nand
-				(game-time > 3000)
-				(player-in-game any-ally)
-			)
- 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-EASIEST)
-		)
-	)
- 	(can-train villager)
-	(goal TRAIN-VILLAGERS YES)
-	(civilian-population < POPULATION-MAX)
-=>
- 	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-(defrule
-	(game-time > 3000)
-	(unit-type-count villager > TRADE-REPLACES-VILLAGER-EASIEST)
-	(player-in-game any-ally)
-	;(dropsite-min-distance gold > 5)
-	(civilian-population >= POPULATION-MAX)
-=>					;then
-	(delete-unit villager)
-)
-
-#end-if		;if difficulty == easiest
-
-
-
-#load-if-defined DIFFICULTY-EASY
-
-;Rule26: train VILLAGERS2- EASY
+T-VILLAGER-TRAINING
 
 (defrule
  	(or
-		(unit-type-count villager < TRADE-REPLACES-VILLAGER-EASY)
+		(unit-type-count villager < TRADE-REPLACES-VILLAGER)
 		(and
 			(nand
 				(game-time > 3000)
 				(player-in-game any-ally)
 			)
- 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-EASY)
+ 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER)
 		)
 	)
  	(can-train villager)
 	(goal TRAIN-VILLAGERS YES)
 	(civilian-population < POPULATION-MAX)
+	(timer-triggered T-VILLAGER-TRAINING)
 =>
  	(train villager)
+ 	(enable-timer T-VILLAGER-TRAINING TIME-BETWEEN-VILLAGER-TRAINING)
 ;	(chat-local-to-self "train VILLAGER")
 )
 
 (defrule
 	(game-time > 3000)
-	(unit-type-count villager > TRADE-REPLACES-VILLAGER-EASY)
+	(unit-type-count villager > TRADE-REPLACES-VILLAGER)
 	(player-in-game any-ally)
 	;(dropsite-min-distance gold > 5)
 	(civilian-population >= POPULATION-MAX)
-=>					;then
-	(delete-unit villager)
-)
-
-#end-if		;if difficulty == easy
-
-
-
-#load-if-defined DIFFICULTY-MODERATE
-
-;Rule27: train VILLAGERS3-MODERATE
-
-(defrule
- 	(or
-		(unit-type-count villager < TRADE-REPLACES-VILLAGER-MODERATE)
-		(and
-			(nand
-				(game-time > 3000)
-				(player-in-game any-ally)
-			)
- 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-MODERATE)
-		)
-	)
- 	(can-train villager)
-	(goal TRAIN-VILLAGERS YES)
-	(civilian-population < POPULATION-MAX)
 =>
- 	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-(defrule
-	(game-time > 3000)
-	(unit-type-count villager > TRADE-REPLACES-VILLAGER-MODERATE)
-	(player-in-game any-ally)
-	;(dropsite-min-distance gold > 5)
-	(civilian-population >= POPULATION-MAX)
-=>					;then
 	(delete-unit villager)
 )
-
-#end-if		;if difficulty == moderate
-
-
 
 (defrule
 	(current-age == castle-age)
@@ -1306,229 +1165,13 @@
 )
 
 
-
-#load-if-defined DIFFICULTY-HARD
-
-;Rule28: train VILLAGERS4-HARD
-
-(defrule
- 	(or
-		(unit-type-count villager < TRADE-REPLACES-VILLAGER-HARD)
-		(and
-			(nand
-				(game-time > 3000)
-				(player-in-game any-ally)
-			)
- 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-HARD)
-		)
-	)
- 	(can-train villager)
-	(goal TRAIN-VILLAGERS YES)
-	(civilian-population < POPULATION-MAX)
-=>
- 	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-(defrule
-	(game-time > 3000)
-	(unit-type-count villager > TRADE-REPLACES-VILLAGER-HARD)
-	(player-in-game any-ally)
-	;(dropsite-min-distance gold > 5)
-	(civilian-population >= POPULATION-MAX)
-=>					;then
-	(delete-unit villager)
-)
-
-#end-if		;if difficulty == hard
-
-
-#load-if-defined DIFFICULTY-HARDEST
-
-;Rule29: train VILLAGERS4-HARDEST
-
-(defrule
- 	(or
-		(unit-type-count villager < TRADE-REPLACES-VILLAGER-HARDEST)
-		(and
-			(nand
-				(game-time > 3000)
-				(player-in-game any-ally)
-			)
- 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-HARDEST)
-		)
-	)
- 	(can-train villager)
-	(goal TRAIN-VILLAGERS YES)
-	(civilian-population < POPULATION-MAX)
-=>
- 	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-(defrule
-	(game-time > 3000)
-	(unit-type-count villager > TRADE-REPLACES-VILLAGER-HARDEST)
-	(player-in-game any-ally)
-	;(dropsite-min-distance gold > 5)
-	(civilian-population >= POPULATION-MAX)
-=>					;then
-	(delete-unit villager)
-)
-
-#end-if		;if difficulty == hardest
-
-
-
 ;EXTRA VILLAGERS
 ;-------------------------------
 
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-
-;Rule30: train VILLAGERS6-COMMAND DETECTING-EASIEST, EASY
-
 (defrule
- 	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-COMMAND-EASIEST-EASY)
+ 	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-COMMAND)
  	(can-train villager)
 	(goal TRAIN-VILLAGERS EXTRA)
 =>
  	(train villager)
 )
-
-#end-if		;if not difficulty == moderate
-#end-if		;if not difficulty == hard
-#end-if		;if not difficulty == hardest
-
-
-
-#load-if-defined DIFFICULTY-MODERATE
-
-;Rule31: train VILLAGERS6-COMMAND DETECTING-MODERATE
-
-(defrule
- 	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-COMMAND-MODERATE)
- 	(can-train villager)
-	(goal TRAIN-VILLAGERS EXTRA)
-=>
- 	(train villager)
-)
-
-#end-if		;if difficulty == moderate
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-#load-if-not-defined DIFFICULTY-MODERATE
-
-;Rule32: train VILLAGERS6-COMMAND DETECTING-HARD, HARDEST
-
-(defrule
- 	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-COMMAND-HARD-HARDEST)
- 	(can-train villager)
-	(goal TRAIN-VILLAGERS EXTRA)
-=>
- 	(train villager)
-)
-
-#end-if		;if not difficulty == easiest
-#end-if		;if not difficulty == easy
-#end-if		;if not difficulty == moderate
-
-
-
-#else		;if not game type == wonder race
-
-
-
-;TRAINING THE VILLAGERS IN WONDER-RACE - GAMES
-;---------------------------------------------------------------------------------
-
-
-
-#load-if-defined DIFFICULTY-EASIEST
-
-;Rule33: train villagers if we play wonder race and easiest-difficulty
-
-(defrule
-	(unit-type-count-total villager < 5)
-	(can-train villager)
-=>
-	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-#end-if		;if difficulty type == easiest
-
-
-
-#load-if-defined DIFFICULTY-EASY
-
-;Rule34: train villagers if we play wonder race and easy-difficulty
-
-(defrule
-	(unit-type-count-total villager < 10)
-	(can-train villager)
-=>
-	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-#end-if		;if difficulty type == easy
-
-
-
-;Rule35: train villagers if we play wonder race and moderate, hard or hardest - difficulty (dark-age)
-
-(defrule
-	(current-age == dark-age)
-	(difficulty <= moderate)
-	(civilian-population < 26)
-	(can-train-with-escrow villager)
-	(not (can-research-with-escrow feudal-age))
-=>
-	(release-escrow food)
-	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-(defrule
-	(current-age == feudal-age)
-	(difficulty <= moderate)
-	(civilian-population < 35)
-	(can-train-with-escrow villager)
-	(not (can-research-with-escrow castle-age))
-=>
-	(release-escrow food)
-	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-(defrule
-	(current-age == castle-age)
-	(difficulty <= moderate)
-	(civilian-population < 40)
-	(can-train-with-escrow villager)
-	(not (can-research-with-escrow imperial-age))
-=>
-	(release-escrow food)
-	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-(defrule
-	(current-age == imperial-age)
-	(difficulty <= moderate)
-	(civilian-population < 45)
-	(can-train villager)
-=>
-	(train villager)
-;	(chat-local-to-self "train VILLAGER")
-)
-
-
-#end-if		;if game type == wonder race
