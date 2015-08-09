@@ -1101,10 +1101,6 @@
 (defrule
  	(can-research ri-elite-skirmisher)
  	(unit-type-count-total skirmisher-line >= 7)
-	(or
-		(goal PRIMARY-COMBAT-UNIT SKIRMISHER)
-		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-	)
 	(wood-amount > 300)
 	(building-type-count-total town-center > 1)
 	(or
@@ -1118,19 +1114,17 @@
 
 ;900 FOOD, 500 GOLD
 (defrule
- 	(current-age >= imperial-age)
- 	(can-research ri-heavy-cavalry-archer)
-	(building-type-count-total archery-range >= 1)
-	(unit-type-count-total cavalry-archer-line >= FIVE-PERCENT-POP)
+ 	(can-research-with-escrow ri-heavy-cavalry-archer)
+	(unit-type-count-total cavalry-archer-line >= 15)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-heavy-cavalry-archer)
 ; (chat-local-to-self "research HEAVY-CAVALRY-ARCHER")
 )
 ;350 FOOD, 250 GOLD
 (defrule
- 	(current-age >= castle-age)
- 	(can-research ri-thumb-ring)
-	(building-type-count-total archery-range >= 1)
+ 	(can-research-with-escrow ri-thumb-ring)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
 		(goal ABLE-TO-UPGRADE-ARCHERS YES)
@@ -1139,15 +1133,17 @@
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
+	(food-amount > 600)
+	(gold-amount > 600)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-thumb-ring)
 ; (chat-local-to-self "research THUMB-RING")
 )
 ;200 FOOD, 250 GOLD
 (defrule
- 	(current-age >= castle-age)
- 	(can-research ri-parthian-tactics)
-	(building-type-count-total archery-range >= 1)
+ 	(can-research-with-escrow ri-parthian-tactics)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
 		(goal ABLE-TO-UPGRADE-ARCHERS YES)
@@ -1156,7 +1152,11 @@
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
+	(food-amount > 400)
+	(gold-amount > 400)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-parthian-tactics)
 ; (chat-local-to-self "research PARTHIAN-TACTICS")
 )
@@ -1169,8 +1169,7 @@
 ;250 FOOD
 (defrule
  	(current-age >= castle-age)
- 	(can-research ri-husbandry)
-	(building-type-count-total stable >= 1)
+ 	(can-research-with-escrow ri-husbandry)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
 		(goal ABLE-TO-UPGRADE-CAVALRY YES)
@@ -1181,13 +1180,14 @@
 	)
 	(not (research-available ri-bloodlines))
 =>
+	(release-escrow food)
  	(research ri-husbandry)
 ; (chat-local-to-self "research HUSBANDRY")
 )
 ;150 FOOD, 100 GOLD
 (defrule
  	(current-age >= feudal-age)
- 	(can-research ri-bloodlines)
+ 	(can-research-with-escrow ri-bloodlines)
 	(building-type-count-total stable >= 1)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
@@ -1198,26 +1198,29 @@
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
+	(release-escrow food)
  	(research ri-bloodlines)
 ; (chat-local-to-self "research BLOODLINES")
 )
 ;150 FOOD, 50 GOLD
 (defrule
- 	(can-research ri-light-cavalry)
+ 	(can-research-with-escrow ri-light-cavalry)
 	(unit-type-count-total scout-cavalry-line > 1)
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
+	(food-amount > 300)
+	(gold-amount > 150)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-light-cavalry)
 ; (chat-local-to-self "research LIGHT-CAVALRY")
 )
 ;500 FOOD, 600 GOLD
 (defrule
- 	(current-age >= imperial-age)
- 	(can-research ri-hussar)
-	(building-type-count-total stable >= 1)
+ 	(can-research-with-escrow ri-hussar)
 	(or
 		(unit-type-count-total scout-cavalry-line >= THREE-PERCENT-POP)
 		(or
@@ -1226,58 +1229,57 @@
 		)
 	)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-hussar)
 ; (chat-local-to-self "research HUSSAR")
 )
 ;300 FOOD, 300 GOLD
 (defrule
- 	(current-age >= imperial-age)
- 	(can-research ri-cavalier)
-	(building-type-count-total stable >= 1)
+ 	(can-research-with-escrow ri-cavalier)
+ 	(unit-type-count-total knight-line >= TWO-PERCENT-POP)
 	(or
-		(unit-type-count-total knight-line >= TWO-PERCENT-POP)
-		(or
-			(goal PRIMARY-COMBAT-UNIT KNIGHT)
-			(goal SECONDARY-COMBAT-UNIT KNIGHT)
-		)
+		(goal PRIMARY-COMBAT-UNIT KNIGHT)
+		(goal SECONDARY-COMBAT-UNIT KNIGHT)
 	)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-cavalier)
 ; (chat-local-to-self "research CAVALIER")
 )
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
 ;Rule260: research PALADIN-  HARD, HARDEST
 ;1300 FOOD, 750 GOLD
 (defrule
-	(difficulty <= hard)
- 	(current-age >= imperial-age)
- 	(can-research ri-paladin)
+ 	(can-research-with-escrow ri-paladin)
+	(unit-type-count-total knight-line >= THREE-PERCENT-POP)
 	(or
-		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-CAVALRY YES)
+		(goal PRIMARY-COMBAT-UNIT KNIGHT)
+		(goal SECONDARY-COMBAT-UNIT KNIGHT)
 	)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-paladin)
 ; (chat-local-to-self "research PALADIN")
 )
+
 ;1300 FOOD, 750 GOLD
 (defrule
-	(difficulty <= hard)
- 	(current-age >= imperial-age)
- 	(can-research ri-heavy-camel)
-	(unit-type-count-total camel-line >= FIVE-PERCENT-POP)
+ 	(can-research-with-escrow ri-heavy-camel)
+	(unit-type-count-total camel-line >= THREE-PERCENT-POP)
+	(or
+		(goal PRIMARY-COMBAT-UNIT CAMEL)
+		(goal SECONDARY-COMBAT-UNIT CAMEL)
+	)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-heavy-camel)
 ; (chat-local-to-self "research HEAVY-CAMEL")
 )
-;***********************************************
-#end-if		;if not difficulty type == moderate
 
 
 
@@ -1290,108 +1292,82 @@
 ;Rule263: research CAPPED-RAM-  MODERATE, HARD, HARDEST
 ;300 FOOD
 (defrule
- 	(current-age >= imperial-age)
- 	(can-research ri-capped-ram)
+ 	(can-research-with-escrow ri-capped-ram)
 	(building-type-count-total siege-workshop >= 1)
 	(unit-type-count-total battering-ram-line > 1)
 	(food-amount > 700)
 =>
+	(release-escrow food)
 	(research ri-capped-ram)
 ; (chat-local-to-self "research CAPPED-RAM")
 )
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
-;Rule264: research SIEGE-RAM-  HARD, HARDEST
+;SIEGE-RAM
 ;1000 FOOD
 (defrule
-	(difficulty <= hard)
- 	(current-age >= imperial-age)
- 	(can-research ri-siege-ram)
-	(building-type-count-total siege-workshop >= 1)
+ 	(can-research-with-escrow ri-siege-ram)
 	(or
 		(goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
 		(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
 	)
-	(food-amount > 1200)
-	(or
-		(game-time > 5400)
-		(not (death-match-game))
-	)
+	(food-amount > 1800)
+	(unit-type-count-total battering-ram-line > 2)
 =>
+	(release-escrow food)
  	(research ri-siege-ram)
 ; (chat-local-to-self "research SIEGE-RAM")
 )
-;***********************************************
-#end-if		;if not difficulty type == moderate
 
 
-
-;Rule266: research ONAGER-  MODERATE, HARD, HARDEST
 ;800 FOOD, 500 GOLD
 (defrule
- 	(current-age >= imperial-age)
- 	(can-research ri-onager)
-	(building-type-count-total siege-workshop >= 1)
+ 	(can-research-with-escrow ri-onager)
 	(or
 		(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
 		(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
 	)
+	(unit-type-count-total mangonel-line > 2)
 	(food-amount > 1000)
 	(gold-amount > 700)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-onager)
 ; (chat-local-to-self "research ONAGER")
 )
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
-;Rule267: research SIEGE-ONAGER-  HARD, HARDEST
-;1450 FOOD, 1000 GOLD
+;SIEGE-ONAGER 1450 FOOD, 1000 GOLD
 (defrule
- 	(current-age >= imperial-age)
- 	(can-research ri-siege-onager)
-	(building-type-count-total siege-workshop >= 1)
+ 	(can-research-with-escrow ri-siege-onager)
+ 	(unit-type-count-total mangonel-line > 3)
 	(or
 		(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
 		(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
 	)
 	(food-amount > 1600)
 	(gold-amount > 1200)
-	(or
-		(game-time > 5400)
-		(not (death-match-game))
-	)
 =>
+	(release-escrow food)
+	(release-escrow gold)
 	(research ri-siege-onager)
 ; (chat-local-to-self "research SIEGE-ONAGER")
 )
-;***********************************************
-#end-if		;if not difficulty type == moderate
 
-
-
-;Rule269: research HEAVY-SCORPION-  MODERATE, HARD, HARDEST
-;1000 FOOD, 1100 WOOD
+;HEAVY-SCORPION 1000 FOOD, 1100 WOOD
 (defrule
- 	(current-age >= imperial-age)
- 	(can-research ri-heavy-scorpion)
-	(building-type-count-total siege-workshop >= 1)
+ 	(can-research-with-escrow ri-heavy-scorpion)
 	(or
 		(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
 		(goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION)
 	)
+	(unit-type-count-total scorpion-line > 3)
 	(wood-amount > 1400)
 	(food-amount > 1500)
 =>
+	(release-escrow food)
+	(release-escrow gold)
 	(research ri-heavy-scorpion)
 ; (chat-local-to-self "research HEAVY-SCORPION")
 )
@@ -1399,15 +1375,8 @@
 ;TECHNOLOGIES IN DOCK
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
-;Rule270: research HEAVY-DEMOLITION-SHIP - MODERATE, HARD, HARDEST
-;200 WOOD, 300 GOLD
+;HEAVY-DEMOLITION-SHIP 200 WOOD, 300 GOLD
 (defrule
-	(building-type-count dock > 0)
 	(not (goal MAP-KIND LAND-MAP))
 	(can-research ri-heavy-demolition-ship)
 	(unit-type-count-total demolition-ship-line > 1)
@@ -1418,15 +1387,10 @@
 	(research ri-heavy-demolition-ship)
 ;	(chat-local-to-self "research HEAVY-DEMOLITION-SHIP")
 )
-;***********************************************
-#end-if		;if not difficulty type == moderate
 
 
-
-;Rule271: research DRY-DOCK - MODERATE, HARD, HARDEST
-;600 FOOD, 400 GOLD
+;DRY-DOCK 600 FOOD, 400 GOLD
 (defrule
-	(building-type-count dock > 0)
 	(can-research ri-dry-dock)
 	(not (goal MAP-KIND LAND-MAP))
 	(not (goal RUSH-CONTROL RUSHING))
@@ -1439,7 +1403,6 @@
 )
 ;1000 FOOD, 300 GOLD
 (defrule
-	(building-type-count dock > 0)
 	(warboat-count > FIVE-PERCENT-POP)
 	(can-research ri-shipwright)
 	(not (goal RUSH-CONTROL RUSHING))
@@ -1453,7 +1416,6 @@
 )
 ;250 FOOD, 150 GOLD
 (defrule
-	(building-type-count dock > 0)
 	(can-research ri-careening)
 	(not (goal RUSH-CONTROL RUSHING))
 	(not (goal MAP-KIND LAND-MAP))
@@ -1464,7 +1426,6 @@
 )
 ;280 WOOD, 250 GOLD
 (defrule
-	(building-type-count dock > 0)
 	(unit-type-count-total fire-ship-line > THREE-PERCENT-POP)
 	(can-research ri-fast-fire-ship)
 	(not (goal MAP-KIND LAND-MAP))
@@ -1479,7 +1440,6 @@
 )
 ;500 WOOD, 400 FOOD
 (defrule
-	(building-type-count dock > 0)
 	(can-research ri-cannon-galleon)
 	(not (goal MAP-KIND LAND-MAP))
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -1493,15 +1453,9 @@
 )
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
 ;Rule276: research DECK-GUNS - HARD, HARDEST
 ;525 WOOD, 500 GOLD
 (defrule
-	(building-type-count dock > 0)
 	(unit-type-count-total cannon-galleon > 0)
 	(can-research ri-deck-guns)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -1513,15 +1467,11 @@
 	(research ri-deck-guns)
 ;	(chat-local-to-self "research DECK-GUNS")
 )
-;***********************************************
-#end-if		;if not difficulty type == moderate
-
 
 
 ;Rule277: research WAR-GALLEY - MODERATE, HARD, HARDEST
 ;230 FOOD, 100 GOLD
 (defrule
-	(building-type-count dock > 0)
 	(unit-type-count-total galley-line > 1)
 	(can-research ri-war-galley)
 	(nand
@@ -1536,7 +1486,6 @@
 )
 ;315 WOOD, 400 FOOD
 (defrule
-	(building-type-count dock > 0)
 	(can-research ri-galleon)
 	(nand
 		(civ-selected viking)
@@ -1553,14 +1502,7 @@
 ;	(chat-local-to-self "research GALLEON")
 )
 
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
-;Rule279: research ELITE-LONGBOAT - HARD, HARDEST
-;750 FOOD, 475 GOLD
+;ELITE-LONGBOAT 750 FOOD, 475 GOLD
 (defrule
 	(building-type-count dock > 0)
 	(can-research ri-elite-longboat)
@@ -1571,6 +1513,7 @@
 	(research ri-elite-longboat)
 ;	(chat-local-to-self "research ELITE-LONGBOAT")
 )
+
 ;1000 FOOD, 800 GOLD
 (defrule
 	(building-type-count dock > 0)
@@ -1584,9 +1527,6 @@
 	(research ri-elite-turtle-ship)
 ;	(chat-local-to-self "research ELITE-TURTLE-SHIP")
 )
-;***********************************************
-#end-if		;if not difficulty type == moderate
-
 
 
 ;************************************************************************************************************
@@ -1598,34 +1538,31 @@
 ;Rule282: research HOARDINGS-  MODERATE, HARD, HARDEST
 ;400 WOOD, 400 STONE
 (defrule
- 	(current-age >= imperial-age)
  	(can-research ri-hoardings)
 	(building-type-count-total castle >= 3)
 =>
  	(research ri-hoardings)
-;               (chat-local-to-self "research HOARDINGS")
+; (chat-local-to-self "research HOARDINGS")
 )
+
 ;150 FOOD, 150 GOLD
 (defrule
- 	(current-age >= imperial-age)
  	(can-research ri-conscription)
-	(building-type-count-total castle >= 1)
+	(food-amount > 300)
+	(gold-amount > 300)
 =>
  	(research ri-conscription)
-;               (chat-local-to-self "research CONSCRIPTION")
+; (chat-local-to-self "research CONSCRIPTION")
 )
 ;400 FOOD, 200 GOLD
-;note this technology only gives stronger villagers  to us and I didn't write any strategy that uses this technology. That's why only research if
+;note this technology only gives stronger villagers to us and I didn't write any strategy that uses this technology. That's why only research if
 ;we've got tons of goods
 (defrule
- 	(current-age >= imperial-age)
  	(can-research ri-sappers)
 	(building-type-count-total castle >= 1)
 	(food-amount > 2000)
 	(gold-amount > 1500)
 =>
  	(research ri-sappers)
-;               (chat-local-to-self "research SAPPERS")
+; (chat-local-to-self "research SAPPERS")
 )
-
-#end-if
