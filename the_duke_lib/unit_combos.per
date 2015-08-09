@@ -3248,32 +3248,21 @@
 ;WHEN TO TRAIN UNITS
 
 
-
-#load-if-not-defined DEATH-MATCH
-
 (defrule
-	(not (current-age == imperial-age))
+	(true)
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)
 )
 
 
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-
-
 (defrule
 	(current-age == feudal-age)
 	(goal ADVANCING-TO-AGE NO)
-	(military-population < MILITARY-POPULATION-MAX)
 	(goal RUSH-CONTROL RUSHING)
 	(food-amount > 80) ;leave food for villager creation
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
-
-
 
 (defrule
 	(current-age == feudal-age)
@@ -3304,7 +3293,6 @@
 		)
 		(goal RESEARCHING-IMPERIAL LATE-IMPERIAL)
 	)
-	(military-population < MILITARY-POPULATION-MAX)
 	(or
 		(and
 			(research-available ri-hand-cart)
@@ -3320,6 +3308,13 @@
 )
 
 
+(defrule
+	(current-age == castle-age)
+	(building-type-count-total town-center < 2)
+	(wood-amount <= 350)
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS NO)
+)
 
 (defrule
 	(or
@@ -3327,7 +3322,7 @@
 		(goal SECONDARY-COMBAT-UNIT SPEARMAN)
 	)
 	(current-age == feudal-age)
-	(unit-type-count-total spearman-line >= TWO-PERCENT-POP)
+	(unit-type-count-total spearman-line >= 4)
 	(building-type-count-total town-center < 2)
 	(building-type-count-total blacksmith > 0)
 	(or
@@ -3346,7 +3341,7 @@
 		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
 	)
 	(current-age == feudal-age)
-	(unit-type-count-total skirmisher-line >= TWO-PERCENT-POP)
+	(unit-type-count-total skirmisher-line >= 4)
 	(building-type-count-total town-center < 2)
 	(building-type-count-total blacksmith > 0)
 	(or
@@ -3367,6 +3362,7 @@
 	(game-time > 2100)
 	(goal ADVANCING-TO-AGE NO)
 	(current-age == castle-age)
+	(not (town-under-attack))
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)
 )
@@ -3425,7 +3421,7 @@
 	(current-age == castle-age)
 	(not (research-available ri-hand-cart))
 	(building-type-count-total town-center < 3)
-	(stone-amount < 100) ;if not enough stone for next TC, don't be sto strict
+	(stone-amount < 100) ;if not enough stone for next TC, don't be so strict
 	(food-amount > 200) ;leave food for villager creation
 	(wood-amount > 200) ;leave some wood for research
 =>
@@ -3441,12 +3437,6 @@
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
 
-
-#end-if		;if not difficulty == easiest
-#end-if		;if not difficulty == easy
-
-
-
 (defrule
 	(current-age == imperial-age)
 	(food-amount > 200) ;leave food for villager creation and research
@@ -3454,64 +3444,24 @@
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
 
-
+#load-if-defined DEATH-MATCH
+(defrule
+	(food-amount >= 180)
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS YES)
+)
+(defrule
+	(food-amount < 180)
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS NO)
+)
+#end-if
 
 (defrule
-	(current-age == imperial-age)
 	(military-population >= MILITARY-POPULATION-MAX)
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS NO)
 )
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-
-(defrule
-	(true)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS YES)
-)
-
-#end-if		;if difficulty != hardest
-#end-if		;if difficulty != hard
-#end-if		;if difficulty != moderate
-
-
-
-(defrule
-	(true)
-	(military-population >= MILITARY-POPULATION-MAX)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
-)
-
-#else		;if not game-type == death-match
-
-
-(defrule
-	(true)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS YES)
-)
-
-
-
-(defrule
-	(or
-		(military-population >= MILITARY-POPULATION-MAX)
-		(food-amount < 180)
-	)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
-)
-
-
-#end-if		;if game-type == death-match
-
-
 
 (defrule
 	(not (goal MAIN-SHIP-BUILDER YES))
@@ -3594,6 +3544,60 @@
 =>
 	(set-goal ABLE-TO-TRAIN-LAND-UNITS NO)
 )
+
+(defrule
+	(current-age >= castle-age)
+	(game-time > 1500)
+	(current-age-time > 180)
+=>
+	(enable-timer T-SAVE-FOR-RESEARCH 1)
+	(set-goal SAVE-FOR-RESEARCH NO)
+	(disable-self)
+)
+
+(defrule
+	(or
+		(or
+			(military-population < 10)
+			(goal MILITARY-PARITY VASTLY-INFERIOR) ;regardless of technology, if we have too few units compared to the enemy, we would lose a battle anyway
+		)
+		(or
+			(town-under-attack)
+			(game-time > 3600) ;if the game is 1 hour old, we assume we have researched the most important stuff
+		)
+	)
+	(set-goal SAVE-FOR-RESEARCH YES)
+=>
+	(set-goal SAVE-FOR-RESEARCH NO)
+	(chat-local-to-self "Spend resources because we are inferior or under attack")
+)
+
+(defrule
+	(timer-triggered T-SAVE-FOR-RESEARCH)
+	(set-goal SAVE-FOR-RESEARCH NO)
+	(game-time <= 3600)
+=>
+	(set-goal SAVE-FOR-RESEARCH YES)
+	(enable-timer T-SAVE-FOR-RESEARCH 60) ;save resources for 1 minute
+	(chat-local-to-self "Save resources for research for 1min")
+)
+
+(defrule
+	(timer-triggered T-SAVE-FOR-RESEARCH)
+	(goal SAVE-FOR-RESEARCH YES)
+=>
+	(set-goal SAVE-FOR-RESEARCH NO)
+	(enable-timer T-SAVE-FOR-RESEARCH 180) ;spend resources for 3 minutes
+	(chat-local-to-self "Spend resources for 3min")
+)
+
+(defrule
+	(goal SAVE-FOR-RESEARCH YES)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS NO)
+)
+
 ;************************************************************************************************************
 ;FEATURE THAT AN ALLY CAN TELL THE AI WHAT UNITS IT SHOULD TRAIN
 
