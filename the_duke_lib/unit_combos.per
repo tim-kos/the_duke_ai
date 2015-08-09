@@ -3561,21 +3561,26 @@
 			(military-population < 10)
 			(goal MILITARY-PARITY VASTLY-INFERIOR) ;regardless of technology, if we have too few units compared to the enemy, we would lose a battle anyway
 		)
-		(or
-			(town-under-attack)
-			(game-time > 3600) ;if the game is 1 hour old, we assume we have researched the most important stuff
-		)
+		(town-under-attack)
 	)
-	(set-goal SAVE-FOR-RESEARCH YES)
+	(goal SAVE-FOR-RESEARCH YES)
 =>
 	(set-goal SAVE-FOR-RESEARCH NO)
-	(chat-local-to-self "Spend resources because we are inferior or under attack")
+	(chat-local-to-self "Spend resources on units because we are inferior or under attack")
+)
+
+(defrule
+	(game-time > 3600) ;if the game is 1 hour old, we assume we have researched the most important stuff
+	(goal SAVE-FOR-RESEARCH YES)
+=>
+	(set-goal SAVE-FOR-RESEARCH NO)
+	(chat-local-to-self "Spend resources on units because the game lasts long")
 )
 
 (defrule
 	(timer-triggered T-SAVE-FOR-RESEARCH)
-	(set-goal SAVE-FOR-RESEARCH NO)
-	(game-time <= 3600)
+	(goal SAVE-FOR-RESEARCH NO)
+	(game-time <= 3600) ;disable new timers after 3600s to avoid chat spam from the rule above
 =>
 	(set-goal SAVE-FOR-RESEARCH YES)
 	(enable-timer T-SAVE-FOR-RESEARCH 60) ;save resources for 1 minute
