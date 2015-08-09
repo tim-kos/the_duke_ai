@@ -1198,12 +1198,7 @@
 ;***********************************************
 ;SCALE-MAIL
 
-
-
-;Rule159: research SCALE-MAIL- MODERATE, HARD, HARDEST (middle or high infantry)
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= feudal-age)
  	(can-research-with-escrow ri-scale-mail)
 	(or
 		(or
@@ -1212,10 +1207,12 @@
 		)
 		(goal ABLE-TO-UPGRADE-INFANTRY YES)
 	)
+	(food-amount > 200)
 =>					;then
 	(research ri-scale-mail)
 ; (chat-local-to-self "research SCALE-MAIL")
 )
+
 ;100 FOOD
 (defrule
  	(can-research-with-escrow ri-scale-mail)
@@ -1241,10 +1238,8 @@
 
 
 
-;Rule162: research SCALE-BARDING- MODERATE, HARD, HARDEST (middle or high cavalry)
+;SCALE-BARDING
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= feudal-age)
  	(can-research-with-escrow ri-scale-barding)
 	(or
 		(or
@@ -1253,6 +1248,7 @@
 		)
 		(goal ABLE-TO-UPGRADE-CAVALRY YES)
 	)
+	(food-amount > 200)
 =>
  	(research ri-scale-barding)
 ; (chat-local-to-self "research SCALE-BARDING")

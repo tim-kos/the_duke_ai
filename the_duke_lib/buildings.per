@@ -176,13 +176,6 @@
 ;REBUILD TOWN-CENTER
 ;-------------------------------------
 
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule8: rebuild TOWN-CENTER-MODERATE, HARD, HARDEST
-
 (defrule
  	(building-type-count-total town-center == 0)
  	(can-build town-center)
@@ -191,10 +184,6 @@
  	(build town-center)
 ;	(chat-local-to-self "rebuild TOWN-CENTER")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
 
 
 ;BUILD TOWN-CENTER IN NOMAD-MAP
@@ -278,7 +267,10 @@
 	(or
 		(and
 			(dropsite-min-distance wood > 3)
-			(building-type-count-total town-center > 1)
+			(and
+				(building-type-count-total town-center > 1)
+				(not (research-available ri-hand-cart))
+			)
 		)
 		(dropsite-min-distance wood > 4)
 	)
@@ -1140,7 +1132,10 @@
 #load-if-not-defined DEFEND-WONDER
 #load-if-not-defined WONDER-RACE
 (defrule
-	(building-type-count-total town-center > 1)
+	(or
+		(building-type-count-total town-center > 2)
+		(wood-amount > 600)
+	)
 	(not (research-available ri-hand-cart))
  	(current-age >= castle-age)
  	(building-type-count-total university < 1)
@@ -1459,9 +1454,6 @@
 =>
 	(set-goal ABLE-TO-BUILD-STABLE YES)
 )
-;***********************************************
-;STABLES ON EASIEST AND EASY - DIFFICULTY
-
 
 ;build STABLES in feudal-age
 
@@ -1714,8 +1706,6 @@
 =>
 	(set-goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 )
-;***********************************************
-;ARCHERY-RANGES ON EASIEST AND EASY - DIFFICULTY
 
 
 ;ARCHERY-RANGE in the feudal age
@@ -1937,15 +1927,6 @@
 ;*******************************************************************
 ;SIEGE-WORKSHOP
 
-
-
-;***********************************************
-;***********************************************
-;SIEGE-WORKSHOPS ON EASIEST AND EASY - DIFFICULTY
-
-
-;Rule96: build SIEGE-WORKSHOP in castle-age; part 1
-
 (defrule
  	(current-age >= castle-age)
  	(can-build siege-workshop)
@@ -2106,18 +2087,12 @@
 
 
 
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
-;Rule119: build BOMBARD-TOWERS- MODERATE, HARD, HARDEST when we are able to build them
-
+;BOMBARD-TOWERS
 (defrule
  	(current-age >= imperial-age)
-	(or
-		(difficulty <= hard)
- 		(building-type-count-total bombard-tower < 5)
+ 	(or
+		(building-type-count-total bombard-tower < 5)
+		(stone-amount > 900)
 	)
  	(can-build bombard-tower)
 	(or
@@ -2128,10 +2103,6 @@
  	(build bombard-tower)
 ;	(chat-local-to-self "build BOMBARD-TOWER")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
 
 
 #load-if-defined DEATH-MATCH
@@ -2195,9 +2166,11 @@
  	(current-age == castle-age)
  	(building-type-count-total town-center < 2)
  	(food-amount >= 200)
- 	(can-build town-center)
+ 	(can-build-with-escrow town-center)
  	(not (research-available ri-bow-saw))
 =>
+	(release-escrow wood)
+	(release-escrow stone)
  	(build town-center)
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
@@ -2205,11 +2178,13 @@
 (defrule
  	(current-age == castle-age)
  	(building-type-count-total town-center < town-center-building-castle)
- 	(can-build town-center)
+ 	(can-build-with-escrow town-center)
  	(not (research-available ri-bow-saw))
  	(not (research-available ri-hand-cart))
  	(not (research-available ri-heavy-plow))
 =>
+	(release-escrow wood)
+	(release-escrow stone)
  	(build town-center)
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
@@ -2217,7 +2192,7 @@
 (defrule
  	(current-age == imperial-age)
  	(building-type-count-total town-center < town-center-building-imperial)
- 	(can-build town-center)
+ 	(can-build-with-escrow town-center)
 	(or
 		(goal RUSH-CONTROL NO)
 		(or
@@ -2226,6 +2201,8 @@
 		)
 	)
 =>
+	(release-escrow wood)
+	(release-escrow stone)
  	(build town-center)
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
@@ -2531,12 +2508,6 @@
 ;BOMBARD-TOWES AND CASTLES
 
 
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
 #load-if-defined KOREAN-CIV
 
 ;Rule19: if we are the koreans we can do a bombard-tower-rush
@@ -2560,7 +2531,6 @@
 ;Rule19: if we are the koreans we can do a bombard-tower-rush
 
 (defrule
-	(difficulty <= moderate)
 	(can-build bombard-tower)
 	(building-type-count-total castle >= 2)
 	(building-type-count-total market > 0)
@@ -2572,18 +2542,8 @@
 
 #end-if		;if civ == turkish
 
-;***********************************************
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-#load-if-not-defined DIFFICULTY-MODERATE
-
-;Rule20: build FORWARD-CASTLE-HARD, HARDEST
+;FORWARD-CASTLE
 
 (defrule
 	(goal ATTACK-PERSONALITY ATTACKER)
@@ -2614,24 +2574,10 @@
 )
 
 
-
-#end-if		;if not difficulty-type == easiest
-#end-if		;if not difficulty-type == easy
-#end-if		;if not difficulty-type == moderate
-
-
-
 ;***********************************
 ;***********************************
 ;BARRACKS
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-#load-if-not-defined DIFFICULTY-MODERATE
-
-;Rule3: build FORWARD-BARRACKS-HARD, HARDEST
 
 (defrule
 	(goal ATTACK-PERSONALITY ATTACKER)
@@ -2645,23 +2591,10 @@
 	(build-forward barracks)
 )
 
-#end-if		;if not difficulty-type == moderate
-#end-if		;if not difficulty-type == easy
-#end-if		;if not difficulty-type == easiest
-
-
-
 ;***********************************
 ;***********************************
 ;ARCHERY-RANGE
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-#load-if-not-defined DIFFICULTY-MODERATE
-
-;Rule9: build FORWARD-ARCHERY-RANGE-HARD, HARDEST
 
 (defrule
 	(goal ATTACK-PERSONALITY ATTACKER)
@@ -2675,23 +2608,10 @@
 	(build-forward archery-range)
 )
 
-#end-if		;if not difficulty-type == moderate
-#end-if		;if not difficulty-type == easy
-#end-if		;if not difficulty-type == easiest
-
-
-
 ;***********************************
 ;***********************************
 ;STABLE
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-#load-if-not-defined DIFFICULTY-MODERATE
-
-;Rule15: build FORWARD-STABLE-HARD, HARDEST
 
 (defrule
 	(goal ATTACK-PERSONALITY ATTACKER)
@@ -2704,12 +2624,6 @@
 =>
 	(build-forward stable)
 )
-
-#end-if		;if not difficulty-type == moderate
-#end-if		;if not difficulty-type == easy
-#end-if		;if not difficulty-type == easiest
-
-
 
 ;==================
 ;FORWARD BUILDERS

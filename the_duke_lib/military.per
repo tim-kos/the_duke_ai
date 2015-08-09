@@ -595,8 +595,13 @@
 	(building-type-count monastery > 0)
 	(can-train monk)
 	(unit-type-count-total monk < 2)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(or
+		(goal ABLE-TO-TRAIN-UNITS YES)
+		(or
+			(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+			(gold-amount > 600)
+		)
+	)
 =>
 	(train monk)
 )
@@ -1815,12 +1820,7 @@
 
 
 
-;In every game the AI buildas a barracks, so we should have one if needed to train Counter-units
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
+;In every game the AI builds as a barracks, so we should have one if needed to train Counter-units
 
 
 ;BUILD BARRACKS
@@ -1952,6 +1952,7 @@
 =>
 	(build stable)
 )
+
 ;TRAINING THE COUNTER UNITS
 ;===========================
 
@@ -3087,7 +3088,7 @@
 
 (defrule
 	(unit-type-count-total fire-ship-line < THREE-PERCENT-POP)
-	(players-unit-type-count any-enemy galley-line >=  TWO-PERCENT-POP)
+	(players-unit-type-count any-enemy galley-line >= TWO-PERCENT-POP)
 	(can-train fire-ship-line)
 	(building-type-count dock > 0)
 	(or
@@ -3097,7 +3098,3 @@
 =>
 	(train fire-ship-line)
 )
-
-
-#end-if		;if not difficulty == easy
-#end-if		;if not difficulty == easiest

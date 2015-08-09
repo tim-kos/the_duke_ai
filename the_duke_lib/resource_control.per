@@ -996,6 +996,31 @@
  	(set-strategic-number sn-gold-gatherer-percentage 20)
  	(set-strategic-number sn-stone-gatherer-percentage 10)
 )
+
+(defrule 				;If
+	(current-age == castle-age)
+	(building-type-count-total town-center < 3)
+	(stone-amount > 100)
+	(gold-amount > 500)
+	(wood-amount < 275)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40)
+ 	(set-strategic-number sn-wood-gatherer-percentage 50)
+ 	(set-strategic-number sn-gold-gatherer-percentage 10)
+ 	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+
+(defrule 				;If
+	(current-age == castle-age)
+	(research-available ri-hand-cart)
+	(gold-amount > 500)
+	(wood-amount < 200)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 40)
+ 	(set-strategic-number sn-wood-gatherer-percentage 50)
+ 	(set-strategic-number sn-gold-gatherer-percentage 10)
+ 	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
 ;==================================
 
 

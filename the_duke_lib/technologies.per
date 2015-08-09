@@ -21,7 +21,7 @@
 
 ;WHEEL-BARROW 175 FOOD, 50 WOOD
 (defrule
-	(can-research ri-wheel-barrow)
+	(can-research-with-escrow ri-wheel-barrow)
 	(or
 		(unit-type-count villager > 20)
 		(and
@@ -31,14 +31,17 @@
 	)
 	(not (research-available ri-double-bit-axe))
 =>
+	(release-escrow food)
+	(release-escrow wood)
  	(research ri-wheel-barrow)
 ;	(chat-local-to-self "research WHEEL-BARROW")
 )
 
 ;HAND-CART - 300 FOOD, 200 WOOD
+;Important: We need to do the important stuff with escrow resources (even though we don't use them),
+;otherwise the game will take ages before it does the research, even though all conditions are met
 (defrule
- 	(current-age >= castle-age)
- 	(can-research ri-hand-cart)
+ 	(can-research-with-escrow ri-hand-cart)
 	(or
 		(or
 			(building-type-count-total town-center > 1)
@@ -58,6 +61,8 @@
 	)
 	(not (research-available ri-bow-saw))
 =>
+	(release-escrow food)
+	(release-escrow wood)
 	(research ri-hand-cart)
 ;	(chat-local-to-self "research HAND-CART")
 )
@@ -108,24 +113,30 @@
 
 ;DOUBLE-BIT-AXE 50 WOOD, 100 FOOD
 (defrule
- 	(can-research ri-double-bit-axe)
+ 	(can-research-with-escrow ri-double-bit-axe)
 =>
+	(release-escrow wood)
+	(release-escrow food)
 	(research ri-double-bit-axe)
 ; (chat-local-to-self "research DOUBLE-BIT-AXE")
 )
 
 ;BOW-SAW 100 WOOD, 150 FOOD
 (defrule
- 	(can-research ri-bow-saw)
+ 	(can-research-with-escrow ri-bow-saw)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-bow-saw)
 ; (chat-local-to-self "research BOW-SAW")
 )
 
 ;200 WOOD, 300 FOOD
 (defrule
- 	(can-research ri-two-man-saw)
+ 	(can-research-with-escrow ri-two-man-saw)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-two-man-saw)
 ; (chat-local-to-self "research TWO-MAN-SAW")
 )
@@ -137,18 +148,20 @@
 
 ;HORSE-COLLAR 75 WOOD, 75 FOOD
 (defrule
- 	(can-research ri-horse-collar)
+ 	(can-research-with-escrow ri-horse-collar)
 	(not (research-available ri-wheel-barrow))
 	(not (research-available ri-double-bit-axe))
 	(building-type-count-total farm > 8)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-horse-collar)
 ; (chat-local-to-self "research HORSE-COLLAR")
 )
 
 ;HEAVY-PLOW 125 WOOD, 125 FOOD
 (defrule
- 	(can-research ri-heavy-plow)
+ 	(can-research-with-escrow ri-heavy-plow)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
 	(building-type-count-total farm > 15)
@@ -164,17 +177,21 @@
 		)
 	)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-heavy-plow)
 ; (chat-local-to-self "research HEAVY-PLOW")
 )
 
 ;CROP ROTATION 250 WOOD, 250 FOOD
 (defrule
- 	(can-research ri-crop-rotation)
+ 	(can-research-with-escrow ri-crop-rotation)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-two-man-saw))
 	(building-type-count-total farm > 15)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-crop-rotation)
 ; (chat-local-to-self "research CROP-ROTATION")
 )
@@ -185,7 +202,7 @@
 
 ;GOLD-MINING 75 WOOD, 100 FOOD
 (defrule
- 	(can-research ri-gold-mining)
+ 	(can-research-with-escrow ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(or
 		(not (goal RESEARCHING-CASTLE FAST-CASTLE))
@@ -205,13 +222,15 @@
 		)
 	)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-gold-mining)
 ; (chat-local-to-self "research GOLD-MINING")
 )
 
 ;GOLD-MINING 75 WOOD, 100 FOOD
 (defrule
- 	(can-research ri-gold-mining)
+ 	(can-research-with-escrow ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(current-age >= castle-age)
 	(not (research-available ri-bow-saw))
@@ -228,13 +247,15 @@
 		)
 	)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-gold-mining)
 ; (chat-local-to-self "research GOLD-MINING")
 )
 
 ;GOLD-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
- 	(can-research ri-gold-shaft-mining)
+ 	(can-research-with-escrow ri-gold-shaft-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
@@ -254,13 +275,15 @@
 		)
 	)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-gold-shaft-mining)
 ; (chat-local-to-self "research GOLD-SHAFT-MINING")
 )
 
 ;STONE-MINING 125 WOOD, 125 FOOD
 (defrule
- 	(can-research ri-stone-mining)
+ 	(can-research-with-escrow ri-stone-mining)
 	(strategic-number sn-stone-gatherer-percentage > 0)
 	(not (research-available ri-gold-shaft-mining))
 	(or
@@ -277,13 +300,15 @@
 	(wood-amount > 200)
 	(food-amount > 200)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-stone-mining)
 ; (chat-local-to-self "research STONE-MINING")
 )
 
 ;STONE-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
- 	(can-research ri-stone-shaft-mining)
+ 	(can-research-with-escrow ri-stone-shaft-mining)
 	(strategic-number sn-stone-gatherer-percentage > 0)
 	(not (research-available ri-gold-shaft-mining))
 	(or
@@ -300,6 +325,8 @@
 	(wood-amount > 400)
 	(food-amount > 400)
 =>
+	(release-escrow wood)
+	(release-escrow food)
  	(research ri-stone-shaft-mining)
 ; (chat-local-to-self "research STONE-MINING")
 )
