@@ -547,12 +547,6 @@
 ;***********************************************
 
 
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
-
 ;Rule207: research STONECUTTING- MODERATE, HARD, HARDEST
 ;200 WOOD, 300 FOOD
 (defrule
@@ -732,10 +726,6 @@
 ;	(chat-local-to-self "research HERBAL-MEDICINE")
 ;)
 
-#load-if-not-defined DIFFICULTY-MODERATE
-;***********************************************
-;***********************************************
-
 ;Rule219: research HERESY
 ;1000 GOLD
 (defrule
@@ -806,23 +796,12 @@
 	(research ri-theocracy)
 ;	(chat-local-to-self "research THEOCRACY")
 )
-;***********************************************
-#end-if		;if not difficulty == easiest
-#end-if		;if not difficulty == easy
-#end-if		;if not difficulty == moderate
-
 
 
 ;************************************************************************************************************
 ;************************************************************************************************************
 ;TECHNOLOGIES IN BARRACKS
 
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-;***********************************************
-;***********************************************
 
 ;Rule224: research TRACKING-  MODERATE, HARD, HARDEST
 ;75 FOOD
@@ -867,57 +846,6 @@
  	(research ri-squires)
 ; (chat-local-to-self "research SQUIRES")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
-#load-if-defined DIFFICULTY-EASIEST
-;***********************************************
-;***********************************************
-
-;Rule227: research MAN-AT-ARMS- EASIEST; part 1
-;100 FOOD, 40 GOLD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research ri-man-at-arms)
-	(current-age-time > 300)
-	(building-type-count-total barracks >= 1)
-	(or
-		(goal PRIMARY-COMBAT-UNIT INFANTRY)
-		(goal SECONDARY-COMBAT-UNIT INFANTRY)
-	)
-	(or
-		(current-age == imperial-age)
-		(goal ABLE-TO-TRAIN-UNITS YES)
-	)
-=>
- 	(research ri-man-at-arms)
-; (chat-local-to-self "research MAN-AT-ARMS")
-)
-;100 FOOD, 40 GOLD
-(defrule
- 	(current-age >= feudal-age)
- 	(can-research ri-man-at-arms)
-	(current-age-time > 300)
-	(building-type-count-total barracks >= 1)
-	(or
-		(goal PRIMARY-COMBAT-UNIT INFANTRY1)
-		(goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	)
-	(or
-		(current-age == imperial-age)
-		(goal ABLE-TO-TRAIN-UNITS YES)
-	)
-=>
- 	(research ri-man-at-arms)
-; (chat-local-to-self "research MAN-AT-ARMS")
-)
-;***********************************************
-#else	;if defined difficulty easiest
-;***********************************************
-;***********************************************
 
 ;Rule228: research MAN-AT-ARMS- EASY, MODERATE, HARD, HARDEST, part 1
 ;100 FOOD, 40 GOLD
@@ -940,9 +868,6 @@
  	(research ri-man-at-arms)
 ; (chat-local-to-self "research MAN-AT-ARMS")
 )
-;***********************************************
-#end-if		;if not difficulty type == easiest
-
 
 ;Rule230: research LONG-SWORDSMAN- MODERATE, HARD, HARDEST; part 3
 ;200 FOOD, 65 GOLD
@@ -987,18 +912,12 @@
 )
 
 
-
-#load-if-not-defined DIFFICULTY-MODERATE
-
-
-
 ;Rule233: research CHAMPION- HARD, HARDEST
 ;750 FOOD, 350 GOLD
 (defrule
- 	(current-age >= imperial-age)
  	(can-research ri-champion)
 	(building-type-count-total barracks >= 1)
-	(unit-type-count-total militiaman-line > FIVE-PERCENT-POP)
+	(unit-type-count-total militiaman-line > 20)
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
@@ -1007,8 +926,6 @@
  	(research ri-champion)
 ; (chat-local-to-self "research CHAMPION")
 )
-;***********************************************
-#end-if		;if not difficulty type == moderate
 
 
 
@@ -1566,3 +1483,5 @@
  	(research ri-sappers)
 ; (chat-local-to-self "research SAPPERS")
 )
+
+#end-if ;if not game type wonder-race
