@@ -703,7 +703,10 @@
 	(goal ATTACK YES)
 	(defend-soldier-count >= SEVEN-PERCENT-POP)
 	(current-age >= castle-age)
-	(goal MILITARY-PARITY VASTLY-SUPERIOR)
+	(or
+		(goal MILITARY-PARITY VASTLY-SUPERIOR)
+		(soldier-count >= TWENTY-PERCENT-POP)
+	)
 	(goal TOWN-SIZE-ATTACK NO)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 100)
@@ -802,7 +805,10 @@
 	(goal ATTACK YES)
 	(defend-soldier-count >= SEVEN-PERCENT-POP)
 	(current-age >= castle-age)
-	(goal MILITARY-PARITY VASTLY-SUPERIOR)
+	(or
+		(goal MILITARY-PARITY VASTLY-SUPERIOR)
+		(soldier-count >= TWENTY-PERCENT-POP)
+	)
 	(goal TOWN-SIZE-ATTACK YES)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 100)

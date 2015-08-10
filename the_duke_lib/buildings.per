@@ -83,10 +83,35 @@
 (defrule
 	(game-time > 2400)
 =>
-	(set-strategic-number sn-minimum-town-size min-imperial-town-size)
-	(set-strategic-number sn-maximum-town-size max-imperial-town-size)
+	(set-strategic-number sn-minimum-town-size 14)
+	(set-strategic-number sn-maximum-town-size 24)
 	(disable-self)
 )
+
+(defrule
+	(game-time > 3000)
+=>
+	(set-strategic-number sn-minimum-town-size 16)
+	(set-strategic-number sn-maximum-town-size 28)
+	(disable-self)
+)
+
+(defrule
+	(game-time > 3600)
+=>
+	(set-strategic-number sn-minimum-town-size 16)
+	(set-strategic-number sn-maximum-town-size 32)
+	(disable-self)
+)
+
+(defrule
+	(game-time > 4500)
+=>
+	(set-strategic-number sn-minimum-town-size 16)
+	(set-strategic-number sn-maximum-town-size 38)
+	(disable-self)
+)
+
 ;************************************************************************************************************
 ;HOUSING
 
@@ -278,6 +303,23 @@
 	(building-type-count-total barracks > 0)
 	(building-type-count-total blacksmith > 0)
 	(up-pending-objects c: lumber-camp <= 1)
+	(game-time < 3600)
+=>
+	(build lumber-camp)
+;	(chat-local-to-self "build LUMBER-CAMP")
+)
+
+(defrule
+	(current-age >= feudal-age)
+	(strategic-number sn-wood-gatherer-percentage > 0)
+	(can-build lumber-camp)
+	(resource-found wood)
+	(dropsite-min-distance wood > 7)
+	(dropsite-min-distance wood < 480)
+	(building-type-count-total barracks > 0)
+	(building-type-count-total blacksmith > 0)
+	(up-pending-objects c: lumber-camp <= 1)
+	(game-time >= 3600)
 =>
 	(build lumber-camp)
 ;	(chat-local-to-self "build LUMBER-CAMP")
@@ -603,7 +645,7 @@
 	(building-type-count lumber-camp > 0)
 	(building-type-count-total mill < 2)
 	(can-build mill)
-	(building-type-count-total town-center > 1)
+	(building-type-count-total town-center > 2)
 =>
 	(build mill)
 )
@@ -627,7 +669,32 @@
 	)
 	(can-build mill)
 	(building-type-count lumber-camp > 0)
-	(building-type-count-total town-center > 2)
+	(wood-amount > 400)
+=>
+	(build mill)
+;	(chat-local-to-self "build MILL (many farms)")
+)
+
+(defrule
+	(or
+		(or
+			(and
+				(building-type-count-total farm > 60)
+				(building-type-count-total mill < 6)
+			)
+			(and
+				(building-type-count-total farm > 70)
+				(building-type-count-total mill < 7)
+			)
+		)
+		(and
+			(building-type-count-total farm > 80)
+			(building-type-count-total mill < 9)
+		)
+	)
+	(can-build mill)
+	(building-type-count lumber-camp > 0)
+	(wood-amount > 400)
 =>
 	(build mill)
 ;	(chat-local-to-self "build MILL (many farms)")
@@ -806,8 +873,7 @@
 
 (defrule
  	(can-build farm)
- 	(current-age == castle-age)
-	(building-type-count-total farm <= max-castle-farm)
+ 	(current-age >= castle-age)
 	(or
 		(building-type-count-total archery-range > 0)
 		(or
@@ -819,7 +885,7 @@
 	(building-type-count-total town-center > 1)
 	(not (research-available ri-hand-cart))
 	(building-type-count-total lumber-camp > 0)
-	(idle-farm-count < 3)
+	(idle-farm-count < 2)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -827,20 +893,9 @@
 
 (defrule
  	(can-build farm)
-	(current-age == imperial-age)
-	(building-type-count-total farm <= max-imperial-farm)
-	(or
-		(building-type-count-total archery-range > 0)
-		(or
-			(building-type-count-total stable > 0)
-			(building-type-count-total castle > 0)
-		)
-	)
-	(building-type-count-total blacksmith > 0)
-	(building-type-count-total town-center > 1)
-	(not (research-available ri-hand-cart))
-	(building-type-count-total lumber-camp > 0)
-	(idle-farm-count < 3)
+ 	(unit-type-count villager > 60)
+ 	(wood-amount > 500)
+	(idle-farm-count < 4)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -2084,10 +2139,6 @@
 ;***********************************************
 ;***********************************************
 
-
-
-;Rule117: build CASTLES all the numbers here a scaled to the difficulty level; if we do not want to sling-shot through the castle-age
-
 (defrule
 	(or
 		(and
@@ -2104,6 +2155,16 @@
  	(build castle)
 ;	(chat-local-to-self "build CASTLE")
 )
+
+(defrule
+	(difficulty >= hard)
+	(stone-amount > 800)
+ 	(can-build castle)
+=>
+ 	(build castle)
+;	(chat-local-to-self "build CASTLE")
+)
+
 ;***********************************************
 ;***********************************************
 
@@ -2209,7 +2270,7 @@
 (defrule
  	(current-age == imperial-age)
  	(building-type-count-total town-center < town-center-building-imperial)
- 	(can-build-with-escrow town-center)
+ 	(can-build town-center)
 	(or
 		(goal RUSH-CONTROL NO)
 		(or
@@ -2218,11 +2279,22 @@
 		)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow stone)
  	(build town-center)
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
+
+(defrule
+ 	(game-time > 3600)
+ 	(wood-amount > 1500)
+ 	(stone-amount > 900)
+ 	(building-type-count-total castle >= 3)
+ 	(can-build town-center)
+	(difficulty >= hard)
+=>
+ 	(build town-center)
+;	(chat-local-to-self "build TOWN-CENTER")
+)
+
 ;***********************************************
 #end-if		;if not game type == wonder race
 

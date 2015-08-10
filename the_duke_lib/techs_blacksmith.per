@@ -1019,6 +1019,15 @@
 #end-if		;if game type == death-match
 
 
+(defrule
+	(wood-amount > 5000)
+	(food-amount > 5000)
+	(gold-amount > 5000)
+=>
+	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+)
 
 ;************************************************************************************************************
 ;************************************************************************************************************

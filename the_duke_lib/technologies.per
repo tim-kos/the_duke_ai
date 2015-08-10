@@ -990,41 +990,48 @@
 ;Rule241: research CROSSBOW- MODERATE, HARD, HARDEST; part 1
 ;125 FOOD, 75 GOLD
 (defrule
- 	(current-age >= castle-age)
- 	(can-research ri-crossbow)
-	(building-type-count-total archery-range >= 1)
-	(unit-type-count-total archer-line > 0)
+ 	(can-research-with-escrow ri-crossbow)
+	(unit-type-count-total archer-line > 5)
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-crossbow)
 ; (chat-local-to-self "research CROSSBOW")
 )
 
 ;350 FOOD, 300 GOLD
 (defrule
- 	(current-age >= imperial-age)
- 	(can-research ri-arbalest)
-	(building-type-count-total archery-range >= 1)
-	(unit-type-count-total archer-line >= FOUR-PERCENT-POP)
+ 	(can-research-with-escrow ri-arbalest)
+	(unit-type-count-total archer-line >= 15)
+	(food-amount > 500)
+	(gold-amount > 400)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-arbalest)
 ; (chat-local-to-self "research ARBALEST")
 )
 
 ;250 WOOD, 160 GOLD
 (defrule
- 	(can-research ri-elite-skirmisher)
+ 	(can-research-with-escrow ri-elite-skirmisher)
  	(unit-type-count-total skirmisher-line >= 9)
-	(wood-amount > 350)
+ 	(or
+		(wood-amount > 350)
+		(building-type-count-total town-center > 2)
+	)
 	(building-type-count-total town-center > 1)
 	(or
 		(current-age == imperial-age)
 		(goal ABLE-TO-TRAIN-UNITS YES)
 	)
 =>
+	(release-escrow wood)
+	(release-escrow gold)
 	(research ri-elite-skirmisher)
 ; (chat-local-to-self "research ELITE-SKIRMISHER")
 )
@@ -1085,7 +1092,6 @@
 ;Rule251: research HUSBANDRY- MODERATE, HARD, HARDEST
 ;250 FOOD
 (defrule
- 	(current-age >= castle-age)
  	(can-research-with-escrow ri-husbandry)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
