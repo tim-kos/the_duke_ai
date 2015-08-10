@@ -72,20 +72,16 @@
 		(defconst CAN-CHANGE-RESOURCE-NEEDED-GOAL 2)
 		;(defconst NO 0)
 
-;goal 2 = SAVE-FOR-RESEARCH - controls periodic stops in unit training to save for research
-		(defconst SAVE-FOR-RESEARCH 2)
-		;(defconst NO 0)
-		;(defconst YES 1)
-		;(defconst MAYBE 2)
-
 ;goal 3 = TRAIN-NEXT-FIRESHIP - checks whether we should train a fire ship
 		(defconst TRAIN-NEXT-FIRESHIP 3)
 		;(defconst NO 0)
 		(defconst NEVER 3)
+
+;goal 4
 		(defconst TRAIN-VILLAGERS 4)
 		;(defconst NO 0)
 		(defconst EXTRA 3)
-	;goal 5 1: research the feudal-age very fast ; goal 5 2: research feudal-age with an average time ; goal 5 3: research feudal-age very slowly
+;goal 5 1: research the feudal-age very fast ; goal 5 2: research feudal-age with an average time ; goal 5 3: research feudal-age very slowly
 		(defconst RESEARCHING-FEUDAL 5)
 		(defconst FAST-FEUDAL 1)
 		(defconst MIDDLE-FEUDAL 2)
@@ -100,6 +96,8 @@
 		(defconst FAST-IMPERIAL 1)
 		(defconst MIDDLE-IMPERIAL 2)
 		(defconst LATE-IMPERIAL 3)
+
+;goal 8
 		(defconst ADVANCING-TO-AGE 8)
 		;(defconst NO 0)
 		(defconst FEUDAL-AGE 1)
@@ -107,6 +105,12 @@
 		(defconst IMPERIAL-AGE 3)
 		(defconst ADVANCE-TO-THE-NEXT-AGE 9)
 		;(defconst NO 0)
+
+;goal 9 = SAVE-FOR-RESEARCH - controls periodic stops in unit training to save for research
+		(defconst SAVE-FOR-RESEARCH 9)
+		;(defconst NO 0)
+		;(defconst YES 1)
+		;(defconst MAYBE 2)
 
 ;goal 10 = HUMAN-DIPLOMACY - it is used to change the stance to an human-ally
 		(defconst HUMAN-DIPLOMACY 10)

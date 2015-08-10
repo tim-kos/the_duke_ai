@@ -3546,13 +3546,20 @@
 )
 
 (defrule
+	(true)
+=>
+	(set-goal SAVE-FOR-RESEARCH NO)
+	(disable-self)
+)
+
+(defrule
 	(current-age >= castle-age)
 	(game-time > 1500)
 	(current-age-time > 180)
 	(not (goal RUSH-CONTROL RUSHING))
+	(military-population >= 10)
 =>
 	(enable-timer T-SAVE-FOR-RESEARCH 1)
-	(set-goal SAVE-FOR-RESEARCH NO)
 	(disable-self)
 )
 

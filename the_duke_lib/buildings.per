@@ -319,6 +319,13 @@
 		(current-age >= feudal-age)
 		(goal ADVANCING-TO-AGE FEUDAL-AGE)
 	)
+	(or
+		(building-type-count-total stable > 0)
+		(or
+			(building-type-count-total archery-range > 0)
+			(building-type-count-total market > 0)
+		)
+	)
 =>
  	(build mining-camp)
 ;	(chat-local-to-self "build MINING-CAMP for STONE")
@@ -1132,16 +1139,22 @@
 #load-if-not-defined DEFEND-WONDER
 #load-if-not-defined WONDER-RACE
 (defrule
+	(building-type-count-total town-center > 1)
 	(or
 		(building-type-count-total town-center > 2)
-		(wood-amount > 600)
+		(or
+			(wood-amount > 600)
+			(stone-amount < 100)
+		)
 	)
 	(not (research-available ri-hand-cart))
- 	(current-age >= castle-age)
  	(building-type-count-total university < 1)
 	(building-type-count-total monastery > 0)
  	(can-build university)
-	(goal RUSH-CONTROL NO)
+	(or
+		(goal RUSH-CONTROL NO)
+		(wood-amount > 600)
+	)
 	(not (current-age == post-imperial-age))
 =>
  	(build university)
@@ -1150,6 +1163,10 @@
 
 (defrule
 	(building-type-count-total town-center > 1)
+	(or
+		(building-type-count-total town-center > 2)
+		(wood-amount > 600)
+	)
 	(not (research-available ri-hand-cart))
 	(building-type-count-total monastery < 1)
 	(can-build monastery)
@@ -1167,10 +1184,8 @@
 	(not (research-available ri-hand-cart))
 	(building-type-count-total town-center > 2)
 	(can-build monastery)
-	(or
-		(goal RUSH-CONTROL NO)
-		(wood-amount > 400)
-	)
+	(goal RUSH-CONTROL NO)
+	(wood-amount > 1000)
 =>
 	(build monastery)
 ;	(chat-local-to-self "build MONASTERY")
@@ -2166,11 +2181,9 @@
  	(current-age == castle-age)
  	(building-type-count-total town-center < 2)
  	(food-amount >= 200)
- 	(can-build-with-escrow town-center)
+ 	(can-build town-center)
  	(not (research-available ri-bow-saw))
 =>
-	(release-escrow wood)
-	(release-escrow stone)
  	(build town-center)
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
@@ -2178,13 +2191,10 @@
 (defrule
  	(current-age == castle-age)
  	(building-type-count-total town-center < town-center-building-castle)
- 	(can-build-with-escrow town-center)
+ 	(can-build town-center)
  	(not (research-available ri-bow-saw))
  	(not (research-available ri-hand-cart))
- 	(not (research-available ri-heavy-plow))
 =>
-	(release-escrow wood)
-	(release-escrow stone)
  	(build town-center)
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
