@@ -1,74 +1,10 @@
-;======================================================================
-;		STUFF FOR AI-RESIGNING
-;======================================================================
-
-
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-
-;Rule1: RESIGN IF EASIEST OR EASY
-
-(defrule
-	(not (goal RUSH-CONTROL RESIGN))
-	(game-time > 300)
-	(soldier-count < 5)
-	(unit-type-count villager < 5)
-	(nor
-		(hold-relics)
-		(hold-koh-ruin)
-	)
-	(not (can-train villager))
-=>
-	(chat-to-player every-enemy "40 You're well prepared to play on the next difficulty-level!")
-	(chat-to-player every-enemy "-Tim Koschuetzki, The Duke-AI - developer")
-	(set-goal RUSH-CONTROL RESIGN)
-)
-
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-
-
-#load-if-defined DIFFICULTY-MODERATE
-
-;Rule2: RESIGN IF MODERATE
-
-(defrule
-	(not (goal RUSH-CONTROL RESIGN))
-	(game-time > 300)
-	(building-type-count wonder < 1)
-	(soldier-count < 4)
-	(unit-type-count villager < 4)
-	(nor
-		(hold-relics)
-		(hold-koh-ruin)
-	)
-	(not (can-train villager))
-=>
-	(chat-to-player every-enemy "40 I think that was not so difficult, wasn't it?")
-	(chat-to-player every-enemy "Try to play on difficulty level hard!")
-	(chat-to-player every-enemy "-Tim Koschuetzki, The Duke-AI - developer")
-	(set-goal RUSH-CONTROL RESIGN)
-)
-
-#end-if		;if difficulty type == moderate
-
-
-
-#load-if-defined DIFFICULTY-HARD
-
-;Rule3: RESIGN IF HARD
-
 (defrule
 	(not (goal RUSH-CONTROL RESIGN))
 	(game-time > 300)
 	(building-type-count wonder < 1)
 	(soldier-count < 3)
 	(unit-type-count cannon-galleon-line == 0)
-	(unit-type-count villager <= 2)
+	(unit-type-count villager <= 5)
 	(nor
 		(hold-relics)
 		(hold-koh-ruin)
@@ -81,67 +17,34 @@
 	(set-goal RUSH-CONTROL RESIGN)
 )
 
-#end-if		;if difficulty type == hard
-
-
-
-#load-if-defined DIFFICULTY-HARDEST
-
-;Rule4: RESIGN IF HARDEST
-
-(defrule
-	(not (goal RUSH-CONTROL RESIGN))
-	(game-time > 300)
-	(building-type-count wonder < 1)
-	(soldier-count < 3)
-	(unit-type-count cannon-galleon-line == 0)
-	(unit-type-count villager <= 2)
-	(nor
-		(hold-relics)
-		(hold-koh-ruin)
-	)
-	(not (can-train villager))
-=>
-	(chat-to-player every-enemy "40 The Duke-AI can't be harder than this!")
-	(chat-to-player every-enemy "If you didn't cheat you're a really good AoE-player!")
-	(chat-to-player every-enemy "-Tim Koschuetzki, The Duke-AI - developer")
-	(set-goal RUSH-CONTROL RESIGN)
-)
-
-#end-if		;if difficulty type == hardest
-
-
-
 ;Rule5: TRIBUTE TO COMPUTER ALLIES IF WE'LL RESIGN
 
 (defrule
 	(goal RUSH-CONTROL RESIGN)
 	(players-population any-ally > 10)
-	(difficulty <= moderate)
 =>
 	(release-escrow food)
 	(release-escrow wood)
 	(release-escrow gold)
 	(release-escrow stone)
- 	(tribute-to-player this-any-ally food 20000)
-	(tribute-to-player this-any-ally wood 20000)
-	(tribute-to-player this-any-ally gold 20000)
-	(tribute-to-player this-any-ally stone 20000)
+ 	(tribute-to-player this-any-ally food 80000)
+	(tribute-to-player this-any-ally wood 80000)
+	(tribute-to-player this-any-ally gold 80000)
+	(tribute-to-player this-any-ally stone 80000)
 )
 
 (defrule
 	(goal RUSH-CONTROL RESIGN)
 	(stance-toward any-human ally)
-	(difficulty <= moderate)
 =>
 	(release-escrow food)
 	(release-escrow wood)
 	(release-escrow gold)
 	(release-escrow stone)
- 	(tribute-to-player this-any-human food 20000)
-	(tribute-to-player this-any-human wood 20000)
-	(tribute-to-player this-any-human gold 20000)
-	(tribute-to-player this-any-human stone 20000)
+ 	(tribute-to-player this-any-human food 80000)
+	(tribute-to-player this-any-human wood 80000)
+	(tribute-to-player this-any-human gold 80000)
+	(tribute-to-player this-any-human stone 80000)
 )
 
 (defrule
@@ -177,7 +80,6 @@
 
 	(delete-building castle)
 )
-;that the player can't read it
 
 (defrule
 	(goal RUSH-CONTROL RESIGN)
