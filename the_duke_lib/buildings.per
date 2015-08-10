@@ -426,17 +426,18 @@
 (defrule
 	(current-age >= feudal-age)
 	(or
-		(goal RUSH-CONTROL NO)
-		(or
-			(building-type-count-total town-center > 1)
-			(stone-amount < 100)
-		)
+		(building-type-count-total town-center > 1)
+		(stone-amount < 100)
 	)
 	(resource-found stone)
 	(dropsite-min-distance stone > 4)
  	(can-build mining-camp)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total barracks > 0)
+	(or
+		(building-type-count-total archery-range > 0)
+		(building-type-count-total stable > 0)
+	)
 	(building-type-count-total lumber-camp > 0)
 	(building-type-count-total mining-camp > 0)
 =>
@@ -1713,14 +1714,11 @@
 (defrule
  	(current-age >= castle-age)
 	(building-type-count-total stable < stable-building-imperial)
-	(or
-		(wood-amount > 600)
-		(building-type-count-total town-center > 1)
-	)
+	(building-type-count-total town-center > 2)
 	(not (research-available ri-hand-cart))
  	(can-build stable)
 	(goal ABLE-TO-BUILD-STABLE YES)
-	(wood-amount > 300)
+	(wood-amount > 500)
 =>
  	(build stable)
 ;	(chat-local-to-self "build STABLE")
@@ -1851,7 +1849,7 @@
 		(and
 			(building-type-count-total archery-range < archery-range-building-castle)
 			(and
-				(wood-amount > 600)
+				(wood-amount > 700)
 				(not (research-available ri-hand-cart))
 			)
 		)
@@ -1873,7 +1871,7 @@
 		(and
 			(building-type-count-total archery-range < archery-range-building-imperial)
 			(and
-				(wood-amount > 600)
+				(wood-amount > 700)
 				(not (research-available ri-hand-cart))
 			)
 		)
@@ -1949,7 +1947,7 @@
 		(and
 			(building-type-count-total archery-range < 2)
 			(or
-				(wood-amount > 450)
+				(wood-amount > 550)
 				(building-type-count-total town-center > 1)
 			)
 		)
@@ -1968,14 +1966,11 @@
 (defrule
  	(current-age >= castle-age)
 	(building-type-count-total archery-range < archery-range-building-imperial)
-	(or
-		(wood-amount > 450)
-		(building-type-count-total town-center > 2)
-	)
+	(building-type-count-total town-center > 2)
 	(not (research-available ri-hand-cart))
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(wood-amount > 300)
+	(wood-amount > 550)
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
