@@ -255,75 +255,23 @@
 )
 ;================================
 
-
-
-(defrule 				;If
+(defrule
 	(current-age == feudal-age)
-	(building-type-count mining-camp == 0)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 60)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
+	(food-amount < 850)
+	(gold-amount >= 200)
+	(goal ADVANCING-TO-AGE NO)
+=>
+ 	(set-strategic-number sn-food-gatherer-percentage 50)
+ 	(set-strategic-number sn-wood-gatherer-percentage 50)
  	(set-strategic-number sn-gold-gatherer-percentage 0)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
-;-----------------------------
-
-
 
 (defrule 				;If
 	(current-age == feudal-age)
-	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 50)
- 	(set-strategic-number sn-wood-gatherer-percentage 35)
- 	(set-strategic-number sn-gold-gatherer-percentage 15)
- 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-;**************************
-;IF WE STARTED THE RUSH
-
-
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(not (goal RUSH-CONTROL NO))
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 45)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
- 	(set-strategic-number sn-gold-gatherer-percentage 15)
- 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-
-
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(not (goal RUSH-CONTROL NO))
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone <= 5)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
- 	(set-strategic-number sn-gold-gatherer-percentage 15)
- 	(set-strategic-number sn-stone-gatherer-percentage 5)
-)
-;-----------------------------
-
-
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(food-amount < 800)
-	(gold-amount >= 200)
+	(food-amount < 850)
+	(gold-amount < 200)
 	(goal ADVANCING-TO-AGE NO)
 	(or
 		(and
@@ -339,38 +287,29 @@
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
-
-
 (defrule 				;If
 	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
 	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(food-amount < 800)
+	(food-amount < 850)
 	(gold-amount < 200)
 	(goal ADVANCING-TO-AGE NO)
 	(or
-		(and
-			(building-type-count-total stable < 1)
-			(building-type-count-total archery-range < 1)
-		)
-		(building-type-count-total blacksmith < 1)
+		(building-type-count-total stable > 0)
+		(building-type-count-total archery-range > 0)
 	)
+	(building-type-count-total blacksmith > 0)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
- 	(set-strategic-number sn-gold-gatherer-percentage 20)
+ 	(set-strategic-number sn-food-gatherer-percentage 55)
+ 	(set-strategic-number sn-wood-gatherer-percentage 30)
+ 	(set-strategic-number sn-gold-gatherer-percentage 15)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
 
-
 (defrule 				;If
 	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
 	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(food-amount >= 800)
+	(food-amount >= 850)
 	(gold-amount >= 200)
 	(goal ADVANCING-TO-AGE NO)
 	(or
@@ -382,19 +321,32 @@
 	)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 35)
- 	(set-strategic-number sn-wood-gatherer-percentage 50)
+ 	(set-strategic-number sn-wood-gatherer-percentage 65)
+ 	(set-strategic-number sn-gold-gatherer-percentage 0)
+ 	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(building-type-count mining-camp > 0)
+	(dropsite-min-distance gold <= 5)
+	(food-amount >= 850)
+	(or
+		(building-type-count-total stable > 0)
+		(building-type-count-total archery-range > 0)
+	)
+	(building-type-count-total blacksmith > 0)
+	(goal ADVANCING-TO-AGE NO)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 45)
+ 	(set-strategic-number sn-wood-gatherer-percentage 40)
  	(set-strategic-number sn-gold-gatherer-percentage 15)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
-
-
 (defrule 				;If
 	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(food-amount >= 800)
+	(food-amount >= 850)
 	(gold-amount < 200)
 	(goal ADVANCING-TO-AGE NO)
 	(or
@@ -407,188 +359,21 @@
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 30)
  	(set-strategic-number sn-wood-gatherer-percentage 50)
- 	(set-strategic-number sn-gold-gatherer-percentage 20)
- 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-
-
-
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(food-amount < 800)
-	(gold-amount >= 200)
-	(goal ADVANCING-TO-AGE NO)
-	(or
-		(building-type-count-total stable > 0)
-		(building-type-count-total archery-range > 0)
-	)
-	(building-type-count-total blacksmith > 0)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 60)
- 	(set-strategic-number sn-wood-gatherer-percentage 30)
- 	(set-strategic-number sn-gold-gatherer-percentage 10)
- 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-
-
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(food-amount < 800)
-	(gold-amount < 200)
-	(goal ADVANCING-TO-AGE NO)
-	(or
-		(building-type-count-total stable > 0)
-		(building-type-count-total archery-range > 0)
-	)
-	(building-type-count-total blacksmith > 0)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 50)
- 	(set-strategic-number sn-wood-gatherer-percentage 30)
- 	(set-strategic-number sn-gold-gatherer-percentage 20)
- 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-
-
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(food-amount >= 800)
-	(gold-amount >= 200)
-	(goal ADVANCING-TO-AGE NO)
-	(or
-		(building-type-count-total stable > 0)
-		(building-type-count-total archery-range > 0)
-	)
-	(building-type-count-total blacksmith > 0)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
- 	(set-strategic-number sn-gold-gatherer-percentage 20)
- 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-
-
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(food-amount >= 800)
-	(gold-amount < 200)
-	(goal ADVANCING-TO-AGE NO)
-	(or
-		(building-type-count-total stable > 0)
-		(building-type-count-total archery-range > 0)
-	)
-	(building-type-count-total blacksmith > 0)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
- 	(set-strategic-number sn-gold-gatherer-percentage 20)
- 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-
-
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone > 5)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 37)
- 	(set-strategic-number sn-wood-gatherer-percentage 38)
- 	(set-strategic-number sn-gold-gatherer-percentage 25)
- 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone <= 5)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 35)
- 	(set-strategic-number sn-wood-gatherer-percentage 35)
- 	(set-strategic-number sn-gold-gatherer-percentage 25)
- 	(set-strategic-number sn-stone-gatherer-percentage 5)
-)
-;************************************
-
-
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone <= 5)
-	(food-amount < 800)
-	(gold-amount >= 200)
-	(goal ADVANCING-TO-AGE NO)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 50)
- 	(set-strategic-number sn-wood-gatherer-percentage 35)
- 	(set-strategic-number sn-gold-gatherer-percentage 10)
- 	(set-strategic-number sn-stone-gatherer-percentage 5)
-)
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone <= 5)
-	(food-amount < 800)
-	(gold-amount < 200)
-	(goal ADVANCING-TO-AGE NO)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 50)
- 	(set-strategic-number sn-wood-gatherer-percentage 30)
- 	(set-strategic-number sn-gold-gatherer-percentage 20)
- 	(set-strategic-number sn-stone-gatherer-percentage 0)
-)
-
-(defrule 				;If
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
-	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone <= 5)
-	(food-amount >= 800)
-	(gold-amount >= 200)
-	(goal ADVANCING-TO-AGE NO)
-=>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
  	(set-strategic-number sn-gold-gatherer-percentage 15)
- 	(set-strategic-number sn-stone-gatherer-percentage 5)
+ 	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
-(defrule 				;If
+(defrule
 	(current-age == feudal-age)
-	(goal RUSH-CONTROL NO)
 	(building-type-count mining-camp > 0)
-	(dropsite-min-distance stone <= 5)
-	(food-amount >= 800)
-	(gold-amount < 200)
-	(goal ADVANCING-TO-AGE NO)
+	(dropsite-min-distance gold <= 5)
+	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(goal RUSH-CONTROL NO)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 30)
- 	(set-strategic-number sn-wood-gatherer-percentage 35)
- 	(set-strategic-number sn-gold-gatherer-percentage 30)
- 	(set-strategic-number sn-stone-gatherer-percentage 5)
+ 	(set-strategic-number sn-food-gatherer-percentage 40)
+ 	(set-strategic-number sn-wood-gatherer-percentage 45)
+ 	(set-strategic-number sn-gold-gatherer-percentage 15)
+ 	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 ;************************************
 
@@ -608,8 +393,8 @@
 	)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 38)
- 	(set-strategic-number sn-wood-gatherer-percentage 37)
- 	(set-strategic-number sn-gold-gatherer-percentage 25)
+ 	(set-strategic-number sn-wood-gatherer-percentage 47)
+ 	(set-strategic-number sn-gold-gatherer-percentage 15)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
@@ -621,9 +406,9 @@
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
- 	(set-strategic-number sn-wood-gatherer-percentage 35)
- 	(set-strategic-number sn-gold-gatherer-percentage 25)
+ 	(set-strategic-number sn-food-gatherer-percentage 43)
+ 	(set-strategic-number sn-wood-gatherer-percentage 42)
+ 	(set-strategic-number sn-gold-gatherer-percentage 15)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
@@ -640,9 +425,9 @@
 		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
 	)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 42)
- 	(set-strategic-number sn-wood-gatherer-percentage 33)
- 	(set-strategic-number sn-gold-gatherer-percentage 25)
+ 	(set-strategic-number sn-food-gatherer-percentage 44)
+ 	(set-strategic-number sn-wood-gatherer-percentage 41)
+ 	(set-strategic-number sn-gold-gatherer-percentage 15)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
@@ -654,9 +439,9 @@
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
- 	(set-strategic-number sn-wood-gatherer-percentage 35)
- 	(set-strategic-number sn-gold-gatherer-percentage 25)
+ 	(set-strategic-number sn-food-gatherer-percentage 42)
+ 	(set-strategic-number sn-wood-gatherer-percentage 43)
+ 	(set-strategic-number sn-gold-gatherer-percentage 15)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 

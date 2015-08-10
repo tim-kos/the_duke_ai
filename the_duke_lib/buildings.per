@@ -161,7 +161,10 @@
 (defrule
 	(game-time >= 900)
 	(current-age-time > 120)
-	(housing-headroom <= 16)
+	(or
+		(housing-headroom <= 16)
+		(wood-amount > 800)
+	)
  	(can-build house)
 	(population-headroom != 0)
 	(current-age >= castle-age)
@@ -416,6 +419,8 @@
 	)
 	(resource-found gold)
 	(dropsite-min-distance gold > 4)
+	(cc-players-unit-type-count 0 GOLD-MINE > 0)
+	(dropsite-min-distance gold < 255)
  	(can-build mining-camp)
 	(building-type-count-total lumber-camp > 0)
 =>
@@ -431,6 +436,8 @@
 	)
 	(resource-found stone)
 	(dropsite-min-distance stone > 4)
+	(dropsite-min-distance stone < 255)
+	(cc-players-unit-type-count 0 STONE-MINE > 0)
  	(can-build mining-camp)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total barracks > 0)
@@ -452,16 +459,22 @@
 ;Rule21: build MINING-CAMPS THROUGH THE OTHER AGES
 
 (defrule
-	(or
-		(and
-			(resource-found gold)
-			(dropsite-min-distance gold > 4)
-		)
-		(and
-			(resource-found stone)
-			(dropsite-min-distance stone > 4)
-		)
-	)
+	(cc-players-unit-type-count 0 GOLD-MINE > 0)
+	(dropsite-min-distance gold > 4)
+	(dropsite-min-distance gold < 255)
+ 	(can-build mining-camp)
+	(building-type-count-total mining-camp < 20)
+	(building-type-count-total lumber-camp > 0)
+	(current-age >= feudal-age)
+=>
+ 	(build mining-camp)
+;	(chat-local-to-self "build MINING-CAMP")
+)
+
+(defrule
+	(cc-players-unit-type-count 0 STONE-MINE > 0)
+	(dropsite-min-distance stone > 4)
+	(dropsite-min-distance stone < 255)
  	(can-build mining-camp)
 	(building-type-count-total mining-camp < 20)
 	(building-type-count-total lumber-camp > 0)
@@ -896,7 +909,7 @@
  	(can-build farm)
  	(unit-type-count villager > 60)
  	(wood-amount > 500)
-	(idle-farm-count < 4)
+	(idle-farm-count < 10)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -2002,7 +2015,10 @@
 (defrule
  	(current-age >= castle-age)
  	(can-build siege-workshop)
-	(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
+ 	(or
+		(not (goal PRIMARY-COMBAT-SIEGE-UNIT NO))
+		(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO))
+	)
 	(nand
 		(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
 		(building-type-count-total castle > 0)
@@ -2011,31 +2027,7 @@
 		(building-type-count-total siege-workshop < 1)
 		(and
 			(building-type-count-total siege-workshop < siege-workshop-building-imperial)
-			(wood-amount > 500)
-		)
-	)
-	(wood-amount > 350)
-	(building-type-count-total town-center > 2)
-	(building-type-count-total monastery > 0)
-	(building-type-count-total university > 0)
-=>
- 	(build siege-workshop)
-;	(chat-local-to-self "build SIEGE-WORKSHOP")
-)
-
-(defrule
- 	(current-age >= castle-age)
- 	(can-build siege-workshop)
-	(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO))
-	(nand
-		(goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-		(building-type-count-total castle > 0)
-	)
-	(or
-		(building-type-count-total siege-workshop < 1)
-		(and
-			(building-type-count-total siege-workshop < siege-workshop-building-imperial)
-			(wood-amount > 500)
+			(wood-amount > 1200)
 		)
 	)
 	(wood-amount > 350)
@@ -2252,27 +2244,11 @@
 )
 
 (defrule
- 	(current-age == castle-age)
- 	(building-type-count-total town-center < town-center-building-castle)
+ 	(current-age >= castle-age)
+ 	(building-type-count-total town-center < town-center-building-imperial)
  	(can-build town-center)
  	(not (research-available ri-bow-saw))
  	(not (research-available ri-hand-cart))
-=>
- 	(build town-center)
-;	(chat-local-to-self "build TOWN-CENTER")
-)
-
-(defrule
- 	(current-age == imperial-age)
- 	(building-type-count-total town-center < town-center-building-imperial)
- 	(can-build town-center)
-	(or
-		(goal RUSH-CONTROL NO)
-		(or
-			(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
-			(wood-amount > 400)
-		)
-	)
 =>
  	(build town-center)
 ;	(chat-local-to-self "build TOWN-CENTER")
