@@ -30,7 +30,10 @@
 (load "the_duke_lib\age_advancement")
 (load "the_duke_lib\technologies")
 (load "the_duke_lib\unique_technologies")
+
+#load-if-not-defined WONDER-RACE
 (load "the_duke_lib\techs_blacksmith")
+#end-if
 
 #load-if-not-defined VICTORY-CONQUEST
 #load-if-not-defined WONDER-RACE

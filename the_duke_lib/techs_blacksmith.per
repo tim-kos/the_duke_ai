@@ -3,15 +3,19 @@
 ;UPGRADES FOR MILITARY UNITS
 
 
+(defrule
+	(true)
+=>
+	(set-goal ABLE-TO-UPGRADE-INFANTRY NO)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS NO)
+	(set-goal ABLE-TO-UPGRADE-CAVALRY NO)
+)
 
-#load-if-not-defined WONDER-RACE
 #load-if-not-defined DEATH-MATCH
 
 ;*******************************************************************
 ;*******************************************************************
 ;CAVALRY
-
-
 
 ;***********************************************
 ;***********************************************
@@ -36,7 +40,7 @@
 	(current-age == feudal-age)
 	(not (goal RUSH-CONTROL RUSHING))
 =>
-	(set-goal ABLE-TO-UPGRADE-CAVALRY YES)
+	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 )
 
 (defrule
@@ -44,7 +48,7 @@
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL RUSHING)
 =>
-	(set-goal ABLE-TO-UPGRADE-CAVALRY YES)
+	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 )
 ;***********************************************
 ;CAVALRY-UPGRADES IN CASTLE-AGE
@@ -78,7 +82,7 @@
 	(current-age == castle-age)
 	(not (goal RUSH-CONTROL RUSHING))
 =>
-	(set-goal ABLE-TO-UPGRADE-CAVALRY YES)
+	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 )
 
 (defrule
@@ -108,7 +112,7 @@
 	(goal RUSH-CONTROL RUSHING)
 	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
 =>
-	(set-goal ABLE-TO-UPGRADE-CAVALRY YES)
+	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 )
 ;***********************************************
 ;CAVALRY-UPGRADES IN IMPERIAL-AGE
@@ -156,7 +160,7 @@
 	(current-age == imperial-age)
 	(not (goal RUSH-CONTROL RUSHING))
 =>
-	(set-goal ABLE-TO-UPGRADE-CAVALRY YES)
+	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 )
 ;***********************************************
 ;CAVALRY-UPGRADES IF OUR UNIQUE-UNIT IS CAVALRY-UNIT
@@ -247,7 +251,7 @@
 	)
 	(current-age == imperial-age)
 =>
-	(set-goal ABLE-TO-UPGRADE-CAVALRY YES)
+	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 )
 ;*******************************************************************
 ;INFANTRY
@@ -285,7 +289,7 @@
 	)
 	(not (goal RUSH-CONTROL RUSHING))
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
 
 (defrule
@@ -297,7 +301,7 @@
 	(unit-type-count-total militiaman-line >= THREE-PERCENT-POP)
 	(not (goal RUSH-CONTROL RUSHING))
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
 
 (defrule
@@ -308,7 +312,7 @@
 	)
 	(goal RUSH-CONTROL RUSHING)
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
 ;***********************************
 ;INFANTRY-UPGRADES IN CASTLE-AGE
@@ -423,7 +427,7 @@
 		(unit-type-count-total spearman-line >= THREE-PERCENT-POP)
 	)
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
 ;***********************************
 ;INFANTRY-UPGRADES IF OUR UNIQUE-UNIT IS INFANTRY-UNIT
@@ -515,7 +519,7 @@
 	)
 	(current-age == imperial-age)
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
 
 (defrule
@@ -585,7 +589,7 @@
 	)
 	(current-age == imperial-age)
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
 ;*******************************************************************
 ;ARCHERS
@@ -595,14 +599,6 @@
 ;***********************************************
 ;***********************************************
 ;ARCHER-UPGRADES IN FEUDAL-AGE
-
-;Rule52: MAKE SURE THAT WE AREN't going to upgrade archers, because of not having a foot ranged primary or secondary unit
-
-(defrule					;If
-	(true)
-=>					;then
-	(set-goal ABLE-TO-UPGRADE-ARCHERS NO)
-)
 
 (defrule					;If
 	(or
@@ -616,7 +612,7 @@
 	(current-age == feudal-age)
 	(not (goal RUSH-CONTROL RUSHING))
 =>					;then
-	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
 
 (defrule					;If
@@ -631,7 +627,7 @@
 	(current-age == feudal-age)
 	(not (goal RUSH-CONTROL RUSHING))
 =>					;then
-	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
 
 (defrule
@@ -642,7 +638,7 @@
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL RUSHING)
 =>
-	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
 ;***********************************************
 ;ARCHER-UPGRADES IN CASTLE-AGE
@@ -711,10 +707,6 @@
 ;***********************************************
 ;ARCHER-UPGRADES IN IMPERIAL-AGE
 
-
-
-;Rule56: make sure if it is possible we can upgrade our archers (is our primary or secondary unit foot ranged unit)
-
 (defrule
 	(or
 		(or
@@ -751,14 +743,10 @@
 	)
 	(current-age == imperial-age)
 =>
-	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
 ;***********************************************
 ;ARCHER-UPGRADES IF OUR UNIQUE-UNIT IS ARCHER-UNIT
-
-
-
-;Rule61 thru 65: do archer upgrades if our unique unit is ranged unit and we're going to train it
 
 (defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS NO)
@@ -842,7 +830,7 @@
 	)
 	(current-age == imperial-age)
 =>
-	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
 
 (defrule
@@ -912,25 +900,15 @@
 	)
 	(current-age == imperial-age)
 =>
-	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
+
 #else		;if not game-type == death-match
 ;***********************************************
-
-
 
 ;***********************************
 ;***********************************
 ;INFANTRY-UPGRADES
-
-
-;Rule43: start the lopp of upgrading our infantry
-
-(defrule
-	(true)
-=>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY NO)
-)
 
 (defrule
 	(or
@@ -941,14 +919,8 @@
 		(unit-type-count-total eagle-warrior-line > 0)
 	)
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
-;***********************************
-;INFANTRY-UPGRADES IF OUR UNIQUE-UNIT IS INFANTRY-UNIT
-
-
-
-;Rule48: upgrade our infantry if we need upgrades
 
 (defrule
 	(or
@@ -971,20 +943,12 @@
 		)
 	)
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
+
+
 ;*******************************************************************
 ;ARCHER-UPGRADES
-
-
-
-;Rule52: MAKE SURE THAT WE AREN't going to upgrade archers, because of not having a foot ranged primary or secondary unit
-
-(defrule					;If
-	(true)
-=>					;then
-	(set-goal ABLE-TO-UPGRADE-ARCHERS NO)
-)
 
 (defrule
 	(or
@@ -995,14 +959,8 @@
 		(unit-type-count-total cavalry-archer-line > 0)
 	)
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
-;***********************************************
-;ARCHER-UPGRADES IF OUR UNIQUE-UNIT IS ARCHER-UNIT
-
-
-
-;Rule48: upgrade our archers if we need upgrades
 
 (defrule
 	(or
@@ -1025,20 +983,11 @@
 		)
 	)
 =>
-	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
+
 ;*******************************************************************
 ;CAVALRY-UPGRADES
-
-
-
-;Rule66: define when can we upgrade our CAVALRY in feudal-age
-
-(defrule
-	(true)
-=>
-	(set-goal ABLE-TO-UPGRADE-CAVALRY NO)
-)
 
 (defrule
 	(or
@@ -1049,14 +998,8 @@
 		(unit-type-count-total camel-line > 0)
 	)
 =>
-	(set-goal ABLE-TO-UPGRADE-CAVALRY YES)
+	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 )
-;***********************************************
-;CAVALRY-UPGRADES IF OUR UNIQUE-UNIT IS CAVALRY-UNIT
-
-
-
-;Rule48: upgrade our cavalry if we need upgrades
 
 (defrule
 	(or
@@ -1070,7 +1013,7 @@
 		)
 	)
 =>
-	(set-goal ABLE-TO-UPGRADE-ARCHERS YES)
+	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
 ;***********************************************
 #end-if		;if game type == death-match
@@ -1082,32 +1025,25 @@
 ;TECHNOLOGIES IN BLACKSMITH (MILITARY-UNITS-UPGRADES)
 
 
-
-#load-if-not-defined DEATH-MATCH
-;***********************************************
-;***********************************************
-
-
-
 ;*******************************************************************
 ;*******************************************************************
 ;FEUDAL-AGE
 
 
-
-;Rule152b: research FLETCHING- MODERATE, HARD, HARDEST when we don't do the flush
+;FLETCHING
 ;100 FOOD, 50 GOLD
+
 (defrule
  	(can-research-with-escrow ri-fletching)
 	(or
 		(building-type-count castle > 0)
 		(unit-type-count-total galley-line >= THREE-PERCENT-POP)
 	)
-=>					;then
+=>
 	(research ri-fletching)
 ; (chat-local-to-self "research FLETCHING")
 )
-;100 FOOD, 50 GOLD
+
 (defrule
  	(can-research-with-escrow ri-fletching)
 	(or
@@ -1117,19 +1053,17 @@
 		)
 		(goal ABLE-TO-UPGRADE-ARCHERS YES)
 	)
-=>					;then
+=>
 	(research ri-fletching)
 ; (chat-local-to-self "research FLETCHING")
 )
+
 ;***********************************************
 ;FORGING
+;150 FOOD
 
 
-
-;Rule155: research FORGING- MODERATE, HARD, HARDEST part 1 (middle or high infantry)
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= feudal-age)
  	(can-research-with-escrow ri-forging)
 	(or
 		(or
@@ -1142,10 +1076,8 @@
  	(research ri-forging)
 ; (chat-local-to-self "research FORGING")
 )
-;150 FOOD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= feudal-age)
  	(can-research-with-escrow ri-forging)
 	(or
 		(or
@@ -1158,7 +1090,7 @@
  	(research ri-forging)
 ; (chat-local-to-self "research FORGING")
 )
-;150 FOOD
+
 (defrule
  	(can-research-with-escrow ri-forging)
 	(or
@@ -1181,8 +1113,10 @@
  	(research ri-forging)
 ; (chat-local-to-self "research FORGING")
 )
+
 ;***********************************************
 ;SCALE-MAIL
+;100 FOOD
 
 (defrule
  	(can-research-with-escrow ri-scale-mail)
@@ -1199,7 +1133,6 @@
 ; (chat-local-to-self "research SCALE-MAIL")
 )
 
-;100 FOOD
 (defrule
  	(can-research-with-escrow ri-scale-mail)
 	(or
@@ -1219,12 +1152,11 @@
  	(research ri-scale-mail)
 ; (chat-local-to-self "research SCALE-MAIL")
 )
+
 ;***********************************************
 ;SCALE-BARDING
+;150 FOOD
 
-
-
-;SCALE-BARDING
 (defrule
  	(can-research-with-escrow ri-scale-barding)
 	(or
@@ -1239,7 +1171,7 @@
  	(research ri-scale-barding)
 ; (chat-local-to-self "research SCALE-BARDING")
 )
-;150 FOOD
+
 (defrule
  	(can-research-with-escrow ri-scale-barding)
 	(or
@@ -1256,20 +1188,15 @@
 		(current-age == castle-age)
 	)
 	(unit-type-count-total knight-line > 2)
-=>					;then
+=>
  	(research ri-scale-barding)
 ; (chat-local-to-self "research SCALE-BARDING")
 )
 ;***********************************************
 ;PADDED-ARCHER-ARMOR
-
-
-
-;Rule165: research PADDED-ARCHER-ARMOR- MODERATE, HARD, HARDEST
 ;100 FOOD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= feudal-age)
  	(can-research-with-escrow ri-padded-archer-armor)
 	(or
 		(or
@@ -1290,13 +1217,9 @@
 ;***********************************************
 ;***********************************************
 ;IRON-CASTING
+;220 FOOD, 120 GOLD
 
-
-
-;Rule168: research IRON-CASTING- MODERATE, HARD, HARDEST part 1 (high infantry)
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= castle-age)
  	(can-research-with-escrow ri-iron-casting)
 	(or
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
@@ -1306,10 +1229,8 @@
  	(research ri-iron-casting)
 ; (chat-local-to-self "research IRON-CASTING")
 )
-;220 FOOD, 120 GOLD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= castle-age)
  	(can-research-with-escrow ri-iron-casting)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
@@ -1319,6 +1240,7 @@
  	(research ri-iron-casting)
 ; (chat-local-to-self "research IRON-CASTING")
 )
+
 ;150 FOOD
 (defrule
  	(can-research-with-escrow ri-iron-casting)
@@ -1341,16 +1263,12 @@
  	(research ri-iron-casting)
 ; (chat-local-to-self "research IRON-CASTING")
 )
+
 ;***********************************************
 ;BODKIN-ARROW
-
-
-
-;Rule172: research BODKIN-ARROW- MODERATE, HARD, HARDEST; part 1
 ;220 FOOD, 120 GOLD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= castle-age)
  	(can-research-with-escrow ri-bodkin-arrow)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
@@ -1360,10 +1278,8 @@
  	(research ri-bodkin-arrow)
 ; (chat-local-to-self "research BODKIN-ARROW")
 )
-;220 FOOD, 120 GOLD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= castle-age)
  	(can-research-with-escrow ri-bodkin-arrow)
 	(or
 		(building-type-count castle >= 2)
@@ -1373,15 +1289,11 @@
  	(research ri-bodkin-arrow)
 ; (chat-local-to-self "research BOKIN-ARROW")
 )
+
 ;***********************************************
 ;CHAIN-BARDING
 
-
-
-;Rule175: research CHAIN-BARDING- MODERATE, HARD, HARDEST (high cavalry)
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= castle-age)
  	(can-research-with-escrow ri-chain-barding)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
@@ -1391,16 +1303,12 @@
 	(research ri-chain-barding)
 ; (chat-local-to-self "research CHAIN-BARDING")
 )
+
 ;***********************************************
 ;LEATHER-ARCHER-ARMOR
-
-
-
-;Rule178: research LEATHER-ARCHER-ARMOR- MODERATE, HARD, HARDEST
 ;150 FOOD, 150 GOLD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= castle-age)
  	(can-research-with-escrow ri-leather-archer-armor)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
@@ -1410,15 +1318,12 @@
  	(research ri-leather-archer-armor)
 ; (chat-local-to-self "research LEATHER-ARCHER-ARMOR")
 )
+
 ;***********************************************
 ;CHAIN-MAIL
+;200 FOOD, 100 GOLD
 
-
-
-;Rule181: research CHAIN-MAIL- MODERATE, HARD, HARDEST (middle infantry)
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= castle-age)
  	(can-research-with-escrow ri-chain-mail)
 	(or
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
@@ -1428,13 +1333,13 @@
  	(research ri-chain-mail)
 ; (chat-local-to-self "research CHAIN-MAIL")
 )
-;200 FOOD, 100 GOLD
+
 (defrule
  	(can-research-with-escrow ri-chain-mail)
 	(goal RUSH-CONTROL RUSHING)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(unit-type-count-total eagle-warrior-line > 3)
-=>					;then
+=>
  	(research ri-chain-mail)
 ; (chat-local-to-self "research CHAIN-MAIL")
 )
@@ -1446,14 +1351,9 @@
 ;***********************************************
 ;***********************************************
 ;BLAST-FURNACE
-
-
-
-;Rule183: research BLAST-FURNACE- MODERATE, HARD, HARDEST
 ;275 FOOD, 225 GOLD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= imperial-age)
  	(can-research-with-escrow ri-blast-furnace)
 	(or
 		(goal ABLE-TO-UPGRADE-INFANTRY YES)
@@ -1463,7 +1363,7 @@
  	(research ri-blast-furnace)
 ; (chat-local-to-self "research BLAST-FURNACE")
 )
-;275 FOOD, 225 GOLD
+
 (defrule
  	(can-research-with-escrow ri-blast-furnace)
 	(or
@@ -1481,52 +1381,40 @@
 		(unit-type-count-total knight-line > 8)
 		(unit-type-count-total eagle-warrior-line > 8)
 	)
-=>					;then
+=>
  	(research ri-blast-furnace)
 ; (chat-local-to-self "research BLAST-FURNACE")
 )
+
 ;***********************************************
 ;PLATE-MAIL
-
-
-
-;Rule186: research PLATE-MAIL- MODERATE, HARD, HARDEST
 ;300 FOOD, 150 GOLD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= imperial-age)
  	(can-research-with-escrow ri-plate-mail)
 	(goal ABLE-TO-UPGRADE-INFANTRY YES)
 =>
  	(research ri-plate-mail)
 ; (chat-local-to-self "research PLATE-MAIL")
 )
+
 ;***********************************************
 ;PLATE-BARDING
-
-
-
-;Rule188: research PLATE-BARDING- MODERATE, HARD, HARDEST
 ;350 FOOD, 200 GOLD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= imperial-age)
  	(can-research-with-escrow ri-plate-barding)
 	(goal ABLE-TO-UPGRADE-CAVALRY YES)
 =>
  	(research ri-plate-barding)
 ; (chat-local-to-self "research PLATE-BARDING")
 )
+
 ;***********************************************
 ;BRACER
-
-
-
-;Rule190: research BRACER- MODERATE, HARD, HARDEST
 ;300 FOOD, 200 GOLD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= imperial-age)
  	(can-research-with-escrow ri-bracer)
 	(or
 		(or
@@ -1539,268 +1427,15 @@
  	(research ri-bracer)
 ; (chat-local-to-self "research BRACER")
 )
+
 ;***********************************************
 ;RING-ARCHER-ARMOR
-
-
-
-;Rule192: research RING-ARCHER-ARMOR- MODERATE, HARD, HARDEST
 ;250 FOOD, 250 GOLD
+
 (defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= imperial-age)
  	(can-research-with-escrow ri-ring-archer-armor)
 	(goal ABLE-TO-UPGRADE-ARCHERS YES)
 =>
 	(research ri-ring-archer-armor)
 ; (chat-local-to-self "research RING-ARCHER-ARMOR")
 )
-;***********************************************
-#else		;if not game-type == death-match
-;***********************************************
-;***********************************************
-
-;*******************************************************************
-;*******************************************************************
-;FEUDAL-AGE
-
-
-
-;Rule152b: research FLETCHING in death-match-games
-;100 FOOD, 50 GOLD
-(defrule
- 	(can-research-with-escrow ri-fletching)
-=>					;then
-	(research ri-fletching)
-; (chat-local-to-self "research FLETCHING")
-)
-;150 FOOD
-(defrule
- 	(can-research-with-escrow ri-forging)
-	(or
-		(or
-			(unit-type-count-total militiaman-line > 0)
-			(unit-type-count-total spearman-line > 0)
-		)
-		(unit-type-count-total eagle-warrior-line > 0)
-	)
-=>					;then
- 	(research ri-forging)
-; (chat-local-to-self "research FORGING")
-)
-;150 FOOD
-(defrule
- 	(can-research-with-escrow ri-forging)
-	(or
-		(or
-			(unit-type-count-total knight-line > 0)
-			(unit-type-count-total scout-cavalry-line > 0)
-		)
-		(unit-type-count-total camel-line > 0)
-	)
-=>					;then
- 	(research ri-forging)
-; (chat-local-to-self "research FORGING")
-)
-;100 FOOD
-(defrule
- 	(can-research-with-escrow ri-scale-mail)
-	(or
-		(or
-			(unit-type-count-total militiaman-line > 0)
-			(unit-type-count-total spearman-line > 0)
-		)
-		(unit-type-count-total eagle-warrior-line > 0)
-	)
-=>					;then
-	(research ri-scale-mail)
-; (chat-local-to-self "research SCALE-MAIL")
-)
-;150 FOOD
-(defrule
- 	(can-research-with-escrow ri-scale-barding)
-	(or
-		(or
-			(unit-type-count-total knight-line > 0)
-			(unit-type-count-total scout-cavalry-line > 0)
-		)
-		(unit-type-count-total camel-line > 0)
-	)
-=>
- 	(research ri-scale-barding)
-; (chat-local-to-self "research SCALE-BARDING")
-)
-;100 FOOD
-(defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= feudal-age)
- 	(can-research-with-escrow ri-padded-archer-armor)
-	(or
-		(or
-			(unit-type-count-total archer-line > 0)
-			(unit-type-count-total skirmisher-line > 0)
-		)
-		(unit-type-count-total cavalry-archer-line > 0)
-	)
-=>
-	(research ri-padded-archer-armor)
-; (chat-local-to-self "research PADDED-ARCHER-ARMOR")
-)
-;*******************************************************************
-;CASTLE-AGE
-
-
-
-;Rule168: research IRON-CASTING in death-match-games (infantry)
-(defrule
- 	(can-research-with-escrow ri-iron-casting)
-	(or
-		(or
-			(unit-type-count-total militiaman-line > 0)
-			(unit-type-count-total spearman-line > 0)
-		)
-		(unit-type-count-total eagle-warrior-line > 0)
-	)
-=>
- 	(research ri-iron-casting)
-; (chat-local-to-self "research IRON-CASTING")
-)
-;220 FOOD, 120 GOLD
-(defrule
- 	(can-research-with-escrow ri-iron-casting)
-	(or
-		(or
-			(unit-type-count-total knight-line > 0)
-			(unit-type-count-total scout-cavalry-line > 0)
-		)
-		(unit-type-count-total camel-line > 0)
-	)
-=>
- 	(research ri-iron-casting)
-; (chat-local-to-self "research IRON-CASTING")
-)
-;220 FOOD, 120 GOLD
-(defrule
- 	(can-research-with-escrow ri-bodkin-arrow)
-=>
- 	(research ri-bodkin-arrow)
-; (chat-local-to-self "research BODKIN-ARROW")
-)
-;250 FOOD, 150 GOLD
-(defrule
- 	(can-research-with-escrow ri-chain-barding)
-	(or
-		(or
-			(unit-type-count-total knight-line > 0)
-			(unit-type-count-total scout-cavalry-line > 0)
-		)
-		(unit-type-count-total camel-line > 0)
-	)
-=>
-	(research ri-chain-barding)
-; (chat-local-to-self "research CHAIN-BARDING")
-)
-;150 FOOD, 150 GOLD
-(defrule
- 	(can-research-with-escrow ri-leather-archer-armor)
-	(or
-		(or
-			(unit-type-count-total archer-line > 0)
-			(unit-type-count-total skirmisher-line > 0)
-		)
-		(unit-type-count-total cavalry-archer-line > 0)
-	)
-=>
- 	(research ri-leather-archer-armor)
-; (chat-local-to-self "research LEATHER-ARCHER-ARMOR")
-)
-;200 FOOD, 100 GOLD
-(defrule
- 	(can-research-with-escrow ri-chain-mail)
-	(or
-		(or
-			(unit-type-count-total militiaman-line > 0)
-			(unit-type-count-total spearman-line > 0)
-		)
-		(unit-type-count-total eagle-warrior-line > 0)
-	)
-=>
- 	(research ri-chain-mail)
-; (chat-local-to-self "research CHAIN-MAIL")
-)
-;*******************************************************************
-;IMPERIAL-AGE
-
-
-
-;Rule183: research BLAST-FURNACE in death-match-games (infantry)
-(defrule
- 	(can-research-with-escrow ri-blast-furnace)
-	(or
-		(or
-			(unit-type-count-total militiaman-line > 0)
-			(unit-type-count-total spearman-line > 0)
-		)
-		(unit-type-count-total eagle-warrior-line > 0)
-	)
-=>
- 	(research ri-blast-furnace)
-; (chat-local-to-self "research BLAST-FURNACE")
-)
-;300 FOOD, 150 GOLD
-(defrule
- 	(can-research-with-escrow ri-plate-mail)
-	(or
-		(or
-			(unit-type-count-total militiaman-line > 0)
-			(unit-type-count-total spearman-line > 0)
-		)
-		(unit-type-count-total eagle-warrior-line > 0)
-	)
-=>
- 	(research ri-plate-mail)
-; (chat-local-to-self "research PLATE-MAIL")
-)
-;350 FOOD, 200 GOLD
-(defrule
- 	(can-research-with-escrow ri-plate-barding)
-	(or
-		(or
-			(unit-type-count-total knight-line > 0)
-			(unit-type-count-total scout-cavalry-line > 0)
-		)
-		(unit-type-count-total camel-line > 0)
-	)
-=>
- 	(research ri-plate-barding)
-; (chat-local-to-self "research PLATE-BARDING")
-)
-;300 FOOD, 200 GOLD
-(defrule
-	(building-type-count-total blacksmith >= 1)
- 	(current-age >= imperial-age)
- 	(can-research-with-escrow ri-bracer)
-=>
- 	(research ri-bracer)
-; (chat-local-to-self "research BRACER")
-)
-;250 FOOD, 250 GOLD
-(defrule
- 	(can-research-with-escrow ri-ring-archer-armor)
-	(or
-		(or
-			(unit-type-count-total archer-line > 0)
-			(unit-type-count-total skirmisher-line > 0)
-		)
-		(unit-type-count-total cavalry-archer-line > 0)
-	)
-=>
-	(research ri-ring-archer-armor)
-; (chat-local-to-self "research RING-ARCHER-ARMOR")
-)
-;***********************************************
-#end-if		;if game-type == death-match
-
-;***********************************************
-;***********************************************
-#end-if		;if game-type == wonder-race
