@@ -3555,9 +3555,9 @@
 (defrule
 	(current-age >= castle-age)
 	(game-time > 1500)
-	(current-age-time > 180)
+	(current-age-time > 120)
 	(not (goal RUSH-CONTROL RUSHING))
-	(military-population >= 10)
+	(military-population >= 15)
 =>
 	(enable-timer T-SAVE-FOR-RESEARCH 1)
 	(disable-self)
@@ -3566,7 +3566,7 @@
 (defrule
 	(or
 		(or
-			(military-population < 10)
+			(military-population < 15)
 			(goal MILITARY-PARITY VASTLY-INFERIOR) ;regardless of technology, if we have too few units compared to the enemy, we would lose a battle anyway
 		)
 		(town-under-attack)
@@ -3591,8 +3591,8 @@
 	(game-time <= 3600) ;disable new timers after 3600s to avoid chat spam from the rule above
 =>
 	(set-goal SAVE-FOR-RESEARCH YES)
-	(enable-timer T-SAVE-FOR-RESEARCH 60) ;save resources for 1 minute
-	(chat-local-to-self "Save resources for research for 1min")
+	(enable-timer T-SAVE-FOR-RESEARCH 90) ;save resources for 1.5 minutes
+	(chat-local-to-self "Save resources for research for 1.5min")
 )
 
 (defrule

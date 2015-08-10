@@ -1083,7 +1083,14 @@
  	(building-type-count-total market < 1)
  	(can-build market)
 	(current-age >= castle-age)
-	(building-type-count-total town-center > 2)
+	(building-type-count-total town-center > 1)
+	(or
+		(building-type-count-total town-center > 2)
+		(or
+			(wood-amount > 600)
+			(stone-amount < 100)
+		)
+	)
 	(wood-amount > 300)
 =>				 ;then
  	(build market)
@@ -1512,7 +1519,7 @@
 		(and
 			(building-type-count-total stable < stable-building-castle)
 			(and
-				(wood-amount > 400)
+				(wood-amount > 600)
 				(not (research-available ri-hand-cart))
 			)
 		)
@@ -1531,7 +1538,7 @@
 		(and
 			(building-type-count-total stable < stable-building-imperial)
 			(and
-				(wood-amount > 400)
+				(wood-amount > 600)
 				(not (research-available ri-hand-cart))
 			)
 		)
@@ -1620,7 +1627,7 @@
 	(goal RUSH-CONTROL RUSHING)
 	(building-type-count-total stable < 2)
 	(can-build stable)
-	(wood-amount > 250)
+	(wood-amount > 300)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
@@ -1652,7 +1659,7 @@
  	(current-age >= castle-age)
 	(building-type-count-total stable < stable-building-imperial)
 	(or
-		(wood-amount > 450)
+		(wood-amount > 600)
 		(building-type-count-total town-center > 1)
 	)
 	(not (research-available ri-hand-cart))
