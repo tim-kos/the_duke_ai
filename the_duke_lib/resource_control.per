@@ -581,7 +581,7 @@
 	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(goal RUSH-ATTACK-STARTED NO)
 =>
  	(set-strategic-number sn-food-gatherer-percentage 48)
  	(set-strategic-number sn-wood-gatherer-percentage 36)
@@ -594,7 +594,7 @@
 	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(goal RUSH-ATTACK-STARTED NO)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 35)
  	(set-strategic-number sn-wood-gatherer-percentage 20)
@@ -611,7 +611,7 @@
 	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance stone > 5)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(goal RUSH-ATTACK-STARTED YES)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 40)
@@ -625,7 +625,7 @@
 	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance stone <= 5)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(goal RUSH-ATTACK-STARTED YES)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 40)
@@ -641,7 +641,7 @@
 	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance stone > 5)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(goal RUSH-ATTACK-STARTED YES)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 35)
@@ -655,7 +655,7 @@
 	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance stone <= 5)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(goal RUSH-ATTACK-STARTED YES)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 35)

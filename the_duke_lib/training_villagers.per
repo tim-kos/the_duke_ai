@@ -1119,7 +1119,7 @@
 (defrule
 	(current-age == castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(goal RUSH-ATTACK-STARTED NO)
 	(research-available ri-long-swordsman)
 	(goal TRAIN-VILLAGERS YES)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
@@ -1132,7 +1132,7 @@
 (defrule
 	(current-age == castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(goal RUSH-ATTACK-STARTED NO)
 	(food-amount > 250)
 	(goal TRAIN-VILLAGERS NO)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
@@ -1143,7 +1143,7 @@
 (defrule
 	(current-age == castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(goal RUSH-ATTACK-STARTED NO)
 	(research-available ri-pikeman)
 	(goal TRAIN-VILLAGERS YES)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
@@ -1156,7 +1156,7 @@
 (defrule
 	(current-age == castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(goal RUSH-ATTACK-STARTED NO)
 	(or
 		(or
 			(research-available ri-iron-casting)

@@ -1127,7 +1127,7 @@
 	(goal RUSH-CONTROL RUSHING)
 	(building-type-count-total stable == 0)
 	(building-type-count-total archery-range == 0)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(goal RUSH-ATTACK-STARTED YES)
 	(current-age-time > 300)
 =>				 ;then
  	(build market)
@@ -1911,7 +1911,7 @@
 				(wood-amount > 500)
 				(building-type-count-total archery-range < 2)
 			)
-			(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+			(goal RUSH-ATTACK-STARTED YES)
 		)
 		(building-type-count-total archery-range < 1)
 	)

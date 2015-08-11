@@ -457,7 +457,7 @@
 	(military-population >= 4)
 	(players-building-count any-enemy > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH NO)
+	(goal RUSH-ATTACK-STARTED NO)
 	(not (goal MILITARY-PARITY INFERIOR))
 =>
 	(enable-timer T-ATTACK 180)
@@ -467,7 +467,7 @@
 	(set-strategic-number sn-maximum-town-size 230)
 	(chat-local-to-self "FLUSH")
 	(chat-to-player every-ally "39 I do the Flush now!")
-	(set-goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(set-goal RUSH-ATTACK-STARTED YES)
 )
 
 
@@ -505,7 +505,7 @@
 	(set-strategic-number sn-enemy-sighted-response-distance 144)
 	(set-strategic-number sn-maximum-town-size 230)
 	(chat-to-player every-ally "39 I rush the enemy now! Please protect my town, I have no units in there!")
-	(set-goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(set-goal RUSH-ATTACK-STARTED YES)
 	(disable-self)
 )
 
@@ -523,7 +523,7 @@
 	(set-strategic-number sn-enemy-sighted-response-distance 144)
 	(set-strategic-number sn-maximum-town-size 230)
 	(chat-to-player every-ally "39 I rush the enemy now! Please protect my town, I have no units in there!")
-	(set-goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(set-goal RUSH-ATTACK-STARTED YES)
 	(disable-self)
 )
 
@@ -536,10 +536,7 @@
 	(players-building-count any-enemy > 0)
 	(timer-triggered T-ATTACK)
 	(goal ATTACK-PERSONALITY ATTACKER)
-	(or
-		(goal MILITARY-PARITY SUPERIOR)
-		(goal MILITARY-PARITY VASTLY-SUPERIOR)
-	)
+	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
 =>
 	(disable-timer T-ATTACK)
 	(enable-timer T-ATTACK 180)
@@ -567,7 +564,7 @@
 	(can-build watch-tower)
 	(building-type-count-total watch-tower < 3)
 	(goal ATTACK-PERSONALITY ATTACKER)
-	(goal ABLE-TO-RESEARCH-WHEN-RUSH YES)
+	(goal RUSH-ATTACK-STARTED YES)
 	(current-age == feudal-age)
 =>
 	(build-forward watch-tower)
