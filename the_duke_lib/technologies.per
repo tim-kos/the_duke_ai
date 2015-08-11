@@ -253,6 +253,21 @@
 ; (chat-local-to-self "research GOLD-MINING")
 )
 
+;GOLD-MINING 75 WOOD, 100 FOOD
+(defrule
+ 	(can-research-with-escrow ri-gold-mining)
+	(strategic-number sn-gold-gatherer-percentage > 0)
+	(current-age == feudal-age)
+	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal RUSH-CONTROL CASTLE)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+ 	(research ri-gold-mining)
+; (chat-local-to-self "research GOLD-MINING")
+)
+
 ;GOLD-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
  	(can-research-with-escrow ri-gold-shaft-mining)

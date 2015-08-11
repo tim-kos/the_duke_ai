@@ -3371,12 +3371,8 @@
 (defrule
 	(goal RUSH-CONTROL RUSHING)
 	(current-age == castle-age)
-	(or
-		(research-available ri-hand-cart)
-		(building-type-count-total town-center < 2)
-	)
-	(food-amount > 450) ;leave food for hand-cart
-	(wood-amount > 400) ;leave wood for hand-cart and town-center
+	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(food-amount > 100) ;leave food for villagers
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
@@ -3391,6 +3387,16 @@
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
+
+;for eagle warrior rush, do not save for hand-cart or second TC
+(defrule
+	(goal RUSH-CONTROL RUSHING)
+	(current-age == castle-age)
+	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS YES)
+)
+
 
 (defrule
 	(goal RUSH-CONTROL NO)

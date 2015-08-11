@@ -1230,6 +1230,10 @@
 (defrule
  	(current-age >= feudal-age)
 	(building-type-count-total market < 1)
+	(or
+		(building-type-count-total blacksmith > 0)
+		(not (research-available ri-wheel-barrow))
+	)
  	(can-build market)
 	(or
 		(civ-selected aztec)
@@ -1507,6 +1511,7 @@
 		(building-type-count-total archery-range > 0)
 		(building-type-count-total market > 0)
 	)
+	(building-type-count-total blacksmith >= 1)
 	(or
 		(goal RUSH-CONTROL CASTLE)
 		(goal RUSH-CONTROL RUSHING)
