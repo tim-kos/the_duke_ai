@@ -81,15 +81,15 @@
 )
 
 (defrule
-	(game-time > 2400)
+	(game-time > 1800)
 =>
 	(set-strategic-number sn-minimum-town-size 10)
-	(set-strategic-number sn-maximum-town-size 24)
+	(set-strategic-number sn-maximum-town-size 26)
 	(disable-self)
 )
 
 (defrule
-	(game-time > 3000)
+	(game-time > 2400)
 =>
 	(set-strategic-number sn-minimum-town-size 10)
 	(set-strategic-number sn-maximum-town-size 32)
@@ -97,10 +97,18 @@
 )
 
 (defrule
+	(game-time > 3000)
+=>
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 38)
+	(disable-self)
+)
+
+(defrule
 	(game-time > 3600)
 =>
 	(set-strategic-number sn-minimum-town-size 10)
-	(set-strategic-number sn-maximum-town-size 36)
+	(set-strategic-number sn-maximum-town-size 44)
 	(disable-self)
 )
 
@@ -108,7 +116,7 @@
 	(game-time > 4500)
 =>
 	(set-strategic-number sn-minimum-town-size 10)
-	(set-strategic-number sn-maximum-town-size 45)
+	(set-strategic-number sn-maximum-town-size 60)
 	(disable-self)
 )
 
@@ -133,6 +141,7 @@
 	)
  	(can-build house)
 	(population-headroom != 0)
+	(up-pending-objects c: house < 1)
 =>
 	(build house)
 ;	(chat-local-to-self "build HOUSE")
@@ -153,6 +162,7 @@
 		(goal RUSH-CONTROL CASTLE)
 		(goal RUSH-CONTROL RUSHING)
 	)
+	(up-pending-objects c: house < 2)
 =>
 	(build house)
 ;	(chat-local-to-self "build HOUSE")
@@ -160,14 +170,25 @@
 
 (defrule
 	(game-time >= 900)
-	(current-age-time > 120)
-	(or
-		(housing-headroom <= 16)
-		(wood-amount > 800)
-	)
+	(housing-headroom <= 8)
  	(can-build house)
 	(population-headroom != 0)
 	(current-age >= castle-age)
+	(up-pending-objects c: house < 3)
+	(wood-amount > 150)
+=>
+	(build house)
+;	(chat-local-to-self "build HOUSE")
+)
+
+(defrule
+	(game-time >= 900)
+	(housing-headroom <= 16)
+	(wood-amount > 600)
+ 	(can-build house)
+	(population-headroom != 0)
+	(current-age >= castle-age)
+	(up-pending-objects c: house < 5)
 =>
 	(build house)
 ;	(chat-local-to-self "build HOUSE")
@@ -725,30 +746,12 @@
 (defrule
  	(current-age == dark-age)
  	(can-build farm)
-	(building-type-count-total farm < 9)
-	(or
-		(and
-			(unit-type-count SHEEP < 2)
-			(unit-type-count TURKEY < 2)
-		)
-		(current-age-time > 360)
-	)
-	(game-time > 300)
-	(building-type-count-total lumber-camp > 0)
-	(idle-farm-count < 1)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(current-age == dark-age)
- 	(can-build farm)
 	(building-type-count-total farm < 14)
 	(sheep-and-forage-too-far)
 	(game-time > 300)
 	(building-type-count-total lumber-camp > 0)
 	(idle-farm-count < 2)
+	(up-pending-objects c: farm < 3)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -771,6 +774,10 @@
 		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	)
 	(idle-farm-count < 2)
+	(or
+		(up-pending-objects c: farm < 3)
+		(wood-amount > 500)
+	)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -796,6 +803,10 @@
 	(building-type-count-total lumber-camp > 0)
 	(idle-farm-count < 1)
 	(wood-amount > 150)
+	(or
+		(up-pending-objects c: farm < 3)
+		(wood-amount > 500)
+	)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -815,6 +826,10 @@
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(idle-farm-count < 2)
 	(building-type-count-total lumber-camp > 0)
+	(or
+		(up-pending-objects c: farm < 3)
+		(wood-amount > 500)
+	)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -835,6 +850,10 @@
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(idle-farm-count < 2)
 	(building-type-count-total lumber-camp > 0)
+	(or
+		(up-pending-objects c: farm < 3)
+		(wood-amount > 500)
+	)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -851,6 +870,10 @@
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(idle-farm-count == 0)
 	(building-type-count-total lumber-camp > 0)
+	(or
+		(up-pending-objects c: farm < 3)
+		(wood-amount > 500)
+	)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -868,6 +891,10 @@
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(idle-farm-count == 0)
 	(building-type-count-total lumber-camp > 0)
+	(or
+		(up-pending-objects c: farm < 3)
+		(wood-amount > 500)
+	)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -880,6 +907,10 @@
 	(building-type-count-total farm < 15)
 	(building-type-count-total lumber-camp > 0)
 	(idle-farm-count == 0)
+	(or
+		(up-pending-objects c: farm < 3)
+		(wood-amount > 500)
+	)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -900,6 +931,10 @@
 	(not (research-available ri-hand-cart))
 	(building-type-count-total lumber-camp > 0)
 	(idle-farm-count < 2)
+	(or
+		(up-pending-objects c: farm < 3)
+		(wood-amount > 400)
+	)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -910,6 +945,18 @@
  	(unit-type-count villager > 60)
  	(wood-amount > 500)
 	(idle-farm-count < 10)
+	(up-pending-objects c: farm < 7)
+=>
+ 	(build farm)
+;	(chat-local-to-self "build FARM")
+)
+
+(defrule
+ 	(can-build farm)
+ 	(unit-type-count villager > 180)
+ 	(wood-amount > 500)
+	(idle-farm-count < 20)
+	(up-pending-objects c: farm < 15)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -1640,7 +1687,7 @@
 				(not (research-available ri-horse-collar))
 			)
 		)
-		(wood-amount > 500)
+		(wood-amount > 300)
 	)
 =>
  	(build stable)
@@ -1661,7 +1708,7 @@
 				(not (research-available ri-horse-collar))
 			)
 		)
-		(wood-amount > 500)
+		(wood-amount > 300)
 	)
 =>
  	(build stable)
@@ -1684,7 +1731,7 @@
 				(not (research-available ri-horse-collar))
 			)
 		)
-		(wood-amount > 500)
+		(wood-amount > 300)
 	)
 =>
  	(build stable)
@@ -1812,9 +1859,16 @@
 		(goal RUSH-CONTROL FEUDAL)
 		(goal RUSH-CONTROL RUSHING)
 	)
-	(not (research-available ri-wheel-barrow))
-	(not (research-available ri-double-bit-axe))
-	(not (research-available ri-horse-collar))
+	(or
+		(and
+			(not (research-available ri-wheel-barrow))
+			(and
+				(not (research-available ri-double-bit-axe))
+				(not (research-available ri-horse-collar))
+			)
+		)
+		(wood-amount > 300)
+	)
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -1826,14 +1880,21 @@
 	(or
 		(and
 			(building-type-count-total archery-range < archery-range-building-feudal)
-			(wood-amount > 600)
+			(wood-amount > 500)
 		)
 		(building-type-count-total archery-range < 1)
 	)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(not (research-available ri-wheel-barrow))
-	(not (research-available ri-double-bit-axe))
-	(not (research-available ri-horse-collar))
+	(or
+		(and
+			(not (research-available ri-wheel-barrow))
+			(and
+				(not (research-available ri-double-bit-axe))
+				(not (research-available ri-horse-collar))
+			)
+		)
+		(wood-amount > 300)
+	)
 =>
 	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -1847,9 +1908,16 @@
 		(civ-selected aztec)
 		(civ-selected mayan)
 	)
-	(not (research-available ri-wheel-barrow))
-	(not (research-available ri-double-bit-axe))
-	(not (research-available ri-horse-collar))
+	(or
+		(and
+			(not (research-available ri-wheel-barrow))
+			(and
+				(not (research-available ri-double-bit-axe))
+				(not (research-available ri-horse-collar))
+			)
+		)
+		(wood-amount > 300)
+	)
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -1908,7 +1976,7 @@
 	(or
 		(and
 			(and
-				(wood-amount > 500)
+				(wood-amount > 400)
 				(building-type-count-total archery-range < 2)
 			)
 			(goal RUSH-ATTACK-STARTED YES)
@@ -1916,9 +1984,16 @@
 		(building-type-count-total archery-range < 1)
 	)
  	(can-build archery-range)
-	(not (research-available ri-wheel-barrow))
-	(not (research-available ri-double-bit-axe))
-	(not (research-available ri-horse-collar))
+	(or
+		(and
+			(not (research-available ri-wheel-barrow))
+			(and
+				(not (research-available ri-double-bit-axe))
+				(not (research-available ri-horse-collar))
+			)
+		)
+		(wood-amount > 300)
+	)
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -1929,9 +2004,16 @@
 	(building-type-count-total archery-range < 1)
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(not (research-available ri-wheel-barrow))
-	(not (research-available ri-double-bit-axe))
-	(not (research-available ri-horse-collar))
+	(or
+		(and
+			(not (research-available ri-wheel-barrow))
+			(and
+				(not (research-available ri-double-bit-axe))
+				(not (research-available ri-horse-collar))
+			)
+		)
+		(wood-amount > 300)
+	)
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -1946,9 +2028,16 @@
 		(civ-selected mayan)
 	)
 	(goal RUSH-CONTROL NO)
-	(not (research-available ri-wheel-barrow))
-	(not (research-available ri-double-bit-axe))
-	(not (research-available ri-horse-collar))
+	(or
+		(and
+			(not (research-available ri-wheel-barrow))
+			(and
+				(not (research-available ri-double-bit-axe))
+				(not (research-available ri-horse-collar))
+			)
+		)
+		(wood-amount > 300)
+	)
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
