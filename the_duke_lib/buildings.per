@@ -65,7 +65,7 @@
 	(not (civ-selected hun))
 	(goal RUSH-CONTROL NO)
 =>
-	(set-strategic-number sn-minimum-town-size 14)
+	(set-strategic-number sn-minimum-town-size 10)
 	(set-strategic-number sn-maximum-town-size 23)
 	(disable-self)
 )
@@ -75,7 +75,7 @@
 	(civ-selected hun)
 	(goal RUSH-CONTROL NO)
 =>
-	(set-strategic-number sn-minimum-town-size 12)
+	(set-strategic-number sn-minimum-town-size 10)
 	(set-strategic-number sn-maximum-town-size 20)
 	(disable-self)
 )
@@ -83,7 +83,7 @@
 (defrule
 	(game-time > 2400)
 =>
-	(set-strategic-number sn-minimum-town-size 14)
+	(set-strategic-number sn-minimum-town-size 10)
 	(set-strategic-number sn-maximum-town-size 24)
 	(disable-self)
 )
@@ -91,24 +91,24 @@
 (defrule
 	(game-time > 3000)
 =>
-	(set-strategic-number sn-minimum-town-size 16)
-	(set-strategic-number sn-maximum-town-size 28)
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 32)
 	(disable-self)
 )
 
 (defrule
 	(game-time > 3600)
 =>
-	(set-strategic-number sn-minimum-town-size 16)
-	(set-strategic-number sn-maximum-town-size 32)
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 36)
 	(disable-self)
 )
 
 (defrule
 	(game-time > 4500)
 =>
-	(set-strategic-number sn-minimum-town-size 16)
-	(set-strategic-number sn-maximum-town-size 38)
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 45)
 	(disable-self)
 )
 
