@@ -444,7 +444,10 @@
 	(dropsite-min-distance gold < 255)
  	(can-build mining-camp)
 	(building-type-count-total lumber-camp > 0)
+	(up-pending-objects c: mining-camp < 1)
 =>
+	(set-strategic-number sn-allow-adjacent-dropsites 0)
+	(set-strategic-number sn-camp-max-distance 32)
  	(build mining-camp)
 ;	(chat-local-to-self "build MINING-CAMP")
 )
@@ -468,7 +471,10 @@
 	)
 	(building-type-count-total lumber-camp > 0)
 	(building-type-count-total mining-camp > 0)
+	(up-pending-objects c: mining-camp < 1)
 =>
+	(set-strategic-number sn-allow-adjacent-dropsites 0)
+	(set-strategic-number sn-camp-max-distance 32)
  	(build mining-camp)
 ;	(chat-local-to-self "build MINING-CAMP")
 )
@@ -487,6 +493,7 @@
 	(building-type-count-total mining-camp < 20)
 	(building-type-count-total lumber-camp > 0)
 	(current-age >= feudal-age)
+	(up-pending-objects c: mining-camp < 1)
 =>
  	(build mining-camp)
 ;	(chat-local-to-self "build MINING-CAMP")
@@ -500,6 +507,7 @@
 	(building-type-count-total mining-camp < 20)
 	(building-type-count-total lumber-camp > 0)
 	(current-age >= feudal-age)
+	(up-pending-objects c: mining-camp < 1)
 =>
  	(build mining-camp)
 ;	(chat-local-to-self "build MINING-CAMP")
@@ -734,6 +742,31 @@
 	(build mill)
 ;	(chat-local-to-self "build MILL (many farms)")
 )
+
+(defrule
+	(or
+		(or
+			(and
+				(building-type-count-total farm > 100)
+				(building-type-count-total mill < 11)
+			)
+			(and
+				(building-type-count-total farm > 120)
+				(building-type-count-total mill < 13)
+			)
+		)
+		(and
+			(building-type-count-total farm > 150)
+			(building-type-count-total mill < 15)
+		)
+	)
+	(can-build mill)
+	(building-type-count lumber-camp > 0)
+	(wood-amount > 400)
+=>
+	(build mill)
+;	(chat-local-to-self "build MILL (many farms)")
+)
 ;---------------
 
 
@@ -946,6 +979,17 @@
  	(wood-amount > 500)
 	(idle-farm-count < 10)
 	(up-pending-objects c: farm < 7)
+=>
+ 	(build farm)
+;	(chat-local-to-self "build FARM")
+)
+
+(defrule
+ 	(can-build farm)
+ 	(unit-type-count villager > 120)
+ 	(wood-amount > 500)
+	(idle-farm-count < 15)
+	(up-pending-objects c: farm < 11)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
@@ -2334,7 +2378,22 @@
 
 (defrule
  	(current-age >= castle-age)
- 	(building-type-count-total town-center < town-center-building-imperial)
+ 	(building-type-count-total town-center < 5)
+ 	(can-build town-center)
+ 	(not (research-available ri-bow-saw))
+ 	(not (research-available ri-hand-cart))
+=>
+ 	(build town-center)
+;	(chat-local-to-self "build TOWN-CENTER")
+)
+
+(defrule
+ 	(current-age >= castle-age)
+ 	(difficulty >= hard)
+ 	(building-type-count-total town-center >= 5)
+ 	(building-type-count-total town-center < 10)
+ 	(building-type-count-total castle >= 2)
+ 	(wood-amount > 600)
  	(can-build town-center)
  	(not (research-available ri-bow-saw))
  	(not (research-available ri-hand-cart))
