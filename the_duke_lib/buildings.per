@@ -445,6 +445,7 @@
  	(can-build mining-camp)
 	(building-type-count-total lumber-camp > 0)
 	(up-pending-objects c: mining-camp < 1)
+	(building-type-count-total mining-camp < 20)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
 	(set-strategic-number sn-camp-max-distance 32)
@@ -472,6 +473,7 @@
 	(building-type-count-total lumber-camp > 0)
 	(building-type-count-total mining-camp > 0)
 	(up-pending-objects c: mining-camp < 1)
+	(building-type-count-total mining-camp < 20)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
 	(set-strategic-number sn-camp-max-distance 32)
