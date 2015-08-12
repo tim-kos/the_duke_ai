@@ -16,7 +16,6 @@
 (defrule
 	(food-amount < 1000)
 	(gold-amount > 950)
-	(building-type-count market >= 1)
 	(commodity-buying-price food < 200)
 	(current-age == castle-age)
 	(can-buy-commodity food)
@@ -39,7 +38,6 @@
 (defrule
 	(food-amount < 1000)
 	(gold-amount > 950)
-	(building-type-count market >= 1)
 	(commodity-buying-price food < 200)
 	(current-age == castle-age)
 	(can-buy-commodity food)
@@ -61,14 +59,13 @@
 
 (defrule
 	(current-age == imperial-age)
-      	(gold-amount > 1000)
-        (food-amount < 700)
-        (can-buy-commodity food)
-        (commodity-buying-price food < 200)
-	(building-type-count market >= 1)
+  (gold-amount > 1500)
+  (food-amount < 700)
+  (can-buy-commodity food)
+  (commodity-buying-price food < 200)
 =>
 	(release-escrow gold)
-        (buy-commodity food)
+  (buy-commodity food)
 )
 ;----------------------
 
@@ -81,43 +78,38 @@
 		(goal ADVANCING-TO-AGE CASTLE-AGE)
 		(current-age >= castle-age)
 	)
-      	(gold-amount > 300)
-        (wood-amount < 175)
+  (gold-amount > 300)
+  (wood-amount < 175)
 	(building-type-count-total barracks < 4)
 	(building-type-count barracks > 2)
-        (can-buy-commodity wood)
-        (commodity-buying-price wood < 175)
-	(building-type-count market >= 1)
+  (can-buy-commodity wood)
+  (commodity-buying-price wood < 175)
 	(not (goal RUSH-CONTROL NO))
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 =>
 	(release-escrow gold)
-        (buy-commodity wood)
+  (buy-commodity wood)
 )
 
 (defrule
 	(current-age == imperial-age)
-      	(gold-amount > 1000)
-        (wood-amount < 400)
-        (can-buy-commodity wood)
-        (commodity-buying-price wood < 175)
-	(building-type-count market >= 1)
-	(goal ADVANCING-TO-AGE NO)
+	(gold-amount > 2000)
+  (wood-amount < 400)
+  (can-buy-commodity wood)
+  (commodity-buying-price wood < 175)
 =>
 	(release-escrow gold)
-        (buy-commodity wood)
+  (buy-commodity wood)
 )
 
 (defrule
 	(current-age == imperial-age)
-      	(gold-amount > 1400)
-        (wood-amount < 300)
-        (can-buy-commodity wood)
-	(building-type-count market >= 1)
-	(goal ADVANCING-TO-AGE NO)
+	(gold-amount > 1400)
+  (wood-amount < 300)
+  (can-buy-commodity wood)
 =>
 	(release-escrow gold)
-        (buy-commodity wood)
+  (buy-commodity wood)
 )
 ;----------------------
 
@@ -129,30 +121,26 @@
 
 (defrule
 	(current-age == imperial-age)
-       	(gold-amount > 700)
-        (stone-amount < 100)
-        (can-buy-commodity stone)
-        (commodity-buying-price stone < 200)
-	(building-type-count market >= 1)
-	(goal ADVANCING-TO-AGE NO)
+ 	(gold-amount > 700)
+  (stone-amount < 100)
+  (can-buy-commodity stone)
+  (commodity-buying-price stone < 200)
 	(building-type-count-total town-center < town-center-building-imperial)
 =>
 	(release-escrow gold)
-        (buy-commodity stone)
+  (buy-commodity stone)
 )
 
 (defrule
 	(current-age == imperial-age)
-       	(gold-amount > 1500)
-        (stone-amount < 650)
-        (can-buy-commodity stone)
-        (commodity-buying-price stone < 200)
-	(building-type-count market >= 1)
-	(goal ADVANCING-TO-AGE NO)
+ 	(gold-amount > 1500)
+  (stone-amount < 650)
+  (can-buy-commodity stone)
+  (commodity-buying-price stone < 200)
 	(building-type-count-total castle < castle-building-imperial)
 =>
 	(release-escrow gold)
-        (buy-commodity stone)
+  (buy-commodity stone)
 )
 ;************************************************************************************************************
 ;SELLING RESOURCES
@@ -169,7 +157,6 @@
 (defrule
 	(food-amount > 1150)
 	(gold-amount < 800)
-	(building-type-count market >= 1)
 	(current-age == castle-age)
 	(can-sell-commodity food)
 	(goal ADVANCING-TO-AGE NO)
@@ -191,7 +178,6 @@
 (defrule
 	(food-amount > 1150)
 	(gold-amount < 800)
-	(building-type-count market >= 1)
 	(current-age == castle-age)
 	(can-sell-commodity food)
 	(goal ADVANCING-TO-AGE NO)
@@ -214,12 +200,10 @@
 ;Rule19: sell FOOD to get gold in the imperial-age part 1
 
 (defrule
-	(food-amount > 1000)
+	(food-amount > 1700)
 	(gold-amount < 800)
-	(building-type-count market >= 1)
 	(current-age == imperial-age)
 	(can-sell-commodity food)
-	(goal ADVANCING-TO-AGE NO)
 =>
 	(release-escrow food)
 	(sell-commodity food)
@@ -228,7 +212,6 @@
 (defrule
 	(food-amount > 600)
 	(gold-amount < 200)
-	(building-type-count market >= 1)
 	(current-age == castle-age)
 	(can-sell-commodity food)
 	(goal ADVANCING-TO-AGE NO)
@@ -247,7 +230,6 @@
 	(wood-amount > 500)
 	(research-completed ri-bow-saw)
 	(gold-amount < 800)
-	(building-type-count market >= 1)
 	(current-age == castle-age)
 	(can-sell-commodity wood)
 	(goal ADVANCING-TO-AGE NO)
@@ -270,7 +252,6 @@
 	(wood-amount > 500)
 	(research-completed ri-bow-saw)
 	(gold-amount < 800)
-	(building-type-count market >= 1)
 	(current-age == castle-age)
 	(can-sell-commodity wood)
 	(goal ADVANCING-TO-AGE NO)
@@ -291,44 +272,40 @@
 
 (defrule			;If
 	(wood-amount > 700)
-        (gold-amount < 800)
-        (can-sell-commodity wood)
-	(building-type-count market >= 1)
+  (gold-amount < 800)
+  (can-sell-commodity wood)
 	(current-age == imperial-age)
 	(commodity-selling-price wood >= 20)
 =>
-        (release-escrow wood)
-        (sell-commodity wood)
+  (release-escrow wood)
+  (sell-commodity wood)
 )
 
 ;Rule37: sell WOOD to balance the economy in the imperial-age part 2 (too less gold)
 
 (defrule			;If
-	(wood-amount > 1000)
-        (gold-amount < 1500)
-        (can-sell-commodity wood)
-	(building-type-count market >= 1)
+	(wood-amount > 1500)
+  (gold-amount < 1500)
+  (can-sell-commodity wood)
 =>
-        (release-escrow wood)
-        (sell-commodity wood)
+  (release-escrow wood)
+  (sell-commodity wood)
 )
 
 ;Rule37: sell WOOD to balance the economy in the imperial-age part 2 (too less gold)
 
 (defrule			;If
 	(wood-amount > 10000)
-        (can-sell-commodity wood)
-	(building-type-count market >= 1)
+  (can-sell-commodity wood)
 	(commodity-selling-price wood > 14)
 =>
-        (release-escrow wood)
-        (sell-commodity wood)
+  (release-escrow wood)
+  (sell-commodity wood)
 )
 
 (defrule
 	(wood-amount > 450)
 	(gold-amount < 200)
-	(building-type-count market >= 1)
 	(current-age == castle-age)
 	(can-sell-commodity wood)
 	(goal ADVANCING-TO-AGE NO)
@@ -344,7 +321,6 @@
 ;Rule49: sell STONE to balance the economy in the imperial-age part 3 (too less gold)
 
 (defrule
-	(building-type-count market >= 1)
 	(can-sell-commodity stone)
 	(or
 		(and
@@ -363,7 +339,6 @@
 )
 
 (defrule
-	(building-type-count market >= 1)
 	(can-sell-commodity stone)
 	(or
 		(and
@@ -380,21 +355,6 @@
 	(sell-commodity stone)
 	(disable-self)
 )
-
-(defrule
-	(stone-amount > 300)
-	(building-type-count-total castle >= castle-building-imperial)
-	(building-type-count market >= 1)
-	(gold-amount < 1500)
-	(current-age == imperial-age)
-	(can-sell-commodity stone)
-	(goal ADVANCING-TO-AGE NO)
-=>
-	(release-escrow stone)
-	(sell-commodity stone)
-)
-
-
 
 #load-if-defined DEATH-MATCH
 
@@ -403,10 +363,8 @@
 
 (defrule
 	(stone-amount > 1500)
-	(building-type-count market >= 1)
 	(current-age == imperial-age)
 	(can-sell-commodity stone)
-	(goal ADVANCING-TO-AGE NO)
 	(commodity-selling-price stone > 60)
 =>
 	(release-escrow stone)
@@ -415,10 +373,8 @@
 
 (defrule
 	(stone-amount > 1500)
-	(building-type-count market >= 1)
 	(current-age == imperial-age)
 	(can-sell-commodity stone)
-	(goal ADVANCING-TO-AGE NO)
 	(commodity-selling-price stone > 60)
 =>
 	(release-escrow stone)
@@ -427,10 +383,8 @@
 
 (defrule
 	(stone-amount > 1500)
-	(building-type-count market >= 1)
 	(current-age == imperial-age)
 	(can-sell-commodity stone)
-	(goal ADVANCING-TO-AGE NO)
 	(commodity-selling-price stone > 60)
 =>
 	(release-escrow stone)

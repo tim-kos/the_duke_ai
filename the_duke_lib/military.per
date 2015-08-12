@@ -1735,9 +1735,10 @@
 ;Rule8: build barrackses if we are all out of gold
 
 (defrule
-	(current-age == imperial-age)
-	(current-age-time > 1800)
+	(game-time > 1200)
+	(dropsite-min-distance gold > 5)
 	(gold-amount < 200)
+	(food-amount > 600)
 	(can-build barracks)
 	(building-type-count-total barracks < 5)
 =>
@@ -1745,9 +1746,10 @@
 )
 
 (defrule
-	(current-age == imperial-age)
-	(current-age-time > 1800)
+	(game-time > 1200)
+	(dropsite-min-distance gold > 5)
 	(gold-amount < 200)
+	(food-amount > 600)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 =>
@@ -1763,9 +1765,10 @@
 ;Rule8: build stables if we are all out of gold
 
 (defrule
-	(current-age == imperial-age)
-	(current-age-time > 1800)
+	(game-time > 1200)
+	(dropsite-min-distance gold > 5)
 	(gold-amount < 200)
+	(food-amount > 600)
 	(can-build stable)
 	(building-type-count-total stable < 5)
 =>
@@ -1773,9 +1776,10 @@
 )
 
 (defrule
-	(current-age == imperial-age)
-	(current-age-time > 1800)
+	(game-time > 1200)
+	(dropsite-min-distance gold > 5)
 	(gold-amount < 200)
+	(food-amount > 600)
 	(can-train scout-cavalry-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 =>
@@ -1791,9 +1795,10 @@
 ;Rule8: build archery-ranges if we are all out of gold
 
 (defrule
-	(current-age == imperial-age)
-	(current-age-time > 1800)
+	(game-time > 1200)
+	(dropsite-min-distance gold > 5)
 	(gold-amount < 200)
+	(food-amount > 600)
 	(can-build archery-range)
 	(building-type-count-total archery-range < 5)
 =>
@@ -1801,9 +1806,10 @@
 )
 
 (defrule
-	(current-age == imperial-age)
-	(current-age-time > 1800)
+	(current-age >= castle-age)
+	(dropsite-min-distance gold > 5)
 	(gold-amount < 200)
+	(food-amount > 600)
 	(can-train skirmisher-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 =>
