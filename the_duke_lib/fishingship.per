@@ -119,7 +119,7 @@
 ;Rule7: delete fishing ships if we have got many and we are at our pop cap
 
 (defrule
-	(population >= pop-cap)
+	(population-headroom < 1)
 	(unit-type-count fishing-ship > ONE-PERCENT-POP)
 =>
 	(delete-unit fishing-ship)
@@ -127,7 +127,7 @@
 )
 
 (defrule
-	(population >= pop-cap)
+	(population-headroom < 1)
 	(current-age == imperial-age)
 	(current-age-time >= 1800)
 	(unit-type-count fishing-ship > 0)

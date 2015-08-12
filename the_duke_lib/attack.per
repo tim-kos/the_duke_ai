@@ -596,7 +596,7 @@
 (defrule
 	(timer-triggered T-ATTACK)
 	(goal ATTACK YES)
-	(population >= pop-cap)
+	(population-headroom < 1)
 	(current-age >= castle-age)
 	(goal TOWN-SIZE-ATTACK NO)
 =>
@@ -719,7 +719,7 @@
 (defrule
 	(timer-triggered T-ATTACK)
 	(goal ATTACK YES)
-	(population >= pop-cap)
+	(population-headroom < 1)
 	(current-age >= castle-age)
 	(goal TOWN-SIZE-ATTACK YES)
 =>

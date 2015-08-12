@@ -851,7 +851,8 @@
 (defrule
  	(current-age == dark-age)
  	(can-build farm)
-	(building-type-count-total farm <= max-dark-farm)
+ 	(idle-farm-count < 2)
+	(up-pending-objects c: farm < 2)
 	(or
 		(and
 			(unit-type-count SHEEP < 2)
@@ -869,7 +870,8 @@
 (defrule
  	(current-age == feudal-age)
  	(can-build farm)
-	(building-type-count-total farm < 8)
+	(idle-farm-count < 2)
+	(up-pending-objects c: farm < 2)
 	(or
 		(and
 			(unit-type-count SHEEP < 2)
@@ -890,7 +892,8 @@
 		(sheep-and-forage-too-far)
 		(current-age-time > 600)
 	)
-	(building-type-count-total farm <= max-feudal-farm)
+	(idle-farm-count < 2)
+	(up-pending-objects c: farm < 2)
 	(or
 		(or
 			(building-type-count-total market > 0)
@@ -907,7 +910,8 @@
 (defrule
  	(current-age >= castle-age)
  	(can-build farm)
-	(building-type-count-total farm < 15)
+	(idle-farm-count < 2)
+	(up-pending-objects c: farm < 2)
 	(or
 		(and
 			(unit-type-count SHEEP < 2)
@@ -933,8 +937,8 @@
 
 (defrule
 	(current-age == imperial-age)
-	(building-type-count-total farm >= max-imperial-farm)
 	(idle-farm-count < 2)
+	(up-pending-objects c: farm < 2)
 	(can-build farm)
 	(building-type-count-total lumber-camp > 0)
 =>

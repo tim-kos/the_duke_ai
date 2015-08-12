@@ -37,7 +37,7 @@
 (defrule
 	(goal WONDER-ATTEMPT ATTACK)
 	(timer-triggered T-ATTACK)
-	(population >= pop-cap)
+	(population-headroom < 1)
 =>
 	(set-goal MILITARY-PARITY YES)
 )

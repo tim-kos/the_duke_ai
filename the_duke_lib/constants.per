@@ -348,12 +348,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-NO 0)
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 1)
 
-(defconst max-dark-farm 3)
-(defconst max-feudal-farm 6)
-(defconst max-castle-farm 6)
-(defconst max-imperial-farm 6)
-(defconst pop-cap 25)
-
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 11)
 #end-if
@@ -512,12 +506,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-NO 2)
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 3)
 (defconst TRADE-REPLACES-VILLAGER 22)
-
-(defconst max-dark-farm 10)
-(defconst max-feudal-farm 10)
-(defconst max-castle-farm 12)
-(defconst max-imperial-farm 15)
-(defconst pop-cap 50)
 
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 15)
@@ -678,12 +666,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 4)
 (defconst TRADE-REPLACES-VILLAGER 36)
 
-(defconst max-dark-farm 10)
-(defconst max-feudal-farm 20)
-(defconst max-castle-farm 20)
-(defconst max-imperial-farm 20)
-(defconst pop-cap 75)
-
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 28)
 #end-if
@@ -842,13 +824,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-NO 3)
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 5)
 (defconst TRADE-REPLACES-VILLAGER 49)
-
-(defconst max-dark-farm 15)
-(defconst max-feudal-farm 20)
-(defconst max-castle-farm 25)
-(defconst max-imperial-farm 25)
-(defconst maximum-builders 10)
-(defconst pop-cap 100)
 
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 25)
@@ -1009,12 +984,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 6)
 (defconst TRADE-REPLACES-VILLAGER 63)
 
-(defconst max-dark-farm 15)
-(defconst max-feudal-farm 25)
-(defconst max-castle-farm 28)
-(defconst max-imperial-farm 28)
-(defconst pop-cap 125)
-
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 42)
 #end-if
@@ -1174,12 +1143,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 7)
 (defconst TRADE-REPLACES-VILLAGER 74)
 
-(defconst max-dark-farm 15)
-(defconst max-feudal-farm 25)
-(defconst max-castle-farm 30)
-(defconst max-imperial-farm 32)
-(defconst pop-cap 150)
-
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 54)
 #end-if
@@ -1338,12 +1301,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-NO 4)
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 15)
 (defconst TRADE-REPLACES-VILLAGER 65)
-
-(defconst max-dark-farm 15)
-(defconst max-feudal-farm 25)
-(defconst max-castle-farm 35)
-(defconst max-imperial-farm 40)
-(defconst pop-cap 175)
 
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 60)
@@ -1517,12 +1474,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-NO 5)
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 15)
 (defconst TRADE-REPLACES-VILLAGER 75)
-
-(defconst max-dark-farm 15)
-(defconst max-feudal-farm 18)
-(defconst max-castle-farm 35)
-(defconst max-imperial-farm 45)
-(defconst pop-cap 200)
 
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 65)
@@ -1698,12 +1649,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 23)
 (defconst TRADE-REPLACES-VILLAGER 95)
 
-(defconst max-dark-farm 18)
-(defconst max-feudal-farm 27)
-(defconst max-castle-farm 55)
-(defconst max-imperial-farm 65)
-(defconst pop-cap 300)
-
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 95)
 #end-if
@@ -1877,12 +1822,6 @@
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 30)
 (defconst TRADE-REPLACES-VILLAGER 150)
 
-(defconst max-dark-farm 20)
-(defconst max-feudal-farm 36)
-(defconst max-castle-farm 70)
-(defconst max-imperial-farm 90)
-(defconst pop-cap 400)
-
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 130)
 #end-if
@@ -2048,18 +1987,11 @@
 #load-if-defined POPULATION-CAP-500
 
 (defconst IMPERIAL-AGE-VILLAGER 220)
-(defconst IMPERIAL-AGE-VILLAGER-COMMAND 300)
+(defconst IMPERIAL-AGE-VILLAGER-COMMAND 240)
 
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-NO 15)
 (defconst TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES 25)
 (defconst TRADE-REPLACES-VILLAGER 235)
-
-(defconst max-dark-farm 25)
-(defconst max-feudal-farm 40)
-(defconst max-castle-farm 85)
-(defconst max-imperial-farm 125)
-(defconst maximum-builders 50)
-(defconst pop-cap 500)
 
 #load-if-defined DIFFICULTY-EASIEST
 (defconst POPULATION-MAX 125)
@@ -2267,8 +2199,7 @@
 #load-if-not-defined WONDER-RACE
 (defconst town-center-building-castle 3)
 (defconst town-center-building-imperial 3)
-#end-if
-#load-if-defined WONDER-RACE
+#else
 (defconst town-center-building-castle 1)
 (defconst town-center-building-imperial 1)
 #end-if
@@ -2335,8 +2266,7 @@
 #load-if-not-defined WONDER-RACE
 (defconst town-center-building-castle 3)
 (defconst town-center-building-imperial 4)
-#end-if
-#load-if-defined WONDER-RACE
+#else
 (defconst town-center-building-castle 1)
 (defconst town-center-building-imperial 1)
 #end-if
@@ -2405,8 +2335,7 @@
 #load-if-not-defined WONDER-RACE
 (defconst town-center-building-castle 3)
 (defconst town-center-building-imperial 5)
-#end-if
-#load-if-defined WONDER-RACE
+#else
 (defconst town-center-building-castle 3)
 (defconst town-center-building-imperial 3)
 #end-if
@@ -2475,8 +2404,7 @@
 #load-if-not-defined WONDER-RACE
 (defconst town-center-building-castle 4)
 (defconst town-center-building-imperial 9)
-#end-if
-#load-if-defined WONDER-RACE
+#else
 (defconst town-center-building-castle 3)
 (defconst town-center-building-imperial 3)
 #end-if
@@ -2543,8 +2471,7 @@
 #load-if-not-defined WONDER-RACE
 (defconst town-center-building-castle 4)
 (defconst town-center-building-imperial 9)
-#end-if
-#load-if-defined WONDER-RACE
+#else
 (defconst town-center-building-castle 3)
 (defconst town-center-building-imperial 3)
 #end-if

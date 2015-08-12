@@ -124,7 +124,7 @@
 ;Rule7: delete fishing ships when we are at our pop cap and we haven't got a transport ship
 
 (defrule			;If
-	(population >= pop-cap)
+	(population-headroom < 1)
 	(building-type-count dock > 0)
 	(unit-type-count transport-ship == 0)
 	(can-afford-unit transport-ship)
@@ -137,7 +137,7 @@
 ;Rule8: delete villagers when we are at our pop cap and we haven't got a transport ship
 
 (defrule
-	(population >= pop-cap)
+	(population-headroom < 1)
 	(building-type-count dock > 0)
 	(unit-type-count transport-ship == 0)
 	(can-afford-unit transport-ship)
