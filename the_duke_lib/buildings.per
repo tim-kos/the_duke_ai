@@ -1581,6 +1581,7 @@
 	(building-type-count-total town-center > 2)
  	(can-build barracks)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
+	(up-pending-objects c: barracks < 2)
 =>
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
@@ -1699,7 +1700,7 @@
 )
 
 (defrule
-	(current-age == imperial-age)
+	(current-age >= castle-age)
 	(can-build stable)
 	(or
 		(and
@@ -1830,6 +1831,7 @@
  	(can-build stable)
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(wood-amount > 500)
+	(up-pending-objects c: stable < 2)
 =>
  	(build stable)
 ;	(chat-local-to-self "build STABLE")
@@ -2124,6 +2126,7 @@
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(wood-amount > 550)
+	(up-pending-objects c: archery-range < 2)
 =>
  	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")

@@ -18,7 +18,7 @@
 ;*****************************************************
 
 (defrule
-  (not  (research-available ri-loom))
+  (not (research-available ri-loom))
   (unit-type-count villager > 15)
   (dropsite-min-distance hunting > 1)
   (dropsite-min-distance hunting <= 31)
@@ -27,7 +27,7 @@
   (set-strategic-number sn-maximum-hunt-drop-distance 31)
   (set-strategic-number sn-minimum-number-hunters 1)
   (set-strategic-number sn-enable-boar-hunting 2)
-  (enable-timer T-HUNTING 90)
+  (enable-timer T-HUNTING 80)
   (disable-self)
 )
 
@@ -54,9 +54,13 @@
   (unit-type-count villager > 15)
   (timer-triggered T-HUNTING)
   (strategic-number sn-enable-boar-hunting >= 1)
-  (or (and  (dropsite-min-distance boar-hunting < 8)
-      (strategic-number sn-minimum-boar-hunt-group-size != 10))
-    (game-time > 400))
+  (or
+  	(and
+  		(dropsite-min-distance boar-hunting < 8)
+      (strategic-number sn-minimum-boar-hunt-group-size != 10)
+    )
+    (game-time > 400)
+  )
   (strategic-number sn-maximum-hunt-drop-distance == 31)
 =>
   (up-retask-gatherers boar-food c: 2)
@@ -70,10 +74,16 @@
 (defrule
   (unit-type-count villager > 15)
   (dropsite-min-distance boar-hunting < 9)
-  (or (and  (strategic-number sn-maximum-hunt-drop-distance == 32)
-      (timer-triggered T-HUNTING))
-    (and  (dropsite-min-distance live-boar < 9)
-      (up-remaining-boar-amount < 330)))
+  (or
+  	(and
+  		(strategic-number sn-maximum-hunt-drop-distance == 32)
+      (timer-triggered T-HUNTING)
+    )
+    (and
+    	(dropsite-min-distance live-boar < 9)
+      (up-remaining-boar-amount < 330)
+    )
+  )
 =>
   (up-retask-gatherers boar-food c: 2)
   (up-retask-gatherers food c: 3)

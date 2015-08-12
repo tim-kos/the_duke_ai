@@ -341,8 +341,6 @@
 ;*****************************************
 ;*****************************************
 
-
-
 (defrule
 	(true)
 =>
@@ -350,75 +348,52 @@
 	(disable-self)
 )
 
-
+(defrule
+	(taunt-detected any-ally 47)
+	(goal ADVANCING-TO-AGE FEUDAL-AGE)
+=>
+	(acknowledge-taunt this-any-ally 47)
+	(chat-to-player this-any-ally "39 Sir, I am advancing to the feudal-age already!")
+)
 
 (defrule
 	(taunt-detected any-ally 47)
-=>
-	(acknowledge-taunt this-any-ally 47)
-	(set-goal ADVANCE-TO-THE-NEXT-AGE YES)
-)
-
-
-
-(defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)
-	(current-age == dark-age)
 	(goal ADVANCING-TO-AGE CASTLE-AGE)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
-	(chat-to-player every-ally "39 Sir, I am advancing to the castle-age already!")
+	(acknowledge-taunt this-any-ally 47)
+	(chat-to-player this-any-ally "39 Sir, I am advancing to the castle-age already!")
 )
 
-
-
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)
-	(current-age == castle-age)
+	(taunt-detected any-ally 47)
 	(goal ADVANCING-TO-AGE IMPERIAL-AGE)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
-	(chat-to-player every-ally "39 Sir, I am advancing to the imperial-age already!")
+	(acknowledge-taunt this-any-ally 47)
+	(chat-to-player this-any-ally "39 Sir, I am advancing to the imperial-age already!")
 )
 
-
-
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)
+	(taunt-detected any-ally 47)
 	(current-age == imperial-age)
 =>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
-	(chat-to-player every-ally "39 Sir, I cannot advance anymore, because I am in the imperial-age!")
+	(acknowledge-taunt this-any-ally 47)
+	(chat-to-player this-any-ally "39 Sir, I cannot advance anymore, because I am in the imperial-age!")
 )
 
-
-
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)
-	(current-age == dark-age)
-	(goal ADVANCING-TO-AGE FEUDAL-AGE)
-=>
-	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
-	(chat-to-player every-ally "39 Sir, I am advancing to the feudal-age already!")
-)
-
-
-
-(defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)
+	(taunt-detected any-ally 47)
 	(current-age == dark-age)
 	(not (can-research-with-escrow feudal-age))
 =>
+	(acknowledge-taunt this-any-ally 47)
 	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
 	(set-goal TRAIN-VILLAGERS NO)
-	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!")
-	(chat-to-player every-ally "But I'll do so when it's possible!")
+	(chat-to-player this-any-ally "39 Sorry sir, I am not able to advance to the next age!")
+	(chat-to-player this-any-ally "But I'll do so when it's possible!")
 )
 
-
-
 (defrule
-	(goal ADVANCE-TO-THE-NEXT-AGE YES)
+	(taunt-detected any-ally 47)
 	(or
 		(and
 			(current-age == feudal-age)
@@ -430,61 +405,43 @@
 		)
 	)
 =>
+	(acknowledge-taunt this-any-ally 47)
 	(set-goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
 	(set-goal TRAIN-VILLAGERS NO)
-	(chat-to-player every-ally "39 Sorry sir, I am not able to advance to the next age!")
-	(chat-to-player every-ally "But I'll do so when it's possible!")
+	(chat-to-player this-any-ally "39 Sorry sir, I am not able to advance to the next age!")
+	(chat-to-player this-any-ally "But I'll do so when it's possible!")
 )
 
-
-
 (defrule
-	(or
-		(goal ADVANCE-TO-THE-NEXT-AGE YES)
-		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
-	)
+	(goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
 	(current-age == dark-age)
 	(can-research-with-escrow feudal-age)
 =>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
-	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the feudal-age now!")
-	(chat-to-player every-ally "I'll do so!")
+	(chat-to-player every-ally "39 I am advancing to the feudal-age now!")
 	(release-escrow food)
 	(research feudal-age)
 )
 
-
-
 (defrule
-	(or
-		(goal ADVANCE-TO-THE-NEXT-AGE YES)
-		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
-	)
+	(goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
 	(current-age == feudal-age)
 	(can-research-with-escrow castle-age)
 =>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
-	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the castle-age now!")
-	(chat-to-player every-ally "I'll do so!")
+	(chat-to-player every-ally "39 I am advancing to the castle-age now!")
 	(release-escrow food)
 	(release-escrow gold)
 	(research castle-age)
 )
 
-
-
 (defrule
-	(or
-		(goal ADVANCE-TO-THE-NEXT-AGE YES)
-		(goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
-	)
-
+	(goal ADVANCE-TO-THE-NEXT-AGE MAYBE)
 	(current-age == castle-age)
 	(can-research-with-escrow imperial-age)
 =>
 	(set-goal ADVANCE-TO-THE-NEXT-AGE NO)
-	(chat-to-player every-ally "39 Okay, it's possible sir to advance to the imperial-age now!")
-	(chat-to-player every-ally "I'll do so!")
+	(chat-to-player every-ally "39 I am advancing to the imperial-age now!")
 	(release-escrow food)
 	(release-escrow gold)
 	(research imperial-age)
