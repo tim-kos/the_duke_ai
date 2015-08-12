@@ -1064,109 +1064,131 @@
 ;CAMP DISTANCE
 ;-------------
 
-
-
+;try to build the first lumber camp as close as possible to the TC
 (defrule
-	(not (dropsite-min-distance wood == -1))
-	(dropsite-min-distance wood <= 8)
+	(resource-found wood)
 =>
-	(set-goal DO-WE-HAVE-WOOD YES)
+	(chat-local-to-self "Wood found!")
+	(disable-self)
 )
 
 (defrule
-	(or
-		(dropsite-min-distance wood == -1)
-		(dropsite-min-distance wood > 8)
-	)
-=>
-	(set-goal DO-WE-HAVE-WOOD NO)
-)
-
-(defrule
-	(goal DO-WE-HAVE-WOOD NO)
-	(wood-amount >= 275)
-	(current-age == dark-age)
-=>
-	(set-goal DO-WE-HAVE-WOOD YES)
-)
-
-(defrule
-	(goal DO-WE-HAVE-WOOD NO)
-	(wood-amount >= 275)
-	(current-age == feudal-age)
-	(building-type-count-total market > 0)
-	(building-type-count-total blacksmith > 0)
-=>
-	(set-goal DO-WE-HAVE-WOOD YES)
-)
-
-(defrule
-	(goal DO-WE-HAVE-WOOD NO)
-	(wood-amount >= 450)
-	(current-age == feudal-age)
-=>
-	(set-goal DO-WE-HAVE-WOOD YES)
-)
-
-(defrule
-	(goal DO-WE-HAVE-WOOD NO)
-	(wood-amount >= 375)
-	(current-age >= castle-age)
-	(building-type-count-total market > 0)
-	(building-type-count-total blacksmith > 0)
-=>
-	(set-goal DO-WE-HAVE-WOOD YES)
-)
-
-(defrule
-	(goal DO-WE-HAVE-WOOD NO)
-	(wood-amount >= 550)
-	(current-age >= castle-age)
-=>
-	(set-goal DO-WE-HAVE-WOOD YES)
-)
-
-
-
-(defrule
-	(goal DO-WE-HAVE-WOOD NO)
 	(building-type-count-total town-center > 0)
-=>
-	(set-strategic-number sn-mill-max-distance 200)
-	(set-strategic-number sn-camp-max-distance 200)
-)
-
-(defrule
-	(goal DO-WE-HAVE-WOOD YES)
-	(building-type-count-total town-center > 0)
+	(building-type-count-total lumber-camp == 0)
 =>
 	(set-strategic-number sn-mill-max-distance 28)
-	(set-strategic-number sn-camp-max-distance 20)
+	(set-strategic-number sn-camp-max-distance 1)
+	(disable-self)
 )
-
 (defrule
-	(goal DO-WE-HAVE-WOOD YES)
-	(or
-		(dropsite-min-distance gold < 30)
-		(dropsite-min-distance stone < 30)
-	)
+	(not (resource-found wood))
+	(game-time > 20)
+=>
+	(set-strategic-number sn-camp-max-distance 3)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 30)
+=>
+	(set-strategic-number sn-camp-max-distance 5)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 60)
+=>
+	(set-strategic-number sn-camp-max-distance 7)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 90)
+=>
+	(set-strategic-number sn-camp-max-distance 9)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 120)
+=>
+	(set-strategic-number sn-camp-max-distance 11)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 150)
+=>
+	(set-strategic-number sn-camp-max-distance 13)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 180)
+=>
+	(set-strategic-number sn-camp-max-distance 15)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 210)
+=>
+	(set-strategic-number sn-camp-max-distance 17)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 240)
+=>
+	(set-strategic-number sn-camp-max-distance 19)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 270)
+=>
+	(set-strategic-number sn-camp-max-distance 21)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 300)
+=>
+	(set-strategic-number sn-camp-max-distance 25)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 330)
 =>
 	(set-strategic-number sn-camp-max-distance 30)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 360)
+=>
+	(set-strategic-number sn-camp-max-distance 35)
+	(disable-self)
+)
+(defrule
+	(not (resource-found wood))
+	(game-time > 390)
+=>
+	(set-strategic-number sn-camp-max-distance 40)
+	(disable-self)
 )
 
 (defrule
-	(goal DO-WE-HAVE-WOOD YES)
-	(or
-		(dropsite-min-distance gold < 20)
-		(dropsite-min-distance stone < 20)
-	)
+	(building-type-count-total lumber-camp > 0)
+	(building-type-count-total town-center > 0)
 =>
 	(set-strategic-number sn-camp-max-distance 20)
+	(disable-self)
 )
 
 (defrule
 	(strategic-number sn-camp-max-distance < 25)
-	(goal DO-WE-HAVE-WOOD YES)
 	(game-time > 900)
 =>
 	(set-strategic-number sn-camp-max-distance 25)
@@ -1174,7 +1196,6 @@
 
 (defrule
 	(strategic-number sn-camp-max-distance < 45)
-	(goal DO-WE-HAVE-WOOD YES)
 	(game-time > 1800)
 =>
 	(set-strategic-number sn-camp-max-distance 45)
@@ -1182,7 +1203,6 @@
 
 (defrule
 	(strategic-number sn-camp-max-distance < 60)
-	(goal DO-WE-HAVE-WOOD YES)
 	(game-time > 2700)
 =>
 	(set-strategic-number sn-camp-max-distance 60)
@@ -1190,7 +1210,6 @@
 
 (defrule
 	(strategic-number sn-camp-max-distance < 75)
-	(goal DO-WE-HAVE-WOOD YES)
 	(game-time > 3600)
 =>
 	(set-strategic-number sn-camp-max-distance 75)
@@ -1198,7 +1217,6 @@
 
 (defrule
 	(strategic-number sn-camp-max-distance < 100)
-	(goal DO-WE-HAVE-WOOD YES)
 	(game-time > 4500)
 =>
 	(set-strategic-number sn-camp-max-distance 100)
@@ -1206,7 +1224,6 @@
 
 (defrule
 	(strategic-number sn-camp-max-distance < 125)
-	(goal DO-WE-HAVE-WOOD YES)
 	(game-time > 5400)
 =>
 	(set-strategic-number sn-camp-max-distance 125)
@@ -1214,7 +1231,6 @@
 
 (defrule
 	(strategic-number sn-camp-max-distance < 150)
-	(goal DO-WE-HAVE-WOOD YES)
 	(game-time > 6300)
 =>
 	(set-strategic-number sn-camp-max-distance 150)
@@ -1222,7 +1238,6 @@
 
 (defrule
 	(strategic-number sn-camp-max-distance < 200)
-	(goal DO-WE-HAVE-WOOD YES)
 	(game-time > 7200)
 =>
 	(set-strategic-number sn-camp-max-distance 200)

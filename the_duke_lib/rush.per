@@ -1126,14 +1126,14 @@
 	(goal RUSH-CONTROL RUSHING)
 	(or
 		(goal MILITARY-PARITY VASTLY-INFERIOR)
-		(game-time > 2700)
+		(game-time > 1800)
 	)
 =>
-	(set-strategic-number sn-maximum-town-size 16)
+	(set-strategic-number sn-maximum-town-size 24)
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
 	(set-goal RUSH-CONTROL NO)
 	(chat-local-to-self "QUIT RUSHING")
-	(chat-to-allies "39 I will not continue rushing the enemy, because he got too strong!")
+	(chat-to-allies "39 I will not continue rushing the enemy, because he potentially got too strong!")
 	(chat-local-to-self "No rush anymore -> enemy too strong")
 )
 ;*************************************************
