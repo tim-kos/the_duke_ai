@@ -1517,7 +1517,13 @@
 ;quickly in case we get under attack
 (defrule
 	(can-build stable)
-	(building-type-count-total stable < 2)
+	(or
+		(building-type-count-total stable < 1)
+		(and
+			(building-type-count-total stable < 2)
+			(wood-amount > 800)
+		)
+	)
 	(or
 		(and
 			(goal ADVANCING-TO-AGE CASTLE-AGE)
@@ -1525,45 +1531,6 @@
 		)
 		(current-age >= castle-age)
 	)
-	(wood-amount > 800)
-=>
-	(build stable)
-;	(chat-local-to-self "build STABLE")
-)
-
-(defrule
-	(current-age == castle-age)
-	(can-build stable)
-	(or
-		(and
-			(building-type-count-total stable < stable-building-castle)
-			(and
-				(wood-amount > 700)
-				(not (research-available ri-hand-cart))
-			)
-		)
-		(building-type-count-total stable < 1)
-	)
-	(goal ABLE-TO-BUILD-STABLE YES)
-=>
-	(build stable)
-;	(chat-local-to-self "build STABLE")
-)
-
-(defrule
-	(current-age >= castle-age)
-	(can-build stable)
-	(or
-		(and
-			(building-type-count-total stable < stable-building-imperial)
-			(and
-				(wood-amount > 700)
-				(not (research-available ri-hand-cart))
-			)
-		)
-		(building-type-count-total stable < 1)
-	)
-	(goal ABLE-TO-BUILD-STABLE YES)
 =>
 	(build stable)
 ;	(chat-local-to-self "build STABLE")
@@ -1656,37 +1623,20 @@
 )
 
 (defrule
- 	(current-age >= castle-age)
-	(or
-		(and
-			(building-type-count-total stable < 2)
-			(or
-				(wood-amount > 450)
-				(building-type-count-total town-center > 2)
-			)
-		)
-		(building-type-count-total stable < 1)
-	)
- 	(can-build stable)
+	(current-age >= castle-age)
+	(can-build stable)
+	(building-type-count-total stable < stable-building-imperial)
+	(wood-amount > 700)
+	(not (research-available ri-hand-cart))
 	(goal ABLE-TO-BUILD-STABLE YES)
+	(building-type-count-total town-center > 2)
+	(unit-type-count-total villager > 60) ;can our economy support this?
+	(up-pending-objects c: stable < 2)
 =>
- 	(build stable)
+	(build stable)
 ;	(chat-local-to-self "build STABLE")
 )
 
-(defrule
- 	(current-age >= castle-age)
-	(building-type-count-total stable < stable-building-imperial)
-	(building-type-count-total town-center > 2)
-	(not (research-available ri-hand-cart))
- 	(can-build stable)
-	(goal ABLE-TO-BUILD-STABLE YES)
-	(wood-amount > 700)
-	(up-pending-objects c: stable < 2)
-=>
- 	(build stable)
-;	(chat-local-to-self "build STABLE")
-)
 
 #load-if-defined DEATH-MATCH
 ;***********************************************
@@ -1827,28 +1777,6 @@
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
-(defrule
-	(current-age >= castle-age)
-	(can-build archery-range)
-	(or
-		(and
-			(building-type-count-total archery-range < archery-range-building-imperial)
-			(and
-				(wood-amount > 700)
-				(not (research-available ri-hand-cart))
-			)
-		)
-		(building-type-count-total archery-range < 1)
-	)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(not (research-available ri-hand-cart))
-	(not (research-available ri-bow-saw))
-	(not (research-available ri-heavy-plow))
-=>
-	(build archery-range)
-;	(chat-local-to-self "build ARCHERY-RANGE")
-)
-
 ;ARCHERY-RANGES in feudal-age if we do a flush
 
 (defrule
@@ -1925,24 +1853,16 @@
 )
 
 (defrule
- 	(current-age >= castle-age)
-	(or
-		(and
-			(building-type-count-total archery-range < 2)
-			(or
-				(wood-amount > 650)
-				(building-type-count-total town-center > 2)
-			)
-		)
-		(building-type-count-total archery-range < 1)
-	)
- 	(can-build archery-range)
+	(current-age >= castle-age)
+	(can-build archery-range)
+	(wood-amount > 700)
+	(building-type-count-total archery-range < 2)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
 	(not (research-available ri-heavy-plow))
 =>
- 	(build archery-range)
+	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
@@ -1954,6 +1874,7 @@
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(wood-amount > 550)
+	(unit-type-count-total villager > 60) ;can our economy support this?
 	(up-pending-objects c: archery-range < 2)
 =>
  	(build archery-range)
@@ -2111,11 +2032,12 @@
  	(can-build castle)
 =>
  	(build castle)
+ 	(up-assign-builders c: castle c: 3)
 ;	(chat-local-to-self "build CASTLE")
 )
 
 (defrule
-	(difficulty >= hard)
+	(difficulty <= hard)
 	(stone-amount > 800)
  	(can-build castle)
 =>
@@ -2211,6 +2133,7 @@
  	(not (research-available ri-bow-saw))
 =>
  	(build town-center)
+ 	(up-assign-builders c: 621 c: 4) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 
@@ -2222,12 +2145,13 @@
  	(not (research-available ri-hand-cart))
 =>
  	(build town-center)
+ 	(up-assign-builders c: 621 c: 4) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 
 (defrule
  	(current-age >= castle-age)
- 	(difficulty >= hard)
+ 	(difficulty <= hard)
  	(building-type-count-total town-center >= 5)
  	(building-type-count-total town-center < 10)
  	(building-type-count-total castle >= 2)
