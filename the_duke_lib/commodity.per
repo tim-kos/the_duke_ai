@@ -33,6 +33,7 @@
 =>
 	(release-escrow gold)
 	(buy-commodity food)
+	(chat-local-to-self "Buy food.")
 )
 
 (defrule
@@ -55,6 +56,7 @@
 =>
 	(release-escrow gold)
 	(buy-commodity food)
+	(chat-local-to-self "Buy food.")
 )
 
 (defrule
@@ -66,6 +68,7 @@
 =>
 	(release-escrow gold)
   (buy-commodity food)
+  (chat-local-to-self "Buy food.")
 )
 ;----------------------
 
@@ -89,6 +92,7 @@
 =>
 	(release-escrow gold)
   (buy-commodity wood)
+  (chat-local-to-self "Buy wood.")
 )
 
 (defrule
@@ -100,6 +104,7 @@
 =>
 	(release-escrow gold)
   (buy-commodity wood)
+  (chat-local-to-self "Buy wood.")
 )
 
 (defrule
@@ -110,6 +115,7 @@
 =>
 	(release-escrow gold)
   (buy-commodity wood)
+  (chat-local-to-self "Buy wood.")
 )
 ;----------------------
 
@@ -129,6 +135,7 @@
 =>
 	(release-escrow gold)
   (buy-commodity stone)
+  (chat-local-to-self "Buy stone.")
 )
 
 (defrule
@@ -141,6 +148,7 @@
 =>
 	(release-escrow gold)
   (buy-commodity stone)
+  (chat-local-to-self "Buy stone.")
 )
 ;************************************************************************************************************
 ;SELLING RESOURCES
@@ -173,6 +181,7 @@
 =>
 	(release-escrow food)
 	(sell-commodity food)
+	(chat-local-to-self "Sell food.")
 )
 
 (defrule
@@ -194,6 +203,7 @@
 =>
 	(release-escrow food)
 	(sell-commodity food)
+	(chat-local-to-self "Sell food.")
 )
 
 
@@ -202,23 +212,23 @@
 (defrule
 	(food-amount > 1700)
 	(gold-amount < 800)
-	(current-age == imperial-age)
 	(can-sell-commodity food)
 =>
 	(release-escrow food)
 	(sell-commodity food)
+	(chat-local-to-self "Sell food.")
 )
 
 (defrule
-	(food-amount > 600)
+	(food-amount > 400)
+	(research-completed ri-bow-saw)
 	(gold-amount < 200)
 	(current-age == castle-age)
-	(can-sell-commodity food)
-	(goal ADVANCING-TO-AGE NO)
-	(goal RUSH-CONTROL RUSHING)
+	(can-sell-commodity wood)
 =>
 	(release-escrow food)
 	(sell-commodity food)
+	(chat-local-to-self "Sell food.")
 )
 ;---------------------------------------
 
@@ -246,6 +256,7 @@
 =>
 	(sell-commodity wood)
 	(release-escrow wood)
+	(chat-local-to-self "Sell wood.")
 )
 
 (defrule
@@ -268,6 +279,19 @@
 =>
 	(sell-commodity wood)
 	(release-escrow wood)
+	(chat-local-to-self "Sell wood.")
+)
+
+(defrule
+	(wood-amount > 400)
+	(research-completed ri-bow-saw)
+	(gold-amount < 200)
+	(current-age == castle-age)
+	(can-sell-commodity wood)
+=>
+	(sell-commodity wood)
+	(release-escrow wood)
+	(chat-local-to-self "Sell wood.")
 )
 
 (defrule			;If
@@ -279,6 +303,7 @@
 =>
   (release-escrow wood)
   (sell-commodity wood)
+  (chat-local-to-self "Sell wood.")
 )
 
 ;Rule37: sell WOOD to balance the economy in the imperial-age part 2 (too less gold)
@@ -290,6 +315,7 @@
 =>
   (release-escrow wood)
   (sell-commodity wood)
+  (chat-local-to-self "Sell wood.")
 )
 
 ;Rule37: sell WOOD to balance the economy in the imperial-age part 2 (too less gold)
@@ -301,6 +327,7 @@
 =>
   (release-escrow wood)
   (sell-commodity wood)
+  (chat-local-to-self "Sell wood.")
 )
 
 (defrule
@@ -313,6 +340,7 @@
 =>
 	(release-escrow wood)
 	(sell-commodity wood)
+	(chat-local-to-self "Sell wood.")
 )
 ;---------------------------------------------------------------------------------
 
@@ -335,51 +363,13 @@
 =>
 	(release-escrow stone)
 	(sell-commodity stone)
-	(disable-self)
-)
-
-(defrule
-	(can-sell-commodity stone)
-	(or
-		(and
-			(current-age == feudal-age)
-			(goal RUSH-CONTROL CASTLE)
-		)
-		(and
-			(current-age == castle-age)
-			(goal RUSH-CONTROL RUSHING)
-		)
-	)
-=>
-	(release-escrow stone)
 	(sell-commodity stone)
+	(chat-local-to-self "Sell stone.")
 	(disable-self)
 )
 
 #load-if-defined DEATH-MATCH
 
-
-;Rule49: sell STONE to balance the economy in the imperial-age part 3 (too less gold)
-
-(defrule
-	(stone-amount > 1500)
-	(current-age == imperial-age)
-	(can-sell-commodity stone)
-	(commodity-selling-price stone > 60)
-=>
-	(release-escrow stone)
-	(sell-commodity stone)
-)
-
-(defrule
-	(stone-amount > 1500)
-	(current-age == imperial-age)
-	(can-sell-commodity stone)
-	(commodity-selling-price stone > 60)
-=>
-	(release-escrow stone)
-	(sell-commodity stone)
-)
 
 (defrule
 	(stone-amount > 1500)
@@ -425,6 +415,7 @@
 =>
 	(release-escrow gold)
 	(buy-commodity food)
+	(chat-local-to-self "Buy food.")
 )
 
 (defrule
@@ -438,6 +429,7 @@
 =>
 	(release-escrow gold)
 	(buy-commodity food)
+	(chat-local-to-self "Buy food.")
 )
 
 (defrule			;If
@@ -450,6 +442,7 @@
 =>
 	(release-escrow gold)
 	(buy-commodity wood)
+	(chat-local-to-self "Buy wood.")
 )
 
 (defrule			;If
@@ -463,6 +456,7 @@
 =>
 	(release-escrow gold)
 	(buy-commodity stone)
+	(chat-local-to-self "Buy stone.")
 )
 
 (defrule			;If
@@ -474,6 +468,7 @@
 =>
 ;	(chat-local-to-self "sell FOOD for building a wonder")
 	(sell-commodity food)
+	(chat-local-to-self "Sell food.")
 )
 
 (defrule			;If
@@ -484,6 +479,7 @@
 =>
 ;	(chat-local-to-self "sell WOOD for building a wonder")
 	(sell-commodity wood)
+	(chat-local-to-self "Sell wood.")
 )
 
 (defrule			;If
@@ -494,6 +490,7 @@
 =>
 ;	(chat-local-to-self "sell STONE for building a wonder")
 	(sell-commodity stone)
+	(chat-local-to-self "Sell stone.")
 )
 
 (defrule
@@ -514,6 +511,7 @@
 =>
 	(release-escrow wood)
 	(sell-commodity wood)
+	(chat-local-to-self "Sell wood.")
 )
 
 ;Rule60: sell STONE to advance to the imperial-age
@@ -528,6 +526,7 @@
 =>
 	(release-escrow stone)
 	(sell-commodity stone)
+	(chat-local-to-self "Sell stone.")
 )
 
 

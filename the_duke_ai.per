@@ -1200,30 +1200,49 @@
 
 (defrule
 	(strategic-number sn-camp-max-distance < 25)
-	(game-time > 900)
+	(game-time > 1200)
 =>
 	(set-strategic-number sn-camp-max-distance 25)
+	(disable-self)
 )
 
 (defrule
-	(strategic-number sn-camp-max-distance < 45)
+	(strategic-number sn-camp-max-distance < 32)
 	(game-time > 1800)
 =>
-	(set-strategic-number sn-camp-max-distance 45)
+	(set-strategic-number sn-camp-max-distance 32)
+	(disable-self)
 )
 
 (defrule
-	(strategic-number sn-camp-max-distance < 60)
+	(strategic-number sn-camp-max-distance < 50)
+	(game-time > 4500)
+=>
+	(set-strategic-number sn-camp-max-distance 50)
+	(disable-self)
+)
+
+(defrule
+	(strategic-number sn-camp-max-distance < 70)
+	(game-time > 7200)
+=>
+	(set-strategic-number sn-camp-max-distance 70)
+	(disable-self)
+)
+
+#load-if-defined ARABIA-MAP
+(defrule
+	(strategic-number sn-camp-max-distance < 40)
 	(game-time > 2700)
 =>
-	(set-strategic-number sn-camp-max-distance 60)
+	(set-strategic-number sn-camp-max-distance 40)
 )
 
 (defrule
-	(strategic-number sn-camp-max-distance < 75)
+	(strategic-number sn-camp-max-distance < 50)
 	(game-time > 3600)
 =>
-	(set-strategic-number sn-camp-max-distance 75)
+	(set-strategic-number sn-camp-max-distance 50)
 )
 
 (defrule
@@ -1253,6 +1272,7 @@
 =>
 	(set-strategic-number sn-camp-max-distance 200)
 )
+#end-if
 ;----------------------------------
 
 

@@ -278,6 +278,24 @@
  	(build lumber-camp)
 ;	(chat-local-to-self "build LUMBER-CAMP")
 )
+
+;build extra lumber camp to avoid villagers wandering around so much in early game
+(defrule
+ 	(resource-found wood)
+	(can-build lumber-camp)
+	(building-type-count-total lumber-camp >= 1)
+	(building-type-count-total lumber-camp < 2)
+	(building-type-count-total mill > 0)
+	(or
+		(civ-selected hun)
+		(building-type-count house > 0)
+	)
+	(unit-type-count-total villager > 20)
+=>
+ 	(build lumber-camp)
+;	(chat-local-to-self "build LUMBER-CAMP")
+)
+
 ;***********************************************
 #else		;if not game-type == death-match
 ;***********************************************
@@ -2127,7 +2145,7 @@
 
 (defrule
  	(current-age == castle-age)
- 	(building-type-count-total town-center < 2)
+ 	(building-type-count-total town-center < 3)
  	(food-amount >= 200)
  	(can-build town-center)
  	(not (research-available ri-bow-saw))
@@ -2143,6 +2161,7 @@
  	(can-build town-center)
  	(not (research-available ri-bow-saw))
  	(not (research-available ri-hand-cart))
+ 	(unit-type-count-total villager > 70)
 =>
  	(build town-center)
  	(up-assign-builders c: 621 c: 4) ; town-center-foundation: 621
@@ -2152,25 +2171,13 @@
 (defrule
  	(current-age >= castle-age)
  	(difficulty <= hard)
- 	(building-type-count-total town-center >= 5)
  	(building-type-count-total town-center < 10)
  	(building-type-count-total castle >= 2)
  	(wood-amount > 600)
  	(can-build town-center)
  	(not (research-available ri-bow-saw))
  	(not (research-available ri-hand-cart))
-=>
- 	(build town-center)
-;	(chat-local-to-self "build TOWN-CENTER")
-)
-
-(defrule
- 	(game-time > 3600)
- 	(wood-amount > 1500)
- 	(stone-amount > 900)
- 	(building-type-count-total castle >= 3)
- 	(can-build town-center)
-	(difficulty >= hard)
+ 	(unit-type-count-total villager > 130)
 =>
  	(build town-center)
 ;	(chat-local-to-self "build TOWN-CENTER")

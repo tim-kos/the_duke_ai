@@ -3594,20 +3594,6 @@
 	(chat-local-to-self "Spend resources on units because the game lasts long")
 )
 
-;if we have an established economy and military, save for 5min to get all the research done
-(defrule
-	(timer-triggered T-SAVE-FOR-RESEARCH)
-	(goal SAVE-FOR-RESEARCH NO)
-	(game-time <= 5400)
-	(military-population > 60)
-	(unit-type-count-total villager > 100)
-	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
-=>
-	(set-goal SAVE-FOR-RESEARCH YES)
-	(enable-timer T-SAVE-FOR-RESEARCH 300) ;save resources for 5 minutes
-	(chat-local-to-self "Save resources for research for 5min")
-)
-
 (defrule
 	(timer-triggered T-SAVE-FOR-RESEARCH)
 	(goal SAVE-FOR-RESEARCH NO)
@@ -3621,14 +3607,24 @@
 	)
 =>
 	(set-goal SAVE-FOR-RESEARCH YES)
-	(enable-timer T-SAVE-FOR-RESEARCH 90) ;save resources for 1.5 minutes
-	(chat-local-to-self "Save resources for research for 1.5min")
+	(enable-timer T-SAVE-FOR-RESEARCH 120) ;save resources for 2 minutes
+	(chat-local-to-self "Save resources for research for 2min")
 )
 
 (defrule
-	(timer-triggered T-SAVE-FOR-RESEARCH)
+	(or
+		(timer-triggered T-SAVE-FOR-RESEARCH)
+		(and
+			(food-amount > 350)
+			(and
+				(wood-amount > 300)
+				(gold-amount > 300)
+			)
+		)
+	)
 	(goal SAVE-FOR-RESEARCH YES)
 =>
+	(disable-timer T-SAVE-FOR-RESEARCH)
 	(set-goal SAVE-FOR-RESEARCH NO)
 	(enable-timer T-SAVE-FOR-RESEARCH 180) ;spend resources for 3 minutes
 	(chat-local-to-self "Spend resources for 3min")

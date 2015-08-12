@@ -1154,6 +1154,7 @@
 		(timer-triggered T-VILLAGER-TRAINING)
 		(difficulty <= hard)
 	)
+	(goal SAVE-FOR-RESEARCH NO)
 =>
  	(train villager)
  	(train villager)
@@ -1178,6 +1179,7 @@
  	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-COMMAND)
  	(can-train villager)
 	(goal TRAIN-VILLAGERS EXTRA)
+	(goal SAVE-FOR-RESEARCH NO)
 =>
  	(train villager)
 )
