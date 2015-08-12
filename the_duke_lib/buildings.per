@@ -839,6 +839,21 @@
 ;	(chat-local-to-self "build FARM")
 )
 
+#load-if-defined ARENA-MAP
+;on the arena map, sheep can get stuck behind walls
+(defrule
+ 	(can-build farm)
+ 	(unit-type-count villager > 45)
+ 	(not (sheep-and-forage-too-far))
+ 	(wood-amount > 500)
+	(idle-farm-count < 5)
+	(up-pending-objects c: farm < 3)
+=>
+ 	(build farm)
+;	(chat-local-to-self "build FARM")
+)
+#end-if
+
 ;***********************************************
 #else		;if not game type == wonder race
 ;***********************************************
@@ -1488,7 +1503,7 @@
 	(or
 		(and
 			(building-type-count-total stable < stable-building-feudal)
-			(wood-amount > 400)
+			(wood-amount > 700)
 		)
 		(building-type-count-total stable < 1)
 	)
@@ -1510,6 +1525,7 @@
 		)
 		(current-age >= castle-age)
 	)
+	(wood-amount > 800)
 =>
 	(build stable)
 ;	(chat-local-to-self "build STABLE")
@@ -1522,7 +1538,7 @@
 		(and
 			(building-type-count-total stable < stable-building-castle)
 			(and
-				(wood-amount > 600)
+				(wood-amount > 700)
 				(not (research-available ri-hand-cart))
 			)
 		)
@@ -1541,7 +1557,7 @@
 		(and
 			(building-type-count-total stable < stable-building-imperial)
 			(and
-				(wood-amount > 600)
+				(wood-amount > 700)
 				(not (research-available ri-hand-cart))
 			)
 		)
@@ -1646,7 +1662,7 @@
 			(building-type-count-total stable < 2)
 			(or
 				(wood-amount > 450)
-				(building-type-count-total town-center > 1)
+				(building-type-count-total town-center > 2)
 			)
 		)
 		(building-type-count-total stable < 1)
@@ -1665,7 +1681,7 @@
 	(not (research-available ri-hand-cart))
  	(can-build stable)
 	(goal ABLE-TO-BUILD-STABLE YES)
-	(wood-amount > 500)
+	(wood-amount > 700)
 	(up-pending-objects c: stable < 2)
 =>
  	(build stable)
@@ -1768,7 +1784,7 @@
 	(or
 		(and
 			(building-type-count-total archery-range < archery-range-building-feudal)
-			(wood-amount > 500)
+			(wood-amount > 700)
 		)
 		(building-type-count-total archery-range < 1)
 	)
@@ -1812,29 +1828,7 @@
 )
 
 (defrule
-	(current-age == castle-age)
-	(can-build archery-range)
-	(or
-		(and
-			(building-type-count-total archery-range < archery-range-building-castle)
-			(and
-				(wood-amount > 700)
-				(not (research-available ri-hand-cart))
-			)
-		)
-		(building-type-count-total archery-range < 1)
-	)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(not (research-available ri-hand-cart))
-	(not (research-available ri-bow-saw))
-	(not (research-available ri-heavy-plow))
-=>
-	(build archery-range)
-;	(chat-local-to-self "build ARCHERY-RANGE")
-)
-
-(defrule
-	(current-age == imperial-age)
+	(current-age >= castle-age)
 	(can-build archery-range)
 	(or
 		(and
@@ -1859,8 +1853,7 @@
 
 (defrule
  	(current-age == feudal-age)
-	(not (goal RUSH-CONTROL NO))
-	(not (goal RUSH-CONTROL CASTLE))
+	(goal RUSH-CONTROL RUSHING)
 	(or
 		(and
 			(and
@@ -1937,8 +1930,8 @@
 		(and
 			(building-type-count-total archery-range < 2)
 			(or
-				(wood-amount > 550)
-				(building-type-count-total town-center > 1)
+				(wood-amount > 650)
+				(building-type-count-total town-center > 2)
 			)
 		)
 		(building-type-count-total archery-range < 1)
@@ -2008,7 +2001,7 @@
 			(wood-amount > 1200)
 		)
 	)
-	(wood-amount > 350)
+	(wood-amount > 550)
 	(building-type-count-total town-center > 2)
 	(building-type-count-total monastery > 0)
 	(building-type-count-total university > 0)

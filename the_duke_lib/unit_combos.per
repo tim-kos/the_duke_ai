@@ -3575,7 +3575,10 @@
 			(military-population < 15)
 			(goal MILITARY-PARITY VASTLY-INFERIOR) ;regardless of technology, if we have too few units compared to the enemy, we would lose a battle anyway
 		)
-		(town-under-attack)
+		(and
+			(town-under-attack)
+			(game-time < 2700)
+		)
 	)
 	(goal SAVE-FOR-RESEARCH YES)
 =>
@@ -3584,7 +3587,7 @@
 )
 
 (defrule
-	(game-time > 3600) ;if the game is 1 hour old, we assume we have researched the most important stuff
+	(game-time > 5400) ;if the game is 1.5 hour old, we assume we have researched the most important stuff
 	(goal SAVE-FOR-RESEARCH YES)
 =>
 	(set-goal SAVE-FOR-RESEARCH NO)
@@ -3595,20 +3598,20 @@
 (defrule
 	(timer-triggered T-SAVE-FOR-RESEARCH)
 	(goal SAVE-FOR-RESEARCH NO)
-	(game-time <= 3600) ;disable new timers after 3600s to avoid chat spam from the rule above
+	(game-time <= 5400)
 	(military-population > 60)
 	(unit-type-count-total villager > 100)
 	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
 =>
 	(set-goal SAVE-FOR-RESEARCH YES)
-	(enable-timer T-SAVE-FOR-RESEARCH 300) ;save resources for 1.5 minutes
+	(enable-timer T-SAVE-FOR-RESEARCH 300) ;save resources for 5 minutes
 	(chat-local-to-self "Save resources for research for 5min")
 )
 
 (defrule
 	(timer-triggered T-SAVE-FOR-RESEARCH)
 	(goal SAVE-FOR-RESEARCH NO)
-	(game-time <= 3600) ;disable new timers after 3600s to avoid chat spam from the rule above
+	(game-time <= 5400)
 	(or
 		(military-population <= 60)
 		(or
@@ -3619,7 +3622,7 @@
 =>
 	(set-goal SAVE-FOR-RESEARCH YES)
 	(enable-timer T-SAVE-FOR-RESEARCH 90) ;save resources for 1.5 minutes
-	(chat-local-to-self "Save resources for research for 5min")
+	(chat-local-to-self "Save resources for research for 1.5min")
 )
 
 (defrule

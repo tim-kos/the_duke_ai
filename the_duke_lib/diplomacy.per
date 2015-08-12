@@ -29,7 +29,7 @@
 	(military-population >= EIGHT-PERCENT-POP)
 	(can-train trade-cart)
 	(players-building-type-count any-ally market >= 1)
-	(unit-type-count-total trade-cart < TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES)
+	(unit-type-count-total trade-cart < NUM-TRADE-CARTS-LATE-GAME)
 	(civilian-population < POPULATION-MAX)
 =>
 	(train trade-cart)
@@ -53,7 +53,7 @@
 	(goal RUSH-CONTROL NO)
 	(military-population >= TEN-PERCENT-POP)
 	(players-building-type-count any-ally market >= 1)
-	(unit-type-count-total trade-cog < TRADE-CARTS-RESOURCE-NEEDED-GOLD-YES)
+	(unit-type-count-total trade-cog < NUM-TRADE-CARTS-LATE-GAME)
 	(civilian-population < POPULATION-MAX)
 =>
 	(train trade-cog)
