@@ -2805,6 +2805,7 @@
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total barracks >= 3)
+	(up-pending-objects c: barracks < 2)
 =>
 	(build-forward barracks)
 )
@@ -2822,6 +2823,7 @@
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total archery-range >= 3)
+	(up-pending-objects c: archery-range < 2)
 =>
 	(build-forward archery-range)
 )
@@ -2839,6 +2841,7 @@
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total stable >= 3)
+	(up-pending-objects c: stable < 2)
 =>
 	(build-forward stable)
 )

@@ -332,7 +332,7 @@
 
 ;CARTOGRAPHY 100 FOOD, 100 GOLD
 (defrule
- 	(can-research ri-cartography)
+ 	(can-research-with-escrow ri-cartography)
 	(player-in-game any-ally)
 	(or
 		(not (goal RESEARCHING-CASTLE FAST-CASTLE))
@@ -342,26 +342,30 @@
 	(food-amount > 800)
 	(gold-amount > 700)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-cartography)
 ; (chat-local-to-self "research CARTOGRAPHY")
 )
 
 ;COINAGE 150 FOOD, 50 GOLD
 (defrule
- 	(can-research ri-coinage)
+ 	(can-research-with-escrow ri-coinage)
 	(player-in-game any-ally)
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL NO)
 	(food-amount > 1000)
 	(gold-amount > 1000)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-coinage)
 ; (chat-local-to-self "research COINAGE")
 )
 
 ;BANKING 200 FOOD, 100 GOLD
 (defrule
- 	(can-research ri-banking)
+ 	(can-research-with-escrow ri-banking)
 	(player-in-game any-ally)
 	(or
 		(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL))
@@ -371,13 +375,15 @@
 	(food-amount > 1000)
 	(gold-amount > 1000)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-banking)
 ; (chat-local-to-self "research BANKING")
 )
 
 ;CARAVAN 200 FOOD, 200 GOLD
 (defrule
- 	(can-research ri-caravan)
+ 	(can-research-with-escrow ri-caravan)
 	(player-in-game any-ally)
 	(or
 		(unit-type-count-total trade-cart > 5)
@@ -386,16 +392,20 @@
 	(food-amount > 1000)
 	(gold-amount > 400)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-caravan)
 ; (chat-local-to-self "research CARAVAN")
 )
 
 ;GUILDS 300 FOOD, 200 GOLD
 (defrule
- 	(can-research ri-guilds)
+ 	(can-research-with-escrow ri-guilds)
 	(food-amount > 1000)
 	(gold-amount > 800)
 =>
+	(release-escrow food)
+	(release-escrow gold)
  	(research ri-guilds)
 ; (chat-local-to-self "research GUILDS")
 )
