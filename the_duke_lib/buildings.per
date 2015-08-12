@@ -745,33 +745,6 @@
 ;	(chat-local-to-self "build MILL (many farms)")
 )
 
-(defrule
-	(or
-		(or
-			(and
-				(building-type-count-total farm > 100)
-				(building-type-count-total mill < 11)
-			)
-			(and
-				(building-type-count-total farm > 120)
-				(building-type-count-total mill < 13)
-			)
-		)
-		(and
-			(building-type-count-total farm > 150)
-			(building-type-count-total mill < 15)
-		)
-	)
-	(can-build mill)
-	(building-type-count lumber-camp > 0)
-	(wood-amount > 400)
-=>
-	(build mill)
-;	(chat-local-to-self "build MILL (many farms)")
-)
-;---------------
-
-
 
 #load-if-not-defined WONDER-RACE
 
@@ -781,7 +754,6 @@
 (defrule
  	(current-age == dark-age)
  	(can-build farm)
-	(building-type-count-total farm < 14)
 	(sheep-and-forage-too-far)
 	(game-time > 300)
 	(building-type-count-total lumber-camp > 0)
@@ -795,140 +767,15 @@
 (defrule
  	(current-age == feudal-age)
  	(can-build farm)
- 	(or
-		(building-type-count-total farm < 9)
+	(sheep-and-forage-too-far)
+	(building-type-count-total lumber-camp > 0)
+	(idle-farm-count < 2)
+	(or
+		(up-pending-objects c: farm < 2)
 		(and
-			(wood-amount > 100)
-			(building-type-count-total farm < 14)
+			(wood-amount > 500)
+			(up-pending-objects c: farm < 4)
 		)
-	)
-	(sheep-and-forage-too-far)
-	(building-type-count-total lumber-camp > 0)
-	(nand
-		(goal RUSH-CONTROL CASTLE)
-		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	)
-	(idle-farm-count < 2)
-	(or
-		(up-pending-objects c: farm < 3)
-		(wood-amount > 500)
-	)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(current-age == feudal-age)
- 	(can-build farm)
-	(sheep-and-forage-too-far)
-	(building-type-count-total farm <= max-feudal-farm)
-	(or
-		(building-type-count-total market > 0)
-		(or
-			(building-type-count-total archery-range > 0)
-			(building-type-count-total stable > 0)
-		)
-	)
-	(building-type-count-total blacksmith > 0)
-	(nand
-		(goal RUSH-CONTROL CASTLE)
-		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	)
-	(building-type-count-total lumber-camp > 0)
-	(idle-farm-count < 1)
-	(wood-amount > 150)
-	(or
-		(up-pending-objects c: farm < 3)
-		(wood-amount > 500)
-	)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(current-age == feudal-age)
- 	(can-build farm)
-	(sheep-and-forage-too-far)
-	(building-type-count-total farm <= 8)
-	(or
-		(building-type-count-total market > 0)
-		(building-type-count-total archery-range > 0)
-	)
-	(building-type-count-total blacksmith > 0)
-	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(idle-farm-count < 2)
-	(building-type-count-total lumber-camp > 0)
-	(or
-		(up-pending-objects c: farm < 3)
-		(wood-amount > 500)
-	)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(current-age == feudal-age)
- 	(can-build farm)
-	(sheep-and-forage-too-far)
-	(building-type-count-total barracks >= 4)
-	(building-type-count-total farm <= max-feudal-farm)
-	(or
-		(building-type-count-total market > 0)
-		(building-type-count-total archery-range > 0)
-	)
-	(building-type-count-total blacksmith > 0)
-	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(idle-farm-count < 2)
-	(building-type-count-total lumber-camp > 0)
-	(or
-		(up-pending-objects c: farm < 3)
-		(wood-amount > 500)
-	)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(current-age == feudal-age)
- 	(can-build farm)
-	(sheep-and-forage-too-far)
-	(building-type-count-total farm <= 8)
-	(building-type-count-total stable > 0)
-	(building-type-count-total blacksmith > 0)
-	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(idle-farm-count == 0)
-	(building-type-count-total lumber-camp > 0)
-	(or
-		(up-pending-objects c: farm < 3)
-		(wood-amount > 500)
-	)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(current-age == feudal-age)
- 	(can-build farm)
-	(sheep-and-forage-too-far)
-	(building-type-count-total barracks >= 4)
-	(building-type-count-total farm <= max-feudal-farm)
-	(building-type-count-total stable > 0)
-	(building-type-count-total blacksmith > 0)
-	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(idle-farm-count == 0)
-	(building-type-count-total lumber-camp > 0)
-	(or
-		(up-pending-objects c: farm < 3)
-		(wood-amount > 500)
 	)
 =>
  	(build farm)
@@ -939,36 +786,20 @@
  	(current-age >= castle-age)
  	(can-build farm)
  	(sheep-and-forage-too-far)
-	(building-type-count-total farm < 15)
 	(building-type-count-total lumber-camp > 0)
-	(idle-farm-count == 0)
+	(or
+		(idle-farm-count < 1)
+		(and
+			(building-type-count-total town-center > 1)
+			(and
+				(not (research-available ri-hand-cart))
+				(idle-farm-count < 3)
+			)
+		)
+	)
 	(or
 		(up-pending-objects c: farm < 3)
 		(wood-amount > 500)
-	)
-=>
- 	(build farm)
-;	(chat-local-to-self "build FARM")
-)
-
-(defrule
- 	(can-build farm)
- 	(current-age >= castle-age)
-	(or
-		(building-type-count-total archery-range > 0)
-		(or
-			(building-type-count-total stable > 0)
-			(building-type-count-total castle > 0)
-		)
-	)
-	(building-type-count-total blacksmith > 0)
-	(building-type-count-total town-center > 1)
-	(not (research-available ri-hand-cart))
-	(building-type-count-total lumber-camp > 0)
-	(idle-farm-count < 2)
-	(or
-		(up-pending-objects c: farm < 3)
-		(wood-amount > 400)
 	)
 =>
  	(build farm)
