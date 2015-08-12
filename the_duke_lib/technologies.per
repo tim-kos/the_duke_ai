@@ -449,7 +449,7 @@
 (defrule
  	(can-research ri-ballistics)
 	(or
-		(goal ABLE-TO-UPGRADE-ARCHERS YES)
+		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 		(building-type-count-total castle >= 1)
 	)
 	(not (research-available ri-murder-holes))
@@ -741,7 +741,7 @@
  	(can-research-with-escrow ri-tracking)
 	(or
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-INFANTRY YES)
+		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 	)
 	(food-amount > 500)
 =>
@@ -754,7 +754,7 @@
  	(can-research-with-escrow ri-squires)
 	(or
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-INFANTRY YES)
+		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 	)
 	(food-amount > 500)
 =>
@@ -947,7 +947,7 @@
  	(can-research-with-escrow ri-thumb-ring)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
-		(goal ABLE-TO-UPGRADE-ARCHERS YES)
+		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 	)
 	(food-amount > 600)
 	(gold-amount > 600)
@@ -963,7 +963,7 @@
  	(can-research-with-escrow ri-parthian-tactics)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
-		(goal ABLE-TO-UPGRADE-ARCHERS YES)
+		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 	)
 	(food-amount > 400)
 	(gold-amount > 400)
@@ -983,7 +983,7 @@
  	(can-research-with-escrow ri-husbandry)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-CAVALRY YES)
+		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 	)
 	(not (research-available ri-bloodlines))
 =>
@@ -997,7 +997,7 @@
  	(can-research-with-escrow ri-bloodlines)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-CAVALRY YES)
+		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 	)
 =>
 	(release-escrow food)

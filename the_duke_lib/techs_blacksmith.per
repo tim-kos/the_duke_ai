@@ -1062,7 +1062,7 @@
 			(goal ABLE-TO-UPGRADE-ARCHERS LOW)
 			(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
 		)
-		(goal ABLE-TO-UPGRADE-ARCHERS YES)
+		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 	)
 =>
 	(release-escrow food)
@@ -1083,7 +1083,7 @@
 			(goal ABLE-TO-UPGRADE-INFANTRY LOW)
 			(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
 		)
-		(goal ABLE-TO-UPGRADE-INFANTRY YES)
+		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 	)
 =>					;then
 	(release-escrow food)
@@ -1098,7 +1098,7 @@
 			(goal ABLE-TO-UPGRADE-CAVALRY LOW)
 			(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
 		)
-		(goal ABLE-TO-UPGRADE-CAVALRY YES)
+		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 	)
 =>					;then
 	(release-escrow food)
@@ -1141,7 +1141,7 @@
 			(goal ABLE-TO-UPGRADE-INFANTRY LOW)
 			(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
 		)
-		(goal ABLE-TO-UPGRADE-INFANTRY YES)
+		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 	)
 	(food-amount > 200)
 =>					;then
@@ -1182,7 +1182,7 @@
 			(goal ABLE-TO-UPGRADE-CAVALRY LOW)
 			(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
 		)
-		(goal ABLE-TO-UPGRADE-CAVALRY YES)
+		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 	)
 	(food-amount > 200)
 =>
@@ -1223,7 +1223,7 @@
 			(goal ABLE-TO-UPGRADE-ARCHERS LOW)
 			(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
 		)
-		(goal ABLE-TO-UPGRADE-ARCHERS YES)
+		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 	)
 =>
 	(release-escrow food)
@@ -1244,7 +1244,7 @@
  	(can-research-with-escrow ri-iron-casting)
 	(or
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-INFANTRY YES)
+		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 	)
 =>
 	(release-escrow food)
@@ -1257,7 +1257,7 @@
  	(can-research-with-escrow ri-iron-casting)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-CAVALRY YES)
+		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 	)
 =>
 	(release-escrow food)
@@ -1299,7 +1299,7 @@
  	(can-research-with-escrow ri-bodkin-arrow)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
-		(goal ABLE-TO-UPGRADE-ARCHERS YES)
+		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 	)
 =>
 	(release-escrow food)
@@ -1328,7 +1328,7 @@
  	(can-research-with-escrow ri-chain-barding)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-CAVALRY YES)
+		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 	)
 =>
 	(release-escrow food)
@@ -1345,7 +1345,7 @@
  	(can-research-with-escrow ri-leather-archer-armor)
 	(or
 		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
-		(goal ABLE-TO-UPGRADE-ARCHERS YES)
+		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 	)
 =>
 	(release-escrow food)
@@ -1362,7 +1362,7 @@
  	(can-research-with-escrow ri-chain-mail)
 	(or
 		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-INFANTRY YES)
+		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 	)
 =>
 	(release-escrow food)
@@ -1395,32 +1395,8 @@
 (defrule
  	(can-research-with-escrow ri-blast-furnace)
 	(or
-		(goal ABLE-TO-UPGRADE-INFANTRY YES)
-		(goal ABLE-TO-UPGRADE-CAVALRY YES)
-	)
-=>
-	(release-escrow food)
-	(release-escrow gold)
- 	(research ri-blast-furnace)
-; (chat-local-to-self "research BLAST-FURNACE")
-)
-
-(defrule
- 	(can-research-with-escrow ri-blast-furnace)
-	(or
-		(goal RUSH-CONTROL CASTLE)
-		(and
-			(goal RUSH-CONTROL RUSHING)
-			(current-age == castle-age)
-		)
-	)
-	(or
-		(goal PRIMARY-COMBAT-UNIT KNIGHT)
-		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	)
-	(or
-		(unit-type-count-total knight-line > 8)
-		(unit-type-count-total eagle-warrior-line > 8)
+		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 	)
 =>
 	(release-escrow food)
@@ -1435,7 +1411,7 @@
 
 (defrule
  	(can-research-with-escrow ri-plate-mail)
-	(goal ABLE-TO-UPGRADE-INFANTRY YES)
+	(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -1449,7 +1425,7 @@
 
 (defrule
  	(can-research-with-escrow ri-plate-barding)
-	(goal ABLE-TO-UPGRADE-CAVALRY YES)
+	(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -1465,7 +1441,7 @@
  	(can-research-with-escrow ri-bracer)
 	(or
 		(or
-			(goal ABLE-TO-UPGRADE-ARCHERS YES)
+			(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 			(building-type-count castle >= 2)
 		)
 		(unit-type-count-total galley-line >= FIVE-PERCENT-POP)
@@ -1483,7 +1459,7 @@
 
 (defrule
  	(can-research-with-escrow ri-ring-archer-armor)
-	(goal ABLE-TO-UPGRADE-ARCHERS YES)
+	(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 =>
 	(release-escrow food)
 	(release-escrow gold)
