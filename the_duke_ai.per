@@ -24,7 +24,18 @@
 
 #load-if-not-defined WONDER-RACE
 (load "the_duke_lib\attack")
+
+(defrule
+	(true)
+=>
+	(set-goal RUSH-CONTROL NO)
+	(disable-self)
+)
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
 (load "the_duke_lib\rush")
+#end-if
+#end-if
 #end-if
 
 (load "the_duke_lib\age_advancement")

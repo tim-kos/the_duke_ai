@@ -5,23 +5,10 @@
 (defrule
 	(true)
 =>
-	(set-goal RUSH-CONTROL NO)
-	(disable-self)
-)
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-
-(defrule
-	(true)
-=>
 	(set-goal RUSH-CONTROL ENABLE)
 	(generate-random-number 10)
 	(disable-self)
 )
-
-#end-if
-#end-if
 
 
 (defrule
@@ -213,59 +200,6 @@
 ;******************************************************
 ;******************************************************
 ;RUSH DEFINING
-
-
-
-#load-if-defined DIFFICULTY-MODERATE
-
-;Rule4: define the CASTLE-RUSH when we're playing on moderate; part 1
-
-(defrule
-	(random-number <= 5)
-	(goal RUSH-CONTROL PRIVILEGED)
-=>
-	(set-goal RUSH-CONTROL CASTLE)
-	(chat-local-to-self "RUSH-CONTROL CASTLE")
-	(disable-self)
-)
-
-(defrule
-	(random-number > 5)
-	(random-number <= 10)
-	(goal RUSH-CONTROL PRIVILEGED)
-=>
-	(set-goal RUSH-CONTROL NO)
-	(chat-local-to-self "NO RUSHING")
-	(disable-self)
-)
-
-(defrule
-	(random-number <= 3)
-	(goal RUSH-CONTROL ENABLE)
-=>
-	(set-goal RUSH-CONTROL CASTLE)
-	(chat-local-to-self "RUSH-CONTROL CASTLE")
-	(disable-self)
-)
-
-(defrule
-	(random-number > 3)
-	(random-number <= 10)
-	(goal RUSH-CONTROL ENABLE)
-=>
-	(set-goal RUSH-CONTROL NO)
-	(chat-local-to-self "NO RUSHING")
-	(disable-self)
-)
-
-#end-if		;if difficulty == moderate
-
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-#load-if-not-defined DIFFICULTY-MODERATE
-
 
 
 ;Rule7: define the FLUSH when we're playing on hard or hardest
@@ -1271,7 +1205,3 @@
 	(chat-to-player every-ally "39 I'll do a rush in the castle-age!")
 	(disable-self)
 )
-
-
-#end-if		;if not difficulty == easy
-#end-if		;if not difficulty == easiest

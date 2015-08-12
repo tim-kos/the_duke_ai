@@ -24,9 +24,6 @@
 ;********************************************
 ;CANNON GALLEON - MARINE
 
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-
 (defrule
 	(goal TRAIN-NEXT-FIRESHIP YES)
 	(difficulty <= hard)
@@ -49,50 +46,11 @@
 )
 
 
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
-
 ;********************************************
 ;********************************************
 ;LONGBOAT - MARINE
 
 #load-if-defined VIKING-CIV
-
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-
-(defrule
-	(can-train longboat-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(building-type-count-total castle > 0)
-	(current-age >= castle-age)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train longboat-line)
-	(set-goal TRAIN-NEXT-FIRESHIP YES)
-)
-
-
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
 
 (defrule
 	(can-train longboat-line)
@@ -114,9 +72,6 @@
 	(train longboat-line)
 	(set-goal TRAIN-NEXT-FIRESHIP YES)
 )
-
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
 #end-if		;if civ == viking
 
@@ -127,40 +82,6 @@
 
 #load-if-defined KOREAN-CIV
 
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-
-(defrule
-	(can-train turtle-ship-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(building-type-count-total castle > 0)
-	(current-age >= castle-age)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train turtle-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP YES)
-)
-
-
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-
 (defrule
 	(can-train turtle-ship-line)
 	(or
@@ -181,10 +102,6 @@
 	(train turtle-ship-line)
 	(set-goal TRAIN-NEXT-FIRESHIP YES)
 )
-
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
 
 #end-if		;if civ == korean
 
@@ -231,222 +148,6 @@
 ;********************************************
 ;FIRE SHIP - MARINE
 
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-
-#load-if-not-defined BYZANTINE-CIV
-#load-if-not-defined AZTEC-CIV
-
-(defrule
-	(current-age >= castle-age)
-	(can-train fire-ship-line)
-	(or
-		(warboat-count < ONE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < THREE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal TRAIN-NEXT-FIRESHIP YES)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train fire-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP NO)
-)
-
-(defrule
-	(current-age >= castle-age)
-	(can-train fire-ship-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal TRAIN-NEXT-FIRESHIP YES)
-	(building-type-count-total castle > 0)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train fire-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP NO)
-)
-
-(defrule
-	(current-age >= castle-age)
-	(can-train fire-ship-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal TRAIN-NEXT-FIRESHIP YES)
-	(building-type-count-total university > 0)
-	(building-type-count-total monastery > 0)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train fire-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP NO)
-)
-
-#else		;if civ != aztec
-
-(defrule
-	(current-age >= castle-age)
-	(can-train fire-ship-line)
-	(or
-		(warboat-count < ONE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < THREE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train fire-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP NO)
-)
-
-(defrule
-	(current-age >= castle-age)
-	(can-train fire-ship-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(building-type-count-total castle > 0)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train fire-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP NO)
-)
-
-(defrule
-	(current-age >= castle-age)
-	(can-train fire-ship-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(building-type-count-total university > 0)
-	(building-type-count-total monastery > 0)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train fire-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP NO)
-)
-
-#end-if		;if civ == aztec
-
-#else		;if civ != byzantine
-
-(defrule
-	(current-age >= castle-age)
-	(can-train fire-ship-line)
-	(or
-		(warboat-count < ONE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < THREE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train fire-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP NO)
-)
-
-(defrule
-	(current-age >= castle-age)
-	(can-train fire-ship-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(building-type-count-total castle > 0)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train fire-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP NO)
-)
-
-(defrule
-	(current-age >= castle-age)
-	(can-train fire-ship-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(building-type-count-total university > 0)
-	(building-type-count-total monastery > 0)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train fire-ship-line)
-	(set-goal TRAIN-NEXT-FIRESHIP NO)
-)
-
-#end-if		;if civ == byzantine
-
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-
-
 #load-if-not-defined BYZANTINE-CIV
 #load-if-not-defined AZTEC-CIV
 
@@ -649,12 +350,6 @@
 )
 
 #end-if		;if civ == byzantine
-
-
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
-
-
 
 ;********************************************
 ;********************************************
@@ -665,106 +360,6 @@
 #load-if-not-defined VIKING-CIV
 #load-if-not-defined KOREAN-CIV
 
-#load-if-not-defined DIFFICULTY-MODERATE
-#load-if-not-defined DIFFICULTY-HARD
-#load-if-not-defined DIFFICULTY-HARDEST
-
-(defrule
-	(current-age == feudal-age)
-	(can-train galley-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(building-type-count-total market > 0)
-	(building-type-count-total blacksmith > 0)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-	(goal RUSH-CONTROL NO)
-=>
-	(train galley-line)
-	(set-goal TRAIN-NEXT-FIRESHIP YES)
-)
-
-(defrule
-	(current-age == castle-age)
-	(can-train galley-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(building-type-count-total castle > 0)
-	(wood-amount > 400)
-	(goal RUSH-CONTROL NO)
-=>
-	(train galley-line)
-	(set-goal TRAIN-NEXT-FIRESHIP YES)
-)
-
-(defrule
-	(current-age == castle-age)
-	(can-train galley-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(building-type-count-total university > 0)
-	(building-type-count-total siege-workshop > 0)
-	(wood-amount > 400)
-	(goal RUSH-CONTROL NO)
-=>
-	(train galley-line)
-	(set-goal TRAIN-NEXT-FIRESHIP YES)
-)
-
-
-
-#load-if-not-defined AZTEC-CIV
-
-(defrule
-	(current-age == imperial-age)
-	(can-train galley-line)
-	(or
-		(warboat-count < THREE-PERCENT-POP)
-		(and
-			(goal MAIN-SHIP-BUILDER YES)
-			(warboat-count < FIVE-PERCENT-POP)
-		)
-	)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(or
-		(building-type-count-total town-center > 1)
-		(wood-amount > 400)
-	)
-=>
-	(train galley-line)
-	(set-goal TRAIN-NEXT-FIRESHIP YES)
-)
-
-#end-if		;if not civ == aztec
-
-#end-if		;if not difficulty type == moderate
-#end-if		;if not difficulty type == hard
-#end-if		;if not difficulty type == hardest
-
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-
 (defrule
 	(current-age == feudal-age)
 	(can-train galley-line)
@@ -873,9 +468,6 @@
 )
 
 #end-if		;if not civ == aztec
-
-#end-if		;if not difficulty type == easiest
-#end-if		;if not difficulty type == easy
 
 #end-if		;if not civ == korean
 #end-if		;if not civ == viking
