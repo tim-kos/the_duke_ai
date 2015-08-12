@@ -1136,7 +1136,6 @@
 )
 ;---------------------------------------
 
-
 (defrule
  	(or
 		(unit-type-count villager < TRADE-REPLACES-VILLAGER)
@@ -1153,7 +1152,7 @@
 	(civilian-population < POPULATION-MAX)
 	(or
 		(timer-triggered T-VILLAGER-TRAINING)
-		(difficulty >= hard)
+		(difficulty <= hard)
 	)
 =>
  	(train villager)
