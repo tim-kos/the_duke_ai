@@ -1740,12 +1740,26 @@
 	(gold-amount < 200)
 	(food-amount > 600)
 	(can-build barracks)
+	(or
+		(current-age >= feudal-age)
+		(building-type-count-total barracks < 2)
+	)
 	(building-type-count-total barracks < 5)
 	(unit-type-count-total trade-cart < 5)
 	(unit-type-count-total trade-cog < 5)
 =>
 	(build barracks)
 )
+
+#load-if-defined DARK-AGE-END
+(defrule
+	(wood-amount > 700)
+	(can-build barracks)
+	(building-type-count-total barracks < 10)
+=>
+	(build barracks)
+)
+#end-if
 
 (defrule
 	(game-time > 1200)
