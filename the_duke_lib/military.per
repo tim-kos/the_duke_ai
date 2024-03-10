@@ -1369,6 +1369,17 @@
 	(train trebuchet)
 )
 
+;On moderate always add 1 trebuchet if we have large army
+(defrule
+	(unit-type-count-total trebuchet < 1)
+	(can-train trebuchet)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(military-population >= FIFTEEN-PERCENT-POP)
+=>
+	(train trebuchet)
+)
+
 #end-if 		;if difficulty = moderate
 
 
@@ -1397,6 +1408,17 @@
 	(train trebuchet)
 )
 
+;On hard always add 3 trebuchets if we have large army
+(defrule
+	(unit-type-count-total trebuchet < 3)
+	(can-train trebuchet)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(military-population >= FIFTEEN-PERCENT-POP)
+=>
+	(train trebuchet)
+)
+
 #end-if 		;if difficulty = hard
 
 
@@ -1421,6 +1443,28 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
+=>
+	(train trebuchet)
+)
+
+;On hardest always add 3 trebuchets if we have large army
+(defrule
+	(unit-type-count-total trebuchet < 3)
+	(can-train trebuchet)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(military-population >= TEN-PERCENT-POP)
+=>
+	(train trebuchet)
+)
+
+;On hardest always add 6 trebuchets if we have large army
+(defrule
+	(unit-type-count-total trebuchet < 6)
+	(can-train trebuchet)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(military-population >= FIFTEEN-PERCENT-POP)
 =>
 	(train trebuchet)
 )
