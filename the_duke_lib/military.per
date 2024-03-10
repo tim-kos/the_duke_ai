@@ -569,7 +569,6 @@
 		(goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
 		(goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
 	)
-	(building-type-count castle >= 1)
 	(unit-type-count-total my-unique-unit-line < FIFTY-PERCENT-POP)
 	(can-train my-unique-unit-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -579,17 +578,19 @@
 	(train my-unique-unit-line)
 )
 
+;Always mix in some of my unique units. They are always useful in one way or another
+;even if not selected as primary or secondary unit.
 (defrule
-	(building-type-count castle >= 1)
-	(military-population >= FOURTY-FIVE-PERCENT-POP)
-	(can-train my-elite-unique-unit)
-	(unit-type-count-total trebuchet > 0)
+	(military-population >= TWENTY-FIVE-PERCENT-POP)
+	(can-train my-unique-unit)
+	(unit-type-count-total my-unique-unit-line < TEN-PERCENT-POP)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
 =>
-	(train my-elite-unique-unit)
+	(train my-unique-unit)
 )
+
 ;--------------------------------------------------------------------------
 
 ;Rule81: train monk to get the relics
