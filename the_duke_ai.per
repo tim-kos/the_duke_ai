@@ -8,7 +8,7 @@
 	(true)
 =>
 	(set-author-version "The Duke-AI - Version 1.5")
-	(set-author-name "Author name: tim_kos / DarkAngelBGE alias Tim Kosch�tzki")
+	(set-author-name "Author name: tim_kos / DarkAngelBGE alias Tim Koschuetzki")
 	(set-author-email "Author e-mail: tim@transloadit.com")
 	(disable-self)
 )
@@ -1200,7 +1200,7 @@
 
 (defrule
 	(strategic-number sn-camp-max-distance < 25)
-	(building-type-count lumber-camp < 1)
+	(building-type-count-total lumber-camp < 1)
 	(game-time > 600)
 =>
 	(set-strategic-number sn-camp-max-distance 25)
