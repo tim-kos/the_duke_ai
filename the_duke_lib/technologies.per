@@ -149,9 +149,7 @@
 ;HORSE-COLLAR 75 WOOD, 75 FOOD
 (defrule
  	(can-research-with-escrow ri-horse-collar)
-	(not (research-available ri-wheel-barrow))
 	(not (research-available ri-double-bit-axe))
-	(building-type-count-total farm > 8)
 =>
 	(release-escrow wood)
 	(release-escrow food)
@@ -164,7 +162,6 @@
  	(can-research-with-escrow ri-heavy-plow)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
-	(building-type-count-total farm > 15)
 	(building-type-count-total town-center > 1)
 	(or
 		(goal RUSH-CONTROL NO)
@@ -188,7 +185,6 @@
  	(can-research-with-escrow ri-crop-rotation)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-two-man-saw))
-	(building-type-count-total farm > 15)
 =>
 	(release-escrow wood)
 	(release-escrow food)
@@ -275,8 +271,8 @@
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
 	(not (research-available ri-heavy-plow))
-	(food-amount > 700)
-	(wood-amount > 700)
+	(food-amount > 400)
+	(wood-amount > 400)
 =>
 	(release-escrow wood)
 	(release-escrow food)
@@ -311,10 +307,11 @@
 
 ;STONE-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
+	(not (research-available ri-gold-shaft-mining))
  	(can-research-with-escrow ri-stone-shaft-mining)
 	(strategic-number sn-stone-gatherer-percentage > 0)
-	(food-amount > 700)
-	(wood-amount > 700)
+	(food-amount > 500)
+	(wood-amount > 500)
 =>
 	(release-escrow wood)
 	(release-escrow food)

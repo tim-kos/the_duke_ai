@@ -1058,7 +1058,6 @@
 
 (defrule
 	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
-	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total battering-ram-line < TWO-PERCENT-POP)
 	(can-train battering-ram-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -1070,6 +1069,18 @@
 		)
 		(military-population >= THIRTY-PERCENT-POP)
 	)
+=>
+	(train battering-ram-line)
+)
+
+;Always add some rams if we have a large army
+(defrule
+	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
+	(unit-type-count-total battering-ram-line < 5)
+	(can-train battering-ram-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(military-population >= TWENTY-PERCENT-POP)
 =>
 	(train battering-ram-line)
 )
@@ -1101,6 +1112,18 @@
 		)
 		(military-population >= THIRTY-PERCENT-POP)
 	)
+=>
+	(train battering-ram-line)
+)
+
+;Always add some rams if we have a large army
+(defrule
+	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
+	(unit-type-count-total battering-ram-line < 5)
+	(can-train battering-ram-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(military-population >= TWENTY-PERCENT-POP)
 =>
 	(train battering-ram-line)
 )
@@ -1764,6 +1787,7 @@
 	(build barracks)
 )
 
+;Fill up with spearmen if we have gold trouble
 (defrule
 	(game-time > 1200)
 	(dropsite-min-distance gold > 5)
@@ -1826,6 +1850,7 @@
 	(build stable)
 )
 
+;Fill up with scout cavalry if we have gold trouble
 (defrule
 	(game-time > 1200)
 	(dropsite-min-distance gold > 5)
@@ -1880,7 +1905,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(unit-type-count-total skirmisher-line < 10)
 =>
-	(train spearman-line)
+	(train skirmisher-line)
 )
 
 #end-if		;if not civ == turkish

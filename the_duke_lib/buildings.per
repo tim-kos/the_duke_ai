@@ -268,7 +268,7 @@
  	(resource-found wood)
 	(can-build lumber-camp)
 	(building-type-count-total lumber-camp < 1)
-	(building-type-count-total mill > 0)
+	(dropsite-min-distance wood > 5)
 	(or
 		(civ-selected hun)
 		(building-type-count house > 0)
@@ -290,7 +290,10 @@
 		(civ-selected hun)
 		(building-type-count house > 0)
 	)
-	(unit-type-count-total villager > 20)
+	(or
+		(unit-type-count-total villager > 20)
+		(dropsite-min-distance wood > 6)
+	)
 =>
  	(build lumber-camp)
 ;	(chat-local-to-self "build LUMBER-CAMP")
@@ -1334,6 +1337,7 @@
 	(not (research-available ri-bow-saw))
 	(not (research-available ri-heavy-plow))
 	(building-type-count-total town-center > 1)
+	(current-age >= castle-age)
 =>
 	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")

@@ -3598,29 +3598,66 @@
 	(timer-triggered T-SAVE-FOR-RESEARCH)
 	(goal SAVE-FOR-RESEARCH NO)
 	(game-time <= 5400)
-	(or
-		(military-population <= 60)
-		(or
-			(unit-type-count-total villager <= 100)
-			(goal MILITARY-PARITY VASTLY-INFERIOR)
-		)
-	)
+	(military-population >= TWENTY-PERCENT-POP)
 =>
 	(set-goal SAVE-FOR-RESEARCH YES)
 	(enable-timer T-SAVE-FOR-RESEARCH 120) ;save resources for 2 minutes
 	(chat-local-to-self "Save resources for research for 2min")
 )
 
+;If we have just researched to the imperial-age, start saving for research right away
+;to get the most important upgrades done.
+(defrule
+	(current-age == imperial-age)
+	(current-age-time < 60)
+	(military-population > 15)
+	(research-available imperial-age)
+	(goal SAVE-FOR-RESEARCH NO)
+=>
+	(disable-timer T-SAVE-FOR-RESEARCH)
+	(set-goal SAVE-FOR-RESEARCH YES)
+	(enable-timer T-SAVE-FOR-RESEARCH 180) ;save 3 minutes for important upgrades
+	(chat-local-to-self "Save resources for 3min while just arrived to imperial age")
+)
+
+;If we have not research the imperial-age, demand higher savings.
 (defrule
 	(or
 		(timer-triggered T-SAVE-FOR-RESEARCH)
 		(and
-			(food-amount > 350)
+			(food-amount > 1100)
 			(and
-				(wood-amount > 300)
-				(gold-amount > 300)
+				(wood-amount > 800)
+				(gold-amount > 850)
 			)
 		)
+	)
+	(current-age <= castle-age)
+	(research-available imperial-age)
+	(goal SAVE-FOR-RESEARCH YES)
+=>
+	(disable-timer T-SAVE-FOR-RESEARCH)
+	(set-goal SAVE-FOR-RESEARCH NO)
+	(enable-timer T-SAVE-FOR-RESEARCH 180) ;spend resources for 3 minutes
+	(chat-local-to-self "Spend resources for 3min")
+)
+
+;If we have researched the imperial-age or it is not available, no need to
+;demand very high savings.
+(defrule
+	(or
+		(timer-triggered T-SAVE-FOR-RESEARCH)
+		(and
+			(food-amount > 600)
+			(and
+				(wood-amount > 600)
+				(gold-amount > 600)
+			)
+		)
+	)
+	(or
+		(current-age >= imperial-age)
+		(not (research-available imperial-age))
 	)
 	(goal SAVE-FOR-RESEARCH YES)
 =>
