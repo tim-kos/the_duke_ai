@@ -2020,9 +2020,10 @@
 	(build-gate 2)
 )
 
+;Delete wall if too few gates to not wall ourselves in
 (defrule
 	(wall-completed-percentage 2 == 100)
-	(building-type-count-total gate < 7)
+	(building-type-count-total gate < 3)
 =>
 	(delete-building stone-wall-line)
 )
