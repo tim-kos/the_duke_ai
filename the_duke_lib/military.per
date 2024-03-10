@@ -333,6 +333,18 @@
 =>
 	(train skirmisher-line)
 )
+
+;Always mix in some skirmisher as they are very cheap (only some food and wood) and counter any archer types.
+(defrule
+    (military-population >= TWENTY-FIVE-PERCENT-POP)
+	(unit-type-count-total skirmisher-line < TEN-PERCENT-POP)
+	(can-train skirmisher-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+=>
+	(train skirmisher-line)
+)
+
 ;---------------------
 
 
@@ -1752,16 +1764,6 @@
 	(build barracks)
 )
 
-#load-if-defined DARK-AGE-END
-(defrule
-	(wood-amount > 700)
-	(can-build barracks)
-	(building-type-count-total barracks < 10)
-=>
-	(build barracks)
-)
-#end-if
-
 (defrule
 	(game-time > 1200)
 	(dropsite-min-distance gold > 5)
@@ -1775,9 +1777,37 @@
 	(train spearman-line)
 )
 
+;Mix in some spearmen always as they counter any mounted units and are cheap
+(defrule
+	(military-population >= TWENTY-FIVE-PERCENT-POP)
+	(can-train spearman-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(unit-type-count-total spearman-line < TEN-PERCENT-POP)
+=>
+	(train spearman-line)
+)
+
+;When in castle-age, train 10 spearmen to counter some rushes
+(defrule
+    (current-age >= castle-age)
+	(can-train spearman-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(unit-type-count-total spearman-line < 10)
+=>
+	(train spearman-line)
+)
+
 #end-if		;if not civ == turkish
 
-
+#load-if-defined DARK-AGE-END
+(defrule
+	(wood-amount > 700)
+	(can-build barracks)
+	(building-type-count-total barracks < 10)
+=>
+	(build barracks)
+)
+#end-if
 
 #load-if-not-defined TEUTONIC-CIV
 
@@ -1841,6 +1871,16 @@
 	(unit-type-count-total trade-cog < 5)
 =>
 	(train skirmisher-line)
+)
+
+;When in castle-age, train 10 spearmen to counter some rushes
+(defrule
+    (current-age >= castle-age)
+	(can-train skirmisher-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(unit-type-count-total skirmisher-line < 10)
+=>
+	(train spearman-line)
 )
 
 #end-if		;if not civ == turkish
