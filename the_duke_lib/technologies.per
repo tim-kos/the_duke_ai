@@ -271,8 +271,8 @@
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
 	(not (research-available ri-heavy-plow))
-	(food-amount > 400)
-	(wood-amount > 400)
+	;(food-amount > 400)
+	;(wood-amount > 400)
 =>
 	(release-escrow wood)
 	(release-escrow food)
@@ -861,7 +861,7 @@
 (defrule
  	(can-research-with-escrow ri-halberdier)
 	(or
-		(unit-type-count-total spearman-line >= THREE-PERCENT-POP)
+		(unit-type-count-total spearman-line >= ONE-PERCENT-POP)
 		(or
 			(goal PRIMARY-COMBAT-UNIT SPEARMAN)
 			(goal SECONDARY-COMBAT-UNIT SPEARMAN)
@@ -878,7 +878,7 @@
 (defrule
  	(can-research-with-escrow ri-elite-eagle-warrior)
 	(or
-		(unit-type-count-total eagle-warrior-line >= THREE-PERCENT-POP)
+		(unit-type-count-total eagle-warrior-line >= ONE-PERCENT-POP)
 		(or
 			(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 			(goal SECONDARY-COMBAT-UNIT EAGLEMAN)
@@ -922,7 +922,7 @@
 ;250 WOOD, 160 GOLD
 (defrule
  	(can-research-with-escrow ri-elite-skirmisher)
- 	(unit-type-count-total skirmisher-line >= 9)
+ 	(unit-type-count-total skirmisher-line >= ONE-PERCENT-POP)
  	(or
 		(wood-amount > 350)
 		(building-type-count-total town-center > 2)
@@ -988,7 +988,10 @@
  	(can-research-with-escrow ri-husbandry)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+		(or
+			(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+			(food-amount > 1200)
+		)
 	)
 	(not (research-available ri-bloodlines))
 =>
@@ -1002,7 +1005,10 @@
  	(can-research-with-escrow ri-bloodlines)
 	(or
 		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+		(or
+			(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+			(food-amount > 1500)
+		)
 	)
 =>
 	(release-escrow food)
@@ -1347,8 +1353,6 @@
 ;150 FOOD, 150 GOLD
 (defrule
  	(can-research ri-conscription)
-	(food-amount > 300)
-	(gold-amount > 300)
 =>
  	(research ri-conscription)
 ; (chat-local-to-self "research CONSCRIPTION")

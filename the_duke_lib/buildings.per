@@ -455,35 +455,24 @@
 ;Rule20: build MINING-CAMPS through the ages
 
 (defrule
- 	(or
-		(current-age >= feudal-age)
-		(goal ADVANCING-TO-AGE FEUDAL-AGE)
-	)
 	(resource-found gold)
-	(dropsite-min-distance gold > 4)
-	(cc-players-unit-type-count 0 GOLD-MINE > 0)
-	(dropsite-min-distance gold < 255)
+	(dropsite-min-distance gold > 5)
+	(dropsite-min-distance gold < 499)
  	(can-build mining-camp)
 	(building-type-count-total lumber-camp > 0)
 	(up-pending-objects c: mining-camp < 1)
 	(building-type-count-total mining-camp < 20)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
-	(set-strategic-number sn-camp-max-distance 32)
+	(set-strategic-number sn-camp-max-distance 100)
  	(build mining-camp)
 ;	(chat-local-to-self "build MINING-CAMP")
 )
 
 (defrule
-	(current-age >= feudal-age)
-	(or
-		(building-type-count-total town-center > 1)
-		(stone-amount < 100)
-	)
 	(resource-found stone)
-	(dropsite-min-distance stone > 4)
-	(dropsite-min-distance stone < 255)
-	(cc-players-unit-type-count 0 STONE-MINE > 0)
+	(dropsite-min-distance stone > 5)
+	(dropsite-min-distance stone < 499)
  	(can-build mining-camp)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total barracks > 0)
@@ -497,7 +486,7 @@
 	(building-type-count-total mining-camp < 20)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
-	(set-strategic-number sn-camp-max-distance 32)
+	(set-strategic-number sn-camp-max-distance 100)
  	(build mining-camp)
 ;	(chat-local-to-self "build MINING-CAMP")
 )
@@ -1311,9 +1300,20 @@
 (defrule
 	(current-age == feudal-age)
 	(can-build barracks)
-	(building-type-count-total barracks < barracks-building-feudal)
+	(building-type-count-total barracks < 2)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
 	(wood-amount > 600)
+=>
+	(build barracks)
+;	(chat-local-to-self "build BARRACKS")
+)
+
+(defrule
+	(current-age == feudal-age)
+	(can-build barracks)
+	(building-type-count-total barracks < barracks-building-feudal)
+	(goal ABLE-TO-BUILD-BARRACKS YES)
+	(wood-amount > 1500)
 =>
 	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
@@ -1332,7 +1332,7 @@
 		)
 	)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(wood-amount > 400)
+	(wood-amount > 500)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
 	(not (research-available ri-heavy-plow))
@@ -1417,13 +1417,14 @@
  	(current-age >= castle-age)
 	(building-type-count-total barracks < barracks-building-imperial)
 	(or
-		(wood-amount > 450)
+		(wood-amount > 850)
 		(building-type-count-total town-center > 2)
 	)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(building-type-count-total archery-range >= 2)
  	(can-build barracks)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
+	(wood-amount > 600)
 =>
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
@@ -1433,14 +1434,14 @@
  	(current-age >= castle-age)
 	(building-type-count-total barracks < barracks-building-imperial)
 	(or
-		(wood-amount > 450)
+		(wood-amount > 850)
 		(building-type-count-total town-center > 2)
 	)
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(building-type-count-total stable >= 2)
  	(can-build barracks)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(wood-amount > 300)
+	(wood-amount > 600)
 =>
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
@@ -1449,7 +1450,7 @@
 (defrule
  	(current-age >= castle-age)
 	(building-type-count-total barracks < barracks-building-imperial)
-	(wood-amount > 550)
+	(wood-amount > 950)
 	(building-type-count-total town-center > 2)
  	(can-build barracks)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
@@ -1648,7 +1649,7 @@
 	(current-age >= castle-age)
 	(can-build stable)
 	(building-type-count-total stable < stable-building-imperial)
-	(wood-amount > 700)
+	(wood-amount > 800)
 	(not (research-available ri-hand-cart))
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(building-type-count-total town-center > 2)
@@ -1895,7 +1896,7 @@
 	(not (research-available ri-hand-cart))
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(wood-amount > 550)
+	(wood-amount > 850)
 	(unit-type-count-total villager > 60) ;can our economy support this?
 	(up-pending-objects c: archery-range < 2)
 =>
@@ -2565,7 +2566,7 @@
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(can-build barracks)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(wood-amount > 500)
+	(wood-amount > 1500)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total barracks >= 3)
@@ -2583,7 +2584,7 @@
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(wood-amount > 500)
+	(wood-amount > 1500)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total archery-range >= 3)
@@ -2601,7 +2602,7 @@
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(can-build stable)
 	(goal ABLE-TO-BUILD-STABLE YES)
-	(wood-amount > 500)
+	(wood-amount > 1500)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	(building-type-count-total stable >= 3)

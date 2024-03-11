@@ -1057,13 +1057,7 @@
 
 (defrule
  	(can-research-with-escrow ri-fletching)
-	(or
-		(or
-			(goal ABLE-TO-UPGRADE-ARCHERS LOW)
-			(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
-		)
-		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
-	)
+    (food-amount > 700)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -1093,13 +1087,7 @@
 
 (defrule
  	(can-research-with-escrow ri-forging)
-	(or
-		(or
-			(goal ABLE-TO-UPGRADE-CAVALRY LOW)
-			(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		)
-		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
-	)
+	(food-amount > 500)
 =>					;then
 	(release-escrow food)
  	(research ri-forging)
@@ -1136,14 +1124,7 @@
 
 (defrule
  	(can-research-with-escrow ri-scale-mail)
-	(or
-		(or
-			(goal ABLE-TO-UPGRADE-INFANTRY LOW)
-			(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		)
-		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
-	)
-	(food-amount > 200)
+	(food-amount > 500)
 =>					;then
 	(release-escrow food)
 	(research ri-scale-mail)
@@ -1177,14 +1158,7 @@
 
 (defrule
  	(can-research-with-escrow ri-scale-barding)
-	(or
-		(or
-			(goal ABLE-TO-UPGRADE-CAVALRY LOW)
-			(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		)
-		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
-	)
-	(food-amount > 200)
+	(food-amount > 500)
 =>
 	(release-escrow food)
  	(research ri-scale-barding)
@@ -1201,12 +1175,10 @@
 		)
 	)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(food-amount > 200)
 	(or
 		(goal ADVANCING-TO-AGE CASTLE-AGE)
 		(current-age == castle-age)
 	)
-	(unit-type-count-total knight-line > 2)
 =>
 	(release-escrow food)
  	(research ri-scale-barding)
@@ -1225,6 +1197,7 @@
 		)
 		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 	)
+	(food-amount > 500)
 =>
 	(release-escrow food)
 	(research ri-padded-archer-armor)

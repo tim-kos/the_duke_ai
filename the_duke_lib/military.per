@@ -456,6 +456,7 @@
 	(train knight-line)
 )
 
+;Always mix in some nights if we have them available as they are strong.
 (defrule
 	(military-population >= EIGHT-PERCENT-POP)
 	(unit-type-count-total knight-line < FIVE-PERCENT-POP)
@@ -463,7 +464,17 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
-	(food-amount > 100) ;leave some food for constant villager training
+=>
+	(train knight-line)
+)
+
+;Always mix in some knights in early game as they are strong.
+(defrule
+    (game-time < 1800)
+	(unit-type-count-total knight-line < FIVE-PERCENT-POP)
+	(can-train knight-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 =>
 	(train knight-line)
 )
@@ -593,14 +604,14 @@
 ;Always mix in some of my unique units. They are always useful in one way or another
 ;even if not selected as primary or secondary unit.
 (defrule
-	(military-population >= TWENTY-FIVE-PERCENT-POP)
-	(can-train my-unique-unit)
-	(unit-type-count-total my-unique-unit-line < TEN-PERCENT-POP)
+	(military-population >= TEN-PERCENT-POP)
+	(can-train my-unique-unit-line)
+	(unit-type-count-total my-unique-unit-line < FIVE-PERCENT-POP)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
 =>
-	(train my-unique-unit)
+	(train my-unique-unit-line)
 )
 
 ;--------------------------------------------------------------------------

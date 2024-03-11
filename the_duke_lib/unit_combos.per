@@ -2603,7 +2603,6 @@
 )
 
 (defrule
-	(building-type-count stable >= 1)
 	(unit-type-count-total knight-line < FIFTY-PERCENT-POP)
 	(can-train knight-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -3010,7 +3009,6 @@
 )
 
 (defrule
-	(building-type-count stable >= 1)
 	(unit-type-count-total knight-line < FIFTY-PERCENT-POP)
 	(can-train knight-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -3560,10 +3558,8 @@
 
 (defrule
 	(current-age >= castle-age)
-	(game-time > 1500)
 	(current-age-time > 120)
 	(not (goal RUSH-CONTROL RUSHING))
-	(military-population >= 15)
 =>
 	(enable-timer T-SAVE-FOR-RESEARCH 1)
 	(disable-self)
@@ -3648,10 +3644,10 @@
 	(or
 		(timer-triggered T-SAVE-FOR-RESEARCH)
 		(and
-			(food-amount > 600)
+			(food-amount > 700)
 			(and
-				(wood-amount > 600)
-				(gold-amount > 600)
+				(wood-amount > 700)
+				(gold-amount > 700)
 			)
 		)
 	)
