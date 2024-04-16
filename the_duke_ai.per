@@ -457,6 +457,10 @@
 (defrule
 	(true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
 #end-if
+#load-if-defined AMAZON-TUNNEL-MAP
+(defrule
+	(true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
+#end-if
 ;*******************************
 #load-if-defined ARENA-MAP
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
@@ -1289,6 +1293,7 @@
 	(game-time > 2700)
 =>
 	(set-strategic-number sn-camp-max-distance 40)
+	(disable-self)
 )
 
 (defrule
@@ -1296,6 +1301,7 @@
 	(game-time > 3600)
 =>
 	(set-strategic-number sn-camp-max-distance 50)
+	(disable-self)
 )
 
 (defrule
@@ -1303,6 +1309,7 @@
 	(game-time > 4500)
 =>
 	(set-strategic-number sn-camp-max-distance 100)
+	(disable-self)
 )
 
 (defrule
@@ -1310,6 +1317,7 @@
 	(game-time > 5400)
 =>
 	(set-strategic-number sn-camp-max-distance 125)
+	(disable-self)
 )
 
 (defrule
@@ -1317,6 +1325,7 @@
 	(game-time > 6300)
 =>
 	(set-strategic-number sn-camp-max-distance 150)
+	(disable-self)
 )
 
 (defrule
@@ -1324,6 +1333,7 @@
 	(game-time > 7200)
 =>
 	(set-strategic-number sn-camp-max-distance 200)
+	(disable-self)
 )
 #end-if
 ;----------------------------------
@@ -1533,6 +1543,21 @@
  	(set-strategic-number sn-maximum-gold-drop-distance 5)
  	(set-strategic-number sn-maximum-stone-drop-distance 4)
  	(set-strategic-number sn-maximum-fish-boat-drop-distance 30)
+	(disable-self)
+)
+
+(defrule
+	(building-type-count-total lumber-camp > 0)
+	(building-type-count-total stone-wall-line < 12)
+=>
+	(set-strategic-number sn-maximum-wood-drop-distance 3); move wood gatherers from far stragglers to the camp
+	(disable-self)
+)
+
+(defrule
+	(game-time > 600)
+=>
+	(set-strategic-number sn-maximum-wood-drop-distance 10); move wood gatherers from far stragglers to the camp
 	(disable-self)
 )
 

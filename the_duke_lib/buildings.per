@@ -10,6 +10,7 @@
 =>
 	(set-strategic-number sn-minimum-town-size 6)
 	(set-strategic-number sn-maximum-town-size 10)
+	(set-strategic-number sn-camp-max-distance 10)
 	(disable-self)
 )
 
@@ -19,6 +20,7 @@
 =>
 	(set-strategic-number sn-minimum-town-size 6)
 	(set-strategic-number sn-maximum-town-size 8)
+	(set-strategic-number sn-camp-max-distance 10)
 	(disable-self)
 )
 
@@ -28,6 +30,7 @@
 =>
 	(set-strategic-number sn-minimum-town-size 6)
 	(set-strategic-number sn-maximum-town-size 12)
+	(set-strategic-number sn-camp-max-distance 18)
 	(disable-self)
 )
 
@@ -36,7 +39,7 @@
 	(civ-selected hun)
 =>
 	(set-strategic-number sn-minimum-town-size 6)
-	(set-strategic-number sn-maximum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 18)
 	(disable-self)
 )
 
@@ -47,6 +50,7 @@
 =>
 	(set-strategic-number sn-minimum-town-size 12)
 	(set-strategic-number sn-maximum-town-size 18)
+	(set-strategic-number sn-camp-max-distance 24)
 	(disable-self)
 )
 
@@ -57,6 +61,7 @@
 =>
 	(set-strategic-number sn-minimum-town-size 10)
 	(set-strategic-number sn-maximum-town-size 16)
+	(set-strategic-number sn-camp-max-distance 24)
 	(disable-self)
 )
 
@@ -67,6 +72,7 @@
 =>
 	(set-strategic-number sn-minimum-town-size 10)
 	(set-strategic-number sn-maximum-town-size 23)
+	(set-strategic-number sn-camp-max-distance 24)
 	(disable-self)
 )
 
@@ -77,22 +83,43 @@
 =>
 	(set-strategic-number sn-minimum-town-size 10)
 	(set-strategic-number sn-maximum-town-size 20)
+	(set-strategic-number sn-camp-max-distance 26)
 	(disable-self)
 )
 
+;After 30min gradually increase camp max distance every 10 seconds
+;if we fail to build new lumber-camps
 (defrule
 	(game-time > 1800)
+	(dropsite-min-distance wood > 10)
+	(up-pending-objects c: lumber-camp < 1)
+	(up-timer-status T-INCREASE-CAMP-DISTANCE <= timer-triggered)
+	(can-build lumber-camp)
 =>
-	(set-strategic-number sn-minimum-town-size 10)
-	(set-strategic-number sn-maximum-town-size 26)
-	(disable-self)
+	(enable-timer T-INCREASE-CAMP-DISTANCE 10)
+	(up-modify-sn camp-max-distance c:+ 2)
+)
+
+;If we fail to build houses even though we should and can, it is because
+;our town size is too small. Gradually increase it then.
+(defrule
+	(game-time > 1800)
+	(up-pending-objects c: house < 1)
+	(up-timer-status T-INCREASE-TOWN-SIZE <= timer-triggered)
+	(can-build house)
+	(population-headroom != 0)
+	(housing-headroom <= 16)
+=>
+	(enable-timer T-INCREASE-CAMP-DISTANCE 10)
+	(up-modify-sn sn-maximum-town-size c:+ 2)
 )
 
 (defrule
 	(game-time > 2400)
 =>
 	(set-strategic-number sn-minimum-town-size 10)
-	(set-strategic-number sn-maximum-town-size 32)
+	(set-strategic-number sn-maximum-town-size 38)
+	(set-strategic-number sn-camp-max-distance 38)
 	(disable-self)
 )
 
@@ -100,7 +127,8 @@
 	(game-time > 3000)
 =>
 	(set-strategic-number sn-minimum-town-size 10)
-	(set-strategic-number sn-maximum-town-size 38)
+	(set-strategic-number sn-maximum-town-size 48)
+	(set-strategic-number sn-camp-max-distance 44)
 	(disable-self)
 )
 
@@ -108,7 +136,17 @@
 	(game-time > 3600)
 =>
 	(set-strategic-number sn-minimum-town-size 10)
-	(set-strategic-number sn-maximum-town-size 44)
+	(set-strategic-number sn-maximum-town-size 58)
+	(set-strategic-number sn-camp-max-distance 48)
+	(disable-self)
+)
+
+(defrule
+	(game-time > 4000)
+=>
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 70)
+	(set-strategic-number sn-camp-max-distance 60)
 	(disable-self)
 )
 
@@ -116,7 +154,44 @@
 	(game-time > 4500)
 =>
 	(set-strategic-number sn-minimum-town-size 10)
-	(set-strategic-number sn-maximum-town-size 60)
+	(set-strategic-number sn-maximum-town-size 80)
+	(set-strategic-number sn-camp-max-distance 80)
+	(disable-self)
+)
+
+(defrule
+	(game-time > 5000)
+=>
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 90)
+	(set-strategic-number sn-camp-max-distance 100)
+	(disable-self)
+)
+
+(defrule
+	(game-time > 5500)
+=>
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 120)
+	(set-strategic-number sn-camp-max-distance 120)
+	(disable-self)
+)
+
+(defrule
+	(game-time > 6000)
+=>
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 100)
+	(set-strategic-number sn-camp-max-distance 140)
+	(disable-self)
+)
+
+(defrule
+	(game-time > 6600)
+=>
+	(set-strategic-number sn-minimum-town-size 10)
+	(set-strategic-number sn-maximum-town-size 120)
+	(set-strategic-number sn-camp-max-distance 160)
 	(disable-self)
 )
 
@@ -183,8 +258,7 @@
 
 (defrule
 	(game-time >= 900)
-	(housing-headroom <= 16)
-	(wood-amount > 600)
+	(housing-headroom <= 25)
  	(can-build house)
 	(population-headroom != 0)
 	(current-age >= castle-age)
@@ -203,12 +277,12 @@
 (defrule
 	(or
 		(and
-			(difficulty >= easy)
-			(housing-headroom <= 6)
+			(difficulty > moderate)
+			(housing-headroom <= 25)
 		)
 		(and
 			(difficulty <= moderate)
-			(housing-headroom <= 20)
+			(housing-headroom <= 6)
 		)
 	)
  	(can-build house)
@@ -355,16 +429,11 @@
 )
 
 (defrule
-	(current-age >= feudal-age)
-	(strategic-number sn-wood-gatherer-percentage > 0)
 	(can-build lumber-camp)
 	(resource-found wood)
 	(dropsite-min-distance wood > 7)
-	(dropsite-min-distance wood < 480)
-	(building-type-count-total barracks > 0)
-	(building-type-count-total blacksmith > 0)
 	(up-pending-objects c: lumber-camp <= 1)
-	(game-time >= 3600)
+	(game-time >= 1800)
 =>
 	(build lumber-camp)
 ;	(chat-local-to-self "build LUMBER-CAMP")
@@ -381,40 +450,39 @@
 
 ;Rule16: build MINING-CAMP GOLD in dark-age and we found some gold (it mustn't be so far from the next camp) and we play wonder race
 
+
 (defrule
  	(resource-found gold)
-	(dropsite-min-distance gold > 4)
+	(wood-amount > 200)
+	(dropsite-min-distance gold > 3)
+	(dropsite-min-distance gold < 480)
  	(can-build mining-camp)
-	(building-type-count-total mining-camp < 1)
-	(building-type-count-total lumber-camp > 0)
-	(or
-		(current-age >= feudal-age)
-		(goal ADVANCING-TO-AGE FEUDAL-AGE)
-	)
+	(building-type-count-total mining-camp < 4)
+	(up-research-status c: feudal-age >= research-pending)
 =>
+	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 9); 12
 ;	(chat-local-to-self "build MINING-CAMP for GOLD")
 )
 
 (defrule
 	(resource-found stone)
-	(dropsite-min-distance stone > 4)
+	(dropsite-min-distance stone > 3)
+	(building-type-count-total mining-camp < 4)
  	(can-build mining-camp)
-	(building-type-count-total mining-camp == 1)
-	(building-type-count-total lumber-camp > 0)
+	(wood-amount > 200)
 	(or
-		(current-age >= feudal-age)
-		(goal ADVANCING-TO-AGE FEUDAL-AGE)
-	)
-	(or
-		(building-type-count-total stable > 0)
+		(goal RUSH-CONTROL NO)
 		(or
-			(building-type-count-total archery-range > 0)
-			(building-type-count-total market > 0)
+			(wood-amount > 500)
+			(civilian-population > TEN-PERCENT-POP)
 		)
 	)
+	(up-research-status c: feudal-age >= research-pending)
 =>
  	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 9); 12
 ;	(chat-local-to-self "build MINING-CAMP for STONE")
 )
 
@@ -455,23 +523,124 @@
 ;Rule20: build MINING-CAMPS through the ages
 
 (defrule
+ 	(resource-found gold)
+	(dropsite-min-distance gold > 3)
+	(dropsite-min-distance gold < 480)
+ 	(can-build mining-camp)
+	(building-type-count-total mining-camp < 4)
+	(up-research-status c: feudal-age >= research-pending)
+=>
+	(set-strategic-number sn-allow-adjacent-dropsites 0)
+ 	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 9); 12
+;	(chat-local-to-self "build MINING-CAMP for GOLD")
+)
+
+(defrule
+	(resource-found stone)
+	(dropsite-min-distance stone > 3)
+	(building-type-count-total mining-camp < 4)
+ 	(can-build mining-camp)
+	(wood-amount > 500)
+	(or
+		(goal RUSH-CONTROL NO)
+		(or
+			(wood-amount > 800)
+			(civilian-population > TEN-PERCENT-POP)
+		)
+	)
+	(up-research-status c: feudal-age >= research-pending)
+=>
+ 	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 9); 12
+;	(chat-local-to-self "build MINING-CAMP for STONE")
+)
+
+(defrule
+    (or
+		(up-research-status c: feudal-age >= research-pending)
+		(or
+			(current-age >= feudal-age)
+			(game-time > 900)
+		)
+	)
 	(resource-found gold)
-	(dropsite-min-distance gold > 5)
+	(dropsite-min-distance gold > 4)
 	(dropsite-min-distance gold < 499)
  	(can-build mining-camp)
 	(building-type-count-total lumber-camp > 0)
 	(up-pending-objects c: mining-camp < 1)
+	(or	
+	   (and
+	   	  (building-type-count mining-camp < 5)
+		  (dropsite-min-distance gold > 5)
+	   )
+		(and
+			(strategic-number sn-camp-max-distance > 45)
+			(dropsite-min-distance gold > 13)
+		)
+	); don't spam camps if it's in an unreachable spot
 	(building-type-count-total mining-camp < 20)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
-	(set-strategic-number sn-camp-max-distance 100)
  	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 6)
+;	(chat-local-to-self "build MINING-CAMP")
+)
+
+;Build a second mining camp in castle-age, which has a high probability
+;to be placed next to second gold pile
+(defrule
+    (or
+		(current-age >= castle-age)
+		(or
+			(current-age >= feudal-age)
+			(game-time > 900)
+		)
+	)
+	(wood-amount > 300)
+	(resource-found gold)
+	(dropsite-min-distance gold > 0)
+	(dropsite-min-distance gold < 499)
+ 	(can-build mining-camp)
+	(building-type-count-total lumber-camp > 0)
+	(up-pending-objects c: mining-camp < 1)
+	(building-type-count-total mining-camp < 3)
+=>
+	(set-strategic-number sn-allow-adjacent-dropsites 0)
+ 	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 6)
+;	(chat-local-to-self "build MINING-CAMP")
+)
+
+;Build a fourth mining camp in castle-age, which has a high probability
+;to be placed next to second gold pile
+(defrule
+    (or
+		(current-age >= castle-age)
+		(or
+			(current-age >= feudal-age)
+			(game-time > 900)
+		)
+	)
+	(wood-amount > 300)
+	(resource-found stone)
+	(dropsite-min-distance stone > 0)
+	(dropsite-min-distance stone < 499)
+ 	(can-build mining-camp)
+	(building-type-count-total lumber-camp > 0)
+	(up-pending-objects c: mining-camp < 1)
+	(building-type-count-total mining-camp < 4)
+=>
+	(set-strategic-number sn-allow-adjacent-dropsites 0)
+ 	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 6)
 ;	(chat-local-to-self "build MINING-CAMP")
 )
 
 (defrule
 	(resource-found stone)
-	(dropsite-min-distance stone > 5)
+	(dropsite-min-distance stone > 4)
 	(dropsite-min-distance stone < 499)
  	(can-build mining-camp)
 	(building-type-count-total blacksmith > 0)
@@ -483,11 +652,14 @@
 	(building-type-count-total lumber-camp > 0)
 	(building-type-count-total mining-camp > 0)
 	(up-pending-objects c: mining-camp < 1)
+	(or	(building-type-count mining-camp < 5)
+	(and	(strategic-number sn-camp-max-distance > 45)
+		(dropsite-min-distance stone > 13))); don't spam camps if it's in an unreachable spot
 	(building-type-count-total mining-camp < 20)
 =>
-	(set-strategic-number sn-allow-adjacent-dropsites 0)
-	(set-strategic-number sn-camp-max-distance 100)
+ 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 6)
 ;	(chat-local-to-self "build MINING-CAMP")
 )
 
@@ -508,6 +680,57 @@
 	(up-pending-objects c: mining-camp < 1)
 =>
  	(build mining-camp)
+;	(chat-local-to-self "build MINING-CAMP")
+)
+
+;Build a second mining camp in castle-age, which has a high probability
+;to be placed next to second gold pile which is close to town and which is otherwise
+;walled in by buildings
+(defrule
+    (or
+		(current-age >= castle-age)
+		(or
+			(current-age >= feudal-age)
+			(game-time > 900)
+		)
+	)
+	(wood-amount > 300)
+	(resource-found gold)
+	(dropsite-min-distance gold > 0)
+	(dropsite-min-distance gold < 499)
+ 	(can-build mining-camp)
+	(building-type-count-total lumber-camp > 0)
+	(up-pending-objects c: mining-camp < 1)
+	(building-type-count-total mining-camp < 3)
+=>
+	(set-strategic-number sn-allow-adjacent-dropsites 0)
+ 	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 6)
+;	(chat-local-to-self "build MINING-CAMP")
+)
+
+;Build a fourth mining camp in castle-age, which has a high probability
+;to be placed next to second gold pile
+(defrule
+    (or
+		(current-age >= castle-age)
+		(or
+			(current-age >= feudal-age)
+			(game-time > 900)
+		)
+	)
+	(wood-amount > 300)
+	(resource-found stone)
+	(dropsite-min-distance stone > 0)
+	(dropsite-min-distance stone < 499)
+ 	(can-build mining-camp)
+	(building-type-count-total lumber-camp > 0)
+	(up-pending-objects c: mining-camp < 1)
+	(building-type-count-total mining-camp < 4)
+=>
+	(set-strategic-number sn-allow-adjacent-dropsites 0)
+ 	(build mining-camp)
+	(set-strategic-number sn-dropsite-separation-distance 6)
 ;	(chat-local-to-self "build MINING-CAMP")
 )
 
@@ -538,7 +761,7 @@
 (defrule
 	(or
 		(resource-found food)
-		(current-age-time > 250)
+		(game-time > 250)
 	)
 	(can-build mill)
 	(building-type-count-total mill < 1)
@@ -1345,7 +1568,7 @@
 
 (defrule
 	(current-age == dark-age)
- 	(goal ADVANCING-TO-AGE FEUDAL-AGE)
+ 	(up-research-status c: feudal-age >= research-pending)
  	(can-build barracks)
 	(building-type-count-total barracks < 1)
 =>
@@ -1549,7 +1772,7 @@
 	)
 	(or
 		(and
-			(goal ADVANCING-TO-AGE CASTLE-AGE)
+			(up-research-status c: castle-age >= research-pending)
 			(current-age == feudal-age)
 		)
 		(current-age >= castle-age)
@@ -1954,6 +2177,29 @@
 ;	(chat-local-to-self "build SIEGE-WORKSHOP")
 )
 
+(defrule
+ 	(current-age >= castle-age)
+ 	(can-build siege-workshop)
+ 	(goal RUSH-CONTROL RUSHING)
+	(building-type-count-total siege-workshop < 2)
+	(military-population > EIGHT-PERCENT-POP)
+=>
+ 	(build siege-workshop)
+;	(chat-local-to-self "build SIEGE-WORKSHOP")
+)
+
+(defrule
+ 	(current-age >= castle-age)
+ 	(can-train battering-ram-line)
+ 	(goal RUSH-CONTROL RUSHING)
+	(unit-type-count-total battering-ram-line < 6)
+	(military-population > EIGHT-PERCENT-POP)
+=>
+ 	(train battering-ram-line)
+;	(chat-local-to-self "train BATTERING-RAM-LINE")
+)
+
+
 #load-if-defined DEATH-MATCH
 ;***********************************************
 ;***********************************************
@@ -2003,35 +2249,37 @@
 
 ;Rule113: build the WALL
 
-(defrule
-	(or
-		(map-type black-forest)
-		(map-type yucatan)
-	)
-	(difficulty <= easy)
-	(can-build-wall 2 stone-wall-line)
-	(wall-completed-percentage 2 < 100)
-	(current-age == imperial-age)
-=>
-	(build-wall 2 stone-wall-line)
-)
+;No wall building for now, the AI more often than not gets stuck in some way.
+;(defrule
+;	(or
+;		(map-type black-forest)
+;		(map-type yucatan)
+;	)
+;	(difficulty <= easy)
+;	(can-build-wall 2 stone-wall-line)
+;	(wall-completed-percentage 2 < 100)
+;	(current-age == imperial-age)
+;=>
+;	(build-wall 2 stone-wall-line)
+;)
+;
+;(defrule
+;	(wall-completed-percentage 2 > 0)
+; 	(building-type-count-total gate < 12)
+; 	(can-build-gate 2)
+;	(up-pending-objects c: gate <= 3)
+;=>
+;	(build-gate 2)
+;)
+;
+;;Delete wall if too few gates to not wall ourselves in
+;(defrule
+;	(wall-completed-percentage 2 == 100)
+;	(building-type-count-total gate < 5)
+;=>
+;	(delete-building stone-wall-line)
+;)
 
-(defrule
-	(wall-completed-percentage 2 > 0)
- 	(current-age > dark-age)
- 	(building-type-count-total gate < 7)
- 	(can-build-gate-with-escrow 2)
-=>
-	(build-gate 2)
-)
-
-;Delete wall if too few gates to not wall ourselves in
-(defrule
-	(wall-completed-percentage 2 == 100)
-	(building-type-count-total gate < 3)
-=>
-	(delete-building stone-wall-line)
-)
 #end-if		;if not game-type == defend-the-wonder
 ;***********************************************
 ;***********************************************
@@ -2117,7 +2365,7 @@
  	(current-age == castle-age)
  	(building-type-count-total watch-tower < watch-tower-building-castle)
  	(can-build watch-tower)
-	(building-type-count-total castle >= 3)
+	(building-type-count-total castle >= 5)
 	(building-type-count-total town-center >= 3)
 =>			;then
  	(build watch-tower)
@@ -2129,7 +2377,7 @@
  	(building-type-count-total watch-tower < watch-tower-building-imperial)
  	(can-build watch-tower)
 	(or
-		(building-type-count-total castle >= 2)
+		(building-type-count-total castle >= 5)
 		(death-match-game)
 	)
 	(not (can-build bombard-tower))
@@ -2177,7 +2425,7 @@
 (defrule
  	(current-age >= castle-age)
  	(difficulty <= hard)
- 	(building-type-count-total town-center < 10)
+ 	(building-type-count-total town-center < 6)
  	(building-type-count-total castle >= 2)
  	(wood-amount > 600)
  	(can-build town-center)
@@ -2223,7 +2471,7 @@
 	(can-build dock)
 	(building-type-count-total lumber-camp >= 1)
 	(or
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
+		(up-research-status c: castle-age >= research-pending)
 		(current-age >= castle-age)
 	)
 =>
@@ -2246,7 +2494,7 @@
 	(can-build dock)
 	(building-type-count-total lumber-camp >= 1)
 	(or
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
+		(up-research-status c: castle-age >= research-pending)
 		(current-age >= castle-age)
 	)
 =>

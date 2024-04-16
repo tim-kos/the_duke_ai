@@ -350,7 +350,7 @@
 
 (defrule
 	(taunt-detected any-ally 47)
-	(goal ADVANCING-TO-AGE FEUDAL-AGE)
+	(up-research-status c: feudal-age >= research-pending)
 =>
 	(acknowledge-taunt this-any-ally 47)
 	(chat-to-player this-any-ally "39 Sir, I am advancing to the feudal-age already!")
@@ -358,7 +358,7 @@
 
 (defrule
 	(taunt-detected any-ally 47)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(up-research-status c: castle-age >= research-pending)
 =>
 	(acknowledge-taunt this-any-ally 47)
 	(chat-to-player this-any-ally "39 Sir, I am advancing to the castle-age already!")
@@ -366,7 +366,7 @@
 
 (defrule
 	(taunt-detected any-ally 47)
-	(goal ADVANCING-TO-AGE IMPERIAL-AGE)
+	(up-research-status c: imperial-age >= research-pending)
 =>
 	(acknowledge-taunt this-any-ally 47)
 	(chat-to-player this-any-ally "39 Sir, I am advancing to the imperial-age already!")
@@ -908,6 +908,7 @@
 		(players-stance any-human-ally neutral)
 		(players-stance any-human-ally enemy)
 	)
+	(current-age >= feudal-age) ;no point if all are probably in dark age and nobody has a market to send tribute
 =>
 	(chat-to-player-using-id this-any-human-ally 22147)
 	(enable-timer T-DIPLOMACY 30)
@@ -985,8 +986,8 @@
 	(chat-to-player-using-id this-any-human-ally 22026)
 		;"It shall be war to the knife!"
 	(chat-to-player this-any-human-ally "**********************************************************")
-	(chat-to-player this-any-human-ally "DarkAngelBGE: Perhaps in thirty minutes the AI could ally with you again..")
-	(enable-timer T-GET-NEW-FRIEND 1800)
+	(chat-to-player this-any-human-ally "DarkAngelBGE: Perhaps in twenty minutes the AI could ally with you again..")
+	(enable-timer T-GET-NEW-FRIEND 1200)
 	(set-stance this-any-human-ally enemy)
 	(set-goal GET-NEW-FRIEND IN-TWENTY-MINUTES)
 )
@@ -1169,12 +1170,12 @@
 	(random-number == 1)
 =>
 	(disable-timer T-DIPLOMACY)
-	(chat-to-player this-any-human-neutral "41 You must give 1500 food to me within the next 2 minutes!")
-	(chat-to-player this-any-human-enemy "40 You must give 1500 food to me within the next 2 minutes!")
+	(chat-to-player this-any-human-neutral "41 You must give 1500 food to me within the next 10 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 food to me within the next 10 minutes!")
 	(clear-tribute-memory this-any-human-neutral food)
 	(clear-tribute-memory this-any-human-enemy food)
 	(set-goal GET-NEW-FRIEND RESOURCES-FOOD)
-	(enable-timer T-DIPLOMACY 120)
+	(enable-timer T-DIPLOMACY 600)
 )
 
 (defrule
@@ -1187,12 +1188,12 @@
 	(random-number == 2)
 =>
 	(disable-timer T-DIPLOMACY)
-	(chat-to-player this-any-human-neutral "41 You must give 1500 wood to me within the next 2 minutes!")
-	(chat-to-player this-any-human-enemy "40 You must give 1500 wood to me within the next 2 minutes!")
+	(chat-to-player this-any-human-neutral "41 You must give 1500 wood to me within the next 10 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 1500 wood to me within the next 10 minutes!")
 	(clear-tribute-memory this-any-human-neutral wood)
 	(clear-tribute-memory this-any-human-enemy wood)
 	(set-goal GET-NEW-FRIEND RESOURCES-WOOD)
-	(enable-timer T-DIPLOMACY 120)
+	(enable-timer T-DIPLOMACY 600)
 )
 
 (defrule
@@ -1205,12 +1206,12 @@
 	(random-number == 3)
 =>
 	(disable-timer T-DIPLOMACY)
-	(chat-to-player this-any-human-neutral "41 You must give 1500 gold to me within the next 2 minutes!")
-	(chat-to-player this-any-human-enemy "40 You must give 1500 gold to me within the next 2 minutes!")
+	(chat-to-player this-any-human-neutral "41 You must give 600 gold to me within the next 10 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 600 gold to me within the next 10 minutes!")
 	(clear-tribute-memory this-any-human-neutral gold)
 	(clear-tribute-memory this-any-human-enemy gold)
 	(set-goal GET-NEW-FRIEND RESOURCES-GOLD)
-	(enable-timer T-DIPLOMACY 120)
+	(enable-timer T-DIPLOMACY 600)
 )
 
 (defrule
@@ -1223,12 +1224,12 @@
 	(random-number == 4)
 =>
 	(disable-timer T-DIPLOMACY)
-	(chat-to-player this-any-human-neutral "41 You must give 1500 stone to me within the next 2 minutes!")
-	(chat-to-player this-any-human-enemy "40 You must give 1500 stone to me within the next 2 minutes!")
+	(chat-to-player this-any-human-neutral "41 You must give 500 stone to me within the next 10 minutes!")
+	(chat-to-player this-any-human-enemy "40 You must give 500 stone to me within the next 10 minutes!")
 	(clear-tribute-memory this-any-human-neutral stone)
 	(clear-tribute-memory this-any-human-enemy stone)
 	(set-goal GET-NEW-FRIEND RESOURCES-STONE)
-	(enable-timer T-DIPLOMACY 120)
+	(enable-timer T-DIPLOMACY 600)
 )
 
 ;****************************************
@@ -1268,8 +1269,8 @@
 (defrule
 	(goal GET-NEW-FRIEND RESOURCES-GOLD)
 	(or
-		(players-tribute-memory any-human-neutral gold >= GET-NEW-FRIEND-RESOURCES)
-		(players-tribute-memory any-human-enemy gold >= GET-NEW-FRIEND-RESOURCES)
+		(players-tribute-memory any-human-neutral gold >= 600)
+		(players-tribute-memory any-human-enemy gold >= 600)
 	)
 =>
 	(set-goal GET-NEW-FRIEND DONE)
@@ -1283,8 +1284,8 @@
 (defrule
 	(goal GET-NEW-FRIEND RESOURCES-STONE)
 	(or
-		(players-tribute-memory any-human-neutral stone >= GET-NEW-FRIEND-RESOURCES)
-		(players-tribute-memory any-human-enemy stone >= GET-NEW-FRIEND-RESOURCES)
+		(players-tribute-memory any-human-neutral stone >= 500)
+		(players-tribute-memory any-human-enemy stone >= 500)
 	)
 =>
 	(set-goal GET-NEW-FRIEND DONE)
@@ -1352,11 +1353,11 @@
 	(goal GET-NEW-FRIEND RESOURCES-GOLD)
 	(or
 		(and
-			(players-tribute-memory any-human-neutral gold < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-neutral gold < 600)
 			(players-tribute-memory any-human-neutral gold > 0)
 		)
 		(and
-			(players-tribute-memory any-human-enemy gold < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-enemy gold < 600)
 			(players-tribute-memory any-human-enemy gold > 0)
 		)
 	)
@@ -1372,11 +1373,11 @@
 	(goal GET-NEW-FRIEND RESOURCES-STONE)
 	(or
 		(and
-			(players-tribute-memory any-human-neutral stone < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-neutral stone < 500)
 			(players-tribute-memory any-human-neutral stone > 0)
 		)
 		(and
-			(players-tribute-memory any-human-enemy stone < GET-NEW-FRIEND-RESOURCES)
+			(players-tribute-memory any-human-enemy stone < 500)
 			(players-tribute-memory any-human-enemy stone >  0)
 		)
 	)

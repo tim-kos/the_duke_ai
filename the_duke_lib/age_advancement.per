@@ -1,32 +1,10 @@
-;reset the ADVANCING-TO-AGE - goal
+
 (defrule
-	(current-age == dark-age)
+	(true)
 =>
-	(set-goal ADVANCING-TO-AGE NO)
 	(set-goal RESEARCHING-FEUDAL NOTICE)
 	(set-goal RESEARCHING-CASTLE NOTICE)
 	(set-goal RESEARCHING-IMPERIAL NOTICE)
-	(disable-self)
-)
-
-(defrule
-	(current-age == feudal-age)
-=>
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-(defrule
-	(current-age == castle-age)
-=>
-	(set-goal ADVANCING-TO-AGE NO)
-	(disable-self)
-)
-
-(defrule
-	(current-age == imperial-age)
-=>
-	(set-goal ADVANCING-TO-AGE NO)
 	(disable-self)
 )
 
@@ -136,7 +114,6 @@
 	(research feudal-age)
 	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!")
 	(chat-local-to-self "advance to FEUDAL-AGE")
-	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
 	(set-escrow-percentage food 0)
 )
 ;500 FOOD
@@ -150,7 +127,6 @@
 	(research feudal-age)
 	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!")
 	(chat-local-to-self "advance to FEUDAL-AGE")
-	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
 	(set-escrow-percentage food 0)
 )
 
@@ -167,7 +143,6 @@
  	(research castle-age)
 	(chat-to-player every-ally "39 I'm advancing to the castle-age now!")
 	(chat-local-to-self "advance to CASTLE-AGE")
-	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
 	(set-escrow-percentage food 0)
 	(set-escrow-percentage gold 0)
 )
@@ -183,7 +158,6 @@
  	(research castle-age)
 	(chat-to-player every-ally "39 I'm advancing to the castle-age now!")
 	(chat-local-to-self "advance to CASTLE-AGE")
-	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
 	(set-escrow-percentage food 0)
 	(set-escrow-percentage gold 0)
 )
@@ -199,7 +173,6 @@
  	(research castle-age)
 	(chat-to-player every-ally "39 I'm advancing to the castle-age now!")
 	(chat-local-to-self "advance to CASTLE-AGE")
-	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
 	(set-escrow-percentage food 0)
 	(set-escrow-percentage gold 0)
 )
@@ -217,7 +190,6 @@
  	(research imperial-age)
 	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!")
 	(chat-local-to-self "advance to IMPERIAL-AGE")
-	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	(set-escrow-percentage food 0)
 	(set-escrow-percentage gold 0)
 )
@@ -233,7 +205,6 @@
  	(research imperial-age)
 	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!")
 	(chat-local-to-self "advance to IMPERIAL-AGE")
-	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	(set-escrow-percentage food 0)
 	(set-escrow-percentage gold 0)
 )
@@ -249,7 +220,6 @@
  	(research imperial-age)
 	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!")
 	(chat-local-to-self "advance to IMPERIAL-AGE")
-	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	(set-escrow-percentage food 0)
 	(set-escrow-percentage gold 0)
 )
@@ -268,7 +238,6 @@
 	(chat-local-to-self "advance to FEUDAL-AGE")
 	(release-escrow food)
 	(research feudal-age)
-	(set-goal ADVANCING-TO-AGE FEUDAL-AGE)
 	(set-escrow-percentage food 0)
 )
 
@@ -283,7 +252,6 @@
 	(release-escrow food)
 	(release-escrow gold)
 	(research castle-age)
-	(set-goal ADVANCING-TO-AGE CASTLE-AGE)
 	(set-escrow-percentage food 0)
 	(set-escrow-percentage gold 0)
 )
@@ -299,7 +267,6 @@
 	(release-escrow food)
 	(release-escrow gold)
 	(research imperial-age)
-	(set-goal ADVANCING-TO-AGE IMPERIAL-AGE)
 	(set-escrow-percentage food 0)
 	(set-escrow-percentage gold 0)
 )

@@ -1109,7 +1109,7 @@
 	)
 	(food-amount > 200)
 	(or
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
+		(up-research-status c: castle-age >= research-pending)
 		(current-age == castle-age)
 	)
 =>					;then
@@ -1143,7 +1143,7 @@
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(food-amount > 200)
 	(or
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
+		(up-research-status c: castle-age >= research-pending)
 		(current-age == castle-age)
 	)
 =>					;then
@@ -1176,7 +1176,7 @@
 	)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(or
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
+		(up-research-status c: castle-age >= research-pending)
 		(current-age == castle-age)
 	)
 =>
@@ -1195,7 +1195,10 @@
 			(goal ABLE-TO-UPGRADE-ARCHERS LOW)
 			(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
 		)
-		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+		(or
+			(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+			(food-amount > 1300)
+		)
 	)
 	(food-amount > 500)
 =>
@@ -1216,8 +1219,14 @@
 (defrule
  	(can-research-with-escrow ri-iron-casting)
 	(or
-		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(or
+			(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
+			(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+		)
 	)
 =>
 	(release-escrow food)
@@ -1229,8 +1238,14 @@
 (defrule
  	(can-research-with-escrow ri-iron-casting)
 	(or
-		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(or
+			(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
+			(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+		)
 	)
 =>
 	(release-escrow food)
@@ -1271,8 +1286,14 @@
 (defrule
  	(can-research-with-escrow ri-bodkin-arrow)
 	(or
-		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
-		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(or
+			(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
+			(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+		)
 	)
 =>
 	(release-escrow food)
@@ -1300,8 +1321,14 @@
 (defrule
  	(can-research-with-escrow ri-chain-barding)
 	(or
-		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(or
+			(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
+			(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+		)
 	)
 =>
 	(release-escrow food)
@@ -1317,8 +1344,14 @@
 (defrule
  	(can-research-with-escrow ri-leather-archer-armor)
 	(or
-		(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
-		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(or
+			(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
+			(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+		)
 	)
 =>
 	(release-escrow food)
@@ -1334,8 +1367,14 @@
 (defrule
  	(can-research-with-escrow ri-chain-mail)
 	(or
-		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(or
+			(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
+			(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+		)
 	)
 =>
 	(release-escrow food)
@@ -1384,7 +1423,13 @@
 
 (defrule
  	(can-research-with-escrow ri-plate-mail)
-	(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+	(or
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+	)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -1398,7 +1443,13 @@
 
 (defrule
  	(can-research-with-escrow ri-plate-barding)
-	(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+	(or
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+	)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -1432,7 +1483,13 @@
 
 (defrule
  	(can-research-with-escrow ri-ring-archer-armor)
-	(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+	(or
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+	)
 =>
 	(release-escrow food)
 	(release-escrow gold)

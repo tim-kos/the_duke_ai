@@ -102,12 +102,7 @@
 		(defconst LATE-IMPERIAL 3)
 
 ;goal 8
-		(defconst ADVANCING-TO-AGE 8)
-		;(defconst NO 0)
-		(defconst FEUDAL-AGE 1)
-		(defconst CASTLE-AGE 2)
-		(defconst IMPERIAL-AGE 3)
-		(defconst ADVANCE-TO-THE-NEXT-AGE 9)
+		(defconst ADVANCE-TO-THE-NEXT-AGE 8)
 		;(defconst NO 0)
 
 ;goal 9 = SAVE-FOR-RESEARCH - controls periodic stops in unit training to save for research
@@ -329,6 +324,9 @@
 (defconst T-RESIGN 10)
 (defconst T-HUNTING 11)
 (defconst T-VILLAGER-TRAINING 12)
+(defconst T-INCREASE-CAMP-DISTANCE 13)
+(defconst T-INCREASE-TOWN-SIZE 14)
+
 ;---------------------------------------
 
 
@@ -401,46 +399,6 @@
 
 #end-if		;if civ == gothic
 
-
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 14)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 14)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 12)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 11)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 11)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 24)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 24)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 22)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 21)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 21)
-#end-if
-
-#end-if		;if civ == gothic
 
 (defconst ZERO-PERCENT-POP 0)
 (defconst ONE-PERCENT-POP 1)
@@ -560,46 +518,6 @@
 #end-if		;if civ == gothic
 
 
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 27)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 23)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 21)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 37)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 33)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 31)
-#end-if
-
-#end-if		;if civ == gothic
-
 (defconst ZERO-PERCENT-POP 0)
 (defconst ONE-PERCENT-POP 1)
 (defconst TWO-PERCENT-POP 1)
@@ -717,46 +635,6 @@
 
 #end-if		;if civ == gothic
 
-
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 39)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 35)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 35)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 49)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 45)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 45)
-#end-if
-
-#end-if		;if civ == gothic
 
 (defconst ZERO-PERCENT-POP 0)
 (defconst ONE-PERCENT-POP 1)
@@ -876,46 +754,6 @@
 #end-if		;if civ == gothic
 
 
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 53)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 46)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 46)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 63)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 56)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 56)
-#end-if
-
-#end-if		;if civ == gothic
-
 (defconst ZERO-PERCENT-POP 0)
 (defconst ONE-PERCENT-POP 1)
 (defconst TWO-PERCENT-POP 2)
@@ -1029,47 +867,6 @@
 #end-if
 #load-if-defined DIFFICULTY-HARDEST
 (defconst MILITARY-POPULATION-MAX 66)
-#end-if
-
-#end-if		;if civ == gothic
-
-
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 64)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 56)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 56)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 74)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 66)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 66)
 #end-if
 
 #end-if		;if civ == gothic
@@ -1191,46 +988,6 @@
 
 #end-if		;if civ == gothic
 
-
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 78)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 74)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 74)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 88)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 84)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 84)
-#end-if
-
-#end-if		;if civ == gothic
 
 (defconst ZERO-PERCENT-POP 0)
 (defconst ONE-PERCENT-POP 1)
@@ -1359,47 +1116,6 @@
 #end-if
 #load-if-defined DIFFICULTY-HARDEST
 (defconst MILITARY-POPULATION-MAX 105)
-#end-if
-
-#end-if		;if civ == gothic
-
-
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 99)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 95)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 95)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 109)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 105)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 105)
 #end-if
 
 #end-if		;if civ == gothic
@@ -1536,46 +1252,6 @@
 #end-if		;if civ == gothic
 
 
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 118)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 110)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 110)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 20)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 25)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 128)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 120)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 120)
-#end-if
-
-#end-if		;if civ == gothic
-
 (defconst ZERO-PERCENT-POP 0)
 (defconst ONE-PERCENT-POP 2)
 (defconst TWO-PERCENT-POP 4)
@@ -1709,46 +1385,6 @@
 #end-if		;if civ == gothic
 
 
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 30)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 37)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 190)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 165)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 165)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 30)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 32)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 190)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 180)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 180)
-#end-if
-
-#end-if		;if civ == gothic
-
 (defconst ZERO-PERCENT-POP 0)
 (defconst ONE-PERCENT-POP 3)
 (defconst TWO-PERCENT-POP 6)
@@ -1881,46 +1517,6 @@
 #end-if		;if civ == gothic
 
 
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 40)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 50)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 236)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 220)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 220)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 40)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 50)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 236)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 240)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 240)
-#end-if
-
-#end-if		;if civ == gothic
-
 (defconst ZERO-PERCENT-POP 0)
 (defconst ONE-PERCENT-POP 4)
 (defconst TWO-PERCENT-POP 8)
@@ -2037,45 +1633,6 @@
 #end-if		;if civ == gothic
 
 
-
-#load-if-not-defined GOTHIC-CIV
-
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 100)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 125)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 165)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 230)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 230)
-#end-if
-
-#else		;if civ != gothic
-
-#load-if-defined DIFFICULTY-EASIEST
-(defconst SOLDIER-COUNT 100)
-#end-if
-#load-if-defined DIFFICULTY-EASY
-(defconst SOLDIER-COUNT 125)
-#end-if
-#load-if-defined DIFFICULTY-MODERATE
-(defconst SOLDIER-COUNT 315)
-#end-if
-#load-if-defined DIFFICULTY-HARD
-(defconst SOLDIER-COUNT 280)
-#end-if
-#load-if-defined DIFFICULTY-HARDEST
-(defconst SOLDIER-COUNT 280)
-#end-if
-
-#end-if		;if civ == gothic
 
 (defconst ZERO-PERCENT-POP 0)
 (defconst ONE-PERCENT-POP 5)
@@ -2361,7 +1918,7 @@
 (defconst stable-building-imperial 7)
 (defconst siege-workshop-building-imperial 4)
 (defconst watch-tower-building-imperial 30)
-(defconst castle-building-imperial 15)
+(defconst castle-building-imperial 55)
 
 (defconst idle-unit-limit 10)
 (defconst initial-exploration-required 0)
@@ -2430,7 +1987,7 @@
 (defconst stable-building-imperial 7)
 (defconst siege-workshop-building-imperial 4)
 (defconst watch-tower-building-imperial 30)
-(defconst castle-building-imperial 15)
+(defconst castle-building-imperial 55)
 
 (defconst idle-unit-limit 5)
 (defconst initial-exploration-required 0)
@@ -2530,7 +2087,7 @@
 (defconst min-castle-town-size 18)
 (defconst max-castle-town-size 24)
 (defconst min-imperial-town-size 24)
-(defconst max-imperial-town-size 28)
+(defconst max-imperial-town-size 38)
 
 #else
 

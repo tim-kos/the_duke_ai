@@ -19,7 +19,7 @@
 	(commodity-buying-price food < 200)
 	(current-age == castle-age)
 	(can-buy-commodity food)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: imperial-age < research-pending)
 	(or
 		(and
 			(difficulty == moderate)
@@ -42,7 +42,7 @@
 	(commodity-buying-price food < 200)
 	(current-age == castle-age)
 	(can-buy-commodity food)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: imperial-age < research-pending)
 	(or
 		(and
 			(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL)
@@ -78,7 +78,7 @@
 
 (defrule
 	(or
-		(goal ADVANCING-TO-AGE CASTLE-AGE)
+		(up-research-status c: castle-age >= research-pending)
 		(current-age >= castle-age)
 	)
   (gold-amount > 300)
@@ -167,7 +167,7 @@
 	(gold-amount < 800)
 	(current-age == castle-age)
 	(can-sell-commodity food)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: imperial-age < research-pending)
 	(or
 		(and
 			(difficulty == moderate)
@@ -189,7 +189,7 @@
 	(gold-amount < 800)
 	(current-age == castle-age)
 	(can-sell-commodity food)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: imperial-age < research-pending)
 	(or
 		(and
 			(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL)
@@ -242,7 +242,7 @@
 	(gold-amount < 800)
 	(current-age == castle-age)
 	(can-sell-commodity wood)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: imperial-age < research-pending)
 	(or
 		(and
 			(difficulty == moderate)
@@ -265,7 +265,7 @@
 	(gold-amount < 800)
 	(current-age == castle-age)
 	(can-sell-commodity wood)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: imperial-age < research-pending)
 	(or
 		(and
 			(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL)
@@ -335,7 +335,7 @@
 	(gold-amount < 200)
 	(current-age == castle-age)
 	(can-sell-commodity wood)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: imperial-age < research-pending)
 	(goal RUSH-CONTROL RUSHING)
 =>
 	(release-escrow wood)
@@ -411,7 +411,7 @@
 	(commodity-buying-price food < 200)
 	(current-age == feudal-age)
 	(can-buy-commodity food)
-	(not (goal ADVANCING-TO-AGE CASTLE-AGE))
+	(not (up-research-status c: castle-age >= research-pending))
 =>
 	(release-escrow gold)
 	(buy-commodity food)
@@ -425,7 +425,7 @@
 	(commodity-buying-price food < 200)
 	(current-age == castle-age)
 	(can-buy-commodity food)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>
 	(release-escrow gold)
 	(buy-commodity food)
@@ -507,7 +507,7 @@
 	(building-type-count-total blacksmith > 0)
 	(current-age == feudal-age)
 	(can-sell-commodity wood)
-	(not (goal ADVANCING-TO-AGE CASTLE-AGE))
+	(not (up-research-status c: castle-age >= research-pending))
 =>
 	(release-escrow wood)
 	(sell-commodity wood)
@@ -522,7 +522,7 @@
 	(building-type-count market >= 1)
 	(current-age == castle-age)
 	(can-sell-commodity stone)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>
 	(release-escrow stone)
 	(sell-commodity stone)

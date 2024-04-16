@@ -201,8 +201,14 @@
  	(can-research-with-escrow ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(or
-		(not (goal RESEARCHING-CASTLE FAST-CASTLE))
- 		(goal ADVANCING-TO-AGE CASTLE-AGE)
+		(or
+			(not (goal RESEARCHING-CASTLE FAST-CASTLE))
+ 			(up-research-status c: castle-age >= research-pending)
+		)
+		(and
+			(food-amount > 1000)
+			(wood-amount > 300)
+		)
 	)
 	(not (research-available ri-wheel-barrow))
 	(not (research-available ri-double-bit-axe))
@@ -254,7 +260,7 @@
  	(can-research-with-escrow ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(current-age == feudal-age)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(up-research-status c: castle-age >= research-pending)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(goal RUSH-CONTROL CASTLE)
 =>
@@ -307,11 +313,11 @@
 
 ;STONE-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
-	(not (research-available ri-gold-shaft-mining))
  	(can-research-with-escrow ri-stone-shaft-mining)
-	(strategic-number sn-stone-gatherer-percentage > 0)
-	(food-amount > 500)
-	(wood-amount > 500)
+	(cc-players-unit-type-count 0 STONE-MINE > 5); stone left on map
+(or	(unit-type-count 124 > 0)
+	(unit-type-count 220 > 0))
+	(strategic-number sn-stone-gatherer-percentage > 4)
 =>
 	(release-escrow wood)
 	(release-escrow food)
@@ -414,8 +420,6 @@
 ;MASONRY 175 WOOD, 150 FOOD
 (defrule
  	(can-research ri-masonry)
-	(building-type-count-total university >= 1)
-	(building-type-count-total castle >= 2)
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 2)
 	(food-amount > 800)
@@ -469,7 +473,7 @@
 ;FORTIFIED WALL 200 FOOD, 100 WOOD
 (defrule
  	(can-research ri-fortified-wall)
-	(wall-completed-percentage 2 > 60)
+	(building-type-count-total stone-wall-line > 2)
 	(not (research-available ri-ballistics))
 	(not (research-available ri-murder-holes))
 	(food-amount > 600)
@@ -477,6 +481,20 @@
 =>
 	(research ri-fortified-wall)
 ; (chat-local-to-self "research FORTIFIED-WALL")
+)
+
+;ARROWSLITS 250 FOOD, 250 WOOD
+(defrule
+(or	(building-type-count watch-tower >= 3)
+(or	(building-type-count guard-tower >= 3)
+(or	(building-type-count keep >= 3)
+	(building-type-count watch-tower-line >= 3))))
+	(can-research ri-arrowslits)
+	(food-amount > 600)
+	(wood-amount > 400)
+=>
+	(research ri-arrowslits)
+; (chat-local-to-self "research ARROWSLITS")
 )
 
 ;HEATED-SHOT 350 FOOD, 100 GOLD
@@ -779,7 +797,7 @@
 				(goal SECONDARY-COMBAT-UNIT INFANTRY1)
 				(goal RUSH-CONTROL CASTLE)
 			)
-			(goal ADVANCING-TO-AGE CASTLE-AGE)
+			(up-research-status c: castle-age >= research-pending)
 		)
 	)
 =>

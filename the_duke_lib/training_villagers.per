@@ -44,8 +44,6 @@
 
 #load-if-defined WONDER-RACE
 
-;Rule44: set the escrow resources in wonder race games (imperial age))
-
 (defrule
 	(current-age == imperial-age)
 =>
@@ -58,19 +56,17 @@
 
 #else
 
-;Rule44: set the escrow resources in wonder race games (imperial age))
-
 (defrule
 	(current-age == imperial-age)
 =>
 	(set-escrow-percentage food 0)
 	(set-escrow-percentage wood 0)
 	(set-escrow-percentage gold 0)
-	(set-escrow-percentage stone 100)
+	(set-escrow-percentage stone 0)
 	(disable-self)
 )
 
-#end-if	;if game-type == wonder-race
+#end-if
 
 
 
@@ -1017,7 +1013,7 @@
 (defrule
 	(goal TRAIN-VILLAGERS NO)
 	(current-age == castle-age)
-	(goal ADVANCING-TO-AGE IMPERIAL-AGE)
+	(up-research-status c: imperial-age >= research-pending)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
 	(set-escrow-percentage food 0)
@@ -1047,7 +1043,7 @@
 (defrule
 	(goal TRAIN-VILLAGERS NO)
 	(current-age == castle-age)
-	(goal ADVANCING-TO-AGE IMPERIAL-AGE)
+	(up-research-status c: imperial-age >= research-pending)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
 	(set-escrow-percentage food 0)
@@ -1138,15 +1134,10 @@
 
 (defrule
  	(or
-		(unit-type-count villager < TRADE-REPLACES-VILLAGER)
-		(and
-			(nand
-				(game-time > 3000)
-				(player-in-game any-ally)
-			)
- 			(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER)
-		)
+		(game-time <= 3000)
+		(not (player-in-game any-ally))
 	)
+	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER)
  	(can-train villager)
 	(goal TRAIN-VILLAGERS YES)
 	(civilian-population < POPULATION-MAX)
@@ -1154,7 +1145,26 @@
 		(timer-triggered T-VILLAGER-TRAINING)
 		(difficulty <= hard)
 	)
-	(goal SAVE-FOR-RESEARCH NO)
+	;(goal SAVE-FOR-RESEARCH NO)
+=>
+ 	(train villager)
+ 	(train villager)
+ 	(enable-timer T-VILLAGER-TRAINING TIME-BETWEEN-VILLAGER-TRAINING)
+;	(chat-local-to-self "train VILLAGER")
+)
+
+(defrule
+	(player-in-game any-ally)
+	(game-time > 3000)
+	(unit-type-count villager < TRADE-REPLACES-VILLAGER)
+ 	(can-train villager)
+	(goal TRAIN-VILLAGERS YES)
+	(civilian-population < POPULATION-MAX)
+	(or
+		(timer-triggered T-VILLAGER-TRAINING)
+		(difficulty <= hard)
+	)
+	;(goal SAVE-FOR-RESEARCH NO)
 =>
  	(train villager)
  	(train villager)
@@ -1179,7 +1189,7 @@
  	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER-COMMAND)
  	(can-train villager)
 	(goal TRAIN-VILLAGERS EXTRA)
-	(goal SAVE-FOR-RESEARCH NO)
+	;(goal SAVE-FOR-RESEARCH NO)
 =>
  	(train villager)
 )

@@ -255,7 +255,7 @@
 (defrule
 	(current-age == dark-age)
 	(building-type-count-total mining-camp > 0)
-	(goal ADVANCING-TO-AGE FEUDAL-AGE)
+	(up-research-status c: feudal-age >= research-pending)
 =>
 	(set-strategic-number sn-food-gatherer-percentage 50)
 	(set-strategic-number sn-wood-gatherer-percentage 40)
@@ -269,7 +269,7 @@
 	(current-age == feudal-age)
 	(food-amount < 850)
 	(gold-amount >= 200)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: castle-age < research-pending)
 =>
  	(set-strategic-number sn-food-gatherer-percentage 50)
  	(set-strategic-number sn-wood-gatherer-percentage 50)
@@ -282,7 +282,7 @@
 	(building-type-count mining-camp > 0)
 	(food-amount < 850)
 	(gold-amount < 200)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: castle-age < research-pending)
 	(or
 		(and
 			(building-type-count-total stable < 1)
@@ -302,7 +302,7 @@
 	(building-type-count mining-camp > 0)
 	(food-amount < 850)
 	(gold-amount < 200)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: castle-age < research-pending)
 	(or
 		(building-type-count-total stable > 0)
 		(building-type-count-total archery-range > 0)
@@ -321,7 +321,7 @@
 	(building-type-count mining-camp > 0)
 	(food-amount >= 850)
 	(gold-amount >= 200)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: castle-age < research-pending)
 	(or
 		(and
 			(building-type-count-total stable < 1)
@@ -346,7 +346,7 @@
 		(building-type-count-total archery-range > 0)
 	)
 	(building-type-count-total blacksmith > 0)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: castle-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 45)
  	(set-strategic-number sn-wood-gatherer-percentage 40)
@@ -358,7 +358,7 @@
 	(current-age == feudal-age)
 	(food-amount >= 850)
 	(gold-amount < 200)
-	(goal ADVANCING-TO-AGE NO)
+	(up-research-status c: castle-age < research-pending)
 	(or
 		(and
 			(building-type-count-total stable < 1)
@@ -377,7 +377,7 @@
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance gold <= 5)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL NO)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 40)
@@ -394,7 +394,7 @@
 (defrule 				;If
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(or
@@ -411,7 +411,7 @@
 (defrule 				;If
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
@@ -427,7 +427,7 @@
 (defrule 				;If
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(or
@@ -444,7 +444,7 @@
 (defrule 				;If
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
@@ -464,7 +464,7 @@
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
 	(building-type-count-total barracks < 4)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 =>					;then
@@ -478,7 +478,7 @@
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
 	(building-type-count-total barracks >= 4)
-	(goal ADVANCING-TO-AGE CASTLE-AGE)
+	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 =>					;then
@@ -700,9 +700,9 @@
 	(dropsite-min-distance stone > 5)
 	(building-type-count-total town-center >= 3)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
- 	(set-strategic-number sn-wood-gatherer-percentage 42)
- 	(set-strategic-number sn-gold-gatherer-percentage 18)
+ 	(set-strategic-number sn-food-gatherer-percentage 35)
+ 	(set-strategic-number sn-wood-gatherer-percentage 37)
+ 	(set-strategic-number sn-gold-gatherer-percentage 28)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 ;************************************
@@ -782,9 +782,9 @@
 	(dropsite-min-distance stone <= 5)
 	(building-type-count-total town-center >= 3)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
- 	(set-strategic-number sn-wood-gatherer-percentage 37)
- 	(set-strategic-number sn-gold-gatherer-percentage 13)
+ 	(set-strategic-number sn-food-gatherer-percentage 35)
+ 	(set-strategic-number sn-wood-gatherer-percentage 32)
+ 	(set-strategic-number sn-gold-gatherer-percentage 23)
  	(set-strategic-number sn-stone-gatherer-percentage 10)
 )
 
@@ -795,9 +795,9 @@
 	(dropsite-min-distance stone > 5)
 	(building-type-count-total town-center >= 3)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 47)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
- 	(set-strategic-number sn-gold-gatherer-percentage 13)
+ 	(set-strategic-number sn-food-gatherer-percentage 42)
+ 	(set-strategic-number sn-wood-gatherer-percentage 35)
+ 	(set-strategic-number sn-gold-gatherer-percentage 23)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
@@ -953,9 +953,9 @@
 	)
 	(unit-type-count-total villager < 100)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 50)
- 	(set-strategic-number sn-wood-gatherer-percentage 35)
- 	(set-strategic-number sn-gold-gatherer-percentage 15)
+ 	(set-strategic-number sn-food-gatherer-percentage 43)
+ 	(set-strategic-number sn-wood-gatherer-percentage 32)
+ 	(set-strategic-number sn-gold-gatherer-percentage 25)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 (defrule 				;If
@@ -969,9 +969,9 @@
 	)
 	(unit-type-count-total villager >= 100)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 50)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
- 	(set-strategic-number sn-gold-gatherer-percentage 10)
+ 	(set-strategic-number sn-food-gatherer-percentage 45)
+ 	(set-strategic-number sn-wood-gatherer-percentage 35)
+ 	(set-strategic-number sn-gold-gatherer-percentage 20)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
@@ -988,10 +988,10 @@
 	(dropsite-min-distance stone >= 0)
 	(unit-type-count-total villager < 150)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 60)
+ 	(set-strategic-number sn-food-gatherer-percentage 55)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
  	(set-strategic-number sn-gold-gatherer-percentage 0)
- 	(set-strategic-number sn-stone-gatherer-percentage 10)
+ 	(set-strategic-number sn-stone-gatherer-percentage 15)
 )
 (defrule 				;If
 	(current-age == imperial-age)
@@ -1004,10 +1004,10 @@
 	(dropsite-min-distance stone >= 0)
 	(unit-type-count-total villager >= 150)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 60)
+ 	(set-strategic-number sn-food-gatherer-percentage 55)
  	(set-strategic-number sn-wood-gatherer-percentage 35)
  	(set-strategic-number sn-gold-gatherer-percentage 0)
- 	(set-strategic-number sn-stone-gatherer-percentage 5)
+ 	(set-strategic-number sn-stone-gatherer-percentage 10)
 )
 
 
@@ -1021,9 +1021,9 @@
 	(dropsite-min-distance stone >= 0)
 	(unit-type-count-total villager < 100)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 40)
+ 	(set-strategic-number sn-food-gatherer-percentage 35)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
- 	(set-strategic-number sn-gold-gatherer-percentage 20)
+ 	(set-strategic-number sn-gold-gatherer-percentage 25)
  	(set-strategic-number sn-stone-gatherer-percentage 10)
 )
 (defrule 				;If
@@ -1035,9 +1035,9 @@
 	(dropsite-min-distance stone >= 0)
 	(unit-type-count-total villager >= 100)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 45)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
- 	(set-strategic-number sn-gold-gatherer-percentage 10)
+ 	(set-strategic-number sn-food-gatherer-percentage 40)
+ 	(set-strategic-number sn-wood-gatherer-percentage 35)
+ 	(set-strategic-number sn-gold-gatherer-percentage 20)
  	(set-strategic-number sn-stone-gatherer-percentage 5)
 )
 ;---------------------------------------
@@ -1313,7 +1313,7 @@
 		(dropsite-min-distance stone > 5)
 		(dropsite-min-distance stone < 0)
 	)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 70)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
@@ -1332,7 +1332,7 @@
 		(dropsite-min-distance stone > 5)
 		(dropsite-min-distance stone < 0)
 	)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 50)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
@@ -1351,7 +1351,7 @@
 	)
 	(dropsite-min-distance stone <= 5)
 	(dropsite-min-distance stone >= 0)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 55)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
@@ -1368,7 +1368,7 @@
 	(dropsite-min-distance gold >= 0)
 	(dropsite-min-distance stone <= 5)
 	(dropsite-min-distance stone >= 0)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 40)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
@@ -1390,7 +1390,7 @@
 		(dropsite-min-distance stone > 5)
 		(dropsite-min-distance stone < 0)
 	)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 50)
  	(set-strategic-number sn-wood-gatherer-percentage 50)
@@ -1409,7 +1409,7 @@
 		(dropsite-min-distance stone > 5)
 		(dropsite-min-distance stone < 0)
 	)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 45)
  	(set-strategic-number sn-wood-gatherer-percentage 40)
@@ -1428,7 +1428,7 @@
 	)
 	(dropsite-min-distance stone <= 5)
 	(dropsite-min-distance stone >= 0)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>			;then
  	(set-strategic-number sn-food-gatherer-percentage 45)
  	(set-strategic-number sn-wood-gatherer-percentage 40)
@@ -1445,7 +1445,7 @@
 	(dropsite-min-distance gold >= 0)
 	(dropsite-min-distance stone <= 5)
 	(dropsite-min-distance stone >= 0)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 40)
  	(set-strategic-number sn-wood-gatherer-percentage 40)
@@ -1467,7 +1467,7 @@
 		(dropsite-min-distance stone > 5)
 		(dropsite-min-distance stone < 0)
 	)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 60)
  	(set-strategic-number sn-wood-gatherer-percentage 40)
@@ -1486,7 +1486,7 @@
 		(dropsite-min-distance stone > 5)
 		(dropsite-min-distance stone < 0)
 	)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 55)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
@@ -1505,7 +1505,7 @@
 	)
 	(dropsite-min-distance stone <= 5)
 	(dropsite-min-distance stone >= 0)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 55)
  	(set-strategic-number sn-wood-gatherer-percentage 35)
@@ -1522,7 +1522,7 @@
 	(dropsite-min-distance gold >= 0)
 	(dropsite-min-distance stone <= 5)
 	(dropsite-min-distance stone >= 0)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 55)
  	(set-strategic-number sn-wood-gatherer-percentage 20)
@@ -1542,7 +1542,7 @@
 		(dropsite-min-distance stone > 5)
 		(dropsite-min-distance stone < 0)
 	)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 45)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
@@ -1559,7 +1559,7 @@
 	(dropsite-min-distance gold >= 0)
 	(dropsite-min-distance stone <= 5)
 	(dropsite-min-distance stone >= 0)
-	(not (goal ADVANCING-TO-AGE IMPERIAL-AGE))
+	(up-research-status c: imperial-age < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 40)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
@@ -1573,7 +1573,7 @@
 
 (defrule 				;If
 	(current-age == castle-age)
-	(goal ADVANCING-TO-AGE IMPERIAL-AGE)
+	(up-research-status c: imperial-age >= research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 0)
  	(set-strategic-number sn-wood-gatherer-percentage 40)

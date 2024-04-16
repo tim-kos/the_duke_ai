@@ -237,6 +237,43 @@
 =>
   (train militiaman-line)
 )
+
+(defrule
+  (military-population < FIVE-PERCENT-POP)
+  (town-under-attack)
+  (building-type-count-total archery-range < 3)
+  (up-pending-objects c: archery-range < 3)
+=>
+  (up-assign-builders c: archery-range c: 3)
+  (build archery-range)
+)
+
+(defrule
+  (military-population < FIVE-PERCENT-POP)
+  (town-under-attack)
+  (building-type-count-total stable < 3)
+  (up-pending-objects c: stable < 3)
+=>
+  (up-assign-builders c: stable c: 3)
+  (build stable)
+)
+
+(defrule
+  (military-population < FIVE-PERCENT-POP)
+  (town-under-attack)
+  (can-train skirmisher-line)
+=>
+  (train skirmisher-line)
+)
+
+(defrule
+  (military-population < FIVE-PERCENT-POP)
+  (town-under-attack)
+  (can-train scout-cavalry-line)
+=>
+  (train scout-cavalry-line)
+)
+
 ;--------------------------------------------------------
 
 

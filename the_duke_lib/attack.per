@@ -644,6 +644,7 @@
 		(unit-type-count-total battering-ram-line >= 1)
 	)
 	(goal TOWN-SIZE-ATTACK NO)
+	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 80)
 	(set-strategic-number sn-percent-attack-boats 80)
@@ -663,6 +664,7 @@
 	(current-age >= castle-age)
 	(goal MILITARY-PARITY PARITY)
 	(goal TOWN-SIZE-ATTACK NO)
+	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 90)
 	(set-strategic-number sn-percent-attack-boats 90)
@@ -683,6 +685,7 @@
 	(current-age >= castle-age)
 	(goal MILITARY-PARITY SUPERIOR)
 	(goal TOWN-SIZE-ATTACK NO)
+	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 100)
 	(set-strategic-number sn-percent-attack-boats 100)
@@ -705,6 +708,7 @@
 		(soldier-count >= TWENTY-PERCENT-POP)
 	)
 	(goal TOWN-SIZE-ATTACK NO)
+	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 100)
 	(set-strategic-number sn-percent-attack-boats 100)
@@ -764,6 +768,7 @@
 	(current-age >= castle-age)
 	(goal MILITARY-PARITY PARITY)
 	(goal TOWN-SIZE-ATTACK YES)
+	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 90)
 	(set-strategic-number sn-percent-attack-boats 90)
@@ -784,6 +789,7 @@
 	(current-age >= castle-age)
 	(goal MILITARY-PARITY SUPERIOR)
 	(goal TOWN-SIZE-ATTACK YES)
+	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 100)
 	(set-strategic-number sn-percent-attack-boats 100)
@@ -807,6 +813,7 @@
 		(soldier-count >= TWENTY-PERCENT-POP)
 	)
 	(goal TOWN-SIZE-ATTACK YES)
+	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-strategic-number sn-percent-attack-soldiers 100)
 	(set-strategic-number sn-percent-attack-boats 100)
