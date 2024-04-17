@@ -550,11 +550,42 @@
 
 (defrule
 	(timer-triggered T-TOWN-SIZE-ATTACK)
+	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
+	(not (goal MILITARY-PARITY INFERIOR))
 =>
 	(disable-timer T-TOWN-SIZE-ATTACK)
 	(set-strategic-number sn-maximum-town-size 16)
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
 )
+
+(defrule
+	(timer-triggered T-TOWN-SIZE-ATTACK)
+	(or
+		(goal MILITARY-PARITY VASTLY-INFERIOR)
+		(goal MILITARY-PARITY INFERIOR)
+	)
+=>
+	(disable-timer T-TOWN-SIZE-ATTACK)
+	(set-strategic-number sn-maximum-town-size 16)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(up-retreat-now)
+)
+
+(defrule
+	(goal ATTACKING YES)
+	(or
+		(goal MILITARY-PARITY VASTLY-INFERIOR)
+		(goal MILITARY-PARITY INFERIOR)
+	)
+=>
+	(set-goal ATTACKING NO)
+	(disable-timer T-TOWN-SIZE-ATTACK)
+	(set-strategic-number sn-maximum-town-size 16)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(up-retreat-now)
+)
+
+
 ;---------------------------------------------
 
 
@@ -606,6 +637,7 @@
 	(attack-now)
 	(chat-local-to-self "full pop! attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
@@ -628,6 +660,7 @@
 	(attack-now)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
@@ -652,6 +685,7 @@
 	(attack-now)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
@@ -672,6 +706,7 @@
 	(attack-now)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
@@ -693,6 +728,7 @@
 	(attack-now)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
@@ -716,6 +752,7 @@
 	(attack-now)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 ;-------------------
@@ -734,6 +771,7 @@
 	(set-strategic-number sn-maximum-town-size 230)
 	(chat-local-to-self "full pop! attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
@@ -757,6 +795,7 @@
 	(set-strategic-number sn-maximum-town-size 230)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
@@ -777,6 +816,7 @@
 	(set-strategic-number sn-maximum-town-size 230)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
@@ -798,6 +838,7 @@
 	(set-strategic-number sn-maximum-town-size 230)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
@@ -822,6 +863,7 @@
 	(set-strategic-number sn-maximum-town-size 230)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(set-goal ATTACKING YES)
 	(set-goal ATTACK NO)
 )
 
