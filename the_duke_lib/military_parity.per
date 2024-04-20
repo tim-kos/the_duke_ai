@@ -1,0 +1,329 @@
+;LET'S SEE IF WE ARE OUTNUMBERED
+;-------------------------------
+
+
+
+(defrule
+	(not (goal MILITARY-PARITY PARITY))
+=>
+	(set-goal MILITARY-PARITY PARITY)
+)
+
+
+(defrule
+	(military-population >= SIXTY-PERCENT-POP)
+	(players-military-population focus-player <= THIRTY-FIVE-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= SIXTY-PERCENT-POP)
+	(players-military-population focus-player > THIRTY-FIVE-PERCENT-POP)
+	(players-military-population focus-player <= FOURTY-FIVE-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= SIXTY-PERCENT-POP)
+	(players-military-population focus-player > SEVENTY-PERCENT-POP)
+	(players-military-population focus-player <= EIGHTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY INFERIOR)
+)
+
+
+
+(defrule
+	(military-population >= SIXTY-PERCENT-POP)
+	(players-military-population focus-player > EIGHTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
+)
+;*****************************************************************
+
+
+(defrule
+	(military-population >= FOURTY-FIVE-PERCENT-POP)
+	(military-population < SIXTY-PERCENT-POP)
+	(players-military-population focus-player <= TWENTY-FIVE-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= FOURTY-FIVE-PERCENT-POP)
+	(military-population < SIXTY-PERCENT-POP)
+	(players-military-population focus-player > TWENTY-FIVE-PERCENT-POP)
+	(players-military-population focus-player <= THIRTY-FIVE-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= FOURTY-FIVE-PERCENT-POP)
+	(military-population < SIXTY-PERCENT-POP)
+	(players-military-population focus-player > SIXTY-PERCENT-POP)
+	(players-military-population focus-player <= SEVENTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY INFERIOR)
+)
+
+
+
+(defrule
+	(military-population >= FOURTY-FIVE-PERCENT-POP)
+	(military-population < SIXTY-PERCENT-POP)
+	(players-military-population focus-player > SEVENTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
+)
+;*****************************************************************
+
+
+
+(defrule
+	(military-population >= THIRTY-PERCENT-POP)
+	(military-population < FOURTY-FIVE-PERCENT-POP)
+	(players-military-population focus-player <= TWENTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= THIRTY-PERCENT-POP)
+	(military-population < FOURTY-FIVE-PERCENT-POP)
+	(players-military-population focus-player > TWENTY-PERCENT-POP)
+	(players-military-population focus-player <= TWENTY-FIVE-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= THIRTY-PERCENT-POP)
+	(military-population < FOURTY-FIVE-PERCENT-POP)
+	(players-military-population focus-player > FIFTY-PERCENT-POP)
+	(players-military-population focus-player <= SIXTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY INFERIOR)
+)
+
+
+
+(defrule
+	(military-population >= THIRTY-PERCENT-POP)
+	(military-population < FOURTY-FIVE-PERCENT-POP)
+	(players-military-population focus-player > SIXTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
+)
+;*****************************************************************
+
+
+
+(defrule
+	(military-population >= TWENTY-PERCENT-POP)
+	(military-population < THIRTY-PERCENT-POP)
+	(players-military-population focus-player <= FIFTEEN-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= TWENTY-PERCENT-POP)
+	(military-population < THIRTY-PERCENT-POP)
+	(players-military-population focus-player > FIFTEEN-PERCENT-POP)
+	(players-military-population focus-player <= TWENTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= TWENTY-PERCENT-POP)
+	(military-population < THIRTY-PERCENT-POP)
+	(players-military-population focus-player > FOURTY-PERCENT-POP)
+	(players-military-population focus-player <= FIFTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY INFERIOR)
+)
+
+
+
+(defrule
+	(military-population >= TWENTY-PERCENT-POP)
+	(military-population < THIRTY-PERCENT-POP)
+	(players-military-population focus-player > FIFTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
+)
+;*****************************************************************
+
+
+
+(defrule
+	(military-population >= TEN-PERCENT-POP)
+	(military-population < TWENTY-PERCENT-POP)
+	(players-military-population focus-player <= FIVE-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= TEN-PERCENT-POP)
+	(military-population < TWENTY-PERCENT-POP)
+	(players-military-population focus-player > FIVE-PERCENT-POP)
+	(players-military-population focus-player <= TEN-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= TEN-PERCENT-POP)
+	(military-population < TWENTY-PERCENT-POP)
+	(players-military-population focus-player > THIRTY-PERCENT-POP)
+	(players-military-population focus-player <= FOURTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY INFERIOR)
+)
+
+
+
+(defrule
+	(military-population >= TEN-PERCENT-POP)
+	(military-population < TWENTY-PERCENT-POP)
+	(players-military-population focus-player > FOURTY-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
+)
+;*****************************************************************
+
+
+
+(defrule
+	(military-population >= FIVE-PERCENT-POP)
+	(military-population < TEN-PERCENT-POP)
+	(players-military-population focus-player <= 1)
+=>
+	(set-goal MILITARY-PARITY VASTLY-SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population >= FIVE-PERCENT-POP)
+	(military-population < TEN-PERCENT-POP)
+	(players-military-population focus-player > 1)
+	(players-military-population focus-player <= THREE-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY SUPERIOR)
+)
+
+
+
+(defrule
+	(military-population < FIVE-PERCENT-POP)
+	(players-military-population focus-player > SEVEN-PERCENT-POP)
+	(players-military-population focus-player <= TEN-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY INFERIOR)
+)
+
+
+
+(defrule
+	(military-population < TEN-PERCENT-POP)
+	(players-military-population focus-player >= TEN-PERCENT-POP)
+	(players-military-population focus-player <= FIFTEEN-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY INFERIOR)
+)
+
+
+
+(defrule
+	(military-population < FIVE-PERCENT-POP)
+	(players-military-population focus-player > TEN-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
+)
+
+
+
+(defrule
+	(military-population < TEN-PERCENT-POP)
+	(players-military-population focus-player > FIFTEEN-PERCENT-POP)
+=>
+	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
+)
+;*****************************************************************
+
+
+
+(defrule
+	(military-population >= 5)
+	(military-population < 10)
+	(players-military-population focus-player <= 1)
+=>
+	(set-goal MILITARY-PARITY VASTLY-SUPERIOR)
+)
+
+(defrule
+	(military-population >= 5)
+	(military-population < 10)
+	(players-military-population focus-player >= 2)
+	(players-military-population focus-player <= 4)
+=>
+	(set-goal MILITARY-PARITY SUPERIOR)
+)
+
+(defrule
+	(military-population < 5)
+	(players-military-population focus-player >= 5)
+	(players-military-population focus-player <= 8)
+=>
+	(set-goal MILITARY-PARITY INFERIOR)
+)
+
+(defrule
+	(military-population < 10)
+	(players-military-population focus-player >= 10)
+	(players-military-population focus-player <= 15)
+=>
+	(set-goal MILITARY-PARITY INFERIOR)
+)
+
+(defrule
+	(military-population < 5)
+	(players-military-population focus-player >= 9)
+=>
+	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
+)
+
+(defrule
+	(military-population < 10)
+	(players-military-population focus-player >= 15)
+=>
+	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
+)
+;---------------------------
