@@ -4,13 +4,23 @@
 
 
 (defrule
-	(not (goal MILITARY-PARITY PARITY))
+	(true)
 =>
 	(set-goal MILITARY-PARITY PARITY)
+    (enable-timer T-MILITARY-PARITY 5)
+    (disable-self)
+)
+
+(defrule
+	(timer-triggered MILITARY-PARITY)
+=>
+	(set-goal MILITARY-PARITY UNKNOWN)
+    (enable-timer T-MILITARY-PARITY 5)
 )
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= SIXTY-PERCENT-POP)
 	(players-military-population focus-player <= THIRTY-FIVE-PERCENT-POP)
 =>
@@ -18,8 +28,8 @@
 )
 
 
-
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= SIXTY-PERCENT-POP)
 	(players-military-population focus-player > THIRTY-FIVE-PERCENT-POP)
 	(players-military-population focus-player <= FOURTY-FIVE-PERCENT-POP)
@@ -30,6 +40,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= SIXTY-PERCENT-POP)
 	(players-military-population focus-player > SEVENTY-PERCENT-POP)
 	(players-military-population focus-player <= EIGHTY-PERCENT-POP)
@@ -40,6 +51,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= SIXTY-PERCENT-POP)
 	(players-military-population focus-player > EIGHTY-PERCENT-POP)
 =>
@@ -49,6 +61,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= FOURTY-FIVE-PERCENT-POP)
 	(military-population < SIXTY-PERCENT-POP)
 	(players-military-population focus-player <= TWENTY-FIVE-PERCENT-POP)
@@ -59,6 +72,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= FOURTY-FIVE-PERCENT-POP)
 	(military-population < SIXTY-PERCENT-POP)
 	(players-military-population focus-player > TWENTY-FIVE-PERCENT-POP)
@@ -70,6 +84,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= FOURTY-FIVE-PERCENT-POP)
 	(military-population < SIXTY-PERCENT-POP)
 	(players-military-population focus-player > SIXTY-PERCENT-POP)
@@ -81,6 +96,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= FOURTY-FIVE-PERCENT-POP)
 	(military-population < SIXTY-PERCENT-POP)
 	(players-military-population focus-player > SEVENTY-PERCENT-POP)
@@ -92,6 +108,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= THIRTY-PERCENT-POP)
 	(military-population < FOURTY-FIVE-PERCENT-POP)
 	(players-military-population focus-player <= TWENTY-PERCENT-POP)
@@ -102,6 +119,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= THIRTY-PERCENT-POP)
 	(military-population < FOURTY-FIVE-PERCENT-POP)
 	(players-military-population focus-player > TWENTY-PERCENT-POP)
@@ -113,6 +131,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= THIRTY-PERCENT-POP)
 	(military-population < FOURTY-FIVE-PERCENT-POP)
 	(players-military-population focus-player > FIFTY-PERCENT-POP)
@@ -124,6 +143,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= THIRTY-PERCENT-POP)
 	(military-population < FOURTY-FIVE-PERCENT-POP)
 	(players-military-population focus-player > SIXTY-PERCENT-POP)
@@ -135,6 +155,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= TWENTY-PERCENT-POP)
 	(military-population < THIRTY-PERCENT-POP)
 	(players-military-population focus-player <= FIFTEEN-PERCENT-POP)
@@ -145,6 +166,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= TWENTY-PERCENT-POP)
 	(military-population < THIRTY-PERCENT-POP)
 	(players-military-population focus-player > FIFTEEN-PERCENT-POP)
@@ -156,6 +178,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= TWENTY-PERCENT-POP)
 	(military-population < THIRTY-PERCENT-POP)
 	(players-military-population focus-player > FOURTY-PERCENT-POP)
@@ -167,6 +190,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= TWENTY-PERCENT-POP)
 	(military-population < THIRTY-PERCENT-POP)
 	(players-military-population focus-player > FIFTY-PERCENT-POP)
@@ -178,6 +202,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= TEN-PERCENT-POP)
 	(military-population < TWENTY-PERCENT-POP)
 	(players-military-population focus-player <= FIVE-PERCENT-POP)
@@ -188,6 +213,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= TEN-PERCENT-POP)
 	(military-population < TWENTY-PERCENT-POP)
 	(players-military-population focus-player > FIVE-PERCENT-POP)
@@ -199,6 +225,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= TEN-PERCENT-POP)
 	(military-population < TWENTY-PERCENT-POP)
 	(players-military-population focus-player > THIRTY-PERCENT-POP)
@@ -210,6 +237,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= TEN-PERCENT-POP)
 	(military-population < TWENTY-PERCENT-POP)
 	(players-military-population focus-player > FOURTY-PERCENT-POP)
@@ -221,6 +249,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= FIVE-PERCENT-POP)
 	(military-population < TEN-PERCENT-POP)
 	(players-military-population focus-player <= 1)
@@ -231,6 +260,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= FIVE-PERCENT-POP)
 	(military-population < TEN-PERCENT-POP)
 	(players-military-population focus-player > 1)
@@ -242,6 +272,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population < FIVE-PERCENT-POP)
 	(players-military-population focus-player > SEVEN-PERCENT-POP)
 	(players-military-population focus-player <= TEN-PERCENT-POP)
@@ -252,6 +283,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population < TEN-PERCENT-POP)
 	(players-military-population focus-player >= TEN-PERCENT-POP)
 	(players-military-population focus-player <= FIFTEEN-PERCENT-POP)
@@ -262,6 +294,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population < FIVE-PERCENT-POP)
 	(players-military-population focus-player > TEN-PERCENT-POP)
 =>
@@ -271,6 +304,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population < TEN-PERCENT-POP)
 	(players-military-population focus-player > FIFTEEN-PERCENT-POP)
 =>
@@ -281,6 +315,7 @@
 
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= 5)
 	(military-population < 10)
 	(players-military-population focus-player <= 1)
@@ -289,6 +324,7 @@
 )
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population >= 5)
 	(military-population < 10)
 	(players-military-population focus-player >= 2)
@@ -298,6 +334,7 @@
 )
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population < 5)
 	(players-military-population focus-player >= 5)
 	(players-military-population focus-player <= 8)
@@ -306,6 +343,7 @@
 )
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population < 10)
 	(players-military-population focus-player >= 10)
 	(players-military-population focus-player <= 15)
@@ -314,6 +352,7 @@
 )
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population < 5)
 	(players-military-population focus-player >= 9)
 =>
@@ -321,9 +360,18 @@
 )
 
 (defrule
+    (goal MILITARY-PARITY UNKNOWN)
 	(military-population < 10)
 	(players-military-population focus-player >= 15)
 =>
 	(set-goal MILITARY-PARITY VASTLY-INFERIOR)
 )
-;---------------------------
+
+
+;--------------------
+;If none of the rules fired, we got military PARITY
+(defrule
+    (goal MILITARY-PARITY UNKNOWN)
+=>
+    (set-goal MILITARY-PARITY PARITY)
+)
