@@ -175,6 +175,18 @@
 =>
 	(train spearman-line)
 )
+
+;Train some step lancers as backup if possible
+(defrule
+	(military-population >= NINE-PERCENT-POP)
+	(unit-type-count-total spearman-line < THREE-PERCENT-POP)
+	(can-train steppe-lancer-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(goal RUSH-CONTROL NO)
+=>
+	(train steppe-lancer-line)
+)
 ;----------------------------
 
 
@@ -450,6 +462,21 @@
 	(food-amount > 100) ;leave some food for constant villager training
 =>
 	(train knight-line)
+)
+
+(defrule
+	(or
+		(goal PRIMARY-COMBAT-UNIT STEPPE-LANCER)
+		(goal SECONDARY-COMBAT-UNIT STEPPE-LANCER)
+	)
+	(unit-type-count-total steppe-lancer-line < SEVENTY-PERCENT-POP)
+	(can-train steppe-lancer-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(goal RUSH-CONTROL NO)
+	(food-amount > 100) ;leave some food for constant villager training
+=>
+	(train steppe-lancer-line)
 )
 
 ;Always mix in some nights if we have them available as they are strong.

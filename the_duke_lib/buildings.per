@@ -1723,23 +1723,15 @@
 			(goal PRIMARY-COMBAT-UNIT LCAVALRY)
 			(goal PRIMARY-COMBAT-UNIT KNIGHT)
 		)
-		(goal PRIMARY-COMBAT-UNIT CAMEL)
+		(or
+			(goal PRIMARY-COMBAT-UNIT CAMEL)
+			(goal PRIMARY-COMBAT-UNIT STEPPE-LANCER)
+		)
 	)
 =>
 	(set-goal ABLE-TO-BUILD-STABLE YES)
 )
 
-(defrule
-	(or
-		(or
-			(goal SECONDARY-COMBAT-UNIT LCAVALRY)
-			(goal SECONDARY-COMBAT-UNIT KNIGHT)
-		)
-		(goal SECONDARY-COMBAT-UNIT CAMEL)
-	)
-=>
-	(set-goal ABLE-TO-BUILD-STABLE YES)
-)
 
 ;build STABLES in feudal-age
 
