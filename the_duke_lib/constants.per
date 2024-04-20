@@ -155,8 +155,8 @@
 		;(defconst NO 0)
 		;(defconst LOW 2)
 
-;goal 18 = TOWN-SIZE-ATTACK - checks if we use a tsa or not
-		(defconst TOWN-SIZE-ATTACK 18)
+;goal 18 = CAN-USE-TOWN-SIZE-ATTACK - checks if we use a tsa or not
+		(defconst CAN-USE-TOWN-SIZE-ATTACK 18)
 		;(defconst NO 0)
 
 ;goal 19 = ABLE-TO-TRAIN-LAND-UNITS - helps the ai to limit land soldiers to have enough population headroom to train a fleet on water maps
@@ -167,7 +167,8 @@
 		(defconst ATTACK-PERSONALITY 22)
 		(defconst ATTACKER 1)
 		(defconst DEFENDER 2)
-		(defconst ATTACK 23)
+
+(defconst ABLE-TO-ATTACK 23)
 		;(defconst NO 0)
 		(defconst ALLY-WANT-US-TO-ATTACK 2)
 		(defconst RUSH-ATTACK-STARTED 24)
@@ -319,8 +320,13 @@
 		(defconst LAND-MAP 4)
 
 ;goal 40
-(defconst ATTACKING 40)
-	;NO / YES
+(defconst ATTACK-STATE 40)
+	(defconst STOP 0)
+	(defconst READY 1)
+	(defconst RETREATING 2)
+	(defconst PREPARING 3)
+	(defconst ATTACKING 4)
+	(defconst RESET-TOWN-SIZE 5)
 
 ;-------------------------------------
 
@@ -330,7 +336,7 @@
 (defconst T-NEED-HELP 4)
 (defconst T-GET-NEW-FRIEND 5)
 (defconst T-SAVE-FOR-RESEARCH 6)
-(defconst T-TOWN-SIZE-ATTACK 7)
+(defconst T-ATTACK 7)
 (defconst T-GET-RESOURCE 8)
 (defconst T-COMBAT-COMBOS 9)
 (defconst T-RESIGN 10)

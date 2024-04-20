@@ -94,7 +94,7 @@
 =>
 	(chat-to-player this-any-ally "39 Sorry, I don't attack! I have got only a few units and I need them to defend!")
 	(acknowledge-taunt this-any-ally 31)
-	(set-goal ATTACK NO)
+	(set-goal ABLE-TO-ATTACK NO)
 )
 
 
@@ -103,11 +103,11 @@
 	(taunt-detected any-ally 31)
 	(town-under-attack)
 	(players-unit-count any-enemy >= FIVE-PERCENT-POP)
-	(goal TOWN-SIZE-ATTACK NO)
+	(goal CAN-USE-TOWN-SIZE-ATTACK NO)
 =>
 	(chat-to-player this-any-ally "39 Sorry, I attack the enemy now already... because he is in my town!")
 	(acknowledge-taunt this-any-ally 31)
-	(set-goal ATTACK NO)
+	(set-goal ABLE-TO-ATTACK NO)
 )
 
 
@@ -124,7 +124,7 @@
 	(chat-local-to-self "Ok, I will attack an enemy!")
 	(chat-to-player this-any-ally "Ok, I will attack an enemy!")
 	(acknowledge-taunt this-any-ally 31)
-	(set-goal ATTACK NO)
+	(set-goal ABLE-TO-ATTACK NO)
 )
 ;*****************************************
 ;*****************************************
@@ -205,7 +205,7 @@
 =>
  	(acknowledge-taunt this-any-ally 36)
  	(chat-to-player this-any-ally "39 Ok, I'll attack, when you give me a sign only!")
-	(set-goal ATTACK ALLY-WANT-US-TO-ATTACK)
+	(set-goal ABLE-TO-ATTACK ALLY-WANT-US-TO-ATTACK)
 )
 ;*****************************************
 ;*****************************************

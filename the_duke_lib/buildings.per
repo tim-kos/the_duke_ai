@@ -122,6 +122,14 @@
 	(set-strategic-number sn-camp-max-distance 38)
 	(disable-self)
 )
+(defrule
+	(game-time > 2400)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 38)
+	(set-goal ATTACK-STATE READY)
+)
+
 
 (defrule
 	(game-time > 3000)
@@ -130,6 +138,13 @@
 	(set-strategic-number sn-maximum-town-size 48)
 	(set-strategic-number sn-camp-max-distance 44)
 	(disable-self)
+)
+(defrule
+	(game-time > 3000)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 48)
+	(set-goal ATTACK-STATE READY)
 )
 
 (defrule
@@ -140,6 +155,13 @@
 	(set-strategic-number sn-camp-max-distance 48)
 	(disable-self)
 )
+(defrule
+	(game-time > 3600)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 58)
+	(set-goal ATTACK-STATE READY)
+)
 
 (defrule
 	(game-time > 4000)
@@ -148,6 +170,13 @@
 	(set-strategic-number sn-maximum-town-size 70)
 	(set-strategic-number sn-camp-max-distance 60)
 	(disable-self)
+)
+(defrule
+	(game-time > 4000)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 70)
+	(set-goal ATTACK-STATE READY)
 )
 
 (defrule
@@ -158,6 +187,13 @@
 	(set-strategic-number sn-camp-max-distance 80)
 	(disable-self)
 )
+(defrule
+	(game-time > 4500)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 80)
+	(set-goal ATTACK-STATE READY)
+)
 
 (defrule
 	(game-time > 5000)
@@ -166,6 +202,13 @@
 	(set-strategic-number sn-maximum-town-size 90)
 	(set-strategic-number sn-camp-max-distance 100)
 	(disable-self)
+)
+(defrule
+	(game-time > 5000)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 90)
+	(set-goal ATTACK-STATE READY)
 )
 
 (defrule
@@ -176,6 +219,13 @@
 	(set-strategic-number sn-camp-max-distance 120)
 	(disable-self)
 )
+(defrule
+	(game-time > 5500)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 120)
+	(set-goal ATTACK-STATE READY)
+)
 
 (defrule
 	(game-time > 6000)
@@ -185,6 +235,13 @@
 	(set-strategic-number sn-camp-max-distance 140)
 	(disable-self)
 )
+(defrule
+	(game-time > 6000)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 100)
+	(set-goal ATTACK-STATE READY)
+)
 
 (defrule
 	(game-time > 6600)
@@ -193,6 +250,13 @@
 	(set-strategic-number sn-maximum-town-size 120)
 	(set-strategic-number sn-camp-max-distance 160)
 	(disable-self)
+)
+(defrule
+	(game-time > 6600)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 120)
+	(set-goal ATTACK-STATE READY)
 )
 
 ;************************************************************************************************************
