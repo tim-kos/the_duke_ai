@@ -1210,6 +1210,24 @@
 ;CASTLE-AGE
 
 
+(defrule
+ 	(can-research-with-escrow ri-arson)
+	(or
+		(and
+			(food-amount > 800)
+			(gold-amount > 500)
+		)
+		(or
+			(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
+			(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+		)
+	)
+=>
+	(release-escrow food)
+	(release-escrow gold)
+ 	(research ri-arson)
+; (chat-local-to-self "research ARSON")
+)
 
 ;***********************************************
 ;***********************************************

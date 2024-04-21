@@ -288,7 +288,7 @@
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
-	(population-headroom < 1)
+	(population-headroom < 10)
 	(current-age >= castle-age)
 =>
 	(set-goal ATTACK-STATE PREPARING)
