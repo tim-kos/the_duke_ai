@@ -2326,13 +2326,36 @@
 ;***********************************************
 ;***********************************************
 
+(defrule
+	(or
+		(resource-found wood)
+		(dropsite-min-distance wood s:<= sn-camp-max-distance)
+	)
+=>
+	(set-strategic-number sn-town-center-placement lumber-camp)
+)
+
+(defrule
+	(building-type-count-total town-center >= 2)
+	(building-type-count-total town-center <= 3)
+	(or
+		(resource-found gold)
+		(resource-found stone)
+	)
+	(or
+		(dropsite-min-distance gold s:<= sn-camp-max-distance)
+		(dropsite-min-distance stone s:<= sn-camp-max-distance)
+	)
+=>
+	(set-strategic-number sn-town-center-placement mining-camp)
+)
 
 (defrule
  	(current-age == castle-age)
- 	(building-type-count-total town-center < 3)
- 	(food-amount >= 200)
+ 	(building-type-count-total town-center < 4)
  	(can-build town-center)
  	(not (research-available ri-bow-saw))
+	(difficulty >= hard)
 =>
  	(build town-center)
  	(up-assign-builders c: 621 c: 4) ; town-center-foundation: 621
@@ -2342,10 +2365,11 @@
 (defrule
  	(current-age >= castle-age)
  	(building-type-count-total town-center < 5)
+	(building-type-count-total castle > 0) ;make sure not to spend all stone on town centers
  	(can-build town-center)
  	(not (research-available ri-bow-saw))
  	(not (research-available ri-hand-cart))
- 	(unit-type-count-total villager > 70)
+	(difficulty >= hard)
 =>
  	(build town-center)
  	(up-assign-builders c: 621 c: 4) ; town-center-foundation: 621
