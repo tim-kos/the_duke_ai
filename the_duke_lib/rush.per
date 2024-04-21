@@ -1052,7 +1052,7 @@
 (defrule
 	(goal RUSH-CONTROL RUSHING)
 	(or
-		(goal MILITARY-PARITY VASTLY-INFERIOR)
+		(up-compare-goal MILITARY-PARITY < INFERIOR)
 		(game-time > 1800)
 	)
 =>

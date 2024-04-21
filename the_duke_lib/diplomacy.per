@@ -82,50 +82,6 @@
 ;COMMAND-DETECTING
 
 
-
-;31 == ATTACK AN ENEMY NOW
-;*****************************************
-;*****************************************
-
-
-(defrule
-	(taunt-detected any-ally 31)
-	(military-population < FIVE-PERCENT-POP)
-=>
-	(chat-to-player this-any-ally "39 Sorry, I don't attack! I have got only a few units and I need them to defend!")
-	(acknowledge-taunt this-any-ally 31)
-	(set-goal ABLE-TO-ATTACK NO)
-)
-
-
-
-(defrule
-	(taunt-detected any-ally 31)
-	(town-under-attack)
-	(players-unit-count any-enemy >= FIVE-PERCENT-POP)
-	(goal CAN-USE-TOWN-SIZE-ATTACK NO)
-=>
-	(chat-to-player this-any-ally "39 Sorry, I attack the enemy now already... because he is in my town!")
-	(acknowledge-taunt this-any-ally 31)
-	(set-goal ABLE-TO-ATTACK NO)
-)
-
-
-
-(defrule
-	(taunt-detected any-ally 31)
-	(military-population >= FIVE-PERCENT-POP)
-	(not (town-under-attack))
-=>
-	(set-strategic-number sn-percent-attack-soldiers 100)
-	(set-strategic-number sn-percent-attack-boats 100)
-	(attack-now)
-	(attack-now)
-	(chat-local-to-self "Ok, I will attack an enemy!")
-	(chat-to-player this-any-ally "Ok, I will attack an enemy!")
-	(acknowledge-taunt this-any-ally 31)
-	(set-goal ABLE-TO-ATTACK NO)
-)
 ;*****************************************
 ;*****************************************
 (defrule

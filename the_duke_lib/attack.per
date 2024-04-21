@@ -5,6 +5,7 @@
 	(true)
 =>
 	(set-goal ATTACK-PERSONALITY ATTACKER)
+	(generate-random-number 2)
 	(set-strategic-number sn-special-attack-type1 0)
 	(set-strategic-number sn-special-attack-influence1 0)
 	(set-strategic-number sn-percent-attack-soldiers 100)
@@ -13,14 +14,18 @@
 	(disable-self)
 )
 
+;50/50 chance for defender/attacker personalities
+(defrule
+	(random-number > 1)
+=>
+	(set-goal ATTACK-PERSONALITY DEFENDER)
+	(disable-self)
+)
 
 (defrule
 	(current-age >= feudal-age)
 	(town-under-attack)
-	(or
-		(goal MILITARY-PARITY INFERIOR)
-		(goal MILITARY-PARITY VASTLY-INFERIOR)
-	)
+	(up-compare-goal MILITARY-PARITY < PARITY)
 	(timer-triggered T-NEED-HELP)
 =>
 	(disable-timer T-NEED-HELP)
@@ -125,6 +130,43 @@
 	(disable-self)
 )
 
+;31 == ATTACK AN ENEMY NOW taunt
+;*****************************************
+;*****************************************
+
+
+(defrule
+	(taunt-detected any-ally 31)
+	(military-population < FIVE-PERCENT-POP)
+=>
+	(chat-to-player this-any-ally "39 Sorry, I don't attack! I have got only a few units and I need them to defend!")
+	(acknowledge-taunt this-any-ally 31)
+)
+
+(defrule
+	(taunt-detected any-ally 31)
+	(goal ATTACK-STATE ATTACKING)
+=>
+	(chat-to-player this-any-ally "39 Sorry, I am attacking the enemy already.")
+	(acknowledge-taunt this-any-ally 31)
+)
+
+(defrule
+	(taunt-detected any-ally 31)
+	(military-population >= FIVE-PERCENT-POP)
+	(not (goal ATTACK-STATE ATTACKING))
+=>
+	(chat-local-to-self "Ok, I will prepare an attack to the enemy!")
+	(chat-to-player this-any-ally "Ok, I will prepare an attack to the enemy!")
+	(acknowledge-taunt this-any-ally 31)
+	(set-goal ABLE-TO-ATTACK YES)
+	(enable-timer T-ATTACK 30)
+	(set-goal ATTACK-STATE PREPARING)
+)
+
+;RUSHING
+;*****************************************
+;*****************************************
 (defrule
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL RUSHING)
@@ -132,10 +174,8 @@
 	(goal ATTACK-STATE READY)
 	(military-population >= 4)
 	(players-building-count focus-player > 0)
-	(goal ATTACK-PERSONALITY ATTACKER)
 	(goal RUSH-ATTACK-STARTED NO)
-	(not (goal MILITARY-PARITY INFERIOR))
-	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
+	(up-compare-goal MILITARY-PARITY >= PARITY)
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
 	(set-goal ATTACK-STATE PREPARING)
@@ -151,7 +191,6 @@
 	(goal ABLE-TO-ATTACK YES)
 	(goal ATTACK-STATE READY)
 	(military-population >= 4)
-	(goal ATTACK-PERSONALITY ATTACKER)
 	(goal MILITARY-PARITY VASTLY-SUPERIOR)
 =>
 	(disable-timer T-ATTACK)
@@ -172,9 +211,7 @@
 		(military-population >= 16)
 	)
 	(players-building-count focus-player > 0)
-	(goal ATTACK-PERSONALITY ATTACKER)
-	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
-	(not (goal MILITARY-PARITY INFERIOR))
+	(up-compare-goal MILITARY-PARITY >= PARITY)
 
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
@@ -184,24 +221,9 @@
 	(disable-self)
 )
 
-(defrule
-	(up-timer-status T-ATTACK != timer-running)
-	(goal ATTACK-STATE READY)
-	(goal ABLE-TO-ATTACK YES)
-	(or
-		(and
-			(current-age-time > 60)
-			(death-match-game)
-		)
-		(current-age-time > 420)
-	)
-	(current-age >= castle-age)
-	(goal RUSH-CONTROL NO)
-	(goal ATTACK-PERSONALITY ATTACKER)
-=>
-	(set-goal ATTACK-STATE PREPARING)
-)
-
+;REGULAR ATTACKS
+;*****************************************
+;*****************************************
 (defrule
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
@@ -226,7 +248,6 @@
 	(set-goal ATTACK-STATE PREPARING)
 )
 
-
 (defrule
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
@@ -239,28 +260,40 @@
 	(set-goal ATTACK-STATE PREPARING)
 )
 
-
+;If we are an aggressive personality, attack based on current-age-time
 (defrule
 	(up-timer-status T-ATTACK != timer-running)
+	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
-	(goal MILITARY-PARITY SUPERIOR)
-	(defend-soldier-count >= TWENTY-PERCENT-POP)
+	(or
+		(and
+			(current-age-time > 60)
+			(death-match-game)
+		)
+		(current-age-time > 420)
+	)
 	(current-age >= castle-age)
-	(goal SAVE-FOR-RESEARCH NO)
+	(goal RUSH-CONTROL NO)
+	(goal ATTACK-PERSONALITY ATTACKER)
+	(up-compare-goal MILITARY-PARITY > VASTLY-INFERIOR)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 )
 
+
 (defrule
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ABLE-TO-ATTACK YES)
-	(defend-soldier-count >= SEVEN-PERCENT-POP)
-	(current-age >= castle-age)
 	(or
-		(goal MILITARY-PARITY VASTLY-SUPERIOR)
-		(soldier-count >= THIRTY-PERCENT-POP)
+		(and
+			(goal MILITARY-PARITY VASTLY-SUPERIOR)
+			(defend-soldier-count >= TWENTY-PERCENT-POP)
+		)
+		(and
+			(goal MILITARY-PARITY SUPERIOR)
+			(soldier-count >= THIRTY-PERCENT-POP)
+		)
 	)
-	(goal CAN-USE-TOWN-SIZE-ATTACK YES)
 	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
@@ -280,10 +313,7 @@
 
 (defrule
 	(goal ATTACK-STATE ATTACKING)
-	(or
-		(goal MILITARY-PARITY VASTLY-INFERIOR)
-		(goal MILITARY-PARITY INFERIOR)
-	)
+	(up-compare-goal MILITARY-PARITY < PARITY)
 =>
 	(disable-timer T-ATTACK)
 	(enable-timer T-ATTACK 60)
@@ -338,8 +368,16 @@
 
 
 (defrule
-	(game-time > GAME-TIME-UNTIL-FIRST-ATTACK-WHEN-DEFENDER-PERSONALITY)
-	(goal ATTACK-PERSONALITY DEFENDER)
+	(or
+		(and
+			(game-time > GAME-TIME-UNTIL-FIRST-ATTACK-WHEN-DEFENDER-PERSONALITY)
+			(goal ATTACK-PERSONALITY DEFENDER)
+		)
+		(and
+			(game-time > GAME-TIME-UNTIL-FIRST-ATTACK-WHEN-ATTACKER-PERSONALITY)
+			(goal ATTACK-PERSONALITY ATTACKER)
+		)
+	)
 	(goal ABLE-TO-ATTACK NO)
 =>
 	(set-goal ABLE-TO-ATTACK YES)

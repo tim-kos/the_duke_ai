@@ -18,15 +18,6 @@
 ;************************************************************************************************************
 ;AGE ADVANCEMENT
 
-
-;Rule1: generate a random number if difficulty == hard or hardest that will define how long it'll take to advance to those several ages
-
-(defrule
-	(game-time > 14)
-=>
-	(generate-random-number 9)
-	(disable-self)
-)
 ;************************************************
 ;FEUDAL-AGE
 
