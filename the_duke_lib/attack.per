@@ -258,6 +258,11 @@
 	(chat-local-to-self "PREPARING")
 )
 (defrule
+	(goal ATTACK-STATE PULLING-TROOPS)
+=>
+	(chat-local-to-self "PULLING-TROOPS")
+)
+(defrule
 	(goal ATTACK-STATE STOP)
 =>
 	(chat-local-to-self "STOP")

@@ -90,7 +90,7 @@
 ;After 30min gradually increase camp max distance every 10 seconds
 ;if we fail to build new lumber-camps
 (defrule
-	(game-time > 1800)
+	(game-time > 900)
 	(dropsite-min-distance wood > 10)
 	(up-pending-objects c: lumber-camp < 1)
 	(up-timer-status T-INCREASE-CAMP-DISTANCE <= timer-triggered)
@@ -103,9 +103,9 @@
 ;If we fail to build houses even though we should and can, it is because
 ;our town size is too small. Gradually increase it then.
 (defrule
-	(game-time > 1800)
+	(game-time > 900)
 	(up-timer-status T-INCREASE-TOWN-SIZE <= timer-triggered)
-	(strategic-number sn-maximum-town-size < 160)
+	(strategic-number sn-maximum-town-size < 90)
 =>
 	(enable-timer T-INCREASE-TOWN-SIZE 60)
 	(up-modify-sn sn-maximum-town-size c:+ 2)
@@ -120,13 +120,6 @@
 	(set-strategic-number sn-camp-max-distance 38)
 	(disable-self)
 )
-(defrule
-	(game-time > 2400)
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(set-strategic-number sn-maximum-town-size 38)
-	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
-)
 
 
 (defrule
@@ -137,13 +130,7 @@
 	(set-strategic-number sn-camp-max-distance 44)
 	(disable-self)
 )
-(defrule
-	(game-time > 3000)
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(set-strategic-number sn-maximum-town-size 48)
-	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
-)
+
 
 (defrule
 	(game-time > 3600)
@@ -152,13 +139,6 @@
 	(set-strategic-number sn-maximum-town-size 58)
 	(set-strategic-number sn-camp-max-distance 48)
 	(disable-self)
-)
-(defrule
-	(game-time > 3600)
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(set-strategic-number sn-maximum-town-size 58)
-	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
 )
 
 (defrule
@@ -169,13 +149,6 @@
 	(set-strategic-number sn-camp-max-distance 60)
 	(disable-self)
 )
-(defrule
-	(game-time > 4000)
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(set-strategic-number sn-maximum-town-size 70)
-	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
-)
 
 (defrule
 	(game-time > 4500)
@@ -185,13 +158,7 @@
 	(set-strategic-number sn-camp-max-distance 80)
 	(disable-self)
 )
-(defrule
-	(game-time > 4500)
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(set-strategic-number sn-maximum-town-size 80)
-	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
-)
+
 
 (defrule
 	(game-time > 5000)
@@ -200,13 +167,6 @@
 	(set-strategic-number sn-maximum-town-size 90)
 	(set-strategic-number sn-camp-max-distance 100)
 	(disable-self)
-)
-(defrule
-	(game-time > 5000)
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(set-strategic-number sn-maximum-town-size 90)
-	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
 )
 
 (defrule
@@ -217,13 +177,7 @@
 	(set-strategic-number sn-camp-max-distance 120)
 	(disable-self)
 )
-(defrule
-	(game-time > 5500)
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(set-strategic-number sn-maximum-town-size 120)
-	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
-)
+
 
 (defrule
 	(game-time > 6000)
@@ -232,13 +186,6 @@
 	(set-strategic-number sn-maximum-town-size 100)
 	(set-strategic-number sn-camp-max-distance 140)
 	(disable-self)
-)
-(defrule
-	(game-time > 6000)
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(set-strategic-number sn-maximum-town-size 100)
-	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
 )
 
 (defrule
@@ -249,11 +196,73 @@
 	(set-strategic-number sn-camp-max-distance 160)
 	(disable-self)
 )
+
+
+
 (defrule
 	(game-time > 6600)
 	(goal ATTACK-STATE RESET-TOWN-SIZE)
 =>
 	(set-strategic-number sn-maximum-town-size 120)
+	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
+)
+
+(defrule
+	(game-time > 6000)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 100)
+	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
+)
+
+(defrule
+	(game-time > 5500)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 120)
+	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
+)
+(defrule
+	(game-time > 5000)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 90)
+	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
+)
+(defrule
+	(game-time > 4500)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 80)
+	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
+)
+(defrule
+	(game-time > 4000)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 70)
+	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
+)
+
+(defrule
+	(game-time > 3600)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 58)
+	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
+)
+(defrule
+	(game-time > 3000)
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 48)
+	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
+)
+
+(defrule
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(set-strategic-number sn-maximum-town-size 38)
 	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
 )
 
