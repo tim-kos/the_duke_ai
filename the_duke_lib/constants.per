@@ -327,6 +327,7 @@
 	(defconst PREPARING 3)
 	(defconst ATTACKING 4)
 	(defconst RESET-TOWN-SIZE 5)
+	(defconst TOWN-SIZE-RESETTED 6)
 
 ;-------------------------------------
 
@@ -336,7 +337,7 @@
 (defconst T-NEED-HELP 4)
 (defconst T-GET-NEW-FRIEND 5)
 (defconst T-SAVE-FOR-RESEARCH 6)
-(defconst T-ATTACK 7)
+;7 is free atm
 (defconst T-GET-RESOURCE 8)
 (defconst T-COMBAT-COMBOS 9)
 (defconst T-RESIGN 10)
@@ -347,7 +348,6 @@
 (defconst T-MILITARY-PARITY 15)
 
 ;---------------------------------------
-
 
 
 ;CONSTANTS THAT ARE LOADED WHEN WE'RE PLAYING ON POP-CAP 25
@@ -1715,6 +1715,9 @@
 #load-if-defined DIFFICULTY-EASIEST
 
 (defconst TIME-BETWEEN-VILLAGER-TRAINING 160)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-ATTACKER 1800)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-DEFENDER 2100)
+(defconst GAME-TIME-UNTIL-FIRST-ATTACK-WHEN-DEFENDER-PERSONALITY 2700)
 
 (defconst barracks-building-feudal 2)
 (defconst archery-range-building-feudal 0)
@@ -1783,6 +1786,9 @@
 #load-if-defined DIFFICULTY-EASY
 
 (defconst TIME-BETWEEN-VILLAGER-TRAINING 110)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-ATTACKER 1200)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-DEFENDER 1800)
+(defconst GAME-TIME-UNTIL-FIRST-ATTACK-WHEN-DEFENDER-PERSONALITY 2100)
 
 (defconst barracks-building-feudal 2)
 (defconst archery-range-building-feudal 1)
@@ -1850,6 +1856,9 @@
 #load-if-defined DIFFICULTY-MODERATE
 
 (defconst TIME-BETWEEN-VILLAGER-TRAINING 65)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-ATTACKER 900)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-DEFENDER 1200)
+(defconst GAME-TIME-UNTIL-FIRST-ATTACK-WHEN-DEFENDER-PERSONALITY 1800)
 
 (defconst barracks-building-feudal 3)
 (defconst archery-range-building-feudal 3)
@@ -1919,6 +1928,9 @@
 #load-if-defined DIFFICULTY-HARD
 
 (defconst TIME-BETWEEN-VILLAGER-TRAINING 0)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-ATTACKER 300)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-DEFENDER 600)
+(defconst GAME-TIME-UNTIL-FIRST-ATTACK-WHEN-DEFENDER-PERSONALITY 1800)
 
 (defconst barracks-building-feudal 4)
 (defconst archery-range-building-feudal 4)
@@ -1988,6 +2000,9 @@
 #load-if-defined DIFFICULTY-HARDEST
 
 (defconst TIME-BETWEEN-VILLAGER-TRAINING 0)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-ATTACKER 300)
+(defconst TIME-BETWEEN-ATTACK-ATTEMPTS-DEFENDER 600)
+(defconst GAME-TIME-UNTIL-FIRST-ATTACK-WHEN-DEFENDER-PERSONALITY 1800)
 
 (defconst barracks-building-feudal 4)
 (defconst archery-range-building-feudal 4)

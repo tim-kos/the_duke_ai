@@ -56,7 +56,6 @@
 	(set-strategic-number sn-target-evaluation-ally-proximity 10000)
 	(set-strategic-number sn-percent-attack-soldiers 90)
 	(attack-now)
-	(attack-now)
 	(chat-to-player this-any-human-ally "OK, I will help you!")
 )
 ;------------------------------
@@ -71,6 +70,7 @@
 =>
 	(chat-to-player every-ally "39 Attack the enemy now! He's building a wonder!")
 	(chat-to-player every-ally "26")
+	(set-goal ATTACK-PERSONALITY ATTACKER)
 	(disable-self)
 )
 
@@ -97,6 +97,7 @@
 	(enemy-captured-relics)
 =>
 	(chat-to-player every-ally "39 Attack the enemy now! He has got all the relics!")
+	(set-goal ATTACK-PERSONALITY ATTACKER)
 	(disable-self)
 )
 
@@ -110,6 +111,7 @@
 	(cc-players-building-type-count any-neutral wonder > 0)
 =>
 	(chat-to-player this-any-neutral "41 You want to defeat me with a wonder? Before that, I will wipe you out!")
+	(set-goal ATTACK-PERSONALITY ATTACKER)
 	(set-stance this-any-neutral enemy)
 )
 
@@ -126,23 +128,27 @@
 (defrule
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL RUSHING)
+	(goal ABLE-TO-ATTACK YES)
 	(goal ATTACK-STATE READY)
 	(military-population >= 4)
 	(players-building-count focus-player > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(goal RUSH-ATTACK-STARTED NO)
 	(not (goal MILITARY-PARITY INFERIOR))
+	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
 	(set-goal ATTACK-STATE PREPARING)
 	(chat-local-to-self "FLUSH")
 	(chat-to-player every-ally "39 I do the Flush now!")
 	(set-goal RUSH-ATTACK-STARTED YES)
+	(disable-self)
 )
 
 (defrule
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL RUSHING)
+	(goal ABLE-TO-ATTACK YES)
 	(goal ATTACK-STATE READY)
 	(military-population >= 4)
 	(goal ATTACK-PERSONALITY ATTACKER)
@@ -157,11 +163,19 @@
 	(current-age == castle-age)
 	(goal RUSH-CONTROL RUSHING)
 	(goal ATTACK-STATE READY)
-	(military-population >= 10)
+	(goal ABLE-TO-ATTACK YES)
+	(or
+		(and
+			(military-population >= 6)
+			(goal PRIMARY-COMBAT-UNIT KNIGHT)
+		)
+		(military-population >= 16)
+	)
 	(players-building-count focus-player > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(not (goal MILITARY-PARITY INFERIOR))
+
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
 	(set-goal ATTACK-STATE PREPARING)
@@ -171,39 +185,7 @@
 )
 
 (defrule
-	(current-age == castle-age)
-	(goal RUSH-CONTROL RUSHING)
-	(goal ATTACK-STATE READY)
-	(military-population >= 16)
-	(players-building-count focus-player > 0)
-	(goal ATTACK-PERSONALITY ATTACKER)
-	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-=>
-	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
-	(set-goal ATTACK-STATE PREPARING)
-	(chat-to-player every-ally "39 I rush the enemy now! Please protect my town, I have no units in there!")
-	(set-goal RUSH-ATTACK-STARTED YES)
-	(disable-self)
-)
-
-(defrule
-	(current-age >= castle-age)
-	(goal RUSH-CONTROL RUSHING)
-	(goal ATTACK-STATE READY)
-	(military-population >= 6)
-	(players-building-count focus-player > 0)
-	(goal ATTACK-PERSONALITY ATTACKER)
-	(not (goal MILITARY-PARITY VASTLY-INFERIOR))
-=>
-	(disable-timer T-ATTACK)
-	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
-	(set-goal ATTACK-STATE PREPARING)
-	(set-strategic-number sn-enemy-sighted-response-distance 144)
-	(set-strategic-number sn-maximum-town-size 230)
-)
-
-(defrule
+	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
 	(or
@@ -221,6 +203,7 @@
 )
 
 (defrule
+	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
 	(population-headroom < 1)
@@ -230,6 +213,7 @@
 )
 
 (defrule
+	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
 	(or
@@ -244,12 +228,12 @@
 
 
 (defrule
+	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
 	(defend-soldier-count >= FIFTY-PERCENT-POP)
 	(current-age >= castle-age)
 	(goal MILITARY-PARITY PARITY)
-	(goal CAN-USE-TOWN-SIZE-ATTACK YES)
 	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
@@ -257,19 +241,18 @@
 
 
 (defrule
-	(timer-triggered T-ATTACK)
+	(up-timer-status T-ATTACK != timer-running)
 	(goal ABLE-TO-ATTACK YES)
 	(goal MILITARY-PARITY SUPERIOR)
 	(defend-soldier-count >= TWENTY-PERCENT-POP)
 	(current-age >= castle-age)
-	(goal CAN-USE-TOWN-SIZE-ATTACK YES)
 	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 )
 
 (defrule
-	(timer-triggered T-ATTACK)
+	(up-timer-status T-ATTACK != timer-running)
 	(goal ABLE-TO-ATTACK YES)
 	(defend-soldier-count >= SEVEN-PERCENT-POP)
 	(current-age >= castle-age)
@@ -319,9 +302,23 @@
 =>
 	(set-goal ATTACK-STATE RESET-TOWN-SIZE)
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
-	(enable-timer T-ATTACK 300) ;consider attacking in 5min again
 )
 
+(defrule
+	(goal ATTACK-STATE TOWN-SIZE-RESETTED)
+	(goal ATTACK-PERSONALITY ATTACKER)
+=>
+	(set-goal ATTACK-STATE READY)
+	(enable-timer T-ATTACK TIME-BETWEEN-ATTACK-ATTEMPTS-ATTACKER)
+)
+
+(defrule
+	(goal ATTACK-STATE TOWN-SIZE-RESETTED)
+	(goal ATTACK-PERSONALITY DEFENDER)
+=>
+	(set-goal ATTACK-STATE READY)
+	(enable-timer T-ATTACK TIME-BETWEEN-ATTACK-ATTEMPTS-DEFENDER)
+)
 
 ;---------------------------------------------
 
@@ -340,9 +337,15 @@
 ;-----------------------------------
 
 
+(defrule
+	(game-time > GAME-TIME-UNTIL-FIRST-ATTACK-WHEN-DEFENDER-PERSONALITY)
+	(goal ATTACK-PERSONALITY DEFENDER)
+	(goal ABLE-TO-ATTACK NO)
+=>
+	(set-goal ABLE-TO-ATTACK YES)
+)
 
 (defrule
-	(timer-triggered T-ATTACK)
 	(or
 		(and
 			(not (player-in-game any-neutral))
@@ -403,7 +406,6 @@
 	(set-strategic-number sn-percent-attack-soldiers 90)
 	(set-strategic-number sn-percent-attack-boats 90)
 	(attack-now)
-	(attack-now)
 	(chat-local-to-self "attack now!")
 	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
 )
@@ -416,7 +418,6 @@
 =>
 	(set-strategic-number sn-percent-attack-soldiers 100)
 	(set-strategic-number sn-percent-attack-boats 100)
-	(attack-now)
 	(attack-now)
 )
 
@@ -459,7 +460,6 @@
 		)
 		(taunt-detected any-enemy 49)
 	)
-	(not (goal ATTACK-PERSONALITY DEFENDER))
 =>
 	(set-goal ATTACK-PERSONALITY DEFENDER)
 	(acknowledge-taunt this-any-ally 49)
@@ -469,179 +469,3 @@
 	(chat-to-player this-any-neutral "Okay, I will be less aggressive!")
 	(chat-to-player this-any-enemy "Okay, I will be less aggressive!")
 )
-
-;-----------------------------------
-
-
-
-#load-if-defined DIFFICULTY-EASIEST
-
-;attack timer - after 35 minutes; then launch attacks every 40 minutes
-(defrule
-	(players-current-age every-human >= castle-age)
-	(game-time > 2100)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK NO)
-	(enable-timer T-ATTACK 1)
-	(disable-self)
-)
-
-
-
-(defrule
-	(timer-triggered T-ATTACK)
-	(goal ABLE-TO-ATTACK NO)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK YES)
-	(chat-local-to-self "consider attacking in 40 minutes again!")
-	(disable-timer T-ATTACK)
-	(enable-timer T-ATTACK 2400)
-)
-
-#end-if		;if easiest
-
-
-
-;********************************
-
-
-
-#load-if-defined DIFFICULTY-EASY
-
-;attack timer - after 25 minutes; then launch attacks every 20 minutes
-(defrule
-	(players-current-age every-human >= castle-age)
-	(game-time > 1500)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK NO)
-	(enable-timer T-ATTACK 1)
-	(disable-self)
-)
-
-
-
-(defrule
-	(timer-triggered T-ATTACK)
-	(goal ABLE-TO-ATTACK NO)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK YES)
-	(chat-local-to-self "consider attacking in 20 minutes again!")
-	(disable-timer T-ATTACK)
-	(enable-timer T-ATTACK 1200)
-)
-
-#end-if		;if easy
-
-
-
-;********************************
-
-
-
-#load-if-defined DIFFICULTY-MODERATE
-
-;attack timer - once in imperial-age or we played 30 minutes already; then launch attacks every 25 minutes
-(defrule
-	(or
-		(game-time > 1800)
-		(current-age >= imperial-age)
-	)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK NO)
-	(enable-timer T-ATTACK 1)
-	(disable-self)
-)
-
-
-
-(defrule
-	(timer-triggered T-ATTACK)
-	(goal ABLE-TO-ATTACK NO)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK YES)
-	(chat-local-to-self "consider attacking in 25 minutes again!")
-	(disable-timer T-ATTACK)
-	(enable-timer T-ATTACK 1500)
-)
-
-
-#end-if		;if moderate
-
-
-
-;********************************
-
-
-
-#load-if-defined DIFFICULTY-HARD
-
-;attack timer - once in castle-age or we played 30 minutes already; then launch attacks every 25 minutes
-(defrule
-	(or
-		(game-time > 1800)
-		(current-age >= castle-age)
-	)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK NO)
-	(enable-timer T-ATTACK 1)
-	(disable-self)
-)
-
-
-
-(defrule
-	(timer-triggered T-ATTACK)
-	(goal ABLE-TO-ATTACK NO)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK YES)
-	(chat-local-to-self "consider attacking in 25 minutes again!")
-	(disable-timer T-ATTACK)
-	(enable-timer T-ATTACK 1500)
-)
-
-
-#end-if		;if hard
-
-
-
-;********************************
-
-
-
-#load-if-defined DIFFICULTY-HARDEST
-
-;attack timer - once in castle-age or we played 25 minutes already; then launch attacks every 25 minutes
-(defrule
-	(or
-		(game-time > 1200)
-		(current-age >= castle-age)
-	)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK NO)
-	(enable-timer T-ATTACK 1)
-	(disable-self)
-)
-
-
-
-(defrule
-	(timer-triggered T-ATTACK)
-	(goal ABLE-TO-ATTACK NO)
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(set-goal ABLE-TO-ATTACK YES)
-	(chat-local-to-self "consider attacking in 25 minutes again!")
-	(disable-timer T-ATTACK)
-	(enable-timer T-ATTACK 1500)
-)
-
-#end-if		;if hardest
