@@ -104,14 +104,12 @@
 ;our town size is too small. Gradually increase it then.
 (defrule
 	(game-time > 1800)
-	(up-pending-objects c: house < 1)
 	(up-timer-status T-INCREASE-TOWN-SIZE <= timer-triggered)
-	(can-build house)
-	(population-headroom != 0)
-	(housing-headroom <= 16)
+	(strategic-number sn-maximum-town-size < 160)
 =>
-	(enable-timer T-INCREASE-CAMP-DISTANCE 10)
+	(enable-timer T-INCREASE-TOWN-SIZE 60)
 	(up-modify-sn sn-maximum-town-size c:+ 2)
+	(up-modify-sn sn-camp-max-distance c:+ 2)
 )
 
 (defrule
@@ -1685,7 +1683,7 @@
  	(current-age >= castle-age)
 	(or
 		(and
-			(building-type-count-total barracks < 2)
+			(building-type-count-total barracks < 3)
 			(or
 				(wood-amount > 450)
 				(building-type-count-total town-center > 1)
@@ -1694,7 +1692,7 @@
 		(building-type-count-total barracks < 1)
 	)
  	(can-build barracks)
-	(goal ABLE-TO-BUILD-BARRACKS YES)
+	;(goal ABLE-TO-BUILD-BARRACKS YES)
 =>
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
@@ -1930,7 +1928,10 @@
 	(building-type-count-total stable < stable-building-imperial)
 	(wood-amount > 800)
 	(not (research-available ri-hand-cart))
-	(goal ABLE-TO-BUILD-STABLE YES)
+	(or
+		(goal ABLE-TO-BUILD-STABLE YES)
+		(wood-amount > 1200)
+	)
 	(building-type-count-total town-center > 2)
 	(unit-type-count-total villager > 60) ;can our economy support this?
 	(up-pending-objects c: stable < 2)
@@ -2158,8 +2159,8 @@
 	(current-age >= castle-age)
 	(can-build archery-range)
 	(wood-amount > 700)
-	(building-type-count-total archery-range < 2)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
+	(building-type-count-total archery-range < 3)
+	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
 	(not (research-available ri-heavy-plow))
@@ -2873,7 +2874,7 @@
 	(wood-amount > 1500)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
-	(building-type-count-total barracks >= 3)
+	;(building-type-count-total barracks >= 3)
 	(up-pending-objects c: barracks < 2)
 =>
 	(build-forward barracks)
@@ -2891,7 +2892,7 @@
 	(wood-amount > 1500)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
-	(building-type-count-total archery-range >= 3)
+	;(building-type-count-total archery-range >= 3)
 	(up-pending-objects c: archery-range < 2)
 =>
 	(build-forward archery-range)
@@ -2909,7 +2910,7 @@
 	(wood-amount > 1500)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
-	(building-type-count-total stable >= 3)
+	;(building-type-count-total stable >= 3)
 	(up-pending-objects c: stable < 2)
 =>
 	(build-forward stable)

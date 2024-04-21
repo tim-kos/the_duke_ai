@@ -854,7 +854,7 @@
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
 
-;	(chat-local-to-self  "GOTHIC - Strategy 1")
+;	(chat-local-to-self  "GOTHIC - Strategy 2")
 	(chat-to-allies "39 Now I will train huskarls, infantry, bombard-cannons and trebs!")
 )
 
@@ -1601,6 +1601,50 @@
 
 #end-if		;if civ = Mongol
 
+
+#load-if-defined TATARS-CIV
+
+(defrule
+	(goal COMBAT-COMBO-PARITY NOTICE)
+	(random-number < 3)
+=>
+	(set-goal COMBAT-COMBO-PARITY DEFINED)
+	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
+	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
+	(set-goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal SECONDARY-COMBAT-UNIT2 NO)
+
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+
+;	(chat-local-to-self  "TATARS - Strategy 1")
+	(chat-to-allies "39 Now I will train keshiks, cavarchers, rams and trebs!")
+)
+
+
+
+(defrule
+	(goal COMBAT-COMBO-PARITY NOTICE)
+	(random-number >= 3)
+=>
+	(set-goal COMBAT-COMBO-PARITY DEFINED)
+	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
+	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
+	(set-goal PRIMARY-COMBAT-UNIT2 NO)
+	(set-goal SECONDARY-COMBAT-UNIT2 NO)
+
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+
+;	(chat-local-to-self  "TATARS - Strategy 2")
+	(chat-to-allies "39 Now I will train light cavalry, cav archers, rams and trebs!")
+)
+
+#end-if		;if civ = TATARS
 
 
 #load-if-defined KOREAN-CIV
