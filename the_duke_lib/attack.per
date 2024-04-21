@@ -174,7 +174,7 @@
 	(goal ABLE-TO-ATTACK YES)
 	(goal ATTACK-STATE READY)
 	(military-population >= 4)
-	(players-building-count focus-player > 0)
+	(players-building-count target-player > 0)
 	(goal RUSH-ATTACK-STARTED NO)
 	(up-compare-goal MILITARY-PARITY >= PARITY)
 =>
@@ -211,7 +211,7 @@
 		)
 		(military-population >= 16)
 	)
-	(players-building-count focus-player > 0)
+	(players-building-count target-player > 0)
 	(up-compare-goal MILITARY-PARITY >= PARITY)
 
 =>
