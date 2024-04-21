@@ -127,6 +127,7 @@
 	(true)
 =>
 	(set-goal ATTACK-STATE READY)
+	(set-goal ABLE-TO-ATTACK NO)
 	(disable-self)
 )
 
@@ -224,6 +225,60 @@
 ;REGULAR ATTACKS
 ;*****************************************
 ;*****************************************
+
+(defrule
+	(goal ATTACK-PERSONALITY DEFENDER)
+=>
+	(chat-local-to-self "ATTACK-PERSONALITY DEFENDER")
+)
+(defrule
+	(goal ATTACK-PERSONALITY ATTACKER)
+=>
+	(chat-local-to-self "ATTACK-PERSONALITY ATTACKER")
+)
+
+(defrule
+	(goal ABLE-TO-ATTACK YES)
+=>
+	(chat-local-to-self "ABLE-TO-ATTACK YES")
+)
+(defrule
+	(goal ABLE-TO-ATTACK NO)
+=>
+	(chat-local-to-self "ABLE-TO-ATTACK NO")
+)
+(defrule
+	(goal ATTACK-STATE READY)
+=>
+	(chat-local-to-self "READY")
+)
+(defrule
+	(goal ATTACK-STATE PREPARING)
+=>
+	(chat-local-to-self "PREPARING")
+)
+(defrule
+	(goal ATTACK-STATE STOP)
+=>
+	(chat-local-to-self "STOP")
+)
+(defrule
+	(goal ATTACK-STATE ATTACKING)
+=>
+	(chat-local-to-self "ATTACKING")
+)
+(defrule
+	(goal ATTACK-STATE RESET-TOWN-SIZE)
+=>
+	(chat-local-to-self "RESET-TOWN-SIZE")
+)
+(defrule
+	(goal ATTACK-STATE TOWN-SIZE-RESETTED)
+=>
+	(chat-local-to-self "TOWN-SIZE-RESETTED")
+)
+
+
 (defrule
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
@@ -232,6 +287,7 @@
 	(current-age >= castle-age)
 =>
 	(set-goal ATTACK-STATE PREPARING)
+	(chat-local-to-self "Prepare attack1")
 )
 
 (defrule
@@ -246,18 +302,21 @@
 	(current-age >= castle-age)
 =>
 	(set-goal ATTACK-STATE PREPARING)
+	(chat-local-to-self "Prepare attack2")
 )
 
 (defrule
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
-	(defend-soldier-count >= FIFTY-PERCENT-POP)
+	(defend-soldier-count >= TWENTY-PERCENT-POP)
 	(current-age >= castle-age)
-	(goal MILITARY-PARITY PARITY)
+	(up-compare-goal MILITARY-PARITY >= PARITY)
 	(goal SAVE-FOR-RESEARCH NO)
+	(goal RUSH-CONTROL NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
+	(chat-local-to-self "Prepare attack3")
 )
 
 ;If we are an aggressive personality, attack based on current-age-time
@@ -274,10 +333,12 @@
 	)
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL NO)
+	(goal SAVE-FOR-RESEARCH NO)
 	(goal ATTACK-PERSONALITY ATTACKER)
 	(up-compare-goal MILITARY-PARITY > VASTLY-INFERIOR)
 =>
 	(set-goal ATTACK-STATE PREPARING)
+	(chat-local-to-self "Prepare attack4")
 )
 
 
@@ -297,6 +358,7 @@
 	(goal SAVE-FOR-RESEARCH NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
+	(chat-local-to-self "Prepare attack5")
 )
 
 ;------------------------
@@ -309,6 +371,7 @@
 =>
 	(disable-timer T-ATTACK)
 	(set-goal ATTACK-STATE STOP)
+	(chat-local-to-self "STOP THE ATTACK")
 )
 
 (defrule
@@ -316,22 +379,18 @@
 	(up-compare-goal MILITARY-PARITY < PARITY)
 =>
 	(disable-timer T-ATTACK)
-	(enable-timer T-ATTACK 60)
-	(set-goal ATTACK-STATE RETREATING)
+	(set-goal ATTACK-STATE STOP)
 	(up-retreat-now)
+	(chat-local-to-self "RETREAT")
 )
 
 (defrule
-	(or
-		(goal ATTACK-STATE STOP)
-		(and
-			(timer-triggered T-ATTACK)
-			(goal ATTACK-STATE RETREATING)
-		)
-	)
+	(goal ATTACK-STATE STOP)
 =>
 	(set-goal ATTACK-STATE RESET-TOWN-SIZE)
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(chat-local-to-self "RESET TOWN SIZE")
+	(chat-to-player every-ally "I will stop sending any additional units into battle for now.")
 )
 
 (defrule
@@ -340,6 +399,7 @@
 =>
 	(set-goal ATTACK-STATE READY)
 	(enable-timer T-ATTACK TIME-BETWEEN-ATTACK-ATTEMPTS-ATTACKER)
+	(chat-local-to-self "TOWN SIZE RESETTED")
 )
 
 (defrule
@@ -348,6 +408,7 @@
 =>
 	(set-goal ATTACK-STATE READY)
 	(enable-timer T-ATTACK TIME-BETWEEN-ATTACK-ATTEMPTS-DEFENDER)
+	(chat-local-to-self "TOWN SIZE RESETTED2")
 )
 
 ;---------------------------------------------
@@ -381,6 +442,7 @@
 	(goal ABLE-TO-ATTACK NO)
 =>
 	(set-goal ABLE-TO-ATTACK YES)
+	(chat-local-to-self "SET ABLE TO ATTACK YES")
 )
 
 (defrule
@@ -391,8 +453,10 @@
 		)
 		(building-type-count-total wonder > 0)
 	)
+	(goal ABLE-TO-ATTACK YES)
 =>
 	(set-goal ABLE-TO-ATTACK NO)
+	(chat-local-to-self "SET ABLE TO ATTACK NO")
 )
 
 
@@ -413,14 +477,16 @@
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE PREPARING)
 =>
+	(set-goal ATTACK-STATE PULLING-TROOPS)
 	(up-retreat-now) ;Pull all units together at the town center, so when the attack starts, they all move as one blob and not scattered groups
 	(chat-local-to-self "preparing for attack!")
 	(chat-to-player every-ally "39 I will attack the enemy in one minute!")
 	(enable-timer T-ATTACK 60)
+	(chat-local-to-self "PULL TROOPS TOGETHER")
 )
 
 (defrule
-	(goal ATTACK-STATE PREPARING)
+	(goal ATTACK-STATE PULLING-TROOPS)
 	(timer-triggered T-ATTACK)
 	(goal CAN-USE-TOWN-SIZE-ATTACK YES)
 =>
@@ -430,12 +496,12 @@
 	(enable-timer T-ATTACK 180)
 	(set-strategic-number sn-enemy-sighted-response-distance 250)
 	(set-strategic-number sn-maximum-town-size 230)
-	(chat-local-to-self "attack now!")
-	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce them!")
+	(chat-to-player every-ally "I send new troops into battle! Hopefully you can reinforce them!")
+	(chat-local-to-self "ATTACK NOW!")
 )
 
 (defrule
-	(goal ATTACK-STATE PREPARING)
+	(goal ATTACK-STATE PULLING-TROOPS)
 	(timer-triggered T-ATTACK)
 	(goal CAN-USE-TOWN-SIZE-ATTACK NO)
 =>
@@ -444,8 +510,8 @@
 	(set-strategic-number sn-percent-attack-soldiers 90)
 	(set-strategic-number sn-percent-attack-boats 90)
 	(attack-now)
-	(chat-local-to-self "attack now!")
-	(chat-to-player every-ally "39 I send new troops into battle! Hopefully you can reinforce my units!")
+	(chat-local-to-self "ATTACK NOW!")
+	(chat-to-player every-ally "I send new troops into battle! Hopefully you can reinforce my units!")
 )
 
 

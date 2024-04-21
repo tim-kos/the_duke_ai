@@ -164,14 +164,15 @@
 		;(defconst NO 0)
 
 ;goal 22 = ATTACK-PERSONALITY - used to define whether the AI is an attacker or a defender
-		(defconst ATTACK-PERSONALITY 22)
+(defconst ATTACK-PERSONALITY 22)
 		(defconst ATTACKER 1)
 		(defconst DEFENDER 2)
 
 (defconst ABLE-TO-ATTACK 23)
 		;(defconst NO 0)
 		(defconst ALLY-WANT-US-TO-ATTACK 2)
-		(defconst RUSH-ATTACK-STARTED 24)
+
+(defconst RUSH-ATTACK-STARTED 24)
 		;(defconst NO 0)
 
 ;goal 25 = MILITARY-PARITY - it checks the number of enemy units to inform our allies
@@ -206,6 +207,7 @@
 		(defconst WONDER-ATTEMPT 29)
 		;(defconst NO 0)
 		;(defconst MAYBE 3)
+		(defconst ATTACK 5)
 		(defconst DEFEND 6)
 ;goal 30 
 (defconst COMBAT-COMBO-PARITY 30)
@@ -313,21 +315,23 @@
 		(defconst SIX 6)
 		(defconst SEVEN 7)
 		(defconst EIGHT 8)
-		(defconst MAP-KIND 40)
+
+(defconst MAP-KIND 40)
 		(defconst WATER-MAP 1)
 		(defconst RIVERS-MAP 2)
 		(defconst ISLAND-MAP 3)
 		(defconst LAND-MAP 4)
 
-;goal 40
-(defconst ATTACK-STATE 40)
+;goal 41
+(defconst ATTACK-STATE 41)
 	(defconst STOP 0)
 	(defconst READY 1)
 	(defconst RETREATING 2)
 	(defconst PREPARING 3)
-	(defconst ATTACKING 4)
-	(defconst RESET-TOWN-SIZE 5)
-	(defconst TOWN-SIZE-RESETTED 6)
+	(defconst PULLING-TROOPS 4)
+	(defconst ATTACKING 5)
+	(defconst RESET-TOWN-SIZE 6)
+	(defconst TOWN-SIZE-RESETTED 7)
 
 ;-------------------------------------
 
