@@ -100,13 +100,17 @@
 ;if we fail to build new lumber-camps
 (defrule
 	(game-time > 900)
-	(dropsite-min-distance wood > 10)
-	(up-pending-objects c: lumber-camp < 1)
+	(or
+		(dropsite-min-distance wood > 10)
+		(or
+			(dropsite-min-distance gold > 4)
+			(dropsite-min-distance stone > 4)
+		)
+	)
 	(up-timer-status T-INCREASE-CAMP-DISTANCE <= timer-triggered)
-	(can-build lumber-camp)
 =>
-	(enable-timer T-INCREASE-CAMP-DISTANCE 10)
-	(up-modify-sn camp-max-distance c:+ 2)
+	(enable-timer T-INCREASE-CAMP-DISTANCE 60)
+	(up-modify-sn camp-max-distance c:+ 5)
 )
 
 ;If we fail to build houses even though we should and can, it is because
@@ -118,7 +122,6 @@
 =>
 	(enable-timer T-INCREASE-TOWN-SIZE 60)
 	(up-modify-goal TARGET-TOWN-SIZE c:+ 2)
-	(up-modify-sn camp-max-distance c:+ 2)
 	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
 )
 
@@ -1578,7 +1581,6 @@
 		(wood-amount > 850)
 		(building-type-count-total town-center > 2)
 	)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(building-type-count-total archery-range >= 2)
  	(can-build barracks)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
@@ -1595,7 +1597,6 @@
 		(wood-amount > 850)
 		(building-type-count-total town-center > 2)
 	)
-	(goal ABLE-TO-BUILD-STABLE YES)
 	(building-type-count-total stable >= 2)
  	(can-build barracks)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
@@ -1608,10 +1609,14 @@
 (defrule
  	(current-age >= castle-age)
 	(building-type-count-total barracks < barracks-building-imperial)
-	(wood-amount > 950)
+	(wood-amount > 800)
 	(building-type-count-total town-center > 2)
  	(can-build barracks)
-	(goal ABLE-TO-BUILD-BARRACKS YES)
+	(or
+		(goal ABLE-TO-BUILD-BARRACKS YES)
+		(wood-amount > 1250)
+	)
+	(unit-type-count-total villager > TWENTY-PERCENT-POP);can our economy support this?
 	(up-pending-objects c: barracks < 2)
 =>
  	(build barracks)
@@ -1803,10 +1808,10 @@
 	(not (research-available ri-hand-cart))
 	(or
 		(goal ABLE-TO-BUILD-STABLE YES)
-		(wood-amount > 1200)
+		(wood-amount > 1250)
 	)
 	(building-type-count-total town-center > 2)
-	(unit-type-count-total villager > 60) ;can our economy support this?
+	(unit-type-count-total villager > TWENTY-PERCENT-POP) ;can our economy support this?
 	(up-pending-objects c: stable < 2)
 =>
 	(build stable)
@@ -2048,9 +2053,9 @@
 	(building-type-count-total town-center > 2)
 	(not (research-available ri-hand-cart))
  	(can-build archery-range)
-	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(wood-amount > 850)
-	(unit-type-count-total villager > 60) ;can our economy support this?
+	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
+	(wood-amount > 1250)
+	(unit-type-count-total villager > TWENTY-PERCENT-POP) ;can our economy support this?
 	(up-pending-objects c: archery-range < 2)
 =>
  	(build archery-range)
