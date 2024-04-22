@@ -2238,6 +2238,11 @@
 	)
  	(can-build castle)
 =>
+	(set-strategic-number sn-ignore-tower-elevation 0)
+	(set-strategic-number sn-placement-to-center 1)
+	(up-set-placement-data my-player-number -1 c: 12)
+	(set-strategic-number sn-placement-zone-size 12)
+	(up-build place-control 0 c: castle)
  	(build castle)
  	(up-assign-builders c: castle c: 3)
 ;	(chat-local-to-self "build CASTLE")
@@ -2248,6 +2253,7 @@
 	(stone-amount > 800)
  	(can-build castle)
 =>
+	(set-strategic-number sn-ignore-tower-elevation 0)
  	(build castle)
 ;	(chat-local-to-self "build CASTLE")
 )
