@@ -3842,6 +3842,52 @@
 	(chat-local-to-self "Save resources for research for 3min")
 )
 
+;If we have exceeded our target time for researching the imperial age, save resources until we are
+;researching it.
+(defrule
+	(up-research-status c: imperial-age == research-available)
+	(or
+		(or
+			(and
+				(goal RESEARCHING-IMPERIAL FAST-IMPERIAL)
+				(game-time > IMPERIAL-RESEARCH-TIME-FAST-IMPERIAL)
+			)
+			(and
+				(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL)
+				(game-time > IMPERIAL-RESEARCH-TIME-MIDDLE-IMPERIAL)
+			)
+		)
+		(and
+			(goal RESEARCHING-IMPERIAL LATE-IMPERIAL)
+			(game-time > IMPERIAL-RESEARCH-TIME-LATE-IMPERIAL)
+		)
+	)
+	(civilian-population > EIGHTTEEN-PERCENT-POP)
+	(military-population > FIVE-PERCENT-POP)
+	(not (town-under-attack))
+	(or
+		(dropsite-min-distance gold < 5)
+		(gold-amount >= 800)
+	)
+=>
+	(disable-timer T-SAVE-FOR-RESEARCH)
+	(set-goal SAVE-FOR-RESEARCH YES)
+	(enable-timer T-SAVE-FOR-RESEARCH 300) ;save 5 minutes for important upgrades
+	(chat-local-to-self "Save resources for 5min for going into the imperial age")
+	(disable-self)
+)
+
+(defrule
+	(up-research-status c: imperial-age >= research-pending)
+	;(military-population > FIVE-PERCENT-POP)
+=>
+	(disable-timer T-SAVE-FOR-RESEARCH)
+	(set-goal SAVE-FOR-RESEARCH YES)
+	(enable-timer T-SAVE-FOR-RESEARCH 300) ;save 5 minutes for important upgrades
+	(chat-local-to-self "Save resources for 5min for early upgrades in imperial age")
+	(disable-self)
+)
+
 ;If we have just started researching to the imperial-age, start saving for research right away
 ;to get the most important upgrades done.
 (defrule

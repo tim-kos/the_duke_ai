@@ -1148,7 +1148,6 @@
 	;(goal SAVE-FOR-RESEARCH NO)
 =>
  	(train villager)
- 	(train villager)
  	(enable-timer T-VILLAGER-TRAINING TIME-BETWEEN-VILLAGER-TRAINING)
 ;	(chat-local-to-self "train VILLAGER")
 )
@@ -1156,7 +1155,7 @@
 (defrule
 	(player-in-game any-ally)
 	(game-time > 3000)
-	(unit-type-count villager < TRADE-REPLACES-VILLAGER)
+	(unit-type-count-total villager < TRADE-REPLACES-VILLAGER)
  	(can-train villager)
 	(goal TRAIN-VILLAGERS YES)
 	(civilian-population < POPULATION-MAX)
@@ -1167,14 +1166,13 @@
 	;(goal SAVE-FOR-RESEARCH NO)
 =>
  	(train villager)
- 	(train villager)
  	(enable-timer T-VILLAGER-TRAINING TIME-BETWEEN-VILLAGER-TRAINING)
 ;	(chat-local-to-self "train VILLAGER")
 )
 
 (defrule
 	(game-time > 3000)
-	(unit-type-count villager > TRADE-REPLACES-VILLAGER)
+	(unit-type-count-total villager > TRADE-REPLACES-VILLAGER)
 	(player-in-game any-ally)
 	;(dropsite-min-distance gold > 5)
 =>

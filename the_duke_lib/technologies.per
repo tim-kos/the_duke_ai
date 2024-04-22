@@ -42,24 +42,10 @@
 ;otherwise the game will take ages before it does the research, even though all conditions are met
 (defrule
  	(can-research-with-escrow ri-hand-cart)
-	(or
-		(or
-			(building-type-count-total town-center > 1)
-			(town-under-attack)
-		)
-		(and
-			(food-amount > 500)
-			(wood-amount > 400)
-		)
-	)
-	(or
-		(unit-type-count villager > 30)
-		(and
-			(food-amount > 500)
-			(wood-amount > 400)
-		)
-	)
+	(not (town-under-attack))
+	(unit-type-count-total villager > FIVE-PERCENT-POP)
 	(not (research-available ri-bow-saw))
+	(goal RUSH-CONTROL NO)
 =>
 	(release-escrow food)
 	(release-escrow wood)
@@ -77,7 +63,7 @@
 		(unit-type-count-total knight-line > 10)
 	)
 	(goal RUSH-CONTROL RUSHING)
-	(unit-type-count villager > 30)
+	(unit-type-count-total villager > FIVE-PERCENT-POP)
 =>
 	(research ri-hand-cart)
 ; (chat-local-to-self "research HAND-CART")
