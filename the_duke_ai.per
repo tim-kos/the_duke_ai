@@ -1349,7 +1349,7 @@
 (defrule
 	(true)
 =>
-	(set-strategic-number sn-group-form-distance 250)
+	(set-strategic-number sn-group-form-distance 40)
 	(set-strategic-number sn-number-attack-groups 0)
 	(set-strategic-number sn-attack-group-gather-spacing 50)
 	(set-strategic-number sn-minimum-defend-group-size 0)
@@ -1364,13 +1364,19 @@
 (defrule
 	(true)
 =>
-	(set-strategic-number sn-group-commander-selection-method 1)
-	(set-strategic-number sn-consecutive-idle-unit-limit idle-unit-limit)
+	(set-strategic-number sn-group-commander-selection-method 0)
+	(set-strategic-number sn-consecutive-idle-unit-limit 4)
 	(set-strategic-number sn-task-ungrouped-soldiers NO)
-	(set-strategic-number sn-group-leader-defense-distance group-leader-defense-distance)
-	(set-strategic-number sn-percent-enemy-sighted-response percent-enemy-sighted-response)
-	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(set-strategic-number sn-group-leader-defense-distance 3)
+	(set-strategic-number sn-percent-enemy-sighted-response 100)
+	(set-strategic-number sn-enemy-sighted-response-distance 8)
 	(set-strategic-number sn-maximum-gaia-attack-response 2)
+	(set-strategic-number sn-disable-sighted-response-cap 0)
+	(set-strategic-number sn-minimum-dropsite-buffer 13)
+	(set-strategic-number sn-intelligent-gathering 1)
+	(set-strategic-number sn-max-retask-gather-amount 0)
+	(set-strategic-number sn-retask-gather-amount 0)
+	(set-strategic-number sn-use-by-type-max-gathering 0)
 	(disable-self)
 )
 
@@ -1386,9 +1392,60 @@
 	(set-strategic-number sn-scale-minimum-attack-group-size 0)
 	(set-strategic-number sn-scale-maximum-attack-group-size 0)
 	(set-strategic-number sn-attack-separation-time-randomness 0)
+	(set-strategic-number sn-special-attack-type1 -1)
+	(set-strategic-number sn-special-attack-type2 -1)
+	(set-strategic-number sn-special-attack-type3 -1)
+	;	(set-strategic-number sn-special-attack-influence1 100); 10000
+;	(set-strategic-number sn-special-attack-influence2 100); 10000
+;	(set-strategic-number sn-special-attack-influence3 100); 10000
 	(disable-self)
 )
 
+(defrule
+	(true)
+=>
+	(up-set-defense-priority c: market c: 3000); 2500
+	(up-set-offense-priority c: market c: 6); 5
+	(up-set-defense-priority c: castle c: 1000)
+	(up-set-defense-priority c: bombard-tower c: 1000)
+	(up-set-defense-priority c: krepost c: 1500)
+	(up-set-defense-priority c: town-center c: 6000)
+	(up-set-defense-priority c: town-center-foundation c: 6000)
+	(up-set-defense-priority c: watch-tower c: 4000); market 3000
+	(up-set-defense-priority c: monastery c: 9000)
+	(up-set-defense-priority c: barracks c: 9000)
+	(up-set-defense-priority c: stable c: 9000)
+	(up-set-defense-priority c: archery-range c: 9000)
+	(up-set-defense-priority c: siege-workshop c: 9000)
+	(up-set-defense-priority c: lumber-camp c: 32767)
+	(up-set-defense-priority c: mining-camp c: 32767)
+	(up-set-defense-priority c: mill c: 10000)
+	(up-set-defense-priority c: dock c: 2000)
+	(up-set-defense-priority c: house c: 1500); 2
+	(up-set-offense-priority c: house c: 1)
+	(disable-self)
+)
+
+(defrule
+	(true)
+=>
+	(up-set-offense-priority c: castle c: 1)
+	(up-set-offense-priority c: bombard-tower c: 1)
+	(up-set-offense-priority c: krepost c: 2)
+	(up-set-offense-priority c: town-center c: 7)
+	(up-set-offense-priority c: town-center-foundation c: 7)
+	(up-set-offense-priority c: watch-tower c: 9); 7
+	(up-set-offense-priority c: monastery c: 6)
+	(up-set-offense-priority c: barracks c: 4)
+	(up-set-offense-priority c: stable c: 4)
+	(up-set-offense-priority c: archery-range c: 4)
+	(up-set-offense-priority c: siege-workshop c: 5)
+	(up-set-offense-priority c: lumber-camp c: 8)
+	(up-set-offense-priority c: mining-camp c: 8)
+	(up-set-offense-priority c: mill c: 10)
+	(up-set-offense-priority c: dock c: 10)
+	(disable-self)	
+)
 
 
 (defrule
@@ -1433,7 +1490,8 @@
 	(true)
 =>
 	(set-strategic-number sn-max-build-plan-gatherer-percentage 95)
-	(set-strategic-number sn-required-forest-tiles 500)
+	(set-strategic-number sn-random-placement-factor 0)
+	(set-strategic-number sn-required-forest-tiles 10)
 	(set-strategic-number sn-initial-exploration-required initial-exploration-required)
 	(disable-self)
 )
@@ -1511,10 +1569,33 @@
 	(set-strategic-number sn-attack-diplomacy-impact 50)
 	(set-strategic-number sn-easiest-reaction-percentage 20)
 	(set-strategic-number sn-easier-reaction-percentage 20)
+	(set-strategic-number sn-do-not-scale-for-difficulty-level 1)
+	(set-strategic-number sn-easiest-reaction-percentage 100)
+	(set-strategic-number sn-easier-reaction-percentage 100)
+	(set-strategic-number sn-scaling-frequency 10)
+	(set-strategic-number sn-coop-share-attacking 1)
+	(set-strategic-number sn-coop-share-attacking-interval 2)
 	(disable-self)
 )
 
 
+(defrule
+	(true)
+=>
+	(set-strategic-number sn-ignore-tower-elevation 0)
+	(set-strategic-number sn-disable-tower-priority 1)
+	(set-strategic-number sn-wall-targeting-mode 1)
+	(set-strategic-number sn-enable-offensive-priority 1)
+	(up-set-defense-priority c: stone-wall-line c: 1); 0
+	(up-set-defense-priority c: palisade-wall c: 3000); 2
+	(up-set-defense-priority c: gate-class c: 1250); 2
+	(up-set-offense-priority c: stone-wall-line c: 0)
+	(up-set-offense-priority c: palisade-wall c: 2); 1
+	(up-set-offense-priority c: gate-class c: 2)
+	(set-strategic-number sn-local-targeting-mode 1)
+	(set-strategic-number sn-enable-patrol-attack 1)
+	(disable-self)
+)
 
 (defrule
 	(true)
