@@ -351,7 +351,7 @@
 			(dropsite-min-distance wood > 3)
 			(and
 				(building-type-count-total town-center > 1)
-				(not (research-available ri-hand-cart))
+				(up-research-status c: ri-hand-cart >= research-pending)
 			)
 		)
 		(dropsite-min-distance wood > 4)
@@ -963,7 +963,7 @@
 		(and
 			(building-type-count-total town-center > 1)
 			(and
-				(not (research-available ri-hand-cart))
+				(up-research-status c: ri-hand-cart >= research-pending)
 				(idle-farm-count < 3)
 			)
 		)
@@ -1341,7 +1341,7 @@
 			(stone-amount < 100)
 		)
 	)
-	(not (research-available ri-hand-cart))
+	(up-research-status c: ri-hand-cart >= research-pending)
  	(building-type-count-total university < 1)
 	(building-type-count-total monastery > 0)
  	(can-build university)
@@ -1361,7 +1361,7 @@
 		(building-type-count-total town-center > 2)
 		(wood-amount > 600)
 	)
-	(not (research-available ri-hand-cart))
+	(up-research-status c: ri-hand-cart >= research-pending)
 	(building-type-count-total monastery < 1)
 	(can-build monastery)
 	(or
@@ -1375,7 +1375,7 @@
 
 (defrule
 	(building-type-count-total monastery < 2)
-	(not (research-available ri-hand-cart))
+	(up-research-status c: ri-hand-cart >= research-pending)
 	(building-type-count-total town-center > 2)
 	(can-build monastery)
 	(goal RUSH-CONTROL NO)
@@ -1494,9 +1494,9 @@
 	)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
 	(wood-amount > 500)
-	(not (research-available ri-hand-cart))
-	(not (research-available ri-bow-saw))
-	(not (research-available ri-heavy-plow))
+	(up-research-status c: ri-hand-cart >= research-pending)
+	(up-research-status c: ri-bow-saw >= research-pending)
+	(up-research-status c: ri-heavy-plow >= research-pending)
 	(building-type-count-total town-center > 1)
 	(current-age >= castle-age)
 =>
@@ -1805,7 +1805,7 @@
 	(can-build stable)
 	(building-type-count-total stable < stable-building-imperial)
 	(wood-amount > 800)
-	(not (research-available ri-hand-cart))
+	(up-research-status c: ri-hand-cart >= research-pending)
 	(or
 		(goal ABLE-TO-BUILD-STABLE YES)
 		(wood-amount > 1250)
@@ -2039,9 +2039,9 @@
 	(wood-amount > 700)
 	(building-type-count-total archery-range < 3)
 	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(not (research-available ri-hand-cart))
-	(not (research-available ri-bow-saw))
-	(not (research-available ri-heavy-plow))
+	(up-research-status c: ri-hand-cart >= research-pending)
+	(up-research-status c: ri-bow-saw >= research-pending)
+	(up-research-status c: ri-heavy-plow >= research-pending)
 =>
 	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2051,7 +2051,7 @@
  	(current-age >= castle-age)
 	(building-type-count-total archery-range < archery-range-building-imperial)
 	(building-type-count-total town-center > 2)
-	(not (research-available ri-hand-cart))
+	(up-research-status c: ri-hand-cart >= research-pending)
  	(can-build archery-range)
 	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(wood-amount > 1250)
@@ -2393,8 +2393,9 @@
  	(building-type-count-total town-center < 5)
 	(building-type-count-total castle > 0) ;make sure not to spend all stone on town centers
  	(can-build town-center)
- 	(not (research-available ri-bow-saw))
- 	(not (research-available ri-hand-cart))
+ 	(up-research-status c: ri-hand-cart >= research-pending)
+	(up-research-status c: ri-bow-saw >= research-pending)
+	(up-research-status c: ri-heavy-plow >= research-pending)
 	(difficulty >= hard)
 =>
  	(build town-center)
@@ -2409,8 +2410,9 @@
  	(building-type-count-total castle >= 2)
  	(wood-amount > 600)
  	(can-build town-center)
- 	(not (research-available ri-bow-saw))
- 	(not (research-available ri-hand-cart))
+ 	(up-research-status c: ri-hand-cart >= research-pending)
+	(up-research-status c: ri-bow-saw >= research-pending)
+	(up-research-status c: ri-heavy-plow >= research-pending)
  	(unit-type-count-total villager > 130)
 =>
  	(build town-center)

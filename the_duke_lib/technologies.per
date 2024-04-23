@@ -146,8 +146,8 @@
 ;HEAVY-PLOW 125 WOOD, 125 FOOD
 (defrule
  	(can-research-with-escrow ri-heavy-plow)
-	(not (research-available ri-hand-cart))
-	(not (research-available ri-bow-saw))
+	(up-research-status c: ri-hand-cart >= research-pending)
+	(up-research-status c: ri-bow-saw >= research-pending)
 	(building-type-count-total town-center > 1)
 	(or
 		(goal RUSH-CONTROL NO)
@@ -169,8 +169,8 @@
 ;CROP ROTATION 250 WOOD, 250 FOOD
 (defrule
  	(can-research-with-escrow ri-crop-rotation)
-	(not (research-available ri-hand-cart))
-	(not (research-available ri-two-man-saw))
+	(up-research-status c: ri-hand-cart >= research-pending)
+	(up-research-status c: ri-two-man-saw >= research-pending)
 =>
 	(release-escrow wood)
 	(release-escrow food)
@@ -221,8 +221,8 @@
  	(can-research-with-escrow ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(current-age >= castle-age)
-	(not (research-available ri-bow-saw))
-	(not (research-available ri-hand-cart))
+	(up-research-status c: ri-hand-cart >= research-pending)
+	(up-research-status c: ri-bow-saw >= research-pending)
 	(building-type-count-total town-center > 1)
 	(or
 		(goal RUSH-CONTROL NO)
@@ -260,9 +260,9 @@
 (defrule
  	(can-research-with-escrow ri-gold-shaft-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
-	(not (research-available ri-hand-cart))
-	(not (research-available ri-bow-saw))
-	(not (research-available ri-heavy-plow))
+	(up-research-status c: ri-hand-cart >= research-pending)
+	(up-research-status c: ri-bow-saw >= research-pending)
+	(up-research-status c: ri-heavy-plow >= research-pending)
 	;(food-amount > 400)
 	;(wood-amount > 400)
 =>

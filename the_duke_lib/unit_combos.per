@@ -3580,41 +3580,6 @@
 	(set-goal ABLE-TO-TRAIN-UNITS NO)
 )
 
-
-
-(defrule
-	(current-age == castle-age)
-	(or
-		(or
-			(and
-				(and
-					(goal RESEARCHING-IMPERIAL FAST-IMPERIAL)
-					(food-amount > 1300)
-				)
-				(gold-amount > 1000)
-			)
-			(and
-				(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL)
-				(military-population < EIGHT-PERCENT-POP)
-			)
-		)
-		(goal RESEARCHING-IMPERIAL LATE-IMPERIAL)
-	)
-	(or
-		(and
-			(research-available ri-hand-cart)
-			(food-amount > 450) ;leave food for hand-cart
-		)
-		(and
-			(not (research-available ri-hand-cart))
-			(food-amount > 200) ;leave food for villager creation
-		)
-	)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS YES)
-)
-
-
 (defrule
 	(current-age == castle-age)
 	(building-type-count-total town-center < 2)
@@ -3687,7 +3652,7 @@
 (defrule
 	(goal RUSH-CONTROL RUSHING)
 	(current-age == castle-age)
-	(not (research-available ri-hand-cart))
+	(up-research-status c: ri-hand-cart >= research-pending)
 	(building-type-count-total town-center > 1)
 	(food-amount > 150) ;leave food for villagers
 	(wood-amount > 100) ;leave wood for research
@@ -3925,6 +3890,13 @@
 		(current-age >= imperial-age)
 		(game-time > 1500)
 	)
+	(up-research-status c: ri-hand-cart >= research-pending)
+	(up-research-status c: ri-bow-saw >= research-pending)
+	(up-research-status c: ri-heavy-plow >= research-pending)
+	(up-research-status c: ri-crop-rotation >= research-pending)
+	(up-research-status c: ri-two-man-saw >= research-pending)
+	(up-research-status c: ri-gold-shaft-mining >= research-pending)
+	(building-type-count-total town-center > 2)
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
