@@ -3789,13 +3789,20 @@
 (defrule
 	(goal SAVE-FOR-RESEARCH NO)
 	(goal ABLE-TO-TRAIN-UNITS NO)
-	(or
-		(current-age >= imperial-age)
-		(game-time > 1500)
-	)
+	(current-age >= castle-age)
 	(up-research-status c: ri-hand-cart >= research-pending)
 	(up-research-status c: ri-bow-saw >= research-pending)
 	(up-research-status c: ri-heavy-plow >= research-pending)
+	(up-research-status c: ri-gold-shaft-mining >= research-pending)
+	(building-type-count-total town-center > 2)
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS YES)
+)
+
+(defrule
+	(goal SAVE-FOR-RESEARCH NO)
+	(goal ABLE-TO-TRAIN-UNITS NO)
+	(current-age >= imperial-age)
 	(up-research-status c: ri-crop-rotation >= research-pending)
 	(up-research-status c: ri-two-man-saw >= research-pending)
 	(up-research-status c: ri-gold-shaft-mining >= research-pending)
