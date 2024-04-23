@@ -487,7 +487,7 @@
 			(civilian-population > TEN-PERCENT-POP)
 		)
 	)
-	(up-research-status c: feudal-age >= research-pending)
+	(up-research-status c: castle-age >= research-pending)
 =>
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 9); 12
@@ -555,13 +555,10 @@
 ;to be placed next to second gold pile
 (defrule
     (or
-		(current-age >= castle-age)
-		(or
-			(current-age >= feudal-age)
-			(game-time > 900)
-		)
+		(up-research-status c: castle-age >= research-pending)
+		(game-time > 1200)
 	)
-	(wood-amount > 300)
+	(wood-amount > 600)
 	(resource-found stone)
 	(dropsite-min-distance stone > 0)
 	(dropsite-min-distance stone < 499)
@@ -587,6 +584,7 @@
 		(building-type-count-total archery-range > 0)
 		(building-type-count-total stable > 0)
 	)
+	(up-research-status c: castle-age >= research-pending)
 	(building-type-count-total lumber-camp > 0)
 	(building-type-count-total mining-camp > 0)
 	(up-pending-objects c: mining-camp < 1)

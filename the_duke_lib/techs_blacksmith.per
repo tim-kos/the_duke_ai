@@ -1079,6 +1079,13 @@
 		)
 		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 	)
+	(or
+		(soldier-count > TWO-PERCENT-POP)
+		(or
+			(up-research-status c: castle-age >= research-pending)
+			(food-amount > 950)
+		)
+	)
 =>					;then
 	(release-escrow food)
  	(research ri-forging)
@@ -1087,7 +1094,13 @@
 
 (defrule
  	(can-research-with-escrow ri-forging)
-	(food-amount > 500)
+	(or
+		(soldier-count > TWO-PERCENT-POP)
+		(or
+			(up-research-status c: castle-age >= research-pending)
+			(food-amount > 950)
+		)
+	)
 =>					;then
 	(release-escrow food)
  	(research ri-forging)
@@ -1108,10 +1121,7 @@
 		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	)
 	(food-amount > 200)
-	(or
-		(up-research-status c: castle-age >= research-pending)
-		(current-age == castle-age)
-	)
+	(up-research-status c: castle-age >= research-pending)
 =>					;then
 	(release-escrow food)
  	(research ri-forging)
@@ -1124,7 +1134,13 @@
 
 (defrule
  	(can-research-with-escrow ri-scale-mail)
-	(food-amount > 500)
+	(or
+		(soldier-count > TWO-PERCENT-POP)
+		(or
+			(up-research-status c: castle-age >= research-pending)
+			(food-amount > 950)
+		)
+	)
 =>					;then
 	(release-escrow food)
 	(research ri-scale-mail)
@@ -1142,10 +1158,7 @@
 	)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 	(food-amount > 200)
-	(or
-		(up-research-status c: castle-age >= research-pending)
-		(current-age == castle-age)
-	)
+	(up-research-status c: castle-age >= research-pending)
 =>					;then
 	(release-escrow food)
  	(research ri-scale-mail)
@@ -1158,7 +1171,13 @@
 
 (defrule
  	(can-research-with-escrow ri-scale-barding)
-	(food-amount > 500)
+	(or
+		(soldier-count > TWO-PERCENT-POP)
+		(or
+			(up-research-status c: castle-age >= research-pending)
+			(food-amount > 950)
+		)
+	)
 =>
 	(release-escrow food)
  	(research ri-scale-barding)
@@ -1175,10 +1194,7 @@
 		)
 	)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(or
-		(up-research-status c: castle-age >= research-pending)
-		(current-age == castle-age)
-	)
+	(up-research-status c: castle-age >= research-pending)
 =>
 	(release-escrow food)
  	(research ri-scale-barding)
@@ -1200,7 +1216,13 @@
 			(food-amount > 1300)
 		)
 	)
-	(food-amount > 500)
+	(or
+		(soldier-count > TWO-PERCENT-POP)
+		(or
+			(up-research-status c: castle-age >= research-pending)
+			(food-amount > 950)
+		)
+	)
 =>
 	(release-escrow food)
 	(research ri-padded-archer-armor)
