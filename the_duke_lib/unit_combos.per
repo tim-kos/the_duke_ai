@@ -3567,127 +3567,39 @@
 	(up-research-status c: castle-age < research-pending)
 	(goal RUSH-CONTROL RUSHING)
 	(food-amount > 80) ;leave food for villager creation
+	(game-time < 2100)
+	(military-population < MILITARY-POPULATION-MAX)
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
 
 (defrule
-	(current-age == feudal-age)
-	(up-research-status c: castle-age < research-pending)
-	(game-time > 2100)
-	(goal RUSH-CONTROL RUSHING)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
-)
-
-(defrule
-	(current-age == castle-age)
-	(building-type-count-total town-center < 2)
-	(wood-amount <= 350)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
-)
-
-(defrule
-	(or
-		(goal PRIMARY-COMBAT-UNIT SPEARMAN)
-		(goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	)
-	(current-age == feudal-age)
-	(unit-type-count-total spearman-line >= 4)
-	(building-type-count-total town-center < 2)
-	(building-type-count-total blacksmith > 0)
-	(or
-		(building-type-count-total archery-range > 0)
-		(building-type-count-total stable > 0)
-	)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
-)
-
-
-
-(defrule
-	(or
-		(goal PRIMARY-COMBAT-UNIT SKIRMISHER)
-		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-	)
-	(current-age == feudal-age)
-	(unit-type-count-total skirmisher-line >= 4)
-	(building-type-count-total town-center < 2)
-	(building-type-count-total blacksmith > 0)
-	(or
-		(building-type-count-total archery-range > 0)
-		(building-type-count-total stable > 0)
-	)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
-)
-
-
-
-(defrule
-	(or
-		(goal RESEARCHING-IMPERIAL MIDDLE-IMPERIAL)
-		(goal RESEARCHING-IMPERIAL LATE-IMPERIAL)
-	)
-	(game-time > 2100)
-	(up-research-status c: imperial-age < research-pending)
-	(current-age == castle-age)
-	(not (town-under-attack))
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
-)
-
-
-(defrule
 	(goal RUSH-CONTROL RUSHING)
 	(current-age == castle-age)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(or
+		(or
+			(goal PRIMARY-COMBAT-UNIT KNIGHT)
+			(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+		)
+		(and
+			(up-research-status c: ri-hand-cart >= research-pending)
+			(building-type-count-total town-center > 1)
+		)
+	)
 	(food-amount > 100) ;leave food for villagers
+	(military-population < MILITARY-POPULATION-MAX)
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
-
-(defrule
-	(goal RUSH-CONTROL RUSHING)
-	(current-age == castle-age)
-	(up-research-status c: ri-hand-cart >= research-pending)
-	(building-type-count-total town-center > 1)
-	(food-amount > 150) ;leave food for villagers
-	(wood-amount > 100) ;leave wood for research
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS YES)
-)
-
-;for eagle warrior rush, do not save for hand-cart or second TC
-(defrule
-	(goal RUSH-CONTROL RUSHING)
-	(current-age == castle-age)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS YES)
-)
-
 
 #load-if-defined DEATH-MATCH
 (defrule
 	(food-amount >= 180)
+	(military-population < MILITARY-POPULATION-MAX)
 =>
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
-(defrule
-	(food-amount < 180)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
-)
 #end-if
-
-(defrule
-	(military-population >= MILITARY-POPULATION-MAX)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
-)
 
 (defrule
 	(not (goal MAIN-SHIP-BUILDER YES))
@@ -3696,8 +3608,6 @@
 =>
 	(set-goal ABLE-TO-TRAIN-LAND-UNITS YES)
 )
-
-
 
 (defrule
 	(not (goal MAIN-SHIP-BUILDER YES))
@@ -3874,13 +3784,6 @@
 	(set-goal SAVE-FOR-RESEARCH NO)
 	(enable-timer T-SAVE-FOR-RESEARCH 180) ;spend resources for 3 minutes
 	(chat-local-to-self "Spend resources for 3min")
-)
-
-(defrule
-	(goal SAVE-FOR-RESEARCH YES)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-=>
-	(set-goal ABLE-TO-TRAIN-UNITS NO)
 )
 
 (defrule

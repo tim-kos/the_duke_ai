@@ -497,7 +497,7 @@
 (defrule
     (or
 		(up-research-status c: feudal-age >= research-pending)
-		(or
+		(and
 			(current-age >= feudal-age)
 			(game-time > 900)
 		)
@@ -530,8 +530,8 @@
 ;to be placed next to second gold pile
 (defrule
     (or
-		(current-age >= castle-age)
-		(or
+		(up-research-status c: castle-age >= research-pending)
+		(and
 			(current-age >= feudal-age)
 			(game-time > 900)
 		)
@@ -649,13 +649,13 @@
 ;to be placed next to second gold pile
 (defrule
     (or
-		(current-age >= castle-age)
-		(or
+		(up-research-status c: castle-age >= research-pending)
+		(and
 			(current-age >= feudal-age)
 			(game-time > 900)
 		)
 	)
-	(wood-amount > 300)
+	(wood-amount > 600)
 	(resource-found stone)
 	(dropsite-min-distance stone > 0)
 	(dropsite-min-distance stone < 499)

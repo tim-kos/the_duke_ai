@@ -1086,6 +1086,10 @@
 			(food-amount > 950)
 		)
 	)
+	(or
+		(up-research-status c: ri-scale-mail >= research-pending)
+		(up-research-status c: ri-scale-barding >= research-pending)
+	)
 =>					;then
 	(release-escrow food)
  	(research ri-forging)
@@ -1223,6 +1227,7 @@
 			(food-amount > 950)
 		)
 	)
+	(up-research-status c: ri-fletching >= research-pending)
 =>
 	(release-escrow food)
 	(research ri-padded-archer-armor)
