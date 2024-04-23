@@ -226,64 +226,6 @@
 ;*****************************************
 
 (defrule
-	(goal ATTACK-PERSONALITY DEFENDER)
-=>
-	(chat-local-to-self "ATTACK-PERSONALITY DEFENDER")
-)
-(defrule
-	(goal ATTACK-PERSONALITY ATTACKER)
-=>
-	(chat-local-to-self "ATTACK-PERSONALITY ATTACKER")
-)
-
-(defrule
-	(goal ABLE-TO-ATTACK YES)
-=>
-	(chat-local-to-self "ABLE-TO-ATTACK YES")
-)
-(defrule
-	(goal ABLE-TO-ATTACK NO)
-=>
-	(chat-local-to-self "ABLE-TO-ATTACK NO")
-)
-(defrule
-	(goal ATTACK-STATE READY)
-=>
-	(chat-local-to-self "READY")
-)
-(defrule
-	(goal ATTACK-STATE PREPARING)
-=>
-	(chat-local-to-self "PREPARING")
-)
-(defrule
-	(goal ATTACK-STATE PULLING-TROOPS)
-=>
-	(chat-local-to-self "PULLING-TROOPS")
-)
-(defrule
-	(goal ATTACK-STATE STOP)
-=>
-	(chat-local-to-self "STOP")
-)
-(defrule
-	(goal ATTACK-STATE ATTACKING)
-=>
-	(chat-local-to-self "ATTACKING")
-)
-(defrule
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(chat-local-to-self "RESET-TOWN-SIZE")
-)
-(defrule
-	(goal ATTACK-STATE TOWN-SIZE-RESETTED)
-=>
-	(chat-local-to-self "TOWN-SIZE-RESETTED")
-)
-
-
-(defrule
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
