@@ -1,7 +1,15 @@
 (defrule
-	;(goal retargetenemy yes)
+    (true)
+=>
+    (set-goal FIND-NEW-ENEMY YES)
+    (disable-self)
+)
+
+(defrule
+    (goal FIND-NEW-ENEMY YES)
 	(players-building-count any-enemy >= 1)
 =>
+    (set-goal FIND-NEW-ENEMY NO)
 	(up-find-player enemy find-closest TEMPORARY-GOAL)
 	(up-modify-sn sn-target-player-number g:= TEMPORARY-GOAL)
 	(up-modify-sn sn-focus-player-number g:= TEMPORARY-GOAL)
