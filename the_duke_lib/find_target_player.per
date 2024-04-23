@@ -1,0 +1,8 @@
+(defrule
+	;(goal retargetenemy yes)
+	(players-building-count any-enemy >= 1)
+=>
+	(up-find-player enemy find-closest TEMPORARY-GOAL)
+	(up-modify-sn sn-target-player-number g:= TEMPORARY-GOAL)
+	(up-modify-sn sn-focus-player-number g:= TEMPORARY-GOAL)
+)
