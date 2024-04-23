@@ -10,7 +10,6 @@
 	(set-strategic-number sn-special-attack-influence1 0)
 	(set-strategic-number sn-percent-attack-soldiers 100)
 	(set-strategic-number sn-percent-attack-boats 100)
-	(set-strategic-number sn-attack-intelligence 1)
 	(disable-self)
 )
 
@@ -307,7 +306,23 @@
 	(current-age >= castle-age)
 =>
 	(set-goal ATTACK-STATE PREPARING)
+	(set-strategic-number sn-special-attack-type1 1)
+	(set-strategic-number sn-special-attack-type3 -1)
 	(chat-local-to-self "Prepare attack2")
+)
+
+(defrule
+	(up-timer-status T-ATTACK != timer-running)
+	(goal ATTACK-STATE READY)
+	(goal ABLE-TO-ATTACK YES)
+	(cc-players-building-type-count any-enemy wonder > 0)
+	(defend-soldier-count >= EIGHT-PERCENT-POP)
+	(current-age >= castle-age)
+=>
+	(set-goal ATTACK-STATE PREPARING)
+	(set-strategic-number sn-special-attack-type1 -1)
+	(set-strategic-number sn-special-attack-type3 1)
+	(chat-local-to-self "Prepare attack3")
 )
 
 (defrule
@@ -321,7 +336,7 @@
 	(goal RUSH-CONTROL NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
-	(chat-local-to-self "Prepare attack3")
+	(chat-local-to-self "Prepare attack4")
 )
 
 ;If we are an aggressive personality, attack based on current-age-time
@@ -387,6 +402,7 @@
 	(set-goal ATTACK-STATE STOP)
 	(up-retreat-now)
 	(chat-local-to-self "RETREAT")
+	(chat-to-player every-ally "I will retreat my soldiers from the battlefield.")
 )
 
 (defrule
@@ -483,10 +499,11 @@
 	(goal ATTACK-STATE PREPARING)
 =>
 	(set-goal ATTACK-STATE PULLING-TROOPS)
-	(up-retreat-now) ;Pull all units together at the town center, so when the attack starts, they all move as one blob and not scattered groups
+	;(up-retreat-now) ;Pull all units together at the town center, so when the attack starts, they all move as one blob and not scattered groups
+	(set-strategic-number sn-task-ungrouped-soldiers YES);spread units a bit
 	(chat-local-to-self "preparing for attack!")
-	(chat-to-player every-ally "39 I will attack the enemy in one minute!")
-	(enable-timer T-ATTACK 60)
+	;(chat-to-player every-ally "39 I will attack the enemy in one minute!")
+	(enable-timer T-ATTACK 10)
 	(chat-local-to-self "PULL TROOPS TOGETHER")
 )
 
@@ -498,6 +515,7 @@
 	(set-goal ATTACK-STATE ATTACKING)
 	(set-strategic-number sn-percent-attack-soldiers 100)
 	(set-strategic-number sn-percent-attack-boats 100)
+	(set-strategic-number sn-task-ungrouped-soldiers NO)
 	(enable-timer T-ATTACK 180)
 	(set-strategic-number sn-enemy-sighted-response-distance 10)
 	(set-strategic-number sn-maximum-town-size 450)
