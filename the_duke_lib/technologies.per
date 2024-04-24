@@ -196,9 +196,7 @@
 			(wood-amount > 300)
 		)
 	)
-	(not (research-available ri-wheel-barrow))
-	(not (research-available ri-double-bit-axe))
-	(not (research-available ri-horse-collar))
+	(goal ALL-ECONOMY-TECH-DONE YES)
 	(or
 		(goal RUSH-CONTROL NO)
 		(and
@@ -259,7 +257,7 @@
 ;GOLD-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
  	(can-research-with-escrow ri-gold-shaft-mining)
-	(strategic-number sn-gold-gatherer-percentage > 0)
+	;(strategic-number sn-gold-gatherer-percentage > 0)
 	(up-research-status c: ri-hand-cart >= research-pending)
 	(up-research-status c: ri-bow-saw >= research-pending)
 	(up-research-status c: ri-heavy-plow >= research-pending)
@@ -275,19 +273,10 @@
 ;STONE-MINING 125 WOOD, 125 FOOD
 (defrule
  	(can-research-with-escrow ri-stone-mining)
-	(strategic-number sn-stone-gatherer-percentage > 0)
-	(not (research-available ri-gold-shaft-mining))
-	(or
-		(goal RUSH-CONTROL NO)
-		(and
-			(goal RUSH-CONTROL RUSHING)
-			(or
-				(unit-type-count-total eagle-warrior-line > FIVE-PERCENT-POP)
-				(unit-type-count-total knight-line > THREE-PERCENT-POP)
-			)
-		)
-	)
-	(building-type-count-total town-center > 1)
+	;(strategic-number sn-stone-gatherer-percentage > 0)
+	;(not (research-available ri-gold-shaft-mining))
+	(goal RUSH-CONTROL NO)
+	;(building-type-count-total town-center > 1)
 	(wood-amount > 200)
 	(food-amount > 200)
 =>
@@ -1392,3 +1381,77 @@
 )
 
 #end-if ;if not game type wonder-race
+
+
+;---------------------
+;Check when all economy tech is done
+(defrule
+	(true)
+=>
+	(set-goal ALL-ECONOMY-TECH-DONE NO)
+	(disable-self)
+)
+
+(defrule
+	(current-age < imperial-age)
+	(or
+		(up-research-status c: feudal-age == research-pending)
+		(or
+			(up-research-status c: castle-age == research-pending)
+			(up-research-status c: imperial-age == research-pending)
+		)
+	)
+=>
+	(set-goal ALL-ECONOMY-TECH-DONE NO)
+)
+
+(defrule
+	(current-age === dark-age)
+=>
+	(set-goal ALL-ECONOMY-TECH-DONE YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age === feudal-age)
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-horse-collar))
+	(not (research-available ri-wheel-barrow))
+=>
+	(set-goal ALL-ECONOMY-TECH-DONE YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age === castle-age)
+	(not (research-available ri-bow-saw))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-heavy-plow))
+	(not (research-available ri-horse-collar))
+	(not (research-available ri-hand-cart))
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-gold-mining))
+	(not (research-available ri-stone-mining))
+=>
+	(set-goal ALL-ECONOMY-TECH-DONE YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age === imperial-age)
+	(not (research-available ri-two-man-saw))
+	(not (research-available ri-bow-saw))
+	(not (research-available ri-double-bit-axe))
+	(not (research-available ri-crop-rotation))
+	(not (research-available ri-heavy-plow))
+	(not (research-available ri-horse-collar))
+	(not (research-available ri-hand-cart))
+	(not (research-available ri-wheel-barrow))
+	(not (research-available ri-gold-shaft-mining))
+	(not (research-available ri-gold-mining))
+	;(not (research-available ri-stone-shaft-mining))
+	(not (research-available ri-stone-mining))
+=>
+	(set-goal ALL-ECONOMY-TECH-DONE YES)
+	(disable-self)
+)

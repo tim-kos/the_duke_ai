@@ -3700,6 +3700,7 @@
 (defrule
 	(game-time > 5400) ;if the game is 1.5 hour old, we assume we have researched the most important stuff
 	(goal SAVE-FOR-RESEARCH YES)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(disable-timer T-SAVE-FOR-RESEARCH)
 	(set-goal SAVE-FOR-RESEARCH NO)
@@ -3768,6 +3769,7 @@
 (defrule
 	(timer-triggered T-SAVE-FOR-RESEARCH)
 	(goal SAVE-FOR-RESEARCH YES)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(disable-timer T-SAVE-FOR-RESEARCH)
 	(set-goal SAVE-FOR-RESEARCH NO)
