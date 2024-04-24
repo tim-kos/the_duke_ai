@@ -1619,7 +1619,10 @@
  	(can-build barracks)
 	(or
 		(goal ABLE-TO-BUILD-BARRACKS YES)
-		(wood-amount > 1250)
+		(or
+			(wood-amount > 1250)
+			(food-amount > 3000) ;shift too many barracks for helebardiers if we have much food
+		)
 	)
 	(unit-type-count-total villager > TWENTY-PERCENT-POP);can our economy support this?
 	(up-pending-objects c: barracks < 2)
@@ -1795,7 +1798,10 @@
 	(goal ALL-ECONOMY-TECH-DONE YES)
 	(or
 		(goal ABLE-TO-BUILD-STABLE YES)
-		(wood-amount > 1250)
+		(or
+			(wood-amount > 1250)
+			(food-amount > 3000) ;shift too many stables for hussars if we have much food
+		)
 	)
 	(building-type-count-total town-center > 2)
 	(unit-type-count-total villager > TWENTY-PERCENT-POP) ;can our economy support this?
@@ -2003,7 +2009,10 @@
 	(goal ALL-ECONOMY-TECH-DONE YES)
  	(can-build archery-range)
 	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(wood-amount > 1250)
+	(or
+		(wood-amount > 1250)
+		(food-amount > 3000) ;shift too many archery-ranges for skirmishers if we have much food
+	)
 	(unit-type-count-total villager > TWENTY-PERCENT-POP) ;can our economy support this?
 	(up-pending-objects c: archery-range < 2)
 =>

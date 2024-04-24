@@ -1972,16 +1972,17 @@
 #end-if
 
 #load-if-not-defined TEUTONIC-CIV
+#load-if-not-defined TURKISH-CIV
 
 ;Rule8: build stables if we are all out of gold
 
 (defrule
-	(game-time > 1200)
+	(game-time >24200)
 	(dropsite-min-distance gold > 5)
 	(gold-amount < 200)
 	(food-amount > 600)
 	(can-build stable)
-	(building-type-count-total stable < 5)
+	(building-type-count-total stable < 8)
 	(unit-type-count-total trade-cart < 5)
 	(unit-type-count-total trade-cog < 5)
 =>
@@ -1990,19 +1991,28 @@
 
 ;Fill up with scout cavalry if we have gold trouble
 (defrule
-	(game-time > 1200)
+	(game-time > 2400)
 	(dropsite-min-distance gold > 5)
-	(gold-amount < 200)
-	(food-amount > 600)
+	(or
+		(and
+			(gold-amount < 200)
+			(food-amount > 600)
+		)
+		(and
+			(food-amount > 4000) ; just hammer out scouts if we have tons of food
+			(not (civ-selected turks))
+		)
+	)
 	(can-train scout-cavalry-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
-	(unit-type-count-total trade-cart < 5)
-	(unit-type-count-total trade-cog < 5)
+	;(unit-type-count-total trade-cart < 5)
+	;(unit-type-count-total trade-cog < 5)
 =>
 	(train scout-cavalry-line)
 )
 
 #end-if		;if not civ == teutonic
+#end-if		;if not civ == turkish
 
 
 
