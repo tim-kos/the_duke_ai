@@ -1407,14 +1407,14 @@
 )
 
 (defrule
-	(current-age === dark-age)
+	(current-age == dark-age)
 =>
 	(set-goal ALL-ECONOMY-TECH-DONE YES)
 	(disable-self)
 )
 
 (defrule
-	(current-age === feudal-age)
+	(current-age == feudal-age)
 	(not (research-available ri-double-bit-axe))
 	(not (research-available ri-horse-collar))
 	(not (research-available ri-wheel-barrow))
@@ -1424,7 +1424,7 @@
 )
 
 (defrule
-	(current-age === castle-age)
+	(current-age == castle-age)
 	(not (research-available ri-bow-saw))
 	(not (research-available ri-double-bit-axe))
 	(not (research-available ri-heavy-plow))
@@ -1439,7 +1439,7 @@
 )
 
 (defrule
-	(current-age === imperial-age)
+	(current-age == imperial-age)
 	(not (research-available ri-two-man-saw))
 	(not (research-available ri-bow-saw))
 	(not (research-available ri-double-bit-axe))

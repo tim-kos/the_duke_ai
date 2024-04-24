@@ -1977,7 +1977,7 @@
 ;Rule8: build stables if we are all out of gold
 
 (defrule
-	(game-time >24200)
+	(game-time > 2400)
 	(dropsite-min-distance gold > 5)
 	(gold-amount < 200)
 	(food-amount > 600)
@@ -1998,10 +1998,7 @@
 			(gold-amount < 200)
 			(food-amount > 600)
 		)
-		(and
-			(food-amount > 4000) ; just hammer out scouts if we have tons of food
-			(not (civ-selected turks))
-		)
+		(food-amount > 4000) ; just hammer out scouts if we have tons of food
 	)
 	(can-train scout-cavalry-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
