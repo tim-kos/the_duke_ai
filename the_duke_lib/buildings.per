@@ -352,7 +352,7 @@
 			(dropsite-min-distance wood > 3)
 			(and
 				(building-type-count-total town-center > 1)
-				(up-research-status c: ri-hand-cart >= research-pending)
+				(goal ALL-ECONOMY-TECH-DONE YES)
 			)
 		)
 		(dropsite-min-distance wood > 4)
@@ -966,7 +966,7 @@
 		(and
 			(building-type-count-total town-center > 1)
 			(and
-				(up-research-status c: ri-hand-cart >= research-pending)
+				(goal ALL-ECONOMY-TECH-DONE YES)
 				(idle-farm-count < 3)
 			)
 		)
@@ -1169,13 +1169,7 @@
 		)
 	)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
+		(goal ALL-ECONOMY-TECH-DONE YES)
 		(wood-amount > 250)
 	)
 =>
@@ -1247,6 +1241,14 @@
 	(goal RUSH-ATTACK-STARTED YES)
 	(current-age-time > 300)
 =>				 ;then
+	(set-strategic-number sn-placement-to-center 1)
+	(set-goal TEMPORARY-GOAL 15); 6
+	(up-modify-goal TEMPORARY-GOAL c:max 8); 6
+	(up-modify-goal TEMPORARY-GOAL c:min 14); 12
+	(up-modify-goal TEMPORARY-GOAL c:* -1)
+	(up-set-placement-data my-player-number -1 g: TEMPORARY-GOAL); -9
+	(set-strategic-number sn-placement-zone-size 12); 10
+	(up-build place-control 0 c: market)
  	(build market)
 ;	(chat-local-to-self "build MARKET")
 )
@@ -1270,19 +1272,25 @@
 )
 
 (defrule
- 	(building-type-count-total market < 1)
+ 	(building-type-count-total market < 2)
  	(can-build market)
 	(current-age >= castle-age)
 	(building-type-count-total town-center > 1)
 	(or
 		(building-type-count-total town-center > 2)
-		(or
-			(wood-amount > 600)
-			(stone-amount < 100)
-		)
+		(wood-amount > 600)
 	)
-	(wood-amount > 300)
+	(wood-amount > 400)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>				 ;then
+	(set-strategic-number sn-placement-to-center 1)
+	(set-goal TEMPORARY-GOAL 15); 6
+	(up-modify-goal TEMPORARY-GOAL c:max 8); 6
+	(up-modify-goal TEMPORARY-GOAL c:min 14); 12
+	(up-modify-goal TEMPORARY-GOAL c:* -1)
+	(up-set-placement-data my-player-number -1 g: TEMPORARY-GOAL); -9
+	(set-strategic-number sn-placement-zone-size 12); 10
+	(up-build place-control 0 c: market)
  	(build market)
 ;	(chat-local-to-self "build MARKET")
 )
@@ -1344,7 +1352,7 @@
 			(stone-amount < 100)
 		)
 	)
-	(up-research-status c: ri-hand-cart >= research-pending)
+	(goal ALL-ECONOMY-TECH-DONE YES)
  	(building-type-count-total university < 1)
 	(building-type-count-total monastery > 0)
  	(can-build university)
@@ -1364,7 +1372,7 @@
 		(building-type-count-total town-center > 2)
 		(wood-amount > 600)
 	)
-	(up-research-status c: ri-hand-cart >= research-pending)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 	(building-type-count-total monastery < 1)
 	(can-build monastery)
 	(or
@@ -1378,7 +1386,7 @@
 
 (defrule
 	(building-type-count-total monastery < 2)
-	(up-research-status c: ri-hand-cart >= research-pending)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 	(building-type-count-total town-center > 2)
 	(can-build monastery)
 	(goal RUSH-CONTROL NO)
@@ -1453,9 +1461,7 @@
 	(current-age >= feudal-age)
 	(can-build barracks)
 	(building-type-count-total barracks < 1)
-	(not (research-available ri-wheel-barrow))
-	(not (research-available ri-double-bit-axe))
-	(not (research-available ri-horse-collar))
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(build barracks)
 ;	(chat-local-to-self "build first BARRACKS")
@@ -1497,9 +1503,7 @@
 	)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
 	(wood-amount > 500)
-	(up-research-status c: ri-hand-cart >= research-pending)
-	(up-research-status c: ri-bow-saw >= research-pending)
-	(up-research-status c: ri-heavy-plow >= research-pending)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 	(building-type-count-total town-center > 1)
 	(current-age >= castle-age)
 =>
@@ -1531,9 +1535,7 @@
 		(goal RUSH-CONTROL FEUDAL)
 		(goal RUSH-CONTROL RUSHING)
 	)
-	(not (research-available ri-wheel-barrow))
-	(not (research-available ri-double-bit-axe))
-	(not (research-available ri-horse-collar))
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
  	(build barracks)
 ;	(chat-local-to-self "build BARRACKS")
@@ -1731,14 +1733,8 @@
 		(goal RUSH-CONTROL NO)
 	)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
-		(wood-amount > 300)
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 500)
 	)
 =>
  	(build stable)
@@ -1752,14 +1748,8 @@
 	(goal RUSH-CONTROL CASTLE)
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
-		(wood-amount > 300)
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 500)
 	)
 =>
  	(build stable)
@@ -1775,14 +1765,8 @@
 	(wood-amount > 250)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
-		(wood-amount > 300)
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 500)
 	)
 =>
  	(build stable)
@@ -1808,7 +1792,7 @@
 	(can-build stable)
 	(building-type-count-total stable < stable-building-imperial)
 	(wood-amount > 800)
-	(up-research-status c: ri-hand-cart >= research-pending)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 	(or
 		(goal ABLE-TO-BUILD-STABLE YES)
 		(wood-amount > 1250)
@@ -1898,14 +1882,8 @@
 		(goal RUSH-CONTROL RUSHING)
 	)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
-		(wood-amount > 300)
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 500)
 	)
 =>
  	(build archery-range)
@@ -1924,14 +1902,8 @@
 	)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
-		(wood-amount > 300)
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 500)
 	)
 =>
 	(build archery-range)
@@ -1947,14 +1919,8 @@
 		(civ-selected mayan)
 	)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
-		(wood-amount > 300)
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 500)
 	)
 =>
  	(build archery-range)
@@ -1978,14 +1944,8 @@
 	)
  	(can-build archery-range)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
-		(wood-amount > 300)
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 500)
 	)
 =>
  	(build archery-range)
@@ -1998,14 +1958,8 @@
  	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
-		(wood-amount > 300)
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 500)
 	)
 =>
  	(build archery-range)
@@ -2022,14 +1976,8 @@
 	)
 	(goal RUSH-CONTROL NO)
 	(or
-		(and
-			(not (research-available ri-wheel-barrow))
-			(and
-				(not (research-available ri-double-bit-axe))
-				(not (research-available ri-horse-collar))
-			)
-		)
-		(wood-amount > 300)
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 500)
 	)
 =>
  	(build archery-range)
@@ -2042,9 +1990,7 @@
 	(wood-amount > 700)
 	(building-type-count-total archery-range < 3)
 	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-	(up-research-status c: ri-hand-cart >= research-pending)
-	(up-research-status c: ri-bow-saw >= research-pending)
-	(up-research-status c: ri-heavy-plow >= research-pending)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(build archery-range)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
@@ -2054,7 +2000,7 @@
  	(current-age >= castle-age)
 	(building-type-count-total archery-range < archery-range-building-imperial)
 	(building-type-count-total town-center > 2)
-	(up-research-status c: ri-hand-cart >= research-pending)
+	(goal ALL-ECONOMY-TECH-DONE YES)
  	(can-build archery-range)
 	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(wood-amount > 1250)
@@ -2396,9 +2342,7 @@
  	(building-type-count-total town-center < 5)
 	(building-type-count-total castle > 0) ;make sure not to spend all stone on town centers
  	(can-build town-center)
- 	(up-research-status c: ri-hand-cart >= research-pending)
-	(up-research-status c: ri-bow-saw >= research-pending)
-	(up-research-status c: ri-heavy-plow >= research-pending)
+ 	(goal ALL-ECONOMY-TECH-DONE YES)
 	(difficulty >= hard)
 =>
  	(build town-center)
@@ -2413,9 +2357,7 @@
  	(building-type-count-total castle >= 2)
  	(wood-amount > 600)
  	(can-build town-center)
- 	(up-research-status c: ri-hand-cart >= research-pending)
-	(up-research-status c: ri-bow-saw >= research-pending)
-	(up-research-status c: ri-heavy-plow >= research-pending)
+ 	(goal ALL-ECONOMY-TECH-DONE YES)
  	(unit-type-count-total villager > 130)
 =>
  	(build town-center)

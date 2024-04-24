@@ -26,11 +26,11 @@
 		(wood-amount > 400)
 	)
 	(goal RUSH-CONTROL NO)
-	(military-population >= EIGHT-PERCENT-POP)
+	;(military-population >= EIGHT-PERCENT-POP)
 	(can-train trade-cart)
-	(players-building-type-count any-ally market >= 1)
 	(unit-type-count-total trade-cart < NUM-TRADE-CARTS-LATE-GAME)
 	(civilian-population < POPULATION-MAX)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(train trade-cart)
 )
@@ -51,10 +51,11 @@
 	)
 	(can-train trade-cog)
 	(goal RUSH-CONTROL NO)
-	(military-population >= TEN-PERCENT-POP)
+	;(military-population >= TEN-PERCENT-POP)
 	(players-building-type-count any-ally market >= 1)
 	(unit-type-count-total trade-cog < NUM-TRADE-CARTS-LATE-GAME)
 	(civilian-population < POPULATION-MAX)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(train trade-cog)
 )
@@ -62,7 +63,7 @@
 
 
 (defrule
-	(cc-players-building-type-count every-ally market == 0)
+	(not (player-in-game any-ally))
 	(or
 		(unit-type-count-total trade-cart > 0)
 		(unit-type-count-total trade-cog > 0)
