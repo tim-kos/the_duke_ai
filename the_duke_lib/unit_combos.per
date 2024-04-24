@@ -2916,6 +2916,10 @@
 	(can-train knight-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train knight-line)
 )
@@ -2926,6 +2930,10 @@
 	(can-train hand-cannoneer)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train hand-cannoneer)
 )

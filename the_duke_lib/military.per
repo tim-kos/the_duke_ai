@@ -95,17 +95,25 @@
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
 	(building-type-count-total town-center > 1)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train spearman-line)
 )
 
 (defrule
 	(military-population >= NINE-PERCENT-POP)
-	(unit-type-count-total spearman-line < EIGHT-PERCENT-POP)
+	(unit-type-count-total spearman-line < FIVE-PERCENT-POP)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train spearman-line)
 )
@@ -144,6 +152,10 @@
 		(unit-type-count-total knight-line >= 4)
 		(food-amount > 500)
 	)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train spearman-line)
 )
@@ -184,6 +196,10 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train steppe-lancer-line)
 )
@@ -304,6 +320,10 @@
 		(building-type-count-total town-center > 2)
 		(wood-amount > 400)
 	)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train skirmisher-line)
 )
@@ -353,6 +373,10 @@
 	(can-train skirmisher-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train skirmisher-line)
 )
@@ -429,6 +453,10 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train scout-cavalry-line)
 )
@@ -459,7 +487,10 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
-	(food-amount > 100) ;leave some food for constant villager training
+	(or
+    (food-amount > 200);leave food for constant villager production
+    (goal TRAIN-VILLAGERS NO)
+  )
 =>
 	(train knight-line)
 )
@@ -487,6 +518,10 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train knight-line)
 )
@@ -499,6 +534,10 @@
 	(can-train knight-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train knight-line)
 )
@@ -516,7 +555,10 @@
 		(unit-type-count-total knight-line < 8)
 		(not (research-available ri-scale-barding))
 	)
-	(food-amount > 100) ;leave some food for constant villager training
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train knight-line)
 )
@@ -526,7 +568,10 @@
 	(can-train paladin)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(food-amount > 100) ;leave some food for constant villager training
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train paladin)
 )
@@ -546,6 +591,10 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal RUSH-CONTROL NO)
+	(or
+    	(food-amount > 200);leave food for constant villager production
+	    (goal TRAIN-VILLAGERS NO)
+  	)
 =>
 	(train camel-line)
 )
@@ -1400,6 +1449,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1411,6 +1461,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIFTEEN-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1430,7 +1481,6 @@
 
 (defrule
 	(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(building-type-count castle >= 1)
 	(unit-type-count-total trebuchet < FOUR-PERCENT-POP)
 	(can-train trebuchet)
 	(nand
@@ -1439,6 +1489,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1450,6 +1501,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIFTEEN-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1478,6 +1530,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1489,6 +1542,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= TEN-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1500,6 +1554,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIFTEEN-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1533,6 +1588,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1561,6 +1617,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1589,6 +1646,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
@@ -1610,6 +1668,7 @@
 		(current-age < imperial-age)
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(not (town-under-attack))
 =>
 	(train trebuchet)
 )
