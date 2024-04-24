@@ -213,23 +213,24 @@
 	(food-amount > 1700)
 	(gold-amount < 800)
 	(can-sell-commodity food)
+	(up-research-status c: imperial-age < research-pending)
 =>
 	(release-escrow food)
 	(sell-commodity food)
 	(chat-local-to-self "Sell food.")
 )
 
-(defrule
-	(food-amount > 400)
-	(research-completed ri-bow-saw)
-	(gold-amount < 200)
-	(current-age == castle-age)
-	(can-sell-commodity wood)
-=>
-	(release-escrow food)
-	(sell-commodity food)
-	(chat-local-to-self "Sell food.")
-)
+;(defrule
+;	(food-amount > 400)
+;	(research-completed ri-bow-saw)
+;	(gold-amount < 200)
+;	(current-age == castle-age)
+;	(can-sell-commodity food)
+;=>
+;	(release-escrow food)
+;	(sell-commodity food)
+;	(chat-local-to-self "Sell food.")
+;)
 ;---------------------------------------
 
 
@@ -282,17 +283,17 @@
 	(chat-local-to-self "Sell wood.")
 )
 
-(defrule
-	(wood-amount > 400)
-	(research-completed ri-bow-saw)
-	(gold-amount < 200)
-	(current-age == castle-age)
-	(can-sell-commodity wood)
-=>
-	(sell-commodity wood)
-	(release-escrow wood)
-	(chat-local-to-self "Sell wood.")
-)
+;(defrule
+;	(wood-amount > 400)
+;	(research-completed ri-bow-saw)
+;	(gold-amount < 200)
+;	(current-age == castle-age)
+;	(can-sell-commodity wood)
+;=>
+;	(sell-commodity wood)
+;	(release-escrow wood)
+;	(chat-local-to-self "Sell wood.")
+;)
 
 (defrule			;If
 	(wood-amount > 700)
@@ -312,6 +313,7 @@
 	(wood-amount > 1500)
   (gold-amount < 1500)
   (can-sell-commodity wood)
+  (current-age >= castle-age)
 =>
   (release-escrow wood)
   (sell-commodity wood)

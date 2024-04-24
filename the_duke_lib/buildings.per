@@ -111,6 +111,7 @@
 =>
 	(enable-timer T-INCREASE-CAMP-DISTANCE 60)
 	(up-modify-sn camp-max-distance c:+ 5)
+	(chat-local-to-self "INCREASE CAMP DISTANCE")
 )
 
 ;If we fail to build houses even though we should and can, it is because
@@ -2365,7 +2366,7 @@
 
 (defrule
 	(building-type-count-total town-center >= 2)
-	(building-type-count-total town-center <= 3)
+	(building-type-count-total town-center <= 4)
 	(or
 		(resource-found gold)
 		(resource-found stone)
