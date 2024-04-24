@@ -1240,6 +1240,14 @@
 	(goal RUSH-ATTACK-STARTED YES)
 	(current-age-time > 300)
 =>				 ;then
+	(set-strategic-number sn-placement-to-center 1)
+	(set-goal TEMPORARY-GOAL 15); 6
+	(up-modify-goal TEMPORARY-GOAL c:max 8); 6
+	(up-modify-goal TEMPORARY-GOAL c:min 14); 12
+	(up-modify-goal TEMPORARY-GOAL c:* -1)
+	(up-set-placement-data my-player-number -1 g: TEMPORARY-GOAL); -9
+	(set-strategic-number sn-placement-zone-size 12); 10
+	(up-build place-control 0 c: market)
  	(build market)
 ;	(chat-local-to-self "build MARKET")
 )
@@ -1263,19 +1271,25 @@
 )
 
 (defrule
- 	(building-type-count-total market < 1)
+ 	(building-type-count-total market < 2)
  	(can-build market)
 	(current-age >= castle-age)
 	(building-type-count-total town-center > 1)
 	(or
 		(building-type-count-total town-center > 2)
-		(or
-			(wood-amount > 600)
-			(stone-amount < 100)
-		)
+		(wood-amount > 600)
 	)
-	(wood-amount > 300)
+	(wood-amount > 400)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>				 ;then
+	(set-strategic-number sn-placement-to-center 1)
+	(set-goal TEMPORARY-GOAL 15); 6
+	(up-modify-goal TEMPORARY-GOAL c:max 8); 6
+	(up-modify-goal TEMPORARY-GOAL c:min 14); 12
+	(up-modify-goal TEMPORARY-GOAL c:* -1)
+	(up-set-placement-data my-player-number -1 g: TEMPORARY-GOAL); -9
+	(set-strategic-number sn-placement-zone-size 12); 10
+	(up-build place-control 0 c: market)
  	(build market)
 ;	(chat-local-to-self "build MARKET")
 )
