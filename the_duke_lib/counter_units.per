@@ -200,7 +200,7 @@
   (military-population < FIVE-PERCENT-POP)
   (players-unit-count any-enemy >= SEVEN-PERCENT-POP)
   (can-research ri-man-at-arms)
-  (town-under-attack)
+  (goal UNDER-ATTACK YES)
   (goal RUSH-CONTROL NO)
 =>
   (research ri-man-at-arms)
@@ -213,7 +213,7 @@
   (players-unit-count any-enemy >= SEVEN-PERCENT-POP)
   (can-research ri-long-swordsman)
   (not (goal RUSH-CONTROL RUSHING))
-  (town-under-attack)
+  (goal UNDER-ATTACK YES)
   (goal RUSH-CONTROL NO)
 =>
   (research ri-long-swordsman)
@@ -225,7 +225,7 @@
   (military-population < FIVE-PERCENT-POP)
   (players-unit-count any-enemy >= SEVEN-PERCENT-POP)
   (can-train militiaman-line)
-  (town-under-attack)
+  (goal UNDER-ATTACK YES)
   (or
     (research-completed ri-long-swordsman)
     (and
@@ -240,7 +240,7 @@
 
 (defrule
   (military-population < FIVE-PERCENT-POP)
-  (town-under-attack)
+  (goal UNDER-ATTACK YES)
   (building-type-count-total archery-range < 3)
   (up-pending-objects c: archery-range < 3)
 =>
@@ -250,7 +250,7 @@
 
 (defrule
   (military-population < FIVE-PERCENT-POP)
-  (town-under-attack)
+  (goal UNDER-ATTACK YES)
   (building-type-count-total stable < 3)
   (up-pending-objects c: stable < 3)
 =>
@@ -260,7 +260,7 @@
 
 (defrule
   (military-population < FIVE-PERCENT-POP)
-  (town-under-attack)
+  (goal UNDER-ATTACK YES)
   (can-train skirmisher-line)
 =>
   (train skirmisher-line)
@@ -268,7 +268,7 @@
 
 (defrule
   (military-population < FIVE-PERCENT-POP)
-  (town-under-attack)
+  (goal UNDER-ATTACK YES)
   (can-train scout-cavalry-line)
 =>
   (train scout-cavalry-line)
@@ -283,7 +283,7 @@
   (current-age == castle-age)
   (players-military-population any-enemy >= 5)
   (can-build stable)
-  (town-under-attack)
+  (goal UNDER-ATTACK YES)
   (building-type-count-total stable < 2)
   (goal RUSH-CONTROL NO)
 =>
@@ -297,7 +297,7 @@
   (current-age == castle-age)
   (players-military-population any-enemy >= 5)
   (can-train knight-line)
-  (town-under-attack)
+  (goal UNDER-ATTACK YES)
 =>
   (train knight-line)
 )

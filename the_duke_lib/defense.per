@@ -1,0 +1,20 @@
+(defrule
+    (true)
+=>
+    (set-goal UNDER-ATTACK NO)
+)
+
+(defrule
+    (up-compare-goal ATTACK-STATE != ATTACKING)
+    (up-enemy-units-in-town > 5)
+=>
+    (set-goal UNDER-ATTACK YES)
+)
+
+(defrule
+    (goal UNDER-ATTACK YES)
+    (up-timer-status T-RETREAT != timer-running)
+=>
+    (up-retreat-now)
+    (enable-timer T-RETREAT 30)
+)

@@ -1449,7 +1449,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1461,7 +1461,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIFTEEN-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1489,7 +1489,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1501,7 +1501,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIFTEEN-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1530,7 +1530,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1542,7 +1542,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= TEN-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1554,7 +1554,7 @@
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIFTEEN-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1588,7 +1588,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1617,7 +1617,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1646,7 +1646,7 @@
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1668,7 +1668,7 @@
 		(current-age < imperial-age)
 	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(train trebuchet)
 )
@@ -1886,7 +1886,7 @@
 	(can-train petard)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal RUSH-CONTROL NO)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(military-population > TWENTY-PERCENT-POP)
 =>
 	(train petard)
