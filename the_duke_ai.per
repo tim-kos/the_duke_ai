@@ -22,6 +22,7 @@
 (load "the_duke_lib\cheating")
 (load "the_duke_lib\commodity")
 (load "the_duke_lib\find_target_player")
+(load "the_duke_lib\defense")
 
 #load-if-not-defined WONDER-RACE
 (load "the_duke_lib\attack")
@@ -1536,20 +1537,20 @@
 
 
 (defrule
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 =>
 	(set-strategic-number sn-target-evaluation-siege-weapon 80)
 )
 
 (defrule
-	(town-under-attack)
+	(goal UNDER-ATTACK YES)
 	(players-unit-type-count any-enemy trebuchet < 1)
 =>
 	(set-strategic-number sn-target-evaluation-siege-weapon 0)
 )
 
 (defrule
-	(town-under-attack)
+	(goal UNDER-ATTACK YES)
 	(players-unit-type-count any-enemy trebuchet >= 1)
 =>
 	(set-strategic-number sn-target-evaluation-siege-weapon 40)

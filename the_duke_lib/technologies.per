@@ -42,7 +42,7 @@
 ;otherwise the game will take ages before it does the research, even though all conditions are met
 (defrule
  	(can-research-with-escrow ri-hand-cart)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(unit-type-count-total villager > FIVE-PERCENT-POP)
 	(not (research-available ri-bow-saw))
 	(goal RUSH-CONTROL NO)

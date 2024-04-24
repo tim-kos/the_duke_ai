@@ -23,7 +23,7 @@
 
 (defrule
 	(current-age >= feudal-age)
-	(town-under-attack)
+	(goal UNDER-ATTACK YES)
 	(up-compare-goal MILITARY-PARITY < PARITY)
 	(timer-triggered T-NEED-HELP)
 =>
@@ -35,7 +35,7 @@
 (defrule
 	(current-age >= feudal-age)
 	(taunt-detected any-human-ally 12)
-	(town-under-attack)
+	(goal UNDER-ATTACK YES)
 =>
 	(acknowledge-taunt this-any-human-ally 12)
 	(chat-to-player this-any-human-ally "Cannot assist my allies at the moment, because my town is under attack!")
@@ -53,7 +53,7 @@
 (defrule
 	(current-age >= feudal-age)
 	(taunt-detected any-human-ally 12)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(military-population >= 6)
 =>
 	(acknowledge-taunt this-any-human-ally 12)
@@ -153,8 +153,17 @@
 
 (defrule
 	(taunt-detected any-ally 31)
+	(goal UNDER-ATTACK NO)
+=>
+	(chat-to-player this-any-ally "39 Sorry, the enemy is already in my town.")
+	(acknowledge-taunt this-any-ally 31)
+)
+
+(defrule
+	(taunt-detected any-ally 31)
 	(military-population >= FIVE-PERCENT-POP)
 	(not (goal ATTACK-STATE ATTACKING))
+	(goal UNDER-ATTACK NO)
 =>
 	(chat-local-to-self "Ok, I will prepare an attack to the enemy!")
 	(chat-to-player this-any-ally "Ok, I will prepare an attack to the enemy!")
@@ -176,6 +185,7 @@
 	(players-building-count target-player > 0)
 	(goal RUSH-ATTACK-STARTED NO)
 	(up-compare-goal MILITARY-PARITY >= PARITY)
+	(goal UNDER-ATTACK NO)
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
 	(set-goal ATTACK-STATE PREPARING)
@@ -192,6 +202,7 @@
 	(goal ATTACK-STATE READY)
 	(military-population >= 4)
 	(goal MILITARY-PARITY VASTLY-SUPERIOR)
+	(goal UNDER-ATTACK NO)
 =>
 	(disable-timer T-ATTACK)
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
@@ -212,7 +223,7 @@
 	)
 	(players-building-count target-player > 0)
 	(up-compare-goal MILITARY-PARITY >= PARITY)
-
+	(goal UNDER-ATTACK NO)
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
 	(set-goal ATTACK-STATE PREPARING)
@@ -231,6 +242,7 @@
 	(goal ABLE-TO-ATTACK YES)
 	(population-headroom < 10)
 	(current-age >= castle-age)
+	(goal UNDER-ATTACK NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(chat-local-to-self "Prepare attack1")
@@ -246,6 +258,7 @@
 	)
 	(defend-soldier-count >= EIGHT-PERCENT-POP)
 	(current-age >= castle-age)
+	(goal UNDER-ATTACK NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(set-strategic-number sn-special-attack-type1 1)
@@ -260,6 +273,7 @@
 	(cc-players-building-type-count any-enemy wonder > 0)
 	(defend-soldier-count >= EIGHT-PERCENT-POP)
 	(current-age >= castle-age)
+	(goal UNDER-ATTACK NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(set-strategic-number sn-special-attack-type1 -1)
@@ -271,11 +285,16 @@
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
-	(defend-soldier-count >= TWENTY-PERCENT-POP)
+	(defend-soldier-count >= THIRTY-PERCENT-POP)
+	(or
+		(unit-type-count trebuchet > 0)
+		(unit-type-count battering-ram-line > 0)
+	)
 	(current-age >= castle-age)
 	(up-compare-goal MILITARY-PARITY >= PARITY)
 	(goal SAVE-FOR-RESEARCH NO)
 	(goal RUSH-CONTROL NO)
+	(goal UNDER-ATTACK NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(chat-local-to-self "Prepare attack4")
@@ -297,7 +316,8 @@
 	(goal RUSH-CONTROL NO)
 	(goal SAVE-FOR-RESEARCH NO)
 	(goal ATTACK-PERSONALITY ATTACKER)
-	(up-compare-goal MILITARY-PARITY > VASTLY-INFERIOR)
+	(up-compare-goal MILITARY-PARITY > INFERIOR)
+	(goal UNDER-ATTACK NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(chat-local-to-self "Prepare attack4")
@@ -318,6 +338,7 @@
 		)
 	)
 	(goal SAVE-FOR-RESEARCH NO)
+	(goal UNDER-ATTACK NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(chat-local-to-self "Prepare attack5")

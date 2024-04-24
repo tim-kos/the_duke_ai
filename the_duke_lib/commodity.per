@@ -799,7 +799,7 @@
 (defrule
 	(taunt-detected any-human-ally 3)
 	(food-amount >= 400)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(building-type-count-total market > 0)
 =>
 	(acknowledge-taunt this-any-human-ally 3)
@@ -812,7 +812,7 @@
 (defrule
 	(taunt-detected any-human-ally 4)
 	(wood-amount >= 400)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(building-type-count-total market > 0)
 =>
 	(acknowledge-taunt this-any-human-ally 4)
@@ -825,7 +825,7 @@
 (defrule
 	(taunt-detected any-human-ally 5)
 	(gold-amount >= 500)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(building-type-count-total market > 0)
 =>
 	(acknowledge-taunt this-any-human-ally 5)
@@ -838,7 +838,7 @@
 (defrule
 	(taunt-detected any-human-ally 6)
 	(stone-amount >= 500)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(building-type-count-total market > 0)
 =>
 	(acknowledge-taunt this-any-human-ally 6)
@@ -852,7 +852,7 @@
 (defrule
 	(taunt-detected any-computer-ally 3)
 	(food-amount >= 400)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(building-type-count-total market > 0)
 	(research-completed ri-coinage)
 =>
@@ -866,7 +866,7 @@
 (defrule
 	(taunt-detected any-computer-ally 4)
 	(wood-amount >= 400)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(building-type-count-total market > 0)
 	(research-completed ri-coinage)
 =>
@@ -880,7 +880,7 @@
 (defrule
 	(taunt-detected any-computer-ally 5)
 	(gold-amount >= 500)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(building-type-count-total market > 0)
 	(research-completed ri-coinage)
 =>
@@ -894,7 +894,7 @@
 (defrule
 	(taunt-detected any-computer-ally 6)
 	(building-type-count castle > 0)
-	(not (town-under-attack))
+	(goal UNDER-ATTACK NO)
 	(building-type-count-total market > 0)
 	(research-completed ri-coinage)
 =>
