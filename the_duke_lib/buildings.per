@@ -1242,12 +1242,8 @@
 	(current-age-time > 300)
 =>				 ;then
 	(set-strategic-number sn-placement-to-center 1)
-	(set-goal TEMPORARY-GOAL 20); 6
-	(up-modify-goal TEMPORARY-GOAL c:max 12); 6
-	(up-modify-goal TEMPORARY-GOAL c:min 18); 12
-	(up-modify-goal TEMPORARY-GOAL c:* -1)
-	(up-set-placement-data my-player-number -1 g: TEMPORARY-GOAL); -9
-	(set-strategic-number sn-placement-zone-size 12); 10
+	(up-set-placement-data my-player-number -1 c: MARKET-NEG-DIST)
+	(set-strategic-number sn-placement-fail-delta 0)
 	(up-build place-control 0 c: market)
  	(build market)
 ;	(chat-local-to-self "build MARKET")
@@ -1284,12 +1280,8 @@
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>				 ;then
 	(set-strategic-number sn-placement-to-center 1)
-	(set-goal TEMPORARY-GOAL 20); 6
-	(up-modify-goal TEMPORARY-GOAL c:max 12); 6
-	(up-modify-goal TEMPORARY-GOAL c:min 18); 12
-	(up-modify-goal TEMPORARY-GOAL c:* -1)
-	(up-set-placement-data my-player-number -1 g: TEMPORARY-GOAL); -9
-	(set-strategic-number sn-placement-zone-size 12); 10
+	(up-set-placement-data my-player-number -1 c: MARKET-NEG-DIST)
+	(set-strategic-number sn-placement-fail-delta 0)
 	(up-build place-control 0 c: market)
  	(build market)
 ;	(chat-local-to-self "build MARKET")

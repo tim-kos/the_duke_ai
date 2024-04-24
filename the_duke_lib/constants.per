@@ -2081,6 +2081,27 @@
 #end-if		;if Hardest
 
 
+#load-if-defined TINY-MAP
+(defconst MARKET-NEG-DIST -50)
+#end-if
+#load-if-defined SMALL-MAP
+(defconst MARKET-NEG-DIST -67)
+#end-if
+#load-if-defined MEDIUM-MAP
+(defconst MARKET-NEG-DIST -80)
+#end-if
+#load-if-defined NORMAL-MAP
+(defconst MARKET-NEG-DIST -92)
+#end-if
+#load-if-defined LARGE-MAP
+(defconst MARKET-NEG-DIST -108)
+#end-if
+#load-if-defined GIANT-MAP
+(defconst MARKET-NEG-DIST -118)
+#end-if
+#load-if-defined LUDIKRIS-MAP
+(defconst MARKET-NEG-DIST -220)
+#end-if
 
 ;ENEMY-SIGHTED-RESPONSE-DISTANCE
 ;----------------------------------------
