@@ -1924,7 +1924,7 @@
 (defconst attack-winning-player 1)
 (defconst coop-share-information 1)
 (defconst attack-winning-player-factor 1)
-(defconst maintain-distance 40)
+(defconst maintain-distance 60)
 (defconst dodge-missiles 40)
 (defconst percent-enemy-sighted-response 75)
 
@@ -1997,8 +1997,8 @@
 (defconst attack-winning-player 0)
 (defconst coop-share-information 1)
 (defconst attack-winning-player-factor 100)
-(defconst maintain-distance 0)
-(defconst dodge-missiles 0)
+(defconst maintain-distance 75)
+(defconst dodge-missiles 50)
 (defconst percent-enemy-sighted-response 99)
 
 #load-if-not-defined WONDER-RACE
@@ -2068,8 +2068,8 @@
 (defconst attack-winning-player 0)
 (defconst coop-share-information 100)
 (defconst attack-winning-player-factor 1)
-(defconst maintain-distance 0)
-(defconst dodge-missiles 0)
+(defconst maintain-distance 75)
+(defconst dodge-missiles 25)
 (defconst percent-enemy-sighted-response 99)
 
 #load-if-not-defined WONDER-RACE
@@ -2260,3 +2260,15 @@
 (defconst forage-food 907)
 (defconst deer-food 909)
 (defconst boar-food 910)
+
+;--------------------------------------
+; Define ProjectileType Constants
+;--------------------------------------
+(defconst projectile-town-center 0)
+(defconst projectile-castle 1)
+(defconst projectile-watch-tower 2)
+(defconst projectile-bombard-tower 3)
+(defconst projectile-ship 4)
+(defconst projectile-siege 5)
+(defconst projectile-fortification 6)
+(defconst projectile-any 7)
