@@ -957,9 +957,16 @@
 (defrule
  	(current-age >= castle-age)
  	(can-build farm)
- 	(or	(sheep-and-forage-too-far)
-(or	(dropsite-min-distance food >= 10)
-	(dropsite-min-distance food <= -1)))
+ 	(or
+		(or
+			(sheep-and-forage-too-far)
+			(game-time > 1800)
+		)
+		(or
+			(dropsite-min-distance food >= 10)
+			(dropsite-min-distance food <= -1)
+		)
+	)
 	(building-type-count-total lumber-camp > 0)
 	(or
 		(idle-farm-count < 1)
