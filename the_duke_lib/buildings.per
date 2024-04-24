@@ -1294,6 +1294,27 @@
 ;	(chat-local-to-self "build MARKET")
 )
 
+;Delete all markets after one hour to rebuild them possibly further out
+(defrule
+	(game-time > 3600)
+	(building-type-count-total market > 0)
+	(player-in-game any-ally)
+=>
+	(delete-building market)
+	(delete-building market)
+	(disable-self)
+)
+
+;Delete all markets after two hours to rebuild them possibly further out
+(defrule
+	(game-time > 7200)
+	(building-type-count-total market > 0)
+	(player-in-game any-ally)
+=>
+	(delete-building market)
+	(delete-building market)
+	(disable-self)
+)
 
 #load-if-defined DEFEND-WONDER
 (defrule
