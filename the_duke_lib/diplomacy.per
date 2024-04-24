@@ -28,7 +28,13 @@
 	(goal RUSH-CONTROL NO)
 	;(military-population >= EIGHT-PERCENT-POP)
 	(can-train trade-cart)
-	(unit-type-count-total trade-cart < NUM-TRADE-CARTS-LATE-GAME)
+	(or
+		(unit-type-count-total trade-cart < 4)
+		(and
+			(unit-type-count-total trade-cart < NUM-TRADE-CARTS-LATE-GAME)
+			(not (research-available ri-caravan))
+		)
+	)
 	(civilian-population < POPULATION-MAX)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
