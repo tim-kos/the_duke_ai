@@ -285,10 +285,13 @@
 	(up-timer-status T-ATTACK != timer-running)
 	(goal ATTACK-STATE READY)
 	(goal ABLE-TO-ATTACK YES)
-	(defend-soldier-count >= THIRTY-PERCENT-POP)
+	(soldier-count >= FOURTY-PERCENT-POP)
 	(or
-		(unit-type-count trebuchet > 0)
-		(unit-type-count battering-ram-line > 0)
+		(unit-type-count trebuchet > 1)
+		(or
+			(unit-type-count battering-ram-line > 1)
+			(unit-type-count bombard-cannon > 1)
+		)
 	)
 	(current-age >= castle-age)
 	(up-compare-goal MILITARY-PARITY >= PARITY)
