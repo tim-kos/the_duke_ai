@@ -9,6 +9,7 @@
 	(game-time > 5400)
 =>
 	(set-goal CAN-USE-TOWN-SIZE-ATTACK NO)
+	(chat-local-to-self "Stop using TSA")
 	(disable-self)
 )
 #end-if
@@ -30,7 +31,6 @@
 
 (defrule
 	(game-time > 5400)
-    (true)
 =>
 	(set-strategic-number sn-camp-max-distance 200)
     (set-strategic-number sn-lumber-camp-max-distance 200)

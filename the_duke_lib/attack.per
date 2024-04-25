@@ -153,7 +153,7 @@
 
 (defrule
 	(taunt-detected any-ally 31)
-	(goal UNDER-ATTACK NO)
+	(goal UNDER-ATTACK YES)
 =>
 	(chat-to-player this-any-ally "39 Sorry, the enemy is already in my town.")
 	(acknowledge-taunt this-any-ally 31)
@@ -486,7 +486,7 @@
 	(set-strategic-number sn-enemy-sighted-response-distance 10)
 	(set-strategic-number sn-maximum-town-size 450)
 	(chat-to-player every-ally "I send new troops into battle! Hopefully you can reinforce them!")
-	(chat-local-to-self "ATTACK NOW!")
+	(chat-local-to-self "ATTACK NOW WITH TSA!")
 )
 
 (defrule
@@ -500,7 +500,7 @@
 	(set-strategic-number sn-percent-attack-boats 90)
 	(set-strategic-number sn-task-ungrouped-soldiers NO)
 	(attack-now)
-	(chat-local-to-self "ATTACK NOW!")
+	(chat-local-to-self "ATTACK NOW NON-TSA!")
 	(chat-to-player every-ally "I send new troops into battle! Hopefully you can reinforce my units!")
 )
 

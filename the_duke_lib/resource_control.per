@@ -926,11 +926,11 @@
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED NO)
 	(or
-		(dropsite-min-distance gold > 5)
+		(dropsite-min-distance gold > 50)
 		(dropsite-min-distance gold < 0)
 	)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
 =>					;then
@@ -945,13 +945,13 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED NO)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
-	(unit-type-count-total villager < 100)
+	(unit-type-count-total villager < TWENTY-PERCENT-POP)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 43)
  	(set-strategic-number sn-wood-gatherer-percentage 32)
@@ -961,13 +961,13 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED NO)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
-	(unit-type-count-total villager >= 100)
+	(unit-type-count-total villager >= TWENTY-PERCENT-POP)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 45)
  	(set-strategic-number sn-wood-gatherer-percentage 35)
@@ -981,12 +981,12 @@
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED NO)
 	(or
-		(dropsite-min-distance gold > 5)
+		(dropsite-min-distance gold > 50)
 		(dropsite-min-distance gold < 0)
 	)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
-	(unit-type-count-total villager < 150)
+	(unit-type-count-total villager < THIRTY-PERCENT-POP)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 55)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
@@ -997,12 +997,12 @@
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED NO)
 	(or
-		(dropsite-min-distance gold > 5)
+		(dropsite-min-distance gold > 50)
 		(dropsite-min-distance gold < 0)
 	)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
-	(unit-type-count-total villager >= 150)
+	(unit-type-count-total villager >= THIRTY-PERCENT-POP)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 55)
  	(set-strategic-number sn-wood-gatherer-percentage 35)
@@ -1015,11 +1015,11 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED NO)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
-	(unit-type-count-total villager < 100)
+	(unit-type-count-total villager < TWENTY-PERCENT-POP)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 35)
  	(set-strategic-number sn-wood-gatherer-percentage 30)
@@ -1029,11 +1029,11 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED NO)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
-	(unit-type-count-total villager >= 100)
+	(unit-type-count-total villager >= TWENTY-PERCENT-POP)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 40)
  	(set-strategic-number sn-wood-gatherer-percentage 35)
@@ -1048,11 +1048,11 @@
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED WOOD)
 	(or
-		(dropsite-min-distance gold > 5)
+		(dropsite-min-distance gold > 50)
 		(dropsite-min-distance gold < 0)
 	)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
 =>					;then
@@ -1067,10 +1067,10 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED WOOD)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
 =>					;then
@@ -1086,10 +1086,10 @@
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED WOOD)
 	(or
-		(dropsite-min-distance gold > 5)
+		(dropsite-min-distance gold > 50)
 		(dropsite-min-distance gold < 0)
 	)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 50)
@@ -1103,9 +1103,9 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED WOOD)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 45)
@@ -1121,11 +1121,11 @@
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED FOOD)
 	(or
-		(dropsite-min-distance gold > 5)
+		(dropsite-min-distance gold > 50)
 		(dropsite-min-distance gold < 0)
 	)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
 =>					;then
@@ -1140,10 +1140,10 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED FOOD)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
 =>					;then
@@ -1159,10 +1159,10 @@
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED FOOD)
 	(or
-		(dropsite-min-distance gold > 5)
+		(dropsite-min-distance gold > 50)
 		(dropsite-min-distance gold < 0)
 	)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 65)
@@ -1176,9 +1176,9 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED FOOD)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 65)
@@ -1194,11 +1194,11 @@
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED GOLD)
 	(or
-		(dropsite-min-distance gold > 5)
+		(dropsite-min-distance gold > 50)
 		(dropsite-min-distance gold < 0)
 	)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
 =>					;then
@@ -1213,10 +1213,10 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED GOLD)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
 	(unit-type-count-total villager < 100)
@@ -1229,10 +1229,10 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED GOLD)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
 	(or
-		(dropsite-min-distance stone > 5)
+		(dropsite-min-distance stone > 50)
 		(dropsite-min-distance stone < 0)
 	)
 	(unit-type-count-total villager >= 100)
@@ -1251,7 +1251,7 @@
 		(dropsite-min-distance gold > 5)
 		(dropsite-min-distance gold < 0)
 	)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 50)
@@ -1265,9 +1265,9 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED GOLD)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
 	(unit-type-count-total villager < 100)
 =>					;then
@@ -1279,11 +1279,11 @@
 (defrule 				;If
 	(current-age == imperial-age)
 	(goal RESOURCE-NEEDED GOLD)
-	(dropsite-min-distance gold <= 5)
+	(dropsite-min-distance gold <= 50)
 	(dropsite-min-distance gold >= 0)
-	(dropsite-min-distance stone <= 5)
+	(dropsite-min-distance stone <= 50)
 	(dropsite-min-distance stone >= 0)
-	(unit-type-count-total villager >= 100)
+	(unit-type-count-total villager >= TWENTY-PERCENT-POP)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 50)
  	(set-strategic-number sn-wood-gatherer-percentage 35)

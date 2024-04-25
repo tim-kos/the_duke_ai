@@ -169,8 +169,8 @@
 ;CROP ROTATION 250 WOOD, 250 FOOD
 (defrule
  	(can-research-with-escrow ri-crop-rotation)
-	(up-research-status c: ri-hand-cart >= research-pending)
-	(up-research-status c: ri-two-man-saw >= research-pending)
+	(not (research-available ri-hand-cart))
+	(not (research-available ri-two-man-saw))
 =>
 	(release-escrow wood)
 	(release-escrow food)
