@@ -150,6 +150,20 @@
   (buy-commodity stone)
   (chat-local-to-self "Buy stone.")
 )
+
+(defrule
+	(current-age >= castle-age)
+ 	(gold-amount > 20000)
+  (stone-amount < 650)
+  (can-buy-commodity stone)
+  ;(commodity-buying-price stone < 200) ;If gold is super high, still sell it even at a high price, to ramp up castles
+	(building-type-count-total castle < castle-building-imperial)
+=>
+	(release-escrow gold)
+  (buy-commodity stone)
+  (chat-local-to-self "Buy stone.")
+)
+
 ;************************************************************************************************************
 ;SELLING RESOURCES
 
