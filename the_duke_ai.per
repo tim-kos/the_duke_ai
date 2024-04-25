@@ -23,6 +23,7 @@
 (load "the_duke_lib\commodity")
 (load "the_duke_lib\find_target_player")
 (load "the_duke_lib\defense")
+(load "the_duke_lib\late_game")
 
 #load-if-not-defined WONDER-RACE
 (load "the_duke_lib\attack")
@@ -86,10 +87,6 @@
 	(disable-self)
 )
 
-#load-if-not-defined NORMAL-MAP
-#load-if-not-defined LARGE-MAP
-#load-if-not-defined GIANT-MAP
-
 (defrule
 	(true)
 =>
@@ -97,39 +94,14 @@
 	(disable-self)
 )
 
-#else	;if map-size != giant
-
+#load-if-defined LUDIKRIS-MAP
 (defrule
 	(true)
 =>
 	(set-goal CAN-USE-TOWN-SIZE-ATTACK NO)
 	(disable-self)
 )
-
-#end-if	;if map-size == giant
-
-#else	;if map-size != large
-
-(defrule
-	(true)
-=>
-	(set-goal CAN-USE-TOWN-SIZE-ATTACK YES)
-	(disable-self)
-)
-
-#end-if	;if map-size == large
-
-#else	;if map-size != normal
-
-(defrule
-	(true)
-=>
-	(set-goal CAN-USE-TOWN-SIZE-ATTACK YES)
-	(disable-self)
-)
-
-#end-if	;if map-size == normal
-
+#end-if
 
 
 (defrule

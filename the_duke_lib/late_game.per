@@ -1,0 +1,17 @@
+#load-if-not-defined TINY-MAP
+#load-if-not-defined SMALL-MAP
+#load-if-not-defined MEDIUM-MAP
+#load-if-not-defined NORMAL-MAP
+
+;On large, huge (and ludikris anyway) maps, stop TSA after 90min
+;as for the farther away opponents, TSA will likely not reach them.
+(defrule
+	(game-time > 5400)
+=>
+	(set-goal CAN-USE-TOWN-SIZE-ATTACK NO)
+	(disable-self)
+)
+#end-if
+#end-if
+#end-if
+#end-if
