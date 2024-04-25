@@ -3590,7 +3590,7 @@
 			(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 		)
 		(and
-			(up-research-status c: ri-hand-cart >= research-pending)
+			(not (research-available ri-hand-cart))
 			(building-type-count-total town-center > 1)
 		)
 	)

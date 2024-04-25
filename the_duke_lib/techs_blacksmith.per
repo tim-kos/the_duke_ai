@@ -1048,6 +1048,7 @@
 		(building-type-count castle > 0)
 		(unit-type-count-total galley-line >= THREE-PERCENT-POP)
 	)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -1057,7 +1058,20 @@
 
 (defrule
  	(can-research-with-escrow ri-fletching)
-    (food-amount > 700)
+    (or
+		(or
+			(up-research-status c: castle-age >= research-pending)
+			(goal UNDER-ATTACK YES) ;To improve damage of the TC and defending skirmishers
+		)
+		(and
+			(food-amount > 900)
+			(gold-amount > 250)
+		)
+	)
+	(nand
+		(goal ALL-ECONOMY-TECH-DONE NO)
+		(goal UNDER-ATTACK NO)
+	)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -1087,9 +1101,10 @@
 		)
 	)
 	(or
-		(up-research-status c: ri-scale-mail >= research-pending)
-		(up-research-status c: ri-scale-barding >= research-pending)
+		(not (research-available ri-scale-mail))
+		(not (research-available ri-scale-barding))
 	)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>					;then
 	(release-escrow food)
  	(research ri-forging)
@@ -1105,6 +1120,7 @@
 			(food-amount > 950)
 		)
 	)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>					;then
 	(release-escrow food)
  	(research ri-forging)
@@ -1145,6 +1161,7 @@
 			(food-amount > 950)
 		)
 	)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>					;then
 	(release-escrow food)
 	(research ri-scale-mail)
@@ -1182,6 +1199,7 @@
 			(food-amount > 950)
 		)
 	)
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
  	(research ri-scale-barding)
@@ -1224,10 +1242,11 @@
 		(soldier-count > TWO-PERCENT-POP)
 		(or
 			(up-research-status c: castle-age >= research-pending)
-			(food-amount > 950)
+			(food-amount > 900)
 		)
 	)
-	(up-research-status c: ri-fletching >= research-pending)
+	(not (research-available ri-fletching))
+	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
 	(research ri-padded-archer-armor)
