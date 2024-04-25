@@ -1324,12 +1324,12 @@
 	(true)
 =>
 	(set-strategic-number sn-group-form-distance 40)
-	(set-strategic-number sn-number-attack-groups 0)
-	(set-strategic-number sn-attack-group-gather-spacing 50)
+	(set-strategic-number sn-number-attack-groups 10)
+	(set-strategic-number sn-attack-group-gather-spacing 5)
 	(set-strategic-number sn-minimum-defend-group-size 0)
 	(set-strategic-number sn-maximum-defend-group-size 0)
 	(set-strategic-number sn-minimum-attack-group-size 1)
-	(set-strategic-number sn-maximum-attack-group-size 1)
+	(set-strategic-number sn-maximum-attack-group-size 20)
 	(disable-self)
 )
 
@@ -1619,17 +1619,6 @@
 	(disable-self)
 )
 
-(defrule
- 	(game-time > 2700)
-=>
- 	(set-strategic-number sn-maximum-wood-drop-distance 30)
-	(set-strategic-number sn-maximum-food-drop-distance 30)
- 	(set-strategic-number sn-maximum-hunt-drop-distance 12)
- 	(set-strategic-number sn-maximum-gold-drop-distance 5)
- 	(set-strategic-number sn-maximum-stone-drop-distance 5)
- 	(set-strategic-number sn-maximum-fish-boat-drop-distance 30)
-	(disable-self)
-)
 
 ;DIFFICULTY PARAMETERS
 ;======================================================================

@@ -15,3 +15,27 @@
 #end-if
 #end-if
 #end-if
+
+(defrule
+ 	(game-time > 2700)
+=>
+ 	(set-strategic-number sn-maximum-wood-drop-distance 20)
+	(set-strategic-number sn-maximum-food-drop-distance 30)
+ 	(set-strategic-number sn-maximum-hunt-drop-distance 12)
+ 	(set-strategic-number sn-maximum-gold-drop-distance 50) ;get gold and stone for which we failed to build am ining camp
+ 	(set-strategic-number sn-maximum-stone-drop-distance 50)
+ 	(set-strategic-number sn-maximum-fish-boat-drop-distance 30)
+	(disable-self)
+)
+
+(defrule
+	(game-time > 5400)
+    (true)
+=>
+	(set-strategic-number sn-camp-max-distance 200)
+    (set-strategic-number sn-lumber-camp-max-distance 200)
+    (set-strategic-number sn-cap-civilian-explorers 2)
+	(set-strategic-number sn-total-number-explorers 3) ;Start exploring the map again to keep informed about the enemy, where it is and what they are building
+	(set-strategic-number sn-number-explore-groups 3))
+	(disable-self)
+)
