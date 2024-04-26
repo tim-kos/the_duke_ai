@@ -18,3 +18,10 @@
     (up-retreat-now)
     (enable-timer T-RETREAT 30)
 )
+
+(defrule
+    (true)
+=>
+    (set-goal TOWN-SIZE-FOR-ATTACKING 16)
+    (disable-self)
+)
