@@ -1870,7 +1870,9 @@
 	(unit-type-count-total trade-cart < 5)
 	(unit-type-count-total trade-cog < 5)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
 ;Fill up with spearmen if we have gold trouble
@@ -1915,7 +1917,9 @@
 	(can-build barracks)
 	(building-type-count-total barracks < 10)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 #end-if
 
@@ -1934,7 +1938,9 @@
 	(unit-type-count-total trade-cart < 5)
 	(unit-type-count-total trade-cog < 5)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
 ;Fill up with scout cavalry if we have gold trouble
@@ -1975,7 +1981,9 @@
 	(unit-type-count-total trade-cart < 5)
 	(unit-type-count-total trade-cog < 5)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
 (defrule

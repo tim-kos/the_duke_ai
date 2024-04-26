@@ -8,9 +8,9 @@
 	(current-age == dark-age)
 	(not (civ-selected hun))
 =>
-	(set-goal TARGET-TOWN-SIZE 10)
+	(set-goal TOWN-SIZE-FOR-BUILDING 10)
 	(set-strategic-number sn-minimum-town-size 6)
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(set-strategic-number sn-camp-max-distance 10)
 	(disable-self)
 )
@@ -19,9 +19,9 @@
 	(current-age == dark-age)
 	(civ-selected hun)
 =>
-	(set-goal TARGET-TOWN-SIZE 8)
+	(set-goal TOWN-SIZE-FOR-BUILDING 8)
 	(set-strategic-number sn-minimum-town-size 6)
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(set-strategic-number sn-camp-max-distance 10)
 	(disable-self)
 )
@@ -30,11 +30,11 @@
 	(current-age >= feudal-age)
 	(not (civ-selected hun))
 =>
-	(set-goal TARGET-TOWN-SIZE 12)
+	(set-goal TOWN-SIZE-FOR-BUILDING 12)
 	(set-strategic-number sn-minimum-town-size 6)
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(set-strategic-number sn-camp-max-distance 18)
-	(set-goal TARGET-TOWN-SIZE 12)
+	(set-goal TOWN-SIZE-FOR-BUILDING 12)
 	(disable-self)
 )
 
@@ -42,9 +42,9 @@
 	(current-age >= feudal-age)
 	(civ-selected hun)
 =>
-	(set-goal TARGET-TOWN-SIZE 18)
+	(set-goal TOWN-SIZE-FOR-BUILDING 18)
 	(set-strategic-number sn-minimum-town-size 6)
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(disable-self)
 )
 
@@ -53,9 +53,9 @@
 	(not (civ-selected hun))
 	(goal RUSH-CONTROL RUSHING)
 =>
-	(set-goal TARGET-TOWN-SIZE 18)
+	(set-goal TOWN-SIZE-FOR-BUILDING 18)
 	(set-strategic-number sn-minimum-town-size 12)
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(set-strategic-number sn-camp-max-distance 24)
 	(disable-self)
 )
@@ -65,9 +65,9 @@
 	(civ-selected hun)
 	(goal RUSH-CONTROL RUSHING)
 =>
-	(set-goal TARGET-TOWN-SIZE 16)
+	(set-goal TOWN-SIZE-FOR-BUILDING 16)
 	(set-strategic-number sn-minimum-town-size 10)
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(set-strategic-number sn-camp-max-distance 24)
 	(disable-self)
 )
@@ -77,9 +77,9 @@
 	(not (civ-selected hun))
 	(goal RUSH-CONTROL NO)
 =>
-	(set-goal TARGET-TOWN-SIZE 23)
+	(set-goal TOWN-SIZE-FOR-BUILDING 23)
 	(set-strategic-number sn-minimum-town-size 10)
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(set-strategic-number sn-camp-max-distance 24)
 	(disable-self)
 )
@@ -89,9 +89,9 @@
 	(civ-selected hun)
 	(goal RUSH-CONTROL NO)
 =>
-	(set-goal TARGET-TOWN-SIZE 20)
+	(set-goal TOWN-SIZE-FOR-BUILDING 20)
 	(set-strategic-number sn-minimum-town-size 10)
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(set-strategic-number sn-camp-max-distance 26)
 	(disable-self)
 )
@@ -118,21 +118,14 @@
 ;our town size is too small. Gradually increase it then.
 (defrule
 	(up-timer-status T-INCREASE-TOWN-SIZE != timer-running)
-	(up-compare-goal TARGET-TOWN-SIZE >= 20)
+	(up-compare-goal TOWN-SIZE-FOR-BUILDING >= 20)
 	;do not make it too big, or else villagers travel too far to build stuff, when they should gather resources
 	;and newly created units will be alone close to enemy lines and just die.
-	(up-compare-goal TARGET-TOWN-SIZE < 90)
+	(up-compare-goal TOWN-SIZE-FOR-BUILDING < 90)
 =>
 	(enable-timer T-INCREASE-TOWN-SIZE 60)
-	(up-modify-goal TARGET-TOWN-SIZE c:+ 2)
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
-)
-
-(defrule
-	(goal ATTACK-STATE RESET-TOWN-SIZE)
-=>
-	(up-modify-sn sn-maximum-town-size g:= TARGET-TOWN-SIZE)
-	(set-goal ATTACK-STATE TOWN-SIZE-RESETTED)
+	(up-modify-goal TOWN-SIZE-FOR-BUILDING c:+ 2)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 )
 
 
@@ -159,7 +152,9 @@
 	(population-headroom != 0)
 	(up-pending-objects c: house < 1)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build house)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build HOUSE")
 )
 
@@ -180,7 +175,9 @@
 	)
 	(up-pending-objects c: house < 2)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build house)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build HOUSE")
 )
 
@@ -193,7 +190,9 @@
 	(up-pending-objects c: house < 3)
 	(wood-amount > 150)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build house)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build HOUSE")
 )
 
@@ -205,7 +204,9 @@
 	(current-age >= castle-age)
 	(up-pending-objects c: house < 5)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build house)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build HOUSE")
 )
 ;***********************************************
@@ -229,7 +230,9 @@
  	(can-build house)
 	(population-headroom != 0)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build house)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build HOUSE")
 )
 ;***********************************************
@@ -245,7 +248,9 @@
  	(can-build town-center)
 	(not (map-type nomad))
 =>
- 	(build town-center)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build town-center)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "rebuild TOWN-CENTER")
 )
 
@@ -264,7 +269,9 @@
 	(can-build town-center)
 	(resource-found wood)
 =>
- 	(build town-center)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build town-center)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "rebuild TOWN-CENTER")
 )
 ;************************************************************************************************************
@@ -705,7 +712,9 @@
 	(can-build mill)
 	(building-type-count-total mill < 1)
 =>
- 	(build mill)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL")
 )
 
@@ -719,7 +728,9 @@
 	(resource-found food)
 	(can-build mill)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL")
 )
 
@@ -749,7 +760,9 @@
 	(building-type-count-total monastery > 0)
 	(building-type-count-total blacksmith > 0)
 =>
- 	(build mill)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL")
 )
 
@@ -768,7 +781,9 @@
 	(building-type-count-total monastery > 0)
 	(building-type-count-total blacksmith > 0)
 =>
- 	(build mill)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL")
 )
 ;***********************************************
@@ -791,7 +806,9 @@
 	(building-type-count-total monastery > 0)
 	(building-type-count-total blacksmith > 0)
 =>
- 	(build mill)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL")
 )
 
@@ -810,7 +827,9 @@
 	(building-type-count-total monastery > 0)
 	(building-type-count-total blacksmith > 0)
 =>
- 	(build mill)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL")
 )
 
@@ -829,7 +848,9 @@
 	(building-type-count-total monastery > 0)
 	(building-type-count-total blacksmith > 0)
 =>
- 	(build mill)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL")
 )
 ;***********************************************
@@ -848,7 +869,9 @@
 	(building-type-count-total monastery > 0)
 	(building-type-count-total blacksmith > 0)
 =>
- 	(build mill)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL")
 )
 ;***********************************************
@@ -864,7 +887,9 @@
 	(can-build mill)
 	(building-type-count-total town-center > 2)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
 (defrule
@@ -888,7 +913,9 @@
 	(building-type-count lumber-camp > 0)
 	(wood-amount > 400)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL (many farms)")
 )
 
@@ -913,7 +940,9 @@
 	(building-type-count lumber-camp > 0)
 	(wood-amount > 400)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MILL (many farms)")
 )
 
@@ -1182,7 +1211,9 @@
 		(wood-amount > 250)
 	)
 =>
- 	(build blacksmith)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build blacksmith)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BLACKSMITH")
 )
 ;***********************************************
@@ -1198,7 +1229,9 @@
  	(can-build blacksmith)
 	(not (current-age == post-imperial-age))
 =>
- 	(build blacksmith)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build blacksmith)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BLACKSMITH")
 )
 ;***********************************************
@@ -1216,7 +1249,9 @@
  	(building-type-count-total market < 1)
  	(can-build market)
 =>				 ;then
- 	(build market)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build market)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MARKET")
 )
 
@@ -1227,7 +1262,9 @@
 	(building-type-count-total market > 0)
 	(not (current-age == post-imperial-age))
 =>
- 	(build blacksmith)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build blacksmith)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BLACKSMITH")
 )
 ;***********************************************
@@ -1272,7 +1309,9 @@
 	)
 	(goal RUSH-CONTROL CASTLE)
 =>
- 	(build market)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build market)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MARKET")
 )
 
@@ -1330,7 +1369,9 @@
 	(building-type-count-total monastery < 1)
  	(can-build monastery)
 =>
- 	(build monastery)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build monastery)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MONASTERY")
 )
 #end-if
@@ -1341,7 +1382,9 @@
  	(current-age == castle-age)
  	(can-build monastery)
 =>
- 	(build monastery)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build monastery)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MONASTERY")
 )
 
@@ -1350,7 +1393,9 @@
  	(building-type-count-total university < 1)
  	(can-build university)
 =>				 ;then
- 	(build university)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build university)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build UNIVERSITY")
 )
 #end-if
@@ -1363,7 +1408,9 @@
  	(can-build university)
 	(not (current-age == post-imperial-age))
 =>
- 	(build university)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build university)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build UNIVERSITY")
 )
 #end-if
@@ -1391,7 +1438,9 @@
 	)
 	(not (current-age == post-imperial-age))
 =>
- 	(build university)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build university)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build UNIVERSITY")
 )
 
@@ -1409,7 +1458,9 @@
 		(wood-amount > 400)
 	)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build monastery)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MONASTERY")
 )
 
@@ -1421,7 +1472,9 @@
 	(goal RUSH-CONTROL NO)
 	(wood-amount > 1000)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build monastery)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build MONASTERY")
 )
 #end-if
@@ -1492,7 +1545,9 @@
 	(building-type-count-total barracks < 1)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build first BARRACKS")
 )
 
@@ -1503,7 +1558,9 @@
 	(goal ABLE-TO-BUILD-BARRACKS YES)
 	(wood-amount > 600)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1514,7 +1571,9 @@
 	(goal ABLE-TO-BUILD-BARRACKS YES)
 	(wood-amount > 1500)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1536,7 +1595,9 @@
 	(building-type-count-total town-center > 1)
 	(current-age >= castle-age)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1546,7 +1607,9 @@
  	(can-build barracks)
 	(building-type-count-total barracks < 1)
 =>
- 	(build barracks)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1566,7 +1629,9 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
- 	(build barracks)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1585,7 +1650,9 @@
 	)
 	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
 =>
- 	(build barracks)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1604,7 +1671,9 @@
  	(can-build barracks)
 	;(goal ABLE-TO-BUILD-BARRACKS YES)
 =>
- 	(build barracks)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1620,7 +1689,9 @@
 	(goal ABLE-TO-BUILD-BARRACKS YES)
 	(wood-amount > 600)
 =>
- 	(build barracks)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1636,7 +1707,9 @@
 	(goal ABLE-TO-BUILD-BARRACKS YES)
 	(wood-amount > 600)
 =>
- 	(build barracks)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1656,7 +1729,9 @@
 	(unit-type-count-total villager > TWENTY-PERCENT-POP);can our economy support this?
 	(up-pending-objects c: barracks < 2)
 =>
- 	(build barracks)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1670,7 +1745,9 @@
  	(can-build barracks)
 	(wood-amount > 700)
 =>
- 	(build barracks)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build barracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build BARRACKS")
 )
 
@@ -1724,7 +1801,9 @@
 	)
 	(goal ABLE-TO-BUILD-STABLE YES)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build STABLE")
 )
 
@@ -1747,7 +1826,9 @@
 		(current-age >= castle-age)
 	)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build STABLE")
 )
 
@@ -1769,7 +1850,9 @@
 		(wood-amount > 500)
 	)
 =>
- 	(build stable)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build STABLE")
 )
 
@@ -1784,7 +1867,9 @@
 		(wood-amount > 500)
 	)
 =>
- 	(build stable)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build STABLE")
 )
 
@@ -1801,7 +1886,9 @@
 		(wood-amount > 500)
 	)
 =>
- 	(build stable)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build STABLE")
 )
 
@@ -1815,7 +1902,9 @@
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(goal PRIMARY-COMBAT-UNIT KNIGHT)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build STABLE")
 )
 
@@ -1836,7 +1925,9 @@
 	(unit-type-count-total villager > TWENTY-PERCENT-POP) ;can our economy support this?
 	(up-pending-objects c: stable < 2)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build STABLE")
 )
 
@@ -1851,7 +1942,9 @@
  	(can-build stable)
 	(wood-amount > 700)
 =>
- 	(build stable)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build STABLE")
 )
 
@@ -1921,7 +2014,9 @@
 		(wood-amount > 500)
 	)
 =>
- 	(build archery-range)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
@@ -1941,7 +2036,9 @@
 		(wood-amount > 500)
 	)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
@@ -1958,7 +2055,9 @@
 		(wood-amount > 500)
 	)
 =>
- 	(build archery-range)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
@@ -1983,7 +2082,9 @@
 		(wood-amount > 500)
 	)
 =>
- 	(build archery-range)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
@@ -1997,7 +2098,9 @@
 		(wood-amount > 500)
 	)
 =>
- 	(build archery-range)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
@@ -2015,7 +2118,9 @@
 		(wood-amount > 500)
 	)
 =>
- 	(build archery-range)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
@@ -2027,7 +2132,9 @@
 	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
@@ -2045,7 +2152,9 @@
 	(unit-type-count-total villager > TWENTY-PERCENT-POP) ;can our economy support this?
 	(up-pending-objects c: archery-range < 2)
 =>
- 	(build archery-range)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 
@@ -2059,7 +2168,9 @@
  	(can-build archery-range)
 	(wood-amount > 700)
 =>
- 	(build archery-range)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build ARCHERY-RANGE")
 )
 ;***********************************************
@@ -2095,7 +2206,9 @@
 	(building-type-count-total monastery > 0)
 	(building-type-count-total university > 0)
 =>
- 	(build siege-workshop)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build siege-workshop)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build SIEGE-WORKSHOP")
 )
 
@@ -2106,7 +2219,9 @@
 	(building-type-count-total siege-workshop < 2)
 	(military-population > EIGHT-PERCENT-POP)
 =>
- 	(build siege-workshop)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build siege-workshop)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build SIEGE-WORKSHOP")
 )
 
@@ -2132,7 +2247,9 @@
  	(can-build siege-workshop)
 	(wood-amount > 700)
 =>
- 	(build siege-workshop)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build siege-workshop)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build SIEGE-WORKSHOP")
 )
 ;***********************************************
@@ -2233,16 +2350,6 @@
 	(up-build place-control 0 c: castle)
  	(build castle)
  	(up-assign-builders c: castle c: 3)
-;	(chat-local-to-self "build CASTLE")
-)
-
-(defrule
-	(difficulty <= hard)
-	(stone-amount > 800)
- 	(can-build castle)
-=>
-	(set-strategic-number sn-ignore-tower-elevation 0)
- 	(build castle)
 ;	(chat-local-to-self "build CASTLE")
 )
 

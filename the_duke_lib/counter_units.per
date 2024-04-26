@@ -26,7 +26,9 @@
     )
   )
 =>
-  (build barracks)
+  (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build barrracks)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 ;------------------------------------
 
@@ -52,7 +54,9 @@
     )
   )
 =>
-  (build archery-range)
+  (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
 (defrule
@@ -76,7 +80,9 @@
     )
   )
 =>
-  (build archery-range)
+  (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
 (defrule
@@ -97,7 +103,9 @@
     )
   )
 =>
-  (build archery-range)
+  (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
 (defrule
@@ -121,7 +129,9 @@
     )
   )
 =>
-  (build archery-range)
+  (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build archery-range)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 ;----------------------
 
@@ -150,7 +160,9 @@
     )
   )
 =>
-  (build stable)
+  (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
 (defrule
@@ -174,7 +186,9 @@
     )
   )
 =>
-  (build stable)
+  (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
 ;TRAINING THE COUNTER UNITS
