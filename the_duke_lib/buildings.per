@@ -119,7 +119,9 @@
 (defrule
 	(up-timer-status T-INCREASE-TOWN-SIZE != timer-running)
 	(up-compare-goal TARGET-TOWN-SIZE >= 20)
-	(up-compare-goal TARGET-TOWN-SIZE < 120)
+	;do not make it too big, or else villagers travel too far to build stuff, when they should gather resources
+	;and newly created units will be alone close to enemy lines and just die.
+	(up-compare-goal TARGET-TOWN-SIZE < 90)
 =>
 	(enable-timer T-INCREASE-TOWN-SIZE 60)
 	(up-modify-goal TARGET-TOWN-SIZE c:+ 2)
@@ -1275,7 +1277,14 @@
 )
 
 (defrule
- 	(building-type-count-total market < 2)
+	(or
+ 		(building-type-count-total market < 1)
+		(and
+			;no need to get a second market if we have no ally to trade with
+			(building-type-count-total market < 2)
+			(player-in-game any-ally)
+		)
+	)
  	(can-build market)
 	(current-age >= castle-age)
 	(building-type-count-total town-center > 1)
@@ -2706,6 +2715,7 @@
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
+	(goal ATTACK-STATE ATTACKING)
 =>
 	(build-forward bombard-tower)
 )
@@ -2724,6 +2734,7 @@
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	(goal ATTACK-PERSONALITY ATTACKER)
+	(goal ATTACK-STATE ATTACKING)
 =>
 	(build-forward bombard-tower)
 )
@@ -2738,6 +2749,7 @@
 	(current-age >= castle-age)
 	(players-current-age any-enemy < castle-age)
 	(can-build castle)
+	(goal ATTACK-STATE ATTACKING)
 =>
 	(build-forward castle)
 ;	(chat-local-to-self "build FORWARD-CASTLE")
@@ -2756,6 +2768,7 @@
 	(can-build castle)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
+	(goal ATTACK-STATE ATTACKING)
 =>
 	(build-forward castle)
 ;	(chat-local-to-self "build FORWARD-CASTLE")
@@ -2772,6 +2785,7 @@
 	(can-build barracks)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
 	(wood-amount > 1500)
+	(goal ATTACK-STATE ATTACKING)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	;(building-type-count-total barracks >= 3)
@@ -2790,6 +2804,7 @@
 	(can-build archery-range)
 	(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(wood-amount > 1500)
+	(goal ATTACK-STATE ATTACKING)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	;(building-type-count-total archery-range >= 3)
@@ -2808,6 +2823,7 @@
 	(can-build stable)
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(wood-amount > 1500)
+	(goal ATTACK-STATE ATTACKING)
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	;(building-type-count-total stable >= 3)

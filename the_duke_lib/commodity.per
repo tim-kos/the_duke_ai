@@ -234,6 +234,16 @@
 	(chat-local-to-self "Sell food.")
 )
 
+(defrule
+	(food-amount > 10000)
+	(gold-amount < 1500)
+	(can-sell-commodity food)
+=>
+	(release-escrow food)
+	(sell-commodity food)
+	(chat-local-to-self "Sell food.")
+)
+
 ;(defrule
 ;	(food-amount > 400)
 ;	(research-completed ri-bow-saw)
@@ -310,7 +320,7 @@
 ;)
 
 (defrule			;If
-	(wood-amount > 700)
+	(wood-amount > 2000)
   (gold-amount < 800)
   (can-sell-commodity wood)
 	(current-age == imperial-age)
@@ -324,22 +334,10 @@
 ;Rule37: sell WOOD to balance the economy in the imperial-age part 2 (too less gold)
 
 (defrule			;If
-	(wood-amount > 1500)
+	(wood-amount > 2000)
   (gold-amount < 1500)
   (can-sell-commodity wood)
   (current-age >= castle-age)
-=>
-  (release-escrow wood)
-  (sell-commodity wood)
-  (chat-local-to-self "Sell wood.")
-)
-
-;Rule37: sell WOOD to balance the economy in the imperial-age part 2 (too less gold)
-
-(defrule			;If
-	(wood-amount > 10000)
-  (can-sell-commodity wood)
-	(commodity-selling-price wood > 14)
 =>
   (release-escrow wood)
   (sell-commodity wood)
