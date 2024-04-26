@@ -351,24 +351,25 @@
 
 
 ;If our attack timer window is up we will stop the attack.
+
 (defrule
 	(timer-triggered T-ATTACK)
 	(goal ATTACK-STATE ATTACKING)
+	(up-compare-goal MILITARY-PARITY >= PARITY)
 =>
 	(disable-timer T-ATTACK)
-	(set-goal ATTACK-STATE STOP)
-	(chat-local-to-self "STOP THE ATTACK")
+	(enable-timer T-ATTACK 10)
+	(chat-local-to-self "PROLONG THE ATTACK for 10sec")
 )
 
 (defrule
+	(timer-triggered T-ATTACK)
 	(goal ATTACK-STATE ATTACKING)
 	(up-compare-goal MILITARY-PARITY < PARITY)
 =>
 	(disable-timer T-ATTACK)
 	(set-goal ATTACK-STATE STOP)
-	(up-retreat-now)
-	(chat-local-to-self "RETREAT")
-	(chat-to-player every-ally "I will retreat my soldiers from the battlefield.")
+	(chat-local-to-self "STOP THE ATTACK")
 )
 
 (defrule
