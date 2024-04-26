@@ -2769,6 +2769,7 @@
 	(building-type-count-total market > 0)
 	(building-type-count-total blacksmith > 0)
 	(goal ATTACK-STATE ATTACKING)
+	(goal MILITARY-PARITY VASTLY-SUPERIOR)
 =>
 	(build-forward castle)
 ;	(chat-local-to-self "build FORWARD-CASTLE")
@@ -2781,11 +2782,13 @@
 ;also some tanks to take enemy damage to divert the damage from our troops
 (defrule
 	(current-age >= castle-age)
-	(can-build castle)
+	(can-build house)
 	(wood-amount > 800)
 	(goal ATTACK-STATE ATTACKING)
 	(building-type-count-total house < 120)
 	(up-pending-objects c: house < 3)
+	(goal MILITARY-PARITY VASTLY-SUPERIOR)
+	(player-in-game any-human-enemy)
 =>
 	(build-forward house)
 ;	(chat-local-to-self "build FORWARD-HOUSE")
@@ -2807,6 +2810,7 @@
 	(building-type-count-total blacksmith > 0)
 	;(building-type-count-total barracks >= 3)
 	(up-pending-objects c: barracks < 2)
+	(player-in-game any-human-enemy)
 =>
 	(build-forward barracks)
 )
@@ -2826,6 +2830,7 @@
 	(building-type-count-total blacksmith > 0)
 	;(building-type-count-total archery-range >= 3)
 	(up-pending-objects c: archery-range < 2)
+	(player-in-game any-human-enemy)
 =>
 	(build-forward archery-range)
 )
@@ -2845,6 +2850,7 @@
 	(building-type-count-total blacksmith > 0)
 	;(building-type-count-total stable >= 3)
 	(up-pending-objects c: stable < 2)
+	(player-in-game any-human-enemy)
 =>
 	(build-forward stable)
 )
