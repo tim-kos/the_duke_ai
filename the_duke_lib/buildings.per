@@ -2774,6 +2774,23 @@
 ;	(chat-local-to-self "build FORWARD-CASTLE")
 )
 
+;***********************************
+;***********************************
+;HOUSES
+;Build some forward houses as a quick way to split enemy armies,
+;also some tanks to take enemy damage to divert the damage from our troops
+(defrule
+	(current-age >= castle-age)
+	(can-build castle)
+	(wood-amount > 800)
+	(goal ATTACK-STATE ATTACKING)
+	(building-type-count-total house < 120)
+	(up-pending-objects c: house < 3)
+=>
+	(build-forward house)
+;	(chat-local-to-self "build FORWARD-HOUSE")
+)
+
 
 ;***********************************
 ;***********************************
