@@ -348,6 +348,22 @@
 (defconst UNDER-ATTACK 50)
 	;YES / NO
 
+(defconst PRIMARY-UNIT 51)
+
+(defrule
+	(true)
+=>
+	(set-goal PRIMARY-UNIT knight-line)
+	(disable-self)
+)
+
+(defrule
+	(up-can-train-unit 0 g:= PRIMARY-UNIT)
+=>
+	(chat-local-to-self "Training knight with goal!")
+	(up-train 0 g:= PRIMARY-UNIT)
+)
+
 ;-------------------------------------
 
 (defconst T-TRIBUTE 1)
