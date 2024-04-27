@@ -107,9 +107,9 @@
 (defrule
 	(true)
 =>
-	(set-goal ABLE-TO-UPGRADE-INFANTRY NO)
-	(set-goal ABLE-TO-UPGRADE-ARCHERS NO)
-	(set-goal ABLE-TO-UPGRADE-CAVALRY NO)
+	(set-goal G-ABLE-TO-UPGRADE-INFANTRY NO)
+	(set-goal G-ABLE-TO-UPGRADE-ARCHERS NO)
+	(set-goal G-ABLE-TO-UPGRADE-CAVALRY NO)
 	(set-goal CAN-CHANGE-RESOURCE-NEEDED-GOAL YES)
 	(disable-self)
 )
@@ -443,15 +443,6 @@
 ;*******************************
 #load-if-defined BLACK-FOREST-MAP
 (defrule (true) => (set-goal MAP-KIND LAND-MAP) (disable-self))
-#load-if-defined DIFFICULTY-HARDEST
-(defrule
-	(unit-type-count-total bombard-cannon < TWO-PERCENT-POP)
-	(can-train bombard-cannon)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-=>
-	(train bombard-cannon)
-)
-#end-if
 #end-if
 ;*******************************
 #load-if-defined FORTRESS-MAP

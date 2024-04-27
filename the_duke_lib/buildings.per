@@ -2225,17 +2225,6 @@
 ;	(chat-local-to-self "build SIEGE-WORKSHOP")
 )
 
-(defrule
- 	(current-age >= castle-age)
- 	(can-train battering-ram-line)
- 	(goal RUSH-CONTROL RUSHING)
-	(unit-type-count-total battering-ram-line < 6)
-	(military-population > EIGHT-PERCENT-POP)
-=>
- 	(train battering-ram-line)
-;	(chat-local-to-self "train ram")
-)
-
 
 #load-if-defined DEATH-MATCH
 ;***********************************************

@@ -43,35 +43,6 @@
 	(train militiaman-line)
 )
 
-(defrule
-	(current-age >= castle-age)
-	(goal RUSH-CONTROL RUSHING)
-	(unit-type-count-total militiaman-line < SEVENTY-PERCENT-POP)
-	(can-train militiaman-line)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(goal G-PRIMARY-UNIT knight-line)
-	(goal G-SECONDARY-UNIT militiaman-line)
-	(or
-		(and
-			(unit-type-count-total knight-line >= 10)
-			(not (research-available ri-scale-barding))
-		)
-		(unit-type-count-total militiaman-line < 7)
-	)
-=>
-	(train militiaman-line)
-)
-
-(defrule
-	(military-population >= FOURTY-FIVE-PERCENT-POP)
-	(can-train champion)
-	(unit-type-count-total trebuchet > 0)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-=>
-	(train champion)
-)
 ;--------------------
 
 
@@ -1059,10 +1030,9 @@
 
 
 
-;Rule19: maintain a ram
+;Rule19: maintain some rams, they are always useful
 
 (defrule
-	(building-type-count siege-workshop >= 1)
 	(or
 		(unit-type-count-total battering-ram-line < 1)
 		(and
@@ -1074,28 +1044,20 @@
 	(can-train battering-ram-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(current-age == imperial-age)
 =>
 	(train battering-ram-line)
 )
 
 (defrule
-	(building-type-count siege-workshop >= 1)
-	(or
-		(unit-type-count-total battering-ram-line < 1)
-		(and
-			(unit-type-count-total battering-ram-line < 3)
-			(military-population > FIFTEEN-PERCENT-POP)
-		)
-	)
-	(difficulty <= hard)
-	(can-train battering-ram-line)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(goal RUSH-CONTROL RUSHING)
+ 	(can-train battering-ram-line)
+ 	(goal RUSH-CONTROL RUSHING)
+	(unit-type-count-total battering-ram-line < 6)
+	(military-population > FOUR-PERCENT-POP)
 =>
-	(train battering-ram-line)
+ 	(train battering-ram-line)
+;	(chat-local-to-self "train ram")
 )
+
 ;----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

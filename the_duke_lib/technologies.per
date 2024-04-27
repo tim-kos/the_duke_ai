@@ -434,7 +434,7 @@
 (defrule
  	(can-research ri-ballistics)
 	(or
-		(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+		(goal G-ABLE-TO-UPGRADE-ARCHERS HIGH)
 		(building-type-count-total castle >= 1)
 	)
 	(not (research-available ri-murder-holes))
@@ -740,8 +740,8 @@
 (defrule
  	(can-research-with-escrow ri-tracking)
 	(or
-		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+		(goal G-ABLE-TO-UPGRADE-INFANTRY MIDDLE)
+		(goal G-ABLE-TO-UPGRADE-INFANTRY HIGH)
 	)
 	(food-amount > 500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -754,8 +754,8 @@
 (defrule
  	(can-research-with-escrow ri-squires)
 	(or
-		(goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal ABLE-TO-UPGRADE-INFANTRY HIGH)
+		(goal G-ABLE-TO-UPGRADE-INFANTRY MIDDLE)
+		(goal G-ABLE-TO-UPGRADE-INFANTRY HIGH)
 	)
 	(food-amount > 500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -954,8 +954,8 @@
  	(can-research-with-escrow ri-thumb-ring)
 	(or
 		(or
-			(goal ABLE-TO-UPGRADE-ARCHERS MIDDLE)
-			(goal ABLE-TO-UPGRADE-ARCHERS HIGH)
+			(goal G-ABLE-TO-UPGRADE-ARCHERS MIDDLE)
+			(goal G-ABLE-TO-UPGRADE-ARCHERS HIGH)
 		)
 		(or
 			(game-time > 1800) ;prepare for late game where gold will be scarce and we need to train skirmishers
@@ -990,9 +990,9 @@
 (defrule
  	(can-research-with-escrow ri-husbandry)
 	(or
-		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
+		(goal G-ABLE-TO-UPGRADE-CAVALRY MIDDLE)
 		(or
-			(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+			(goal G-ABLE-TO-UPGRADE-CAVALRY HIGH)
 			(food-amount > 700)
 		)
 	)
@@ -1008,9 +1008,9 @@
 (defrule
  	(can-research-with-escrow ri-bloodlines)
 	(or
-		(goal ABLE-TO-UPGRADE-CAVALRY MIDDLE)
+		(goal G-ABLE-TO-UPGRADE-CAVALRY MIDDLE)
 		(or
-			(goal ABLE-TO-UPGRADE-CAVALRY HIGH)
+			(goal G-ABLE-TO-UPGRADE-CAVALRY HIGH)
 			(food-amount > 500)
 		)
 	)
