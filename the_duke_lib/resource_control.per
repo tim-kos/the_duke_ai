@@ -396,10 +396,10 @@
 	(building-type-count mining-camp > 0)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 	(or
-		(goal SECONDARY-COMBAT-UNIT SPEARMAN)
-		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
+		(goal G-SECONDARY-UNIT spearman-line)
+		(goal G-SECONDARY-UNIT skirmisher-line)
 	)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 38)
@@ -413,8 +413,8 @@
 	(building-type-count mining-camp > 0)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+	(goal G-PRIMARY-UNIT knight-line)
+	(goal G-SECONDARY-UNIT militiaman-line)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 43)
  	(set-strategic-number sn-wood-gatherer-percentage 42)
@@ -429,10 +429,10 @@
 	(building-type-count mining-camp > 0)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 	(or
-		(goal SECONDARY-COMBAT-UNIT SPEARMAN)
-		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
+		(goal G-SECONDARY-UNIT spearman-line)
+		(goal G-SECONDARY-UNIT skirmisher-line)
 	)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 44)
@@ -446,8 +446,8 @@
 	(building-type-count mining-camp > 0)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+	(goal G-PRIMARY-UNIT knight-line)
+	(goal G-SECONDARY-UNIT militiaman-line)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 42)
  	(set-strategic-number sn-wood-gatherer-percentage 43)
@@ -466,7 +466,7 @@
 	(building-type-count-total barracks < 4)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 30)
  	(set-strategic-number sn-wood-gatherer-percentage 35)
@@ -480,7 +480,7 @@
 	(building-type-count-total barracks >= 4)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 32)
  	(set-strategic-number sn-wood-gatherer-percentage 26)
@@ -590,7 +590,7 @@
 	(current-age == castle-age)
 	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 	(goal RUSH-ATTACK-STARTED NO)
 =>
  	(set-strategic-number sn-food-gatherer-percentage 48)
@@ -603,7 +603,7 @@
 	(current-age == castle-age)
 	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(goal RUSH-ATTACK-STARTED NO)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 35)
@@ -622,7 +622,7 @@
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance stone > 5)
 	(goal RUSH-ATTACK-STARTED YES)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 40)
  	(set-strategic-number sn-wood-gatherer-percentage 42)
@@ -636,7 +636,7 @@
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance stone <= 5)
 	(goal RUSH-ATTACK-STARTED YES)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 40)
  	(set-strategic-number sn-wood-gatherer-percentage 42)
@@ -652,7 +652,7 @@
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance stone > 5)
 	(goal RUSH-ATTACK-STARTED YES)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 35)
  	(set-strategic-number sn-wood-gatherer-percentage 40)
@@ -666,7 +666,7 @@
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance stone <= 5)
 	(goal RUSH-ATTACK-STARTED YES)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 35)
  	(set-strategic-number sn-wood-gatherer-percentage 40)

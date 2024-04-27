@@ -373,12 +373,12 @@
 
 
 
-;SKIRMISHERS TO COUNTER
+;skirmisher-lineS TO COUNTER
 ;-----------------------------------------
 
 
 
-;Rule6: train SKIRMISHERS to counter the enemies archers
+;Rule6: train skirmisher-lineS to counter the enemies archers
 
 (defrule
   (unit-type-count-total skirmisher-line < ONE-PERCENT-POP)
@@ -749,14 +749,14 @@
 
 
 
-;CAMELS TO COUNTER
+;camel-lineS TO COUNTER
 ;---------------------------------
 
 
 
 #load-if-defined TURKISH-CIV
 
-;Rule14: train CAMELS to counter the enemies riders
+;Rule14: train camel-lineS to counter the enemies riders
 
 (defrule
   (unit-type-count-total camel-line < ONE-PERCENT-POP)
@@ -877,7 +877,7 @@
 
 
 
-;Rule15: train CAMELS to counter the enemies riders
+;Rule15: train camel-lineS to counter the enemies riders
 
 (defrule
   (unit-type-count-total camel-line < TEN-PERCENT-POP)
@@ -1002,12 +1002,12 @@
 
 
 
-;KNIGHTS TO COUNTER
+;knight-lineS TO COUNTER
 ;------------------------------------------------
 
 
 
-;Rule18: train KNIGHTS to counter the enemies monks
+;Rule18: train knight-lineS to counter the enemies monks
 
 (defrule
   (can-train knight-line)

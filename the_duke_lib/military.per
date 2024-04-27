@@ -17,8 +17,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT INFANTRY)
-		(goal SECONDARY-COMBAT-UNIT INFANTRY)
+		(goal G-PRIMARY-UNIT militiaman-line)
+		(goal G-SECONDARY-UNIT militiaman-line)
 	)
 	(unit-type-count-total militiaman-line < SEVENTY-PERCENT-POP)
 	(can-train militiaman-line)
@@ -31,8 +31,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT INFANTRY1)
-		(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+		(goal G-PRIMARY-UNIT militiaman-line)
+		(goal G-SECONDARY-UNIT militiaman-line)
 	)
 	(unit-type-count-total militiaman-line < SEVENTY-PERCENT-POP)
 	(can-train militiaman-line)
@@ -50,8 +50,8 @@
 	(can-train militiaman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+	(goal G-PRIMARY-UNIT knight-line)
+	(goal G-SECONDARY-UNIT militiaman-line)
 	(or
 		(and
 			(unit-type-count-total knight-line >= 10)
@@ -81,12 +81,12 @@
 (defrule
 	(or
 		(or
-			(goal PRIMARY-COMBAT-UNIT INFANTRY)
-			(goal PRIMARY-COMBAT-UNIT SPEARMAN)
+			(goal G-PRIMARY-UNIT militiaman-line)
+			(goal G-PRIMARY-UNIT spearman-line)
 		)
 		(or
-			(goal SECONDARY-COMBAT-UNIT INFANTRY)
-			(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+			(goal G-SECONDARY-UNIT militiaman-line)
+			(goal G-SECONDARY-UNIT spearman-line)
 		)
 	)
 	(unit-type-count-total spearman-line < SEVENTY-PERCENT-POP)
@@ -145,8 +145,8 @@
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+	(goal G-PRIMARY-UNIT knight-line)
+	(goal G-SECONDARY-UNIT spearman-line)
 	(building-type-count-total stable > 0)
 	(or
 		(unit-type-count-total knight-line >= 4)
@@ -167,8 +167,8 @@
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(goal G-SECONDARY-UNIT spearman-line)
 	(not (research-available ri-scale-mail))
 =>
 	(train spearman-line)
@@ -180,7 +180,7 @@
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(not (goal PRIMARY-COMBAT-UNIT EAGLEMAN))
+	(not (goal G-PRIMARY-UNIT eagle-warrior-line))
 	(gold-amount < 20)
 	(food-amount > 300)
 	(current-age-time > 420)
@@ -211,8 +211,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-		(goal SECONDARY-COMBAT-UNIT EAGLEMAN)
+		(goal G-PRIMARY-UNIT eagle-warrior-line)
+		(goal G-SECONDARY-UNIT eagle-warrior-line)
 	)
 	(unit-type-count-total eagle-warrior-line < SEVENTY-PERCENT-POP)
 	(can-train eagle-warrior-line)
@@ -224,7 +224,7 @@
 )
 
 (defrule
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
 	(or
@@ -242,7 +242,7 @@
 )
 
 (defrule
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
 	(unit-type-count-total eagle-warrior-line < SEVENTY-PERCENT-POP)
@@ -275,8 +275,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT CROSSBOW)
-		(goal SECONDARY-COMBAT-UNIT CROSSBOW)
+		(goal G-PRIMARY-UNIT archer-line)
+		(goal G-SECONDARY-UNIT archer-line)
 	)
 	(building-type-count archery-range >= 1)
 	(unit-type-count-total archer-line < SEVENTY-PERCENT-POP)
@@ -307,8 +307,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT SKIRMISHER)
-		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
+		(goal G-PRIMARY-UNIT skirmisher-line)
+		(goal G-SECONDARY-UNIT skirmisher-line)
 	)
 	(unit-type-count-total skirmisher-line < SEVENTY-PERCENT-POP)
 	(can-train skirmisher-line)
@@ -355,8 +355,8 @@
 	(can-train skirmisher-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
+	(goal G-PRIMARY-UNIT knight-line)
+	(goal G-SECONDARY-UNIT skirmisher-line)
 	(or
 		(unit-type-count-total knight-line < 8)
 		(not (research-available ri-scale-barding))
@@ -385,12 +385,12 @@
 
 
 
-;Rule50: train cavarchers when the combat number defined that our base-unit or secondary-unit is the cavarcher
+;Rule50: train cavalry-archer-lines when the combat number defined that our base-unit or secondary-unit is the cavalry-archer-line
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT CAVARCHER)
-		(goal SECONDARY-COMBAT-UNIT CAVARCHER)
+		(goal G-PRIMARY-UNIT cavalry-archer-line)
+		(goal G-SECONDARY-UNIT cavalry-archer-line)
 	)
 	(building-type-count archery-range >= 1)
 	(unit-type-count-total cavalry-archer-line < SEVENTY-PERCENT-POP)
@@ -409,8 +409,8 @@
 	(unit-type-count-total cavalry-archer-line < TWO-PERCENT-POP)
 	(can-train cavalry-archer-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal PRIMARY-COMBAT-UNIT NO)
-	(goal SECONDARY-COMBAT-UNIT NO)
+	(goal G-PRIMARY-UNIT NO)
+	(goal G-SECONDARY-UNIT NO)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 =>
 	(train cavalry-archer-line)
@@ -445,8 +445,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT LCAVALRY)
-		(goal SECONDARY-COMBAT-UNIT LCAVALRY)
+		(goal G-PRIMARY-UNIT scout-cavalry-line)
+		(goal G-SECONDARY-UNIT scout-cavalry-line)
 	)
 	(unit-type-count-total scout-cavalry-line < SEVENTY-PERCENT-POP)
 	(can-train scout-cavalry-line)
@@ -479,8 +479,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT KNIGHT)
-		(goal SECONDARY-COMBAT-UNIT KNIGHT)
+		(goal G-PRIMARY-UNIT knight-line)
+		(goal G-SECONDARY-UNIT knight-line)
 	)
 	(unit-type-count-total knight-line < SEVENTY-PERCENT-POP)
 	(can-train knight-line)
@@ -497,8 +497,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT STEPPE-LANCER)
-		(goal SECONDARY-COMBAT-UNIT STEPPE-LANCER)
+		(goal G-PRIMARY-UNIT steppe-lancer-line)
+		(goal G-SECONDARY-UNIT steppe-lancer-line)
 	)
 	(unit-type-count-total steppe-lancer-line < SEVENTY-PERCENT-POP)
 	(can-train steppe-lancer-line)
@@ -550,7 +550,7 @@
 	(can-train knight-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 	(or
 		(unit-type-count-total knight-line < 8)
 		(not (research-available ri-scale-barding))
@@ -583,8 +583,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT CAMEL)
-		(goal SECONDARY-COMBAT-UNIT CAMEL)
+		(goal G-PRIMARY-UNIT camel-line)
+		(goal G-SECONDARY-UNIT camel-line)
 	)
 	(unit-type-count-total camel-line < SEVENTY-PERCENT-POP)
 	(can-train camel-line)
@@ -621,8 +621,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-		(goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
+		(goal G-PRIMARY-UNIT my-unique-unit-line)
+		(goal G-SECONDARY-UNIT my-unique-unit-line)
 	)
 	(building-type-count barracks >= 1)
 	(unit-type-count-total 759 < SEVENTY-PERCENT-POP)
@@ -640,8 +640,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-		(goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
+		(goal G-PRIMARY-UNIT my-unique-unit-line)
+		(goal G-SECONDARY-UNIT my-unique-unit-line)
 	)
 	(building-type-count barracks >= 1)
 	(unit-type-count-total 761 < SEVENTY-PERCENT-POP)
@@ -662,8 +662,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-		(goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
+		(goal G-PRIMARY-UNIT my-unique-unit-line)
+		(goal G-SECONDARY-UNIT my-unique-unit-line)
 	)
 	(unit-type-count-total my-unique-unit-line < SEVENTY-PERCENT-POP)
 	(can-train my-unique-unit-line)
@@ -758,12 +758,12 @@
 
 
 ;===========
-;MANGONELS
+;mangonel-lineS
 ;===========
 
 
 
-;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN MANGONELS AS THE PRIMARY COMBAT SIEGE UNIT
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN mangonel-lineS AS THE PRIMARY COMBAT SIEGE UNIT
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -778,7 +778,7 @@
 ;Rule11: train mangonels when we play on moderate and the combat number define that our primary-combat-siege-unit is mangonel
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total mangonel-line < THREE-PERCENT-POP)
 	(can-train mangonel-line)
@@ -809,7 +809,7 @@
 ;Rule12: train mangonels when we play on hard and the combat number define that our primary-combat-siege-unit is mangonel
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total mangonel-line < THREE-PERCENT-POP)
 	(can-train mangonel-line)
@@ -840,7 +840,7 @@
 ;Rule13: train mangonels when we play on hardest and the combat number define that our primary-combat-siege-unit is mangonel
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total mangonel-line < FOUR-PERCENT-POP)
 	(can-train mangonel-line)
@@ -861,7 +861,7 @@
 
 
 
-;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN MANGONELS AS THE SECONDARY COMBAT SIEGE UNIT
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN mangonel-lineS AS THE SECONDARY COMBAT SIEGE UNIT
 ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -876,7 +876,7 @@
 ;Rule14: train mangonels when we play on moderate and the combat number define that our secondary-combat-siege-unit is mangonel
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total mangonel-line < ONE-PERCENT-POP)
 	(can-train mangonel-line)
@@ -908,7 +908,7 @@
 ;Rule15: train mangonels when we play on hard and the combat number define that our secondary-combat-siege-unit is mangonel
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total mangonel-line < TWO-PERCENT-POP)
 	(can-train mangonel-line)
@@ -939,7 +939,7 @@
 ;Rule16: train mangonels when we play on hardest and the combat number define that our secondary-combat-siege-unit is mangonel
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total mangonel-line < TWO-PERCENT-POP)
 	(can-train mangonel-line)
@@ -961,7 +961,7 @@
 
 
 ;======
-;RAMS
+;battering-ram-lineS
 ;======
 
 
@@ -976,7 +976,7 @@
 ;Rule17: train rams when we play on moderate and the combat number define that our primary-combat-siege-unit is ram
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total battering-ram-line < THREE-PERCENT-POP)
 	(can-train battering-ram-line)
@@ -1007,7 +1007,7 @@
 ;Rule18: train rams when we play on hard and the combat number define that our primary-combat-siege-unit is ram
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total battering-ram-line < THREE-PERCENT-POP)
 	(can-train battering-ram-line)
@@ -1038,7 +1038,7 @@
 ;Rule19: train rams when we play on hard and the combat number define that our primary-combat-siege-unit is ram
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total battering-ram-line < FOUR-PERCENT-POP)
 	(can-train battering-ram-line)
@@ -1110,7 +1110,7 @@
 ;Rule17: train rams when we play on moderate and the combat number define that our secondary-combat-siege-unit is ram
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total battering-ram-line < ONE-PERCENT-POP)
 	(can-train battering-ram-line)
@@ -1141,7 +1141,7 @@
 ;Rule18: train rams when we play on hard and the combat number define that our secondary-combat-siege-unit is ram
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(unit-type-count-total battering-ram-line < TWO-PERCENT-POP)
 	(can-train battering-ram-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -1159,7 +1159,7 @@
 
 ;Always add some rams if we have a large army
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(unit-type-count-total battering-ram-line < 5)
 	(can-train battering-ram-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -1183,7 +1183,7 @@
 ;Rule19: train rams when we play on hard and the combat number define that our secondary-combat-siege-unit is ram
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total battering-ram-line < TWO-PERCENT-POP)
 	(can-train battering-ram-line)
@@ -1202,7 +1202,7 @@
 
 ;Always add some rams if we have a large army
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(unit-type-count-total battering-ram-line < 5)
 	(can-train battering-ram-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -1217,12 +1217,12 @@
 
 
 ;==========
-;SCORPIONS
+;scorpion-lineS
 ;==========
 
 
 
-;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN SCORPIONS AS THE PRIMARY COMBAT SIEGE UNIT
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN scorpion-lineS AS THE PRIMARY COMBAT SIEGE UNIT
 ;------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1237,7 +1237,7 @@
 ;Rule23: train scorpions when we play on moderate and the combat number define that our primary-combat-siege-unit is scorpion
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < SEVEN-PERCENT-POP)
 	(can-train scorpion-line)
@@ -1265,7 +1265,7 @@
 ;Rule24: train scorpions when we play on hard and the combat number define that our primary-combat-siege-unit is scorpion
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < FIFTEEN-PERCENT-POP)
 	(can-train scorpion-line)
@@ -1293,7 +1293,7 @@
 ;Rule25: train scorpions when we play on hard and the combat number define that our primary-combat-siege-unit is scorpion
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < FIFTEEN-PERCENT-POP)
 	(can-train scorpion-line)
@@ -1344,7 +1344,7 @@
 ;Rule26: train scorpions when we play on moderate and the combat number define that our secondary-combat-siege-unit is scorpion
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < ONE-PERCENT-POP)
 	(can-train scorpion-line)
@@ -1372,7 +1372,7 @@
 ;Rule27: train scorpions when we play on hard and the combat number define that our secondary-combat-siege-unit is scorpion
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < TWO-PERCENT-POP)
 	(can-train scorpion-line)
@@ -1400,7 +1400,7 @@
 ;Rule28: train scorpions when we play on hardest and the combat number define that our secondary-combat-siege-unit is scorpion
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < TWO-PERCENT-POP)
 	(can-train scorpion-line)
@@ -1419,12 +1419,12 @@
 
 
 ;============
-;TREBUCHETS
+;trebuchetS
 ;============
 
 
 
-;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN TREBUCHETS AS THE PRIMARY COMBAT SIEGE UNIT
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN trebuchetS AS THE PRIMARY COMBAT SIEGE UNIT
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1439,7 +1439,7 @@
 ;Rule29: train trebuchets when we play on moderate and the combat number define that our primary-combat-siege-unit is trebuchet
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(building-type-count castle >= 1)
 	(unit-type-count-total trebuchet < THREE-PERCENT-POP)
 	(can-train trebuchet)
@@ -1477,7 +1477,7 @@
 ;Rule30: train trebuchets when we play on hard and the combat number define that our primary-combat-siege-unit is trebuchet
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(unit-type-count-total trebuchet < FOUR-PERCENT-POP)
 	(can-train trebuchet)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -1514,7 +1514,7 @@
 ;Rule31: train trebuchets when we play on hard and the combat number define that our primary-combat-siege-unit is trebuchet
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(building-type-count castle >= 1)
 	(unit-type-count-total trebuchet < FIVE-PERCENT-POP)
 	(can-train trebuchet)
@@ -1554,7 +1554,7 @@
 
 
 
-;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN TREBUCHETS AS THE SECONDARY COMBAT SIEGE UNIT
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN trebuchetS AS THE SECONDARY COMBAT SIEGE UNIT
 ;-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1569,7 +1569,7 @@
 ;Rule32: train trebuchets when we play on moderate and the combat number define that our secondary-combat-siege-unit is trebuchet
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 	(building-type-count castle >= 1)
 	(unit-type-count-total trebuchet < ONE-PERCENT-POP)
 	(can-train trebuchet)
@@ -1595,7 +1595,7 @@
 ;Rule33: train trebuchets when we play on hard and the combat number define that our secondary-combat-siege-unit is trebuchet
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 	(building-type-count castle >= 1)
 	(unit-type-count-total trebuchet < TWO-PERCENT-POP)
 	(can-train trebuchet)
@@ -1621,7 +1621,7 @@
 ;Rule34: train trebuchets when we play on hardest and the combat number define that our secondary-combat-siege-unit is trebuchet
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 	(building-type-count castle >= 1)
 	(unit-type-count-total trebuchet < TWO-PERCENT-POP)
 	(can-train trebuchet)
@@ -1639,7 +1639,7 @@
 
 ;******************************************
 ;******************************************
-;MAINTAIN TWO TREBUCHETS
+;MAINTAIN TWO trebuchetS
 
 (defrule
 	(military-population > TEN-PERCENT-POP)
@@ -1651,12 +1651,12 @@
 =>
 	(train trebuchet)
 )
-;BOMBARD-CANNONS
+;bombard-cannonS
 ;===================
 
 
 
-;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN BOMBARD-CANNONS AS THE PRIMARY COMBAT SIEGE UNIT
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN bombard-cannonS AS THE PRIMARY COMBAT SIEGE UNIT
 ;---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1671,7 +1671,7 @@
 ;Rule35: train bombard-cannons when we play on moderate and the combat number define that our primary-combat-siege-unit is bombard-cannon
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total bombard-cannon < THREE-PERCENT-POP)
 	(can-train bombard-cannon)
@@ -1696,7 +1696,7 @@
 ;Rule36: train bombard-cannon when we play on hard and the combat number define that our primary-combat-siege-unit is bombard-cannon
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total bombard-cannon < FOUR-PERCENT-POP)
 	(can-train bombard-cannon)
@@ -1721,7 +1721,7 @@
 ;Rule37: train bombard-cannons when we play on hard and the combat number define that our primary-combat-siege-unit is bombard-cannon
 
 (defrule
-	(goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total bombard-cannon < FIVE-PERCENT-POP)
 	(can-train bombard-cannon)
@@ -1736,7 +1736,7 @@
 
 
 
-;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN BOMBARD-CANNONS AS THE SECONDARY COMBAT SIEGE UNIT
+;WHEN THE RANDOM NUMBER CHOSE THAT WE'LL TRAIN bombard-cannonS AS THE SECONDARY COMBAT SIEGE UNIT
 ;--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -1751,7 +1751,7 @@
 ;Rule38: train bombard-cannons when we play on moderate and the combat number define that our secondary-combat-siege-unit is bombard-cannon
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total bombard-cannon < ONE-PERCENT-POP)
 	(can-train bombard-cannon)
@@ -1776,7 +1776,7 @@
 ;Rule39: train bombard-cannons when we play on hard and the combat number define that our secondary-combat-siege-unit is bombard-cannon
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total bombard-cannon < TWO-PERCENT-POP)
 	(can-train bombard-cannon)
@@ -1801,7 +1801,7 @@
 ;Rule40: train bombard-cannons when we play on hardest and the combat number define that our secondary-combat-siege-unit is bombard-cannon
 
 (defrule
-	(goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
 	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total bombard-cannon < TWO-PERCENT-POP)
 	(can-train bombard-cannon)

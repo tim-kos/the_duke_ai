@@ -31,8 +31,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT LCAVALRY)
-		(goal SECONDARY-COMBAT-UNIT LCAVALRY)
+		(goal G-PRIMARY-UNIT scout-cavalry-line)
+		(goal G-SECONDARY-UNIT scout-cavalry-line)
 	)
 	(unit-type-count-total scout-cavalry-line >= THREE-PERCENT-POP)
 	(food-amount >= 900)
@@ -163,7 +163,7 @@
 	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 )
 ;***********************************************
-;CAVALRY-UPGRADES IF OUR UNIQUE-UNIT IS CAVALRY-UNIT
+;CAVALRY-UPGRADES IF OUR my-unique-unit-line IS CAVALRY-UNIT
 
 
 
@@ -254,16 +254,16 @@
 	(set-goal ABLE-TO-UPGRADE-CAVALRY HIGH)
 )
 ;*******************************************************************
-;INFANTRY
+;militiaman-line
 
 
 
 ;***********************************
 ;***********************************
-;INFANTRY-UPGRADES IN FEUDAL-AGE
+;militiaman-line-UPGRADES IN FEUDAL-AGE
 
 
-;Rule43: start the lopp of upgrading our infantry
+;Rule43: start the lopp of upgrading our militiaman-line
 
 (defrule
 	(true)
@@ -275,12 +275,12 @@
 	(or
 		(or
 			(or
-				(goal PRIMARY-COMBAT-UNIT INFANTRY)
-				(goal SECONDARY-COMBAT-UNIT INFANTRY)
+				(goal G-PRIMARY-UNIT militiaman-line)
+				(goal G-SECONDARY-UNIT militiaman-line)
 			)
-			(goal PRIMARY-COMBAT-UNIT SPEARMAN)
+			(goal G-PRIMARY-UNIT spearman-line)
 		)
-		(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+		(goal G-SECONDARY-UNIT spearman-line)
 	)
 	(current-age == feudal-age)
 	(or
@@ -294,8 +294,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT INFANTRY1)
-		(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+		(goal G-PRIMARY-UNIT militiaman-line)
+		(goal G-SECONDARY-UNIT militiaman-line)
 	)
 	(current-age == feudal-age)
 	(unit-type-count-total militiaman-line >= THREE-PERCENT-POP)
@@ -315,11 +315,11 @@
 	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
 ;***********************************
-;INFANTRY-UPGRADES IN CASTLE-AGE
+;militiaman-line-UPGRADES IN CASTLE-AGE
 
 
 
-;Rule46: upgrade infantry in castle-age if we need upgrades and have got enough resources and do not do any rush
+;Rule46: upgrade militiaman-line in castle-age if we need upgrades and have got enough resources and do not do any rush
 
 (defrule
 	(current-age == castle-age)
@@ -381,11 +381,11 @@
 	(set-goal ABLE-TO-UPGRADE-INFANTRY MIDDLE)
 )
 ;***********************************
-;INFANTRY-UPGRADES IN IMPERIAL-AGE
+;militiaman-line-UPGRADES IN IMPERIAL-AGE
 
 
 
-;Rule46: upgrade infantry in castle-age if we need upgrades and have got enough resources and do not do any rush
+;Rule46: upgrade militiaman-line in castle-age if we need upgrades and have got enough resources and do not do any rush
 
 (defrule
 	(current-age == imperial-age)
@@ -430,12 +430,12 @@
 	(set-goal ABLE-TO-UPGRADE-INFANTRY HIGH)
 )
 ;***********************************
-;INFANTRY-UPGRADES IF OUR UNIQUE-UNIT IS INFANTRY-UNIT
+;militiaman-line-UPGRADES IF OUR my-unique-unit-line IS militiaman-line-UNIT
 
 
 
 
-;Rule49 thru 51: do infantry upgrades if our unique unit is infantry unit and we are going to train it
+;Rule49 thru 51: do militiaman-line upgrades if our unique unit is militiaman-line unit and we are going to train it
 
 (defrule
 	(goal ABLE-TO-UPGRADE-INFANTRY NO)
@@ -602,8 +602,8 @@
 
 (defrule					;If
 	(or
-		(goal PRIMARY-COMBAT-UNIT CROSSBOW)
-		(goal SECONDARY-COMBAT-UNIT CROSSBOW)
+		(goal G-PRIMARY-UNIT archer-line)
+		(goal G-SECONDARY-UNIT archer-line)
 	)
 	(current-age == feudal-age)
 	(unit-type-count-total archer-line >= FOUR-PERCENT-POP)
@@ -617,8 +617,8 @@
 
 (defrule					;If
 	(or
-		(goal PRIMARY-COMBAT-UNIT SKIRMISHER)
-		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
+		(goal G-PRIMARY-UNIT skirmisher-line)
+		(goal G-SECONDARY-UNIT skirmisher-line)
 	)
 	(current-age == feudal-age)
 	(unit-type-count-total skirmisher-line >= FOUR-PERCENT-POP)
@@ -746,7 +746,7 @@
 	(set-goal ABLE-TO-UPGRADE-ARCHERS HIGH)
 )
 ;***********************************************
-;ARCHER-UPGRADES IF OUR UNIQUE-UNIT IS ARCHER-UNIT
+;ARCHER-UPGRADES IF OUR my-unique-unit-line IS ARCHER-UNIT
 
 (defrule
 	(goal ABLE-TO-UPGRADE-ARCHERS NO)
@@ -908,7 +908,7 @@
 
 ;***********************************
 ;***********************************
-;INFANTRY-UPGRADES
+;militiaman-line-UPGRADES
 
 (defrule
 	(or
@@ -1137,8 +1137,8 @@
 		)
 	)
 	(or
-		(goal PRIMARY-COMBAT-UNIT KNIGHT)
-		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+		(goal G-PRIMARY-UNIT knight-line)
+		(goal G-PRIMARY-UNIT eagle-warrior-line)
 	)
 	(food-amount > 200)
 	(up-research-status c: castle-age >= research-pending)
@@ -1177,7 +1177,7 @@
 			(current-age == castle-age)
 		)
 	)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(food-amount > 200)
 	(up-research-status c: castle-age >= research-pending)
 =>					;then
@@ -1215,7 +1215,7 @@
 			(current-age == castle-age)
 		)
 	)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 	(up-research-status c: castle-age >= research-pending)
 =>
 	(release-escrow food)
@@ -1331,8 +1331,8 @@
 		)
 	)
 	(or
-		(goal PRIMARY-COMBAT-UNIT KNIGHT)
-		(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+		(goal G-PRIMARY-UNIT knight-line)
+		(goal G-PRIMARY-UNIT eagle-warrior-line)
 	)
 	(or
 		(unit-type-count-total knight-line > 6)
@@ -1458,7 +1458,7 @@
 (defrule
  	(can-research-with-escrow ri-chain-mail)
 	(goal RUSH-CONTROL RUSHING)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(unit-type-count-total eagle-warrior-line > 3)
 =>
 	(release-escrow food)

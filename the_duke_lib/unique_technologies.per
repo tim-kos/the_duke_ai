@@ -427,7 +427,7 @@
 
 
 
-;Rule297: research MY-UNIQUE-UNIT-UPGRADE-  MODERATE, HARD, HARDEST
+;Rule297: research MY-my-unique-unit-line-UPGRADE-  MODERATE, HARD, HARDEST
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
   (current-age >= imperial-age)
@@ -436,7 +436,7 @@
   (unit-type-count-total my-unique-unit-line > THREE-PERCENT-POP)
 =>
   (research my-unique-unit-upgrade)
-; (chat-local-to-self "research UNIQUE-UNIT-UPGRADE")
+; (chat-local-to-self "research my-unique-unit-line-UPGRADE")
 )
 
 #end-if   ;if not game type == wonder race

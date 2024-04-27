@@ -44,14 +44,14 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 EAGLEMAN)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT eagle-warrior-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 eagle-warrior-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "AZTEC - Strategy 1")
@@ -65,18 +65,18 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "AZTEC - Strategy 2")
-	(chat-to-allies "39 Now I will train Infantry, archers and rams!")
+	(chat-to-allies "39 Now I will train militiaman-line, archers and rams!")
 )
 
 
@@ -86,15 +86,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SKIRMISHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT skirmisher-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 skirmisher-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "AZTEC - Strategy 3")
 	(chat-to-allies "39 Now I will train Jaguar-warriors, skirms and rams!")
@@ -107,14 +107,14 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT archer-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 archer-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "AZTEC - Strategy 4")
@@ -128,15 +128,15 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT archer-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 archer-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "AZTEC - Strategy 5")
 	(chat-to-allies "39 Now I will train archers, jaguar-warriors, rams and trebuchets!")
@@ -149,15 +149,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 EAGLEMAN)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT eagle-warrior-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 eagle-warrior-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "AZTEC - Strategy 6")
 	(chat-to-allies "39 Now I will train EWs, archers and trebuchets!")
@@ -175,14 +175,14 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "BRITON - Strategy 1")
@@ -196,14 +196,14 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "BRITON - Strategy 2")
@@ -217,14 +217,14 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "BRITON - Strategy 3")
@@ -238,18 +238,18 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "BRITON - Strategy 4")
-	(chat-to-allies "39 Now I will train cavarchers, infantry and mangonels!")
+	(chat-to-allies "39 Now I will train cavalry-archer-lines, militiaman-line and mangonels!")
 )
 
 
@@ -259,18 +259,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "BRITON - Strategy 5")
-	(chat-to-allies "39 Now I will train infantry, longbows, rams and trebuchets!")
+	(chat-to-allies "39 Now I will train militiaman-line, longbows, rams and trebuchets!")
 )
 
 
@@ -280,18 +280,18 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "BRITON - Strategy 6")
-	(chat-to-allies "39 Now I will train longbows, infantry and trebuchets!")
+	(chat-to-allies "39 Now I will train longbows, militiaman-line and trebuchets!")
 )
 
 #end-if		;if civ = Briton
@@ -305,15 +305,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "BYZANTINE - Strategy 1")
 	(chat-to-allies "39 Now I will train cataphracts, spearmen, bombards-cannons and trebuchets!")
@@ -326,15 +326,15 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self  "BYZANTINE - Strategy 2")
 	(chat-to-allies "39 Now I will train cataphracts, spearmen, mangonels and bombrad-cannons!")
@@ -347,18 +347,18 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self  "BYZANTINE - Strategy 3")
-	(chat-to-allies "39 Now I will train knights, infantry, trebuchets and bombard-cannons!")
+	(chat-to-allies "39 Now I will train knights, militiaman-line, trebuchets and bombard-cannons!")
 )
 
 
@@ -368,18 +368,18 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CAMEL)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CAMEL)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT camel-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 camel-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "BYZANTINE - Strategy 4")
-	(chat-to-allies "39 Now I will train camels, infantry, mangonels and trebs!")
+	(chat-to-allies "39 Now I will train camels, militiaman-line, mangonels and trebs!")
 )
 
 
@@ -389,15 +389,15 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SKIRMISHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT skirmisher-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 skirmisher-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self  "BYZANTINE - Strategy 5")
 	(chat-to-allies "39 Now I will train cataphracts, skirms, trebs and bombard-cannons!")
@@ -410,15 +410,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT archer-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 archer-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "BYZANTINE - Strategy 6")
 	(chat-to-allies "39 Now I will train archers, light cavalry, bombard-cannons and trebs!")
@@ -435,14 +435,14 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT NO)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 NO)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT NO)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 NO)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "CELTIC - Strategy 1")
@@ -456,18 +456,18 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT NO)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 NO)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT NO)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 NO)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CELTIC - Strategy 2")
-	(chat-to-allies "39 Now I will train infantry and lots of scorpions!")
+	(chat-to-allies "39 Now I will train militiaman-line and lots of scorpions!")
 )
 
 
@@ -477,15 +477,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CELTIC - Strategy 3")
 	(chat-to-allies "39 Now I will train woad-raiders, knights, mangonels and trebs!")
@@ -498,18 +498,18 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 SCORPION)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 scorpion-line)
 
 ;	(chat-local-to-self  "CELTIC - Strategy 4")
-	(chat-to-allies "39 Now I will train knights, infantry, trebs and scorpions!")
+	(chat-to-allies "39 Now I will train knights, militiaman-line, trebs and scorpions!")
 )
 
 
@@ -519,18 +519,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CELTIC - Strategy 5")
-	(chat-to-allies "39 Now I will train cavarchers, light cavalry, scorpions and trebs!")
+	(chat-to-allies "39 Now I will train cavalry-archer-lines, light cavalry, scorpions and trebs!")
 )
 
 
@@ -540,18 +540,18 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 SCORPION)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 scorpion-line)
 
 ;	(chat-local-to-self  "CELTIC - Strategy 6")
-	(chat-to-allies "39 Now I will train knights, infantry, trebs and scorpions!")
+	(chat-to-allies "39 Now I will train knights, militiaman-line, trebs and scorpions!")
 )
 
 #end-if		;if civ = Celtic
@@ -565,15 +565,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CHINESE - Strategy 1")
 	(chat-to-allies "39 Now I will train light cavalry, chu-ko-nus, scorpions and trebs!")
@@ -586,18 +586,18 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CHINESE - Strategy 2")
-	(chat-to-allies "39 Now I will train infantry, archers, scorpions and trebs!")
+	(chat-to-allies "39 Now I will train militiaman-line, archers, scorpions and trebs!")
 )
 
 
@@ -607,15 +607,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT archer-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 archer-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CHINESE - Strategy 3")
 	(chat-to-allies "39 Now I will train archers, spearmen, rams and trebs!")
@@ -628,18 +628,18 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CHINESE - Strategy 4")
-	(chat-to-allies "39 Now I will train infantry, chu-ko-nus, scorpions and trebs!")
+	(chat-to-allies "39 Now I will train militiaman-line, chu-ko-nus, scorpions and trebs!")
 )
 
 
@@ -649,18 +649,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CHINESE - Strategy 5")
-	(chat-to-allies "39 Now I will train infantry, archers, scorpions and trebs!")
+	(chat-to-allies "39 Now I will train militiaman-line, archers, scorpions and trebs!")
 )
 
 
@@ -670,15 +670,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT archer-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 archer-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CHINESE - Strategy 6")
 	(chat-to-allies "39 Now I will train archers, spearmen, rams and trebs!")
@@ -695,15 +695,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "FRANKISH - Strategy 1")
 	(chat-to-allies "39 Now I will train throwing-axemen, knights, bombard-cannons and trebs!")
@@ -716,14 +716,14 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "FRANKISH - Strategy 2")
@@ -737,15 +737,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "FRANKISH - Strategy 3")
 	(chat-to-allies "39 Now I will train knights, spearmen, scorpions and trebs!")
@@ -758,15 +758,15 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "FRANKISH - Strategy 4")
 	(chat-to-allies "39 Now I will train throwing-axemen, knights, rams and trebs!")
@@ -779,13 +779,13 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 
 ;	(chat-local-to-self  "FRANKISH - Strategy 5")
 	(chat-to-allies "39 Now I will train knights, skirms and trebuchets!")
@@ -798,15 +798,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "FRANKISH - Strategy 6")
 	(chat-to-allies "39 Now I will train throwing-axemen, knights and trebuchets!")
@@ -823,18 +823,18 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SKIRMISHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT skirmisher-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 skirmisher-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "GOTHIC - Strategy 1")
-	(chat-to-allies "39 Now I will train huskarls, infantry, bombard-cannons and trebs!")
+	(chat-to-allies "39 Now I will train huskarls, militiaman-line, bombard-cannons and trebs!")
 )
 
 
@@ -844,18 +844,18 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SKIRMISHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT skirmisher-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 skirmisher-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "GOTHIC - Strategy 2")
-	(chat-to-allies "39 Now I will train huskarls, infantry, bombard-cannons and trebs!")
+	(chat-to-allies "39 Now I will train huskarls, militiaman-line, bombard-cannons and trebs!")
 )
 
 
@@ -865,18 +865,18 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "GOTHIC - Strategy 3")
-	(chat-to-allies "39 Now I will train infantry, huskarls, bombard-cannons and trebs!")
+	(chat-to-allies "39 Now I will train militiaman-line, huskarls, bombard-cannons and trebs!")
 )
 
 
@@ -886,15 +886,15 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "GOTHIC - Strategy 4")
 	(chat-to-allies "39 Now I will train knights, huskarls rams and trebs!")
@@ -907,15 +907,15 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "GOTHIC - Strategy 5")
 	(chat-to-allies "39 Now I will train knights, swordsmen, bombard-cannons and trebs!")
@@ -928,15 +928,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "GOTHIC - Strategy 6")
 	(chat-to-allies "39 Now I will train huskarls, spearmen, bombard-cannons and trebs!")
@@ -953,15 +953,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "HUN - Strategy 1")
 	(chat-to-allies "39 Now I will train knights, spearmen, rams and trebs!")
@@ -974,15 +974,15 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 
 ;	(chat-local-to-self  "HUN - Strategy 2")
 	(chat-to-allies "39 Now I will train tarkans, spearmen, trebs and rams!")
@@ -995,18 +995,18 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CAVARCHER)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT2 cavalry-archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "HUN - Strategy 3")
-	(chat-to-allies "39 Now I will train light cavalry, cavarcher and trebuchets!")
+	(chat-to-allies "39 Now I will train light cavalry, cavalry-archer-line and trebuchets!")
 )
 
 
@@ -1016,18 +1016,18 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "HUN - Strategy 4")
-	(chat-to-allies "39 Now I will train cavarchers, light cavalry, rams and trebs!")
+	(chat-to-allies "39 Now I will train cavalry-archer-lines, light cavalry, rams and trebs!")
 )
 
 
@@ -1037,14 +1037,14 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "HUN - Strategy 5")
@@ -1058,18 +1058,18 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "HUN - Strategy 6")
-	(chat-to-allies "39 Now I will train cavarchers, light cavalry, rams and trebs!")
+	(chat-to-allies "39 Now I will train cavalry-archer-lines, light cavalry, rams and trebs!")
 )
 
 #end-if		;if civ = Hun
@@ -1083,18 +1083,18 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "JAPANESE - Strategy 1")
-	(chat-to-allies "39 Now I will train infantry, archers, scorps and trebuchets!")
+	(chat-to-allies "39 Now I will train militiaman-line, archers, scorps and trebuchets!")
 )
 
 
@@ -1104,15 +1104,15 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SKIRMISHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT skirmisher-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 skirmisher-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 SCORPION)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 scorpion-line)
 
 ;	(chat-local-to-self  "JAPANESE - Strategy 2")
 	(chat-to-allies "39 Now I will train samurai, skirmishers, mangonels and scorps!")
@@ -1125,14 +1125,14 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT archer-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 archer-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "JAPANESE - Strategy 3")
@@ -1146,15 +1146,15 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 
 ;	(chat-local-to-self  "JAPANESE - Strategy 4")
 	(chat-to-allies "39 Now I will train samurais, archers, scorpions and rams!")
@@ -1167,18 +1167,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 
 ;	(chat-local-to-self  "JAPANESE - Strategy 5")
-	(chat-to-allies "39 Now I will train infantry, archers, scorpions and rams!")
+	(chat-to-allies "39 Now I will train militiaman-line, archers, scorpions and rams!")
 )
 
 
@@ -1188,15 +1188,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "JAPANESE - Strategy 6")
 	(chat-to-allies "39 Now I will train samurais, archers and trebuchets!")
@@ -1209,15 +1209,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "ITALIAN - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1229,15 +1229,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MAGYAR - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1248,15 +1248,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "INDIAN - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1267,15 +1267,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "SLAVIC - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1286,15 +1286,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "INCAN - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1305,15 +1305,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "PORTUGUESE - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1324,15 +1324,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "ETHIOPIAN - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1343,15 +1343,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MALIAN - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1362,15 +1362,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "BERBERS - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1381,15 +1381,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "BULGARIANS - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1400,15 +1400,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "KHMER - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1419,15 +1419,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MALAY - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1438,15 +1438,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "BURMESE - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1457,15 +1457,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "VIETNAMESE - Strategy 1")
 	(chat-to-allies "39 Now I will train unique unit, swordsmen, rams and trebs!")
@@ -1479,15 +1479,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MONGOL - Strategy 1")
 	(chat-to-allies "39 Now I will train magudais, swordsmen, rams and trebs!")
@@ -1500,15 +1500,15 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT STEPPE-LANCER)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 STEPPE-LANCER)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT steppe-lancer-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 steppe-lancer-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MONGOL - Strategy 2")
 	(chat-to-allies "39 Now I will train sowrdsmen, archers, rams and trebs!")
@@ -1521,15 +1521,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MONGOL - Strategy 3")
 	(chat-to-allies "39 Now I will train mangudais, light cavalry, scorps and trebs!")
@@ -1542,15 +1542,15 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MONGOL - Strategy 4")
 	(chat-to-allies "39 Now I will train mangudais, light cavalry, mangonels and trebs!")
@@ -1563,18 +1563,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CAVARCHER)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT2 cavalry-archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MONGOL - Strategy 5")
-	(chat-to-allies "39 Now I will train light cavalry, cavarchers, mangonels and trebs!")
+	(chat-to-allies "39 Now I will train light cavalry, cavalry-archer-lines, mangonels and trebs!")
 )
 
 
@@ -1584,15 +1584,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MONGOL - Strategy 6")
 	(chat-to-allies "39 Now I will train mangudais, light cavalry, mangonels and trebs!")
@@ -1609,18 +1609,18 @@
 	(random-number < 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 NO)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT2 NO)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "TATARS - Strategy 1")
-	(chat-to-allies "39 Now I will train keshiks, cavarchers, rams and trebs!")
+	(chat-to-allies "39 Now I will train keshiks, cavalry-archer-lines, rams and trebs!")
 )
 
 
@@ -1630,15 +1630,15 @@
 	(random-number >= 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 NO)
-	(set-goal SECONDARY-COMBAT-UNIT2 NO)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 NO)
+	(set-goal G-SECONDARY-UNIT2 NO)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "TATARS - Strategy 2")
 	(chat-to-allies "39 Now I will train light cavalry, cav archers, rams and trebs!")
@@ -1654,15 +1654,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "KOREAN - Strategy 1")
 	(chat-to-allies "39 Now I will train war-wagons, spearmen, mangonels and trebs!")
@@ -1675,18 +1675,18 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT archer-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 archer-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "KOREAN - Strategy 2")
-	(chat-to-allies "39 Now I will train archers, infantry, mangonels and trebs!")
+	(chat-to-allies "39 Now I will train archers, militiaman-line, mangonels and trebs!")
 )
 
 
@@ -1696,15 +1696,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "KOREAN - Strategy 3")
 	(chat-to-allies "39 Now I will train war-wagons, spearmen, mangonels and trebs!")
@@ -1717,15 +1717,15 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "KOREAN - Strategy 4")
 	(chat-to-allies "39 Now I will train war-wagons, spearmen, magonels and trebs!")
@@ -1738,18 +1738,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT archer-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 archer-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "KOREAN - Strategy 5")
-	(chat-to-allies "39 Now I will train archers, infantry, mangonels and trebs!")
+	(chat-to-allies "39 Now I will train archers, militiaman-line, mangonels and trebs!")
 )
 
 
@@ -1759,15 +1759,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "KOREAN - Strategy 6")
 	(chat-to-allies "39 Now I will train war-wagons, spearmen, magonels and trebs!")
@@ -1784,18 +1784,18 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MAYAN - Strategy 1")
-	(chat-to-allies "39 Now I will train plumed-archers, infantry, rams and trebs!")
+	(chat-to-allies "39 Now I will train plumed-archers, militiaman-line, rams and trebs!")
 )
 
 
@@ -1805,14 +1805,14 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 EAGLEMAN)
-	(set-goal SECONDARY-COMBAT-UNIT2 SKIRMISHER)
+	(set-goal G-PRIMARY-UNIT eagle-warrior-line)
+	(set-goal G-SECONDARY-UNIT skirmisher-line)
+	(set-goal G-PRIMARY-UNIT2 eagle-warrior-line)
+	(set-goal G-SECONDARY-UNIT2 skirmisher-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "MAYAN - Strategy 2")
@@ -1826,14 +1826,14 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "MAYAN - Strategy 3")
@@ -1847,14 +1847,14 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 EAGLEMAN)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT eagle-warrior-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 eagle-warrior-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self  "MAYAN - Strategy 4")
@@ -1868,18 +1868,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MAYAN - Strategy 5")
-	(chat-to-allies "39 Now I will train plumed-archers, infantry, rams and trebs!")
+	(chat-to-allies "39 Now I will train plumed-archers, militiaman-line, rams and trebs!")
 )
 
 
@@ -1889,18 +1889,18 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 NO)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MAYAN - Strategy 6")
-	(chat-to-allies "39 Now I will train plumed-archers, infantry and trebuchets!")
+	(chat-to-allies "39 Now I will train plumed-archers, militiaman-line and trebuchets!")
 )
 
 #end-if		;if civ = Mayan
@@ -1914,15 +1914,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "PERSIAN - Strategy 1")
 	(chat-to-allies "39 Now I will train war-elephants, spearmen, bombard-cannons and trebs!")
@@ -1935,15 +1935,15 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "PERSIAN - Strategy 2")
 	(chat-to-allies "39 Now I will train knights, spearmen, bombard-cannons and trebs!")
@@ -1956,18 +1956,18 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CAVARCHER)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT2 cavalry-archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self "PERSIAN - Strategy 3")
-	(chat-to-allies "39 Now I will train light cavalry, cavarchers, trebs and bombard-cannons!")
+	(chat-to-allies "39 Now I will train light cavalry, cavalry-archer-lines, trebs and bombard-cannons!")
 )
 
 
@@ -1977,18 +1977,18 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 CAVARCHER)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 cavalry-archer-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "PERSIAN - Strategy 4")
-	(chat-to-allies "39 Now I will train cavarchers, light cavalry, rams and trebs!")
+	(chat-to-allies "39 Now I will train cavalry-archer-lines, light cavalry, rams and trebs!")
 )
 
 
@@ -1998,15 +1998,15 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self "PERSIAN - Strategy 5")
 	(chat-to-allies "39 Now I will train knights, spearmen, bombard-cannons and trebs!")
@@ -2019,15 +2019,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "PERSIAN - Strategy 6")
 	(chat-to-allies "39 Now I will train war-elephants, spearmen,bombard-cannons and trebs!")
@@ -2044,18 +2044,18 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SARACEN - Strategy 1")
-	(chat-to-allies "39 Now I will train mamelukes, infantry, mangonels and trebs!")
+	(chat-to-allies "39 Now I will train mamelukes, militiaman-line, mangonels and trebs!")
 )
 
 
@@ -2065,18 +2065,18 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SARACEN - Strategy 2")
-	(chat-to-allies "39 Now I will train infantry, archers, rams and trebs!")
+	(chat-to-allies "39 Now I will train militiaman-line, archers, rams and trebs!")
 )
 
 
@@ -2086,15 +2086,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SARACEN - Strategy 3")
 	(chat-to-allies "39 Now I will train mamelukes, light cavalry, amngonels and trebs!")
@@ -2107,15 +2107,15 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT archer-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 archer-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SARACEN - Strategy 4")
 	(chat-to-allies "39 Now I will train archers, mamelukes, mangonels and trebs!")
@@ -2128,18 +2128,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 
 ;	(chat-local-to-self "SARACEN - Strategy 5")
-	(chat-to-allies "39 Now I will train infantry, mamelukes, trebs and rams!")
+	(chat-to-allies "39 Now I will train militiaman-line, mamelukes, trebs and rams!")
 )
 
 
@@ -2149,15 +2149,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SARACEN - Strategy 6")
 	(chat-to-allies "39 Now I will train mamelukes, light cavalry, mangonels and trebs!")
@@ -2174,15 +2174,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY1)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY1)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SPANISH - Strategy 1")
 	(chat-to-allies "39 Now I will train swordsmen, conquistadors, bombard-cannons and trebs!")
@@ -2195,15 +2195,15 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SPANISH - Strategy 2")
 	(chat-to-allies "39 Now I will train conquistadors, light cavalry, bombard-cannons and trebs!")
@@ -2216,15 +2216,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SPANISH - Strategy 3")
 	(chat-to-allies "39 Now I will train knights, swordsmen, bombard-cannons and trebs!")
@@ -2237,15 +2237,15 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SPANISH - Strategy 4")
 	(chat-to-allies "39 Now I will train light cavalry, sowrdsmen, bombard-cannons and trebs!")
@@ -2258,18 +2258,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 mangonel-line)
 
 ;	(chat-local-to-self "SPANISH - Strategy 5")
-	(chat-to-allies "39 Now I will train knights, infantry, bombard-cannons and mangonels!")
+	(chat-to-allies "39 Now I will train knights, militiaman-line, bombard-cannons and mangonels!")
 )
 
 
@@ -2279,15 +2279,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT spearman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 spearman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "SPANISH - Strategy 6")
 	(chat-to-allies "39 Now I will train conquistadors, pikemen, bombard-cannons and trebs!")
@@ -2304,15 +2304,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 SKIRMISHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT skirmisher-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 skirmisher-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "TEUTONIC - Strategy 1")
 	(chat-to-allies "39 Now I will train teutonic-knights, skirmishers, bombard-can. and trebs!")
@@ -2325,18 +2325,18 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self "TEUTONIC - Strategy 2")
-	(chat-to-allies "39 Now I will train knights, infantry, trebs and bombard-cannons!")
+	(chat-to-allies "39 Now I will train knights, militiaman-line, trebs and bombard-cannons!")
 )
 
 
@@ -2346,18 +2346,18 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "TEUTONIC - Strategy 3")
-	(chat-to-allies "39 Now I will train infantry, knights, bombard-cannons and trebs!")
+	(chat-to-allies "39 Now I will train militiaman-line, knights, bombard-cannons and trebs!")
 )
 
 
@@ -2367,18 +2367,18 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "TEUTONIC - Strategy 4")
-	(chat-to-allies "39 Now I will train knights, infantry, rams and trebs!")
+	(chat-to-allies "39 Now I will train knights, militiaman-line, rams and trebs!")
 )
 
 
@@ -2388,18 +2388,18 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self "TEUTONIC - Strategy 5")
-	(chat-to-allies "39 Now I will train infantry, knights, scorpions and bombard-can.!")
+	(chat-to-allies "39 Now I will train militiaman-line, knights, scorpions and bombard-can.!")
 )
 
 
@@ -2409,15 +2409,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 KNIGHT)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT knight-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 knight-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "TEUTONIC - Strategy 6")
 	(chat-to-allies "39 Now I will train knights, teutonic-knights, bombard-can. and trebs!")
@@ -2434,15 +2434,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "TURKISH - Strategy 1")
 	(chat-to-allies "39 Now I will train janissaries, light cavalry, bombard-can. and trebs!")
@@ -2455,15 +2455,15 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self "TURKISH - Strategy 2")
 	(chat-to-allies "39 Now I will train light cavalry, swordsmen, rams and bombard-cannons!")
@@ -2476,15 +2476,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self "TURKISH - Strategy 3")
 	(chat-to-allies "39 Now I will train janissaries, light cavalry, magonels and bombard-can.!")
@@ -2497,15 +2497,15 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "TURKISH - Strategy 4")
 	(chat-to-allies "39 Now I will train janissaries, swordsmen, bombard-cannons and trebs!")
@@ -2518,15 +2518,15 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
+	(set-goal G-PRIMARY-UNIT2 scout-cavalry-line)
+	(set-goal G-SECONDARY-UNIT2 my-unique-unit-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "TURKISH - Strategy 5")
 	(chat-to-allies "39 Now I will train light cavalry, janissaries, bombard-can. and trebs!")
@@ -2539,15 +2539,15 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "TURKISH - Strategy 6")
 	(chat-to-allies "39 Now I will train janissaries, light cavalry, bombard-can. and trebs!")
@@ -2564,15 +2564,15 @@
 	(random-number == 1)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY1)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY1)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "VIKING - Strategy 1")
 	(chat-to-allies "39 Now I will train swordsmen, archers, scorpions and trebs!")
@@ -2585,14 +2585,14 @@
 	(random-number == 2)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self "VIKING - Strategy 2")
@@ -2606,15 +2606,15 @@
 	(random-number == 3)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "VIKING - Strategy 3")
 	(chat-to-allies "39 Now I will train berserks, archers, mangonels and trebs!")
@@ -2627,18 +2627,18 @@
 	(random-number == 4)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT NO)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 NO)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT NO)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 NO)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "VIKING - Strategy 4")
-	(chat-to-allies "39 Now I will train infantry, lots of scorpions and trebs!")
+	(chat-to-allies "39 Now I will train militiaman-line, lots of scorpions and trebs!")
 )
 
 
@@ -2648,15 +2648,15 @@
 	(random-number == 5)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT NO)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 NO)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT NO)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 NO)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self "VIKING - Strategy 5")
 	(chat-to-allies "39 Now I will train berserks, lots of scorpions and trebs!")
@@ -2669,18 +2669,18 @@
 	(random-number == 6)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 INFANTRY)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 militiaman-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT NO)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 NO)
 
 ;	(chat-local-to-self "VIKING - Strategy 6")
-	(chat-to-allies "39 Now I will train infantry, archers and trebuchets!")
+	(chat-to-allies "39 Now I will train militiaman-line, archers and trebuchets!")
 )
 
 #end-if		;if civ = Viking
@@ -2689,7 +2689,7 @@
 
 ;**************************************************************************************
 ;**************************************************************************************
-;IF WE WANT TO TRAIN UNIQUE-UNITS, BUT DO NOT HAVE CASTLE YET -> TRAIN KNIGHTS UNTIL THEN
+;IF WE WANT TO TRAIN my-unique-unit-lineS, BUT DO NOT HAVE CASTLE YET -> TRAIN knight-lineS UNTIL THEN
 
 
 
@@ -2698,22 +2698,22 @@
 
 (defrule
 	(current-age >= castle-age)
-	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(not (goal PRIMARY-COMBAT-UNIT KNIGHT))
+	(goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(not (goal G-PRIMARY-UNIT knight-line))
 	(building-type-count castle == 0)
 =>					;then
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(set-goal G-PRIMARY-UNIT knight-line)
 	(chat-to-player every-ally "39 As I don't have a castle to train my unique-unit I will train knights")
 	(chat-to-player every-ally "until I have one!")
 )
 
 (defrule
 	(current-age >= castle-age)
-	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(not (goal SECONDARY-COMBAT-UNIT KNIGHT))
+	(goal G-SECONDARY-UNIT2 my-unique-unit-line)
+	(not (goal G-SECONDARY-UNIT knight-line))
 	(building-type-count castle == 0)
 =>					;then
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
+	(set-goal G-SECONDARY-UNIT knight-line)
 	(chat-to-player every-ally "39 As I don't have a castle to train my unique-unit I will train knights")
 	(chat-to-player every-ally "until I have one!")
 )
@@ -2722,11 +2722,11 @@
 
 (defrule
 	(current-age >= castle-age)
-	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(not (goal PRIMARY-COMBAT-UNIT EAGLEMAN))
+	(goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(not (goal G-PRIMARY-UNIT eagle-warrior-line))
 	(building-type-count castle == 0)
 =>					;then
-	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(set-goal G-PRIMARY-UNIT eagle-warrior-line)
 	(chat-to-player every-ally "39 As I don't have a castle to train my unique-unit I will train eagle-warriors")
 	(chat-to-player every-ally "until I have one!")
 )
@@ -2735,11 +2735,11 @@
 
 (defrule
 	(current-age >= castle-age)
-	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(not (goal SECONDARY-COMBAT-UNIT EAGLEMAN))
+	(goal G-SECONDARY-UNIT2 my-unique-unit-line)
+	(not (goal G-SECONDARY-UNIT eagle-warrior-line))
 	(building-type-count castle == 0)
 =>					;then
-	(set-goal SECONDARY-COMBAT-UNIT EAGLEMAN)
+	(set-goal G-SECONDARY-UNIT eagle-warrior-line)
 	(chat-to-player every-ally "39 As I don't have a castle to train my unique-unit I will train eagle-warriors")
 	(chat-to-player every-ally "until I have one!")
 )
@@ -2751,11 +2751,11 @@
 
 (defrule
 	(current-age >= castle-age)
-	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(not (goal PRIMARY-COMBAT-UNIT EAGLEMAN))
+	(goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(not (goal G-PRIMARY-UNIT eagle-warrior-line))
 	(building-type-count castle == 0)
 =>					;then
-	(set-goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(set-goal G-PRIMARY-UNIT eagle-warrior-line)
 	(chat-to-player every-ally "39 As I don't have a castle to train my unique-unit I will train eagle-warriors")
 	(chat-to-player every-ally "until I have one!")
 )
@@ -2764,11 +2764,11 @@
 
 (defrule
 	(current-age >= castle-age)
-	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(not (goal SECONDARY-COMBAT-UNIT EAGLEMAN))
+	(goal G-SECONDARY-UNIT2 my-unique-unit-line)
+	(not (goal G-SECONDARY-UNIT eagle-warrior-line))
 	(building-type-count castle == 0)
 =>					;then
-	(set-goal SECONDARY-COMBAT-UNIT EAGLEMAN)
+	(set-goal G-SECONDARY-UNIT eagle-warrior-line)
 	(chat-to-player every-ally "39 As I don't have a castle to train my unique-unit I will train eagle-warriors")
 	(chat-to-player every-ally "until I have one!")
 )
@@ -2779,24 +2779,24 @@
 
 (defrule
 	(current-age >= castle-age)
-	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(not (goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT))
+	(goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(not (goal G-PRIMARY-UNIT my-unique-unit-line))
 	(building-type-count castle > 0)
 =>					;then
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
 	(chat-to-player every-ally "39 As I have a castle now and my original plan considered this,")
-	(chat-to-player every-ally "I can train my unique-unit as primary-combat-unit!")
+	(chat-to-player every-ally "I can train my unique-unit as G-PRIMARY-UNIT!")
 )
 
 (defrule
 	(current-age >= castle-age)
-	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(not (goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT))
+	(goal G-SECONDARY-UNIT2 my-unique-unit-line)
+	(not (goal G-SECONDARY-UNIT my-unique-unit-line))
 	(building-type-count castle > 0)
 =>					;then
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
 	(chat-to-player every-ally "39 As I have a castle now and my original plan considered this,")
-	(chat-to-player every-ally "I can train my unique-unit as secondary-combat-unit!")
+	(chat-to-player every-ally "I can train my unique-unit as G-SECONDARY-UNIT!")
 )
 ;*******************************************
 #else		;if game != death-match
@@ -2814,15 +2814,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT EAGLEMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 EAGLEMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT eagle-warrior-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 eagle-warrior-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 mangonel-line)
 
 ;	(chat-local-to-self  "AZTEC - Deathmatch-Strategy")
 )
@@ -2861,15 +2861,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 
 ;	(chat-local-to-self  "BRITON - Deathmatch-Strategy")
 )
@@ -2892,21 +2892,21 @@
 ;***********************************************
 ;***********************************************
 
-;trains cataphracts, cavarchers, paladins, handgunners, rams, trebuchets
+;trains cataphracts, cavalry-archer-lines, paladins, handgunners, rams, trebuchets
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CAVARCHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 cavalry-archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "BYZANTINE - Deathmatch-Strategy")
 )
@@ -2946,21 +2946,21 @@
 ;***********************************************
 ;***********************************************
 
-;trains woad raiders, paladins, light cavalry, cavarchers, scorps, trebuchets
+;trains woad raiders, paladins, light cavalry, cavalry-archer-lines, scorps, trebuchets
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CELTIC - Deathmatch-Strategy")
 )
@@ -2999,15 +2999,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "CHINESE - Deathmatch-Strategy")
 )
@@ -3030,21 +3030,21 @@
 ;***********************************************
 ;***********************************************
 
-;trains throwing-axemen, paladins, light cavalry, cavarchers, rams, trebuchets
+;trains throwing-axemen, paladins, light cavalry, cavalry-archer-lines, rams, trebuchets
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "FRANKISH - Deathmatch-Strategy")
 )
@@ -3074,21 +3074,21 @@
 
 
 #load-if-defined HUN-CIV
-;trains tarkans, paladins, light cavalry, cavarchers, rams,  trebuchets
+;trains tarkans, paladins, light cavalry, cavalry-archer-lines, rams,  trebuchets
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT TARKAN)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 TARKAN)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "HUN - Deathmatch-Strategy")
 )
@@ -3121,21 +3121,21 @@
 ;***********************************************
 ;***********************************************
 
-;trains huskarls, light cavalry, cavarchers, scorps, trebuchets
+;trains huskarls, light cavalry, cavalry-archer-lines, scorps, trebuchets
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 scout-cavalry-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "GOTHIC - Deathmatch-Strategy")
 )
@@ -3158,21 +3158,21 @@
 ;***********************************************
 ;***********************************************
 
-;trains samurais, cavarchers, hand-cannoneers, scorps, trebuchets
+;trains samurais, cavalry-archer-lines, hand-cannoneers, scorps, trebuchets
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CAVARCHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 cavalry-archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "JAPANESE - Deathmatch-Strategy")
 )
@@ -3195,21 +3195,21 @@
 ;***********************************************
 ;***********************************************
 
-;trains war-wagons, cavarchers, hand-cannoneers, mangonels, trebuchets
+;trains war-wagons, cavalry-archer-lines, hand-cannoneers, mangonels, trebuchets
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CAVARCHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 cavalry-archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "KOREAN - Deathmatch-Strategy")
 )
@@ -3238,15 +3238,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT EAGLEMAN)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 EAGLEMAN)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT eagle-warrior-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 eagle-warrior-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "MAYAN - Deathmatch-Strategy")
 )
@@ -3275,15 +3275,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 mangonel-line)
 
 ;	(chat-local-to-self  "MONGOL - Deathmatch-Strategy")
 )
@@ -3306,21 +3306,21 @@
 ;***********************************************
 ;***********************************************
 
-;trains elephants, cavarchers, paladins, rams, trebuchets
+;trains elephants, cavalry-archer-lines, paladins, rams, trebuchets
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CAVARCHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 cavalry-archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "PERSIAN - Deathmatch-Strategy")
 )
@@ -3342,21 +3342,21 @@
 ;***********************************************
 ;***********************************************
 
-;trains mamelukes, cavarchers, hand cannoneers, rams, onagers
+;trains mamelukes, cavalry-archer-lines, hand cannoneers, rams, onagers
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CAVARCHER)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 cavalry-archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 mangonel-line)
 
 ;	(chat-local-to-self  "SARACEN - Deathmatch-Strategy")
 )
@@ -3379,21 +3379,21 @@
 ;***********************************************
 ;***********************************************
 
-;trains conquistadors, champs, paladins, hussars, handgunners, cavarchers, rams, trebuchets
+;trains conquistadors, champs, paladins, hussars, handgunners, cavalry-archer-lines, rams, trebuchets
 
 (defrule
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "SPANISH - Deathmatch-Strategy")
 )
@@ -3452,15 +3452,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT knight-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 knight-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "TEUTONIC - Deathmatch-Strategy")
 )
@@ -3489,15 +3489,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 militiaman-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 
 ;	(chat-local-to-self  "TURKISH - Deathmatch-Strategy")
 )
@@ -3526,15 +3526,15 @@
 	(goal COMBAT-COMBO-PARITY NOTICE)
 =>
 	(set-goal COMBAT-COMBO-PARITY DEFINED)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
-	(set-goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
-	(set-goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT archer-line)
+	(set-goal G-PRIMARY-UNIT2 my-unique-unit-line)
+	(set-goal G-SECONDARY-UNIT2 archer-line)
 
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 
 ;	(chat-local-to-self  "VIKING - Deathmatch-Strategy")
 )
@@ -3586,8 +3586,8 @@
 	(current-age == castle-age)
 	(or
 		(or
-			(goal PRIMARY-COMBAT-UNIT KNIGHT)
-			(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+			(goal G-PRIMARY-UNIT knight-line)
+			(goal G-PRIMARY-UNIT eagle-warrior-line)
 		)
 		(and
 			(not (research-available ri-hand-cart))
@@ -3817,7 +3817,7 @@
 
 ;***********************************************
 ;***********************************************
-;PRIMARY-COMBAT-UNIT
+;G-PRIMARY-UNIT
 
 
 
@@ -3829,7 +3829,7 @@
 =>
 	(acknowledge-taunt this-any-ally 56)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the swordsman and the spearman!")
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
 )
 
 #else		;if civ != turkish
@@ -3841,7 +3841,7 @@
 	(acknowledge-taunt this-any-ally 56)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the swordsman and the spearman!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the pikeman!")
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
 )
 
 #end-if		;if civ == turkish
@@ -3852,7 +3852,7 @@
 =>
 	(acknowledge-taunt this-any-ally 57)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the swordsman!")
-	(set-goal PRIMARY-COMBAT-UNIT INFANTRY1)
+	(set-goal G-PRIMARY-UNIT militiaman-line)
 )
 
 #load-if-not-defined TURKISH-CIV
@@ -3863,7 +3863,7 @@
 =>
 	(acknowledge-taunt this-any-ally 58)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the spearman!")
-	(set-goal PRIMARY-COMBAT-UNIT SPEARMAN)
+	(set-goal G-PRIMARY-UNIT spearman-line)
 )
 
 #else		;if civ != turkish
@@ -3875,7 +3875,7 @@
 	(acknowledge-taunt this-any-ally 58)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the spearman!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the pikeman!")
-	(set-goal PRIMARY-COMBAT-UNIT SPEARMAN)
+	(set-goal G-PRIMARY-UNIT spearman-line)
 )
 
 #end-if		;if civ == turkish
@@ -3886,7 +3886,7 @@
 =>
 	(acknowledge-taunt this-any-ally 59)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the archer!")
-	(set-goal PRIMARY-COMBAT-UNIT CROSSBOW)
+	(set-goal G-PRIMARY-UNIT archer-line)
 )
 
 #load-if-not-defined TURKISH-CIV
@@ -3897,7 +3897,7 @@
 =>
 	(acknowledge-taunt this-any-ally 60)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the skirmisher!")
-	(set-goal PRIMARY-COMBAT-UNIT SKIRMISHER)
+	(set-goal G-PRIMARY-UNIT skirmisher-line)
 )
 
 #else		;if civ != turkish
@@ -3909,7 +3909,7 @@
 	(acknowledge-taunt this-any-ally 60)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the skirmisher!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the elite-skirmisher!")
-	(set-goal PRIMARY-COMBAT-UNIT SKIRMISHER)
+	(set-goal G-PRIMARY-UNIT skirmisher-line)
 )
 
 #end-if		;if civ == turkish
@@ -3922,8 +3922,8 @@
 	(taunt-detected any-ally 61)
 =>
 	(acknowledge-taunt this-any-ally 61)
-	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the cavarcher!")
-	(set-goal PRIMARY-COMBAT-UNIT CAVARCHER)
+	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the cavalry-archer-line!")
+	(set-goal G-PRIMARY-UNIT cavalry-archer-line)
 )
 
 #load-if-not-defined TEUTONIC-CIV
@@ -3934,7 +3934,7 @@
 =>
 	(acknowledge-taunt this-any-ally 62)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the light cavalry!")
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
 )
 
 #else		;if civ != teutonic
@@ -3946,7 +3946,7 @@
 	(acknowledge-taunt this-any-ally 62)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the light cavalry!")
 	(chat-to-player this-any-ally "But please consider that I cannot research light cavalry!")
-	(set-goal PRIMARY-COMBAT-UNIT LCAVALRY)
+	(set-goal G-PRIMARY-UNIT scout-cavalry-line)
 )
 
 #end-if		;if civ == teutonic
@@ -3957,7 +3957,7 @@
 =>
 	(acknowledge-taunt this-any-ally 63)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the knight!")
-	(set-goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(set-goal G-PRIMARY-UNIT knight-line)
 )
 
 #load-if-not-defined BRITON-CIV
@@ -3977,7 +3977,7 @@
 =>
 	(acknowledge-taunt this-any-ally 64)
 	(chat-to-player this-any-ally "39 Okay, my primary combat unit is the camel!")
-	(set-goal PRIMARY-COMBAT-UNIT CAMEL)
+	(set-goal G-PRIMARY-UNIT camel-line)
 
 )
 
@@ -4107,10 +4107,10 @@
 	(taunt-detected any-ally 65)
 =>
 	(acknowledge-taunt this-any-ally 65)
-	(set-goal PRIMARY-COMBAT-UNIT UNIQUE-UNIT)
+	(set-goal G-PRIMARY-UNIT my-unique-unit-line)
 )
 ;***********************************************
-;SECONDARY-COMBAT-UNIT
+;G-SECONDARY-UNIT
 
 
 
@@ -4122,7 +4122,7 @@
 =>
 	(acknowledge-taunt this-any-ally 66)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the swordsman and the spearman!")
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
 )
 
 #else		;if civ != turkish
@@ -4134,7 +4134,7 @@
 	(acknowledge-taunt this-any-ally 66)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the swordsman and the spearman!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the pikeman!")
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
 )
 
 #end-if		;if civ == turkish
@@ -4145,7 +4145,7 @@
 =>
 	(acknowledge-taunt this-any-ally 67)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the swordsman!")
-	(set-goal SECONDARY-COMBAT-UNIT INFANTRY1)
+	(set-goal G-SECONDARY-UNIT militiaman-line)
 )
 
 #load-if-not-defined TURKISH-CIV
@@ -4156,7 +4156,7 @@
 =>
 	(acknowledge-taunt this-any-ally 68)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the spearman!")
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
+	(set-goal G-SECONDARY-UNIT spearman-line)
 )
 
 #else		;if civ != turkish
@@ -4168,7 +4168,7 @@
 	(acknowledge-taunt this-any-ally 68)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the spearman!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the pikeman!")
-	(set-goal SECONDARY-COMBAT-UNIT SPEARMAN)
+	(set-goal G-SECONDARY-UNIT spearman-line)
 )
 
 #end-if		;if civ == turkish
@@ -4179,7 +4179,7 @@
 =>
 	(acknowledge-taunt this-any-ally 69)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the archer!")
-	(set-goal SECONDARY-COMBAT-UNIT CROSSBOW)
+	(set-goal G-SECONDARY-UNIT archer-line)
 )
 
 #load-if-not-defined TURKISH-CIV
@@ -4190,7 +4190,7 @@
 =>
 	(acknowledge-taunt this-any-ally 70)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the skirmisher!")
-	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)
+	(set-goal G-SECONDARY-UNIT skirmisher-line)
 )
 
 #else		;if civ != turkish
@@ -4202,7 +4202,7 @@
 	(acknowledge-taunt this-any-ally 70)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the skirmisher!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the elite-skirmisher!")
-	(set-goal SECONDARY-COMBAT-UNIT SKIRMISHER)
+	(set-goal G-SECONDARY-UNIT skirmisher-line)
 )
 
 #end-if		;if civ == turkish
@@ -4215,8 +4215,8 @@
 	(taunt-detected any-ally 71)
 =>
 	(acknowledge-taunt this-any-ally 71)
-	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the cavarcher!")
-	(set-goal SECONDARY-COMBAT-UNIT CAVARCHER)
+	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the cavalry-archer-line!")
+	(set-goal G-SECONDARY-UNIT cavalry-archer-line)
 )
 
 #load-if-not-defined TEUTONIC-CIV
@@ -4227,7 +4227,7 @@
 =>
 	(acknowledge-taunt this-any-ally 72)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the light cavalry!")
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
 )
 
 #else		;if civ != teutonic
@@ -4239,7 +4239,7 @@
 	(acknowledge-taunt this-any-ally 72)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the light cavalry!")
 	(chat-to-player this-any-ally "But please consider that I cannot research the light cavalry!")
-	(set-goal SECONDARY-COMBAT-UNIT LCAVALRY)
+	(set-goal G-SECONDARY-UNIT scout-cavalry-line)
 )
 
 #end-if		;if civ == teutonic
@@ -4250,7 +4250,7 @@
 =>
 	(acknowledge-taunt this-any-ally 73)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the knight!")
-	(set-goal SECONDARY-COMBAT-UNIT KNIGHT)
+	(set-goal G-SECONDARY-UNIT knight-line)
 )
 
 #load-if-not-defined BRITON-CIV
@@ -4270,7 +4270,7 @@
 =>
 	(acknowledge-taunt this-any-ally 74)
 	(chat-to-player this-any-ally "39 Okay, my secondary combat unit is the camel!")
-	(set-goal SECONDARY-COMBAT-UNIT CAMEL)
+	(set-goal G-SECONDARY-UNIT camel-line)
 
 )
 
@@ -4400,8 +4400,8 @@
 	(taunt-detected any-ally 75)
 =>
 	(acknowledge-taunt this-any-ally 75)
-	(chat-to-player every-ally "39 My primary-combat-unit is my unique-unit now!")
-	(set-goal SECONDARY-COMBAT-UNIT UNIQUE-UNIT)
+	(chat-to-player every-ally "39 My G-PRIMARY-UNIT is my unique-unit now!")
+	(set-goal G-SECONDARY-UNIT my-unique-unit-line)
 )
 ;************************
 ;SIEGE WEAPONS
@@ -4414,7 +4414,7 @@
 =>
 	(acknowledge-taunt this-any-ally 76)
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the ram now!")
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
 )
 
 (defrule
@@ -4423,7 +4423,7 @@
 =>
 	(acknowledge-taunt this-any-ally 77)
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the mangonel now!")
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
 )
 
 (defrule
@@ -4432,7 +4432,7 @@
 =>
 	(acknowledge-taunt this-any-ally 78)
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the scorpion now!")
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
 )
 
 #load-if-not-defined BYZANTINE-CIV
@@ -4479,7 +4479,7 @@
 =>
 	(acknowledge-taunt this-any-ally 79)
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the bombard-cannon!")
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT bombard-cannon)
 )
 
 #end-if		;if civ != viking
@@ -4498,7 +4498,7 @@
 =>
 	(acknowledge-taunt this-any-ally 80)
 	(chat-to-player this-any-ally "39 Okay, my primary-combat-siege-unit is the trebuchet now!")
-	(set-goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 )
 
 
@@ -4509,7 +4509,7 @@
 =>
 	(acknowledge-taunt this-any-ally 81)
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the ram now!")
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
 )
 
 (defrule
@@ -4518,7 +4518,7 @@
 =>
 	(acknowledge-taunt this-any-ally 82)
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the mangonel now!")
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
 )
 
 (defrule
@@ -4527,7 +4527,7 @@
 =>
 	(acknowledge-taunt this-any-ally 83)
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the scorpion now!")
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
 )
 
 #load-if-not-defined BYZANTINE-CIV
@@ -4574,7 +4574,7 @@
 =>
 	(acknowledge-taunt this-any-ally 84)
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the bombard-cannon!")
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT BOMBARD-CANNON)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT bombard-cannon)
 )
 
 #end-if		;if civ != viking
@@ -4593,7 +4593,7 @@
 =>
 	(acknowledge-taunt this-any-ally 85)
 	(chat-to-player this-any-ally "39 Okay, my secondary-combat-siege-unit is the trebuchet now!")
-	(set-goal SECONDARY-COMBAT-SIEGE-UNIT TREBUCHET)
+	(set-goal SECONDARY-COMBAT-SIEGE-UNIT trebuchet)
 )
 
 
@@ -4645,14 +4645,14 @@
 	(chat-to-allies "39 Okay, you want me to stick to my original plan..")
 )
 ;*****************************
-;PRIMARY-COMBAT-UNIT
+;G-PRIMARY-UNIT
 
 
 
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 EAGLEMAN)
+	(goal G-PRIMARY-UNIT2 eagle-warrior-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is the eagle-warrior!")
 )
@@ -4660,15 +4660,15 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 INFANTRY)
+	(goal G-PRIMARY-UNIT2 militiaman-line)
 =>					;then
-	(chat-to-allies "My primary combat unit is infantry!")
+	(chat-to-allies "My primary combat unit is militiaman-line!")
 )
 
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 INFANTRY1)
+	(goal G-PRIMARY-UNIT2 militiaman-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is the swordsman!")
 )
@@ -4676,7 +4676,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 SPEARMAN)
+	(goal G-PRIMARY-UNIT2 spearman-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is the spearman!")
 )
@@ -4685,7 +4685,7 @@
 	(current-age >= castle-age)
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 CROSSBOW)
+	(goal G-PRIMARY-UNIT2 archer-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is the archer!")
 )
@@ -4693,7 +4693,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 SKIRMISHER)
+	(goal G-PRIMARY-UNIT2 skirmisher-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is the skirmisher!")
 )
@@ -4701,7 +4701,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 CAVARCHER)
+	(goal G-PRIMARY-UNIT2 cavalry-archer-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is the cavalry-archer!")
 )
@@ -4709,7 +4709,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 LCAVALRY)
+	(goal G-PRIMARY-UNIT2 scout-cavalry-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is the light-cavalry!")
 )
@@ -4717,7 +4717,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 KNIGHT)
+	(goal G-PRIMARY-UNIT2 knight-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is the knight!")
 )
@@ -4725,7 +4725,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 CAMEL)
+	(goal G-PRIMARY-UNIT2 camel-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is the camel!")
 )
@@ -4735,19 +4735,19 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(goal G-PRIMARY-UNIT2 my-unique-unit-line)
 =>					;then
 	(chat-to-allies "My primary combat unit is my unique-unit!")
 )
 ;*****************************
-;SECONDARY-COMBAT-UNIT
+;G-SECONDARY-UNIT
 
 
 
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 EAGLEMAN)
+	(goal G-SECONDARY-UNIT2 eagle-warrior-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the eagle-warrior!")
 )
@@ -4755,15 +4755,15 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 INFANTRY)
+	(goal G-SECONDARY-UNIT2 militiaman-line)
 =>					;then
-	(chat-to-allies "My secondary combat unit is infantry!")
+	(chat-to-allies "My secondary combat unit is militiaman-line!")
 )
 
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 INFANTRY1)
+	(goal G-SECONDARY-UNIT2 militiaman-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the swordsman!")
 )
@@ -4771,7 +4771,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 SPEARMAN)
+	(goal G-SECONDARY-UNIT2 spearman-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the spearman!")
 )
@@ -4779,7 +4779,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 CROSSBOW)
+	(goal G-SECONDARY-UNIT2 archer-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the archer!")
 )
@@ -4787,7 +4787,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 SKIRMISHER)
+	(goal G-SECONDARY-UNIT2 skirmisher-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the skirmisher!")
 )
@@ -4795,7 +4795,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 CAVARCHER)
+	(goal G-SECONDARY-UNIT2 cavalry-archer-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the cavalry-archer!")
 )
@@ -4803,7 +4803,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 LCAVALRY)
+	(goal G-SECONDARY-UNIT2 scout-cavalry-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the light-cavalry!")
 )
@@ -4811,7 +4811,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 KNIGHT)
+	(goal G-SECONDARY-UNIT2 knight-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the knight!")
 )
@@ -4819,7 +4819,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 CAMEL)
+	(goal G-SECONDARY-UNIT2 camel-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the camel!")
 )
@@ -4829,7 +4829,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-UNIT2 UNIQUE-UNIT)
+	(goal G-SECONDARY-UNIT2 my-unique-unit-line)
 =>					;then
 	(chat-to-allies "My secondary combat unit is the unique-unit!")
 )
@@ -4841,7 +4841,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-SIEGE-UNIT2 MANGONEL)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT2 mangonel-line)
 =>					;then
 	(chat-to-allies "My primary combat siege unit is the mangonel!")
 )
@@ -4849,7 +4849,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-SIEGE-UNIT2 RAM)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 =>					;then
 	(chat-to-allies "My primary combat siege unit is the ram!")
 )
@@ -4857,7 +4857,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-SIEGE-UNIT2 SCORPION)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT2 scorpion-line)
 =>					;then
 	(chat-to-allies "My primary combat siege unit is the scorpion!")
 )
@@ -4865,7 +4865,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 =>					;then
 	(chat-to-allies "My primary combat siege unit is the bombard-cannon!")
 )
@@ -4873,7 +4873,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal PRIMARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(goal PRIMARY-COMBAT-SIEGE-UNIT2 trebuchet)
 =>					;then
 	(chat-to-allies "My primary combat siege unit is the trebuchet!")
 )
@@ -4885,7 +4885,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-SIEGE-UNIT2 MANGONEL)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT2 mangonel-line)
 =>					;then
 	(chat-to-allies "My secondary combat siege unit is the mangonel!")
 )
@@ -4893,7 +4893,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-SIEGE-UNIT2 RAM)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT2 battering-ram-line)
 =>					;then
 	(chat-to-allies "My secondary combat siege unit is the ram!")
 )
@@ -4901,7 +4901,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-SIEGE-UNIT2 SCORPION)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT2 scorpion-line)
 =>					;then
 	(chat-to-allies "My secondary combat siege unit is the scorpion!")
 )
@@ -4909,7 +4909,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-SIEGE-UNIT2 BOMBARD-CANNON)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT2 bombard-cannon)
 =>					;then
 	(chat-to-allies "My secondary combat siege unit is the bombard-cannon!")
 )
@@ -4917,7 +4917,7 @@
 (defrule
 	(current-age >= castle-age)
 	(taunt-detected any-ally 88)
-	(goal SECONDARY-COMBAT-SIEGE-UNIT2 TREBUCHET)
+	(goal SECONDARY-COMBAT-SIEGE-UNIT2 trebuchet)
 =>					;then
 	(chat-to-allies "My secondary combat siege unit is the trebuchet!")
 )

@@ -245,7 +245,7 @@
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(current-age == feudal-age)
 	(up-research-status c: castle-age >= research-pending)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(goal RUSH-CONTROL CASTLE)
 =>
 	(release-escrow wood)
@@ -773,7 +773,7 @@
 		(unit-type-count-total militiaman-line > 1)
 		(and
 			(and
-				(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+				(goal G-SECONDARY-UNIT militiaman-line)
 				(goal RUSH-CONTROL CASTLE)
 			)
 			(up-research-status c: castle-age >= research-pending)
@@ -794,7 +794,7 @@
 		(unit-type-count-total militiaman-line > TWO-PERCENT-POP)
 		(and
 			(goal RUSH-CONTROL RUSHING)
-			(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+			(goal G-SECONDARY-UNIT militiaman-line)
 		)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -811,8 +811,8 @@
 	(or
 		(unit-type-count-total militiaman-line > TWO-PERCENT-POP)
 		(or
-			(goal PRIMARY-COMBAT-UNIT INFANTRY)
-			(goal PRIMARY-COMBAT-UNIT INFANTRY1)
+			(goal G-PRIMARY-UNIT militiaman-line)
+			(goal G-PRIMARY-UNIT militiaman-line)
 		)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -846,7 +846,7 @@
 		(unit-type-count-total spearman-line >= ONE-PERCENT-POP)
 		(and
 			(goal RUSH-CONTROL RUSHING)
-			(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+			(goal G-SECONDARY-UNIT spearman-line)
 		)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -863,8 +863,8 @@
 	(or
 		(unit-type-count-total spearman-line >= ONE-PERCENT-POP)
 		(or
-			(goal PRIMARY-COMBAT-UNIT SPEARMAN)
-			(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+			(goal G-PRIMARY-UNIT spearman-line)
+			(goal G-SECONDARY-UNIT spearman-line)
 		)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -881,8 +881,8 @@
 	(or
 		(unit-type-count-total eagle-warrior-line >= ONE-PERCENT-POP)
 		(or
-			(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
-			(goal SECONDARY-COMBAT-UNIT EAGLEMAN)
+			(goal G-PRIMARY-UNIT eagle-warrior-line)
+			(goal G-SECONDARY-UNIT eagle-warrior-line)
 		)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -897,16 +897,16 @@
 
 
 
-;CROSSBOW 125 FOOD, 75 GOLD
+;archer-line 125 FOOD, 75 GOLD
 (defrule
- 	(can-research-with-escrow ri-crossbow)
+ 	(can-research-with-escrow ri-archer-line)
 	(unit-type-count-total archer-line > ONE-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
 	(release-escrow gold)
- 	(research ri-crossbow)
-; (chat-local-to-self "research CROSSBOW")
+ 	(research ri-archer-line)
+; (chat-local-to-self "research archer-line")
 )
 
 ;350 FOOD, 300 GOLD
@@ -935,7 +935,7 @@
 	(release-escrow wood)
 	(release-escrow gold)
 	(research ri-elite-skirmisher)
-; (chat-local-to-self "research ELITE-SKIRMISHER")
+; (chat-local-to-self "research ELITE-skirmisher-line")
 )
 
 ;900 FOOD, 500 GOLD
@@ -1042,8 +1042,8 @@
 	(or
 		(unit-type-count-total scout-cavalry-line >= TWO-PERCENT-POP)
 		(or
-			(goal PRIMARY-COMBAT-UNIT LCAVALRY)
-			(goal SECONDARY-COMBAT-UNIT LCAVALRY)
+			(goal G-PRIMARY-UNIT scout-cavalry-line)
+			(goal G-SECONDARY-UNIT scout-cavalry-line)
 		)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -1078,7 +1078,7 @@
 ; (chat-local-to-self "research PALADIN")
 )
 
-;ELITE-STEPPE-LANCER 900 FOOD, 550 GOLD
+;ELITE-steppe-lancer-line 900 FOOD, 550 GOLD
 (defrule
  	(can-research-with-escrow ri-elite-steppe-lancer)
  	(unit-type-count-total steppe-lancer-line >= TWO-PERCENT-POP)
@@ -1087,7 +1087,7 @@
 	(release-escrow food)
 	(release-escrow gold)
  	(research ri-elite-steppe-lancer)
-; (chat-local-to-self "research STEPPE-LANCER")
+; (chat-local-to-self "research steppe-lancer-line")
 )
 
 ;1300 FOOD, 750 GOLD
@@ -1099,7 +1099,7 @@
 	(release-escrow food)
 	(release-escrow gold)
  	(research ri-heavy-camel)
-; (chat-local-to-self "research HEAVY-CAMEL")
+; (chat-local-to-self "research HEAVY-camel-line")
 )
 
 
@@ -1110,7 +1110,7 @@
 
 
 
-;CAPPED-RAM 300 FOOD
+;CAPPED-battering-ram-line 300 FOOD
 (defrule
  	(can-research-with-escrow ri-capped-ram)
 	(unit-type-count-total battering-ram-line > 1)
@@ -1119,16 +1119,16 @@
 =>
 	(release-escrow food)
 	(research ri-capped-ram)
-; (chat-local-to-self "research CAPPED-RAM")
+; (chat-local-to-self "research CAPPED-battering-ram-line")
 )
 
 
-;SIEGE-RAM 1000 FOOD
+;SIEGE-battering-ram-line 1000 FOOD
 (defrule
  	(can-research-with-escrow ri-siege-ram)
 	(or
-		(goal PRIMARY-COMBAT-SIEGE-UNIT RAM)
-		(goal SECONDARY-COMBAT-SIEGE-UNIT RAM)
+		(goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
+		(goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
 	)
 	(food-amount > 1800)
 	(unit-type-count-total battering-ram-line > 2)
@@ -1136,7 +1136,7 @@
 =>
 	(release-escrow food)
  	(research ri-siege-ram)
-; (chat-local-to-self "research SIEGE-RAM")
+; (chat-local-to-self "research SIEGE-battering-ram-line")
 )
 
 
@@ -1144,8 +1144,8 @@
 (defrule
  	(can-research-with-escrow ri-onager)
 	(or
-		(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-		(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
+		(goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+		(goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
 	)
 	(unit-type-count-total mangonel-line > 2)
 	(food-amount > 1000)
@@ -1164,8 +1164,8 @@
  	(can-research-with-escrow ri-siege-onager)
  	(unit-type-count-total mangonel-line > 3)
 	(or
-		(goal PRIMARY-COMBAT-SIEGE-UNIT MANGONEL)
-		(goal SECONDARY-COMBAT-SIEGE-UNIT MANGONEL)
+		(goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
+		(goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
 	)
 	(food-amount > 2600)
 	(gold-amount > 1500)
@@ -1177,12 +1177,12 @@
 ; (chat-local-to-self "research SIEGE-ONAGER")
 )
 
-;HEAVY-SCORPION 1000 FOOD, 1100 WOOD
+;HEAVY-scorpion-line 1000 FOOD, 1100 WOOD
 (defrule
  	(can-research-with-escrow ri-heavy-scorpion)
 	(or
-		(goal PRIMARY-COMBAT-SIEGE-UNIT SCORPION)
-		(goal SECONDARY-COMBAT-SIEGE-UNIT SCORPION)
+		(goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
+		(goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
 	)
 	(unit-type-count-total scorpion-line > 3)
 	(wood-amount > 1400)
@@ -1192,7 +1192,7 @@
 	(release-escrow food)
 	(release-escrow gold)
 	(research ri-heavy-scorpion)
-; (chat-local-to-self "research HEAVY-SCORPION")
+; (chat-local-to-self "research HEAVY-scorpion-line")
 )
 ;************************************************************************************************************
 ;TECHNOLOGIES IN DOCK

@@ -1513,16 +1513,16 @@
 			(or
 				(or
 					(or
-						(goal PRIMARY-COMBAT-UNIT INFANTRY)
-						(goal SECONDARY-COMBAT-UNIT INFANTRY)
+						(goal G-PRIMARY-UNIT militiaman-line)
+						(goal G-SECONDARY-UNIT militiaman-line)
 					)
-					(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+					(goal G-PRIMARY-UNIT eagle-warrior-line)
 				)
-				(goal SECONDARY-COMBAT-UNIT EAGLEMAN)
+				(goal G-SECONDARY-UNIT eagle-warrior-line)
 			)
-			(goal PRIMARY-COMBAT-UNIT SPEARMAN)
+			(goal G-PRIMARY-UNIT spearman-line)
 		)
-		(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+		(goal G-SECONDARY-UNIT spearman-line)
 	)
 =>
 	(set-goal ABLE-TO-BUILD-BARRACKS YES)
@@ -1530,8 +1530,8 @@
 
 (defrule
 	(or
-		(goal PRIMARY-COMBAT-UNIT INFANTRY1)
-		(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+		(goal G-PRIMARY-UNIT militiaman-line)
+		(goal G-SECONDARY-UNIT militiaman-line)
 	)
 =>
 	(set-goal ABLE-TO-BUILD-BARRACKS YES)
@@ -1648,7 +1648,7 @@
 		(goal RUSH-CONTROL CASTLE)
 		(goal RUSH-CONTROL RUSHING)
 	)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 =>
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
@@ -1774,12 +1774,12 @@
 (defrule
 	(or
 		(or
-			(goal PRIMARY-COMBAT-UNIT LCAVALRY)
-			(goal PRIMARY-COMBAT-UNIT KNIGHT)
+			(goal G-PRIMARY-UNIT scout-cavalry-line)
+			(goal G-PRIMARY-UNIT knight-line)
 		)
 		(or
-			(goal PRIMARY-COMBAT-UNIT CAMEL)
-			(goal PRIMARY-COMBAT-UNIT STEPPE-LANCER)
+			(goal G-PRIMARY-UNIT camel-line)
+			(goal G-PRIMARY-UNIT steppe-lancer-line)
 		)
 	)
 =>
@@ -1880,7 +1880,7 @@
 	(goal RUSH-CONTROL CASTLE)
 	(goal ABLE-TO-BUILD-STABLE YES)
 	(wood-amount > 250)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 	(or
 		(goal ALL-ECONOMY-TECH-DONE YES)
 		(wood-amount > 500)
@@ -1900,7 +1900,7 @@
 	(wood-amount > 300)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 =>
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build stable)
@@ -1971,10 +1971,10 @@
 (defrule
 	(or
 		(or
-			(goal PRIMARY-COMBAT-UNIT CROSSBOW)
-			(goal PRIMARY-COMBAT-UNIT CAVARCHER)
+			(goal G-PRIMARY-UNIT archer-line)
+			(goal G-PRIMARY-UNIT cavalry-archer-line)
 		)
-		(goal PRIMARY-COMBAT-UNIT SKIRMISHER)
+		(goal G-PRIMARY-UNIT skirmisher-line)
 	)
 =>
 	(set-goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
@@ -1983,10 +1983,10 @@
 (defrule
 	(or
 		(or
-			(goal SECONDARY-COMBAT-UNIT CROSSBOW)
-			(goal SECONDARY-COMBAT-UNIT CAVARCHER)
+			(goal G-SECONDARY-UNIT archer-line)
+			(goal G-SECONDARY-UNIT cavalry-archer-line)
 		)
-		(goal SECONDARY-COMBAT-UNIT SKIRMISHER)
+		(goal G-SECONDARY-UNIT skirmisher-line)
 	)
 =>
 	(set-goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
@@ -2191,7 +2191,7 @@
 		(not (goal SECONDARY-COMBAT-SIEGE-UNIT NO))
 	)
 	(nand
-		(goal PRIMARY-COMBAT-SIEGE-UNIT TREBUCHET)
+		(goal PRIMARY-COMBAT-SIEGE-UNIT trebuchet)
 		(building-type-count-total castle > 0)
 	)
 	(or
@@ -2233,7 +2233,7 @@
 	(military-population > EIGHT-PERCENT-POP)
 =>
  	(train battering-ram-line)
-;	(chat-local-to-self "train BATTERING-RAM-LINE")
+;	(chat-local-to-self "train ram")
 )
 
 
@@ -2478,7 +2478,9 @@
  	(not (research-available ri-bow-saw))
 	(difficulty >= hard)
 =>
- 	(build town-center)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build town-center)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
  	(up-assign-builders c: 621 c: 4) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
@@ -2491,7 +2493,9 @@
  	(goal ALL-ECONOMY-TECH-DONE YES)
 	(difficulty >= hard)
 =>
- 	(build town-center)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build town-center)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
  	(up-assign-builders c: 621 c: 4) ; town-center-foundation: 621
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
@@ -2506,7 +2510,9 @@
  	(goal ALL-ECONOMY-TECH-DONE YES)
  	(unit-type-count-total villager > 130)
 =>
- 	(build town-center)
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build town-center)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 

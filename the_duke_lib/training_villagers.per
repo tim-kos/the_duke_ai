@@ -1068,8 +1068,8 @@
 	(goal RUSH-ATTACK-STARTED NO)
 	(research-available ri-long-swordsman)
 	(goal TRAIN-VILLAGERS YES)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(goal SECONDARY-COMBAT-UNIT INFANTRY1)
+	(goal G-PRIMARY-UNIT knight-line)
+	(goal G-SECONDARY-UNIT militiaman-line)
 	(unit-type-count-total villager > 28)
 	(food-amount < 300)
 =>
@@ -1082,7 +1082,7 @@
 	(goal RUSH-ATTACK-STARTED NO)
 	(food-amount > 250)
 	(goal TRAIN-VILLAGERS NO)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
+	(goal G-PRIMARY-UNIT knight-line)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
 )
@@ -1093,8 +1093,8 @@
 	(goal RUSH-ATTACK-STARTED NO)
 	(research-available ri-pikeman)
 	(goal TRAIN-VILLAGERS YES)
-	(goal PRIMARY-COMBAT-UNIT KNIGHT)
-	(goal SECONDARY-COMBAT-UNIT SPEARMAN)
+	(goal G-PRIMARY-UNIT knight-line)
+	(goal G-SECONDARY-UNIT spearman-line)
 	(unit-type-count-total villager > 28)
 	(food-amount < 300)
 =>
@@ -1113,7 +1113,7 @@
 		(unit-type-count-total villager < 28)
 	)
 	(goal TRAIN-VILLAGERS YES)
-	(goal PRIMARY-COMBAT-UNIT EAGLEMAN)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(food-amount < 300)
 =>
 	(set-goal TRAIN-VILLAGERS NO)

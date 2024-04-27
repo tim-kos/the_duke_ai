@@ -138,7 +138,7 @@
 		(defconst ABLE-TO-BUILD-STABLE 14)
 		;(defconst NO 0)
 
-;goal 15 = ABLE-TO-UPGRADE-INFANTRY - shows whether the conditions of upgrading the infantry in the different ages are full-filled
+;goal 15 = ABLE-TO-UPGRADE-INFANTRY - shows whether the conditions of upgrading the militiaman-line in the different ages are full-filled
 		(defconst ABLE-TO-UPGRADE-INFANTRY 15)
 		;(defconst NO 0)
 		(defconst LOW 2)
@@ -215,88 +215,30 @@
 		(defconst DEFINED 1)
 		;(defconst FIRST 10)
 ;goal 31 
-(defconst PRIMARY-COMBAT-UNIT 31)
+(defconst G-PRIMARY-UNIT 31)
 		;(defconst NO 0)
 
-		(defconst EAGLEMAN 2)
-		(defconst INFANTRY 3)
-		(defconst CROSSBOW 4)
-		(defconst INFANTRY1 5)
-		(defconst SKIRMISHER 6)
-		(defconst KNIGHT 7)
-		(defconst CAMEL 8)
-		(defconst CAVARCHER 9)
-		(defconst LCAVALRY 10)
-		(defconst MISSIONARY 11)
-
-		(defconst JAGUAR 12)
-		(defconst LONGBOW 13)
-		(defconst CATAPHRACT 14)
-		(defconst WOAD-RAIDER 15)
-		(defconst CHU-KO-NU 16)
-		(defconst THROWING-AXEMAN 17)
-		(defconst TARKAN 18)
-		(defconst HUSKARL 19)
-		(defconst SAMURAI 20)
-		(defconst MANGUDAI 21)
-		(defconst MAMELUKE 22)
-		(defconst WAR-ELEPHANT 23)
-		(defconst TEUTONIC-KNIGHT 24)
-		(defconst JANISSARY 25)
-		(defconst BERSERK 26)
-		(defconst PLUMED-ARCHER 27)
-		(defconst WAR-WAGON 28)
-		(defconst CONQUISTADOR 29)
-		(defconst UNIQUE-UNIT 30)
-
-		(defconst SPEARMAN 31)
-		(defconst STEPPE-LANCER 32)
 ;goal 32 
-(defconst PRIMARY-COMBAT-UNIT2 32)
+(defconst G-PRIMARY-UNIT2 32)
 		;(defconst NO 0)
 
-		;(defconst EAGLEMAN 2)
-		;(defconst CROSSBOW 4)
-		;(defconst SKIRMISHER 6)
-		;(defconst CAMEL 8)
-		;(defconst LCAVALRY 10)
-
-		;(defconst JAGUAR 12)
-		;(defconst CATAPHRACT 14)
-		;(defconst CHU-KO-NU 16)
-		;(defconst TARKAN 18)
-		;(defconst SAMURAI 20)
-		;(defconst MAMELUKE 22)
-		;(defconst TEUTONIC-KNIGHT 24)
-		;(defconst BERSERK 26)
-		;(defconst WAR-WAGON 28)
-
-		;(defconst SPEARMAN 30)
+		;(defconst spearman-line 30)
 ;goal 33 
-(defconst SECONDARY-COMBAT-UNIT 33)
-		;uses the same values that the goal PRIMARY-COMBAT-UNIT uses
+(defconst G-SECONDARY-UNIT 33)
+		;uses the same values that the goal G-PRIMARY-UNIT uses
 
-;goal 34 = SECONDARY-COMBAT-UNIT2 - shows from which unit-type the AI will train much of the units to attack another player; used for the feature that the duke-ai useer can tell the ai which units it should train
-		(defconst SECONDARY-COMBAT-UNIT2 34)
-		;uses the same values that the goal PRIMARY-COMBAT-UNIT uses
+;goal 34 = G-SECONDARY-UNIT2 - shows from which unit-type the AI will train much of the units to attack another player; used for the feature that the duke-ai useer can tell the ai which units it should train
+		(defconst G-SECONDARY-UNIT2 34)
+		;uses the same values that the goal G-PRIMARY-UNIT uses
 
 ;goal 35 = PRIMARY-COMBAT-SIEGE-UNIT - shows from which siege the AI will train plenty
 
 		(defconst PRIMARY-COMBAT-SIEGE-UNIT 35)
 		;(defconst NO 0)
 
-		(defconst MANGONEL 2)
-		(defconst SCORPION 3)
-		(defconst RAM 4)
-		(defconst BOMBARD-CANNON 5)
-		(defconst TREBUCHET 6)
-
 		(defconst PRIMARY-COMBAT-SIEGE-UNIT2 36)
 		;(defconst NO 0)
 
-		;(defconst MANGONEL 2)
-		;(defconst RAM 4)
-		;(defconst TREBUCHET 6)
 		(defconst SECONDARY-COMBAT-SIEGE-UNIT 37)
 		;uses the same values that the goal PRIMARY-COMBAT-SIEGE-UNIT uses
 
@@ -349,20 +291,6 @@
 	;YES / NO
 
 (defconst PRIMARY-UNIT 51)
-
-(defrule
-	(true)
-=>
-	(set-goal PRIMARY-UNIT knight-line)
-	(disable-self)
-)
-
-(defrule
-	(up-can-train-unit 0 g:= PRIMARY-UNIT)
-=>
-	(chat-local-to-self "Training knight with goal!")
-	(up-train 0 g:= PRIMARY-UNIT)
-)
 
 ;-------------------------------------
 
