@@ -9,15 +9,30 @@
 =>
 	(set-goal G-CAN-TRAIN-PRIMARY-UNIT NO)
 	(set-goal G-CAN-TRAIN-SECONDARY-UNIT NO)
+	(up-get-fact unit-type-count PRIMARY-UNIT TEMPORARY-GOAL)
+    (up-get-fact unit-type-count SECONDARY-UNIT TEMPORARY-GOAL2)
+	(set-goal G-PRIMARY-AND-SECONDARY-UNIT-COUNT-DIFF 0)
+	(up-modify-goal G-PRIMARY-AND-SECONDARY-UNIT-COUNT-DIFF c:+ TEMPORARY-GOAL)
+	(up-modify-goal G-PRIMARY-AND-SECONDARY-UNIT-COUNT-DIFF c:- TEMPORARY-GOAL2)
 )
 
 ;Sometimes we do not define a secondary unit. In that case, do not block training
 ;of the primary unit.
 (defrule
-	(goal G-SECONDARY-UNIT NO)
+	(or
+		(goal G-SECONDARY-UNIT NO)
+		(up-compare-goal G-PRIMARY-AND-SECONDARY-UNIT-COUNT-DIFF <= ONE-PERCENT-POP)
+	)
 =>
 	(set-goal G-CAN-TRAIN-PRIMARY-UNIT YES)
 )
+
+(defrule
+	(up-compare-goal G-PRIMARY-AND-SECONDARY-UNIT-COUNT-DIFF >= NEGATIVE-ONE-PERCENT-POP)
+=>
+	(set-goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+)
+
 
 ;---------------------------
 ;BARRACKS UNITS
