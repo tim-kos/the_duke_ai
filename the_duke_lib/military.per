@@ -1,6 +1,23 @@
 #load-if-not-defined WONDER-RACE
 
 
+;Logic to ensure that primary units and secondary units are at most 2% of the population max apart.
+;This is to ensure we have a strong millitary that counter each other's counters
+
+(defrule
+	(true)
+=>
+	(set-goal G-CAN-TRAIN-PRIMARY-UNIT NO)
+	(set-goal G-CAN-TRAIN-SECONDARY-UNIT NO)
+)
+
+;Sometimes we do not define a secondary unit. In that case, do not block training
+;of the primary unit.
+(defrule
+	(goal G-SECONDARY-UNIT NO)
+=>
+	(set-goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+)
 
 ;---------------------------
 ;BARRACKS UNITS
@@ -17,8 +34,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT militiaman-line)
-		(goal G-SECONDARY-UNIT militiaman-line)
+		(and
+			(goal G-PRIMARY-UNIT militiaman-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT militiaman-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(unit-type-count-total militiaman-line < SEVENTY-PERCENT-POP)
 	(can-train militiaman-line)
@@ -31,8 +54,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT militiaman-line)
-		(goal G-SECONDARY-UNIT militiaman-line)
+		(and
+			(goal G-PRIMARY-UNIT militiaman-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT militiaman-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(unit-type-count-total militiaman-line < SEVENTY-PERCENT-POP)
 	(can-train militiaman-line)
@@ -51,13 +80,13 @@
 
 (defrule
 	(or
-		(or
-			(goal G-PRIMARY-UNIT militiaman-line)
+		(and
 			(goal G-PRIMARY-UNIT spearman-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
 		)
-		(or
-			(goal G-SECONDARY-UNIT militiaman-line)
+		(and
 			(goal G-SECONDARY-UNIT spearman-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
 		)
 	)
 	(unit-type-count-total spearman-line < SEVENTY-PERCENT-POP)
@@ -109,6 +138,7 @@
 	(train spearman-line)
 )
 
+;Add some spearmen when rushing when we have enough knights
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
@@ -182,8 +212,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT eagle-warrior-line)
-		(goal G-SECONDARY-UNIT eagle-warrior-line)
+		(and
+			(goal G-PRIMARY-UNIT eagle-warrior-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT eagle-warrior-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(unit-type-count-total eagle-warrior-line < SEVENTY-PERCENT-POP)
 	(can-train eagle-warrior-line)
@@ -246,8 +282,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT archer-line)
-		(goal G-SECONDARY-UNIT archer-line)
+		(and
+			(goal G-PRIMARY-UNIT archer-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT archer-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(building-type-count archery-range >= 1)
 	(unit-type-count-total archer-line < SEVENTY-PERCENT-POP)
@@ -278,8 +320,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT skirmisher-line)
-		(goal G-SECONDARY-UNIT skirmisher-line)
+		(and
+			(goal G-PRIMARY-UNIT skirmisher-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT skirmisher-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(unit-type-count-total skirmisher-line < SEVENTY-PERCENT-POP)
 	(can-train skirmisher-line)
@@ -319,6 +367,7 @@
 	(train skirmisher-line)
 )
 
+;Add skirmishers when castle rushing
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
@@ -360,10 +409,15 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT cavalry-archer-line)
-		(goal G-SECONDARY-UNIT cavalry-archer-line)
+		(and
+			(goal G-PRIMARY-UNIT cavalry-archer-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT cavalry-archer-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
-	(building-type-count archery-range >= 1)
 	(unit-type-count-total cavalry-archer-line < SEVENTY-PERCENT-POP)
 	(can-train cavalry-archer-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
@@ -416,8 +470,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT scout-cavalry-line)
-		(goal G-SECONDARY-UNIT scout-cavalry-line)
+		(and
+			(goal G-PRIMARY-UNIT scout-cavalry-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT scout-cavalry-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(unit-type-count-total scout-cavalry-line < SEVENTY-PERCENT-POP)
 	(can-train scout-cavalry-line)
@@ -450,8 +510,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT knight-line)
-		(goal G-SECONDARY-UNIT knight-line)
+		(and
+			(goal G-PRIMARY-UNIT knight-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT knight-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(unit-type-count-total knight-line < SEVENTY-PERCENT-POP)
 	(can-train knight-line)
@@ -468,8 +534,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT steppe-lancer-line)
-		(goal G-SECONDARY-UNIT steppe-lancer-line)
+		(and
+			(goal G-PRIMARY-UNIT steppe-lancer-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT steppe-lancer-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(unit-type-count-total steppe-lancer-line < SEVENTY-PERCENT-POP)
 	(can-train steppe-lancer-line)
@@ -481,7 +553,7 @@
 	(train steppe-lancer-line)
 )
 
-;Always mix in some nights if we have them available as they are strong.
+;Always mix in some knights if we have them available as they are strong.
 (defrule
 	(military-population >= EIGHT-PERCENT-POP)
 	(unit-type-count-total knight-line < FIVE-PERCENT-POP)
@@ -554,8 +626,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT camel-line)
-		(goal G-SECONDARY-UNIT camel-line)
+		(and
+			(goal G-PRIMARY-UNIT camel-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT camel-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(unit-type-count-total camel-line < SEVENTY-PERCENT-POP)
 	(can-train camel-line)
@@ -592,8 +670,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT my-unique-unit-line)
-		(goal G-SECONDARY-UNIT my-unique-unit-line)
+		(and
+			(goal G-PRIMARY-UNIT my-unique-unit-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT my-unique-unit-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(building-type-count barracks >= 1)
 	(unit-type-count-total 759 < SEVENTY-PERCENT-POP)
@@ -611,8 +695,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT my-unique-unit-line)
-		(goal G-SECONDARY-UNIT my-unique-unit-line)
+		(and
+			(goal G-PRIMARY-UNIT my-unique-unit-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT my-unique-unit-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(building-type-count barracks >= 1)
 	(unit-type-count-total 761 < SEVENTY-PERCENT-POP)
@@ -633,8 +723,14 @@
 
 (defrule
 	(or
-		(goal G-PRIMARY-UNIT my-unique-unit-line)
-		(goal G-SECONDARY-UNIT my-unique-unit-line)
+		(and
+			(goal G-PRIMARY-UNIT my-unique-unit-line)
+			(goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+		)
+		(and
+			(goal G-SECONDARY-UNIT my-unique-unit-line)
+			(goal G-CAN-TRAIN-SECONDARY-UNIT YES)
+		)
 	)
 	(unit-type-count-total my-unique-unit-line < SEVENTY-PERCENT-POP)
 	(can-train my-unique-unit-line)
@@ -1797,20 +1893,20 @@
 
 ;Rule41: train petards if we are short on resources
 
-(defrule
-	(or
-		(wood-amount < 180)
-		(gold-amount < 95)
-	)
-	(unit-type-count-total petard < TWO-PERCENT-POP)
-	(can-train petard)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal RUSH-CONTROL NO)
-	(goal UNDER-ATTACK NO)
-	(military-population > TWENTY-PERCENT-POP)
-=>
-	(train petard)
-)
+;(defrule
+;	(or
+;		(wood-amount < 180)
+;		(gold-amount < 95)
+;	)
+;	(unit-type-count-total petard < TWO-PERCENT-POP)
+;	(can-train petard)
+;	(goal ABLE-TO-TRAIN-UNITS YES)
+;	(goal RUSH-CONTROL NO)
+;	(goal UNDER-ATTACK NO)
+;	(military-population > TWENTY-PERCENT-POP)
+;=>
+;	(train petard)
+;)
 
 ;that's why it should train spearmen, scouts and skimishers, because they don't cost any gold
 
