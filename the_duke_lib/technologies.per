@@ -899,13 +899,13 @@
 
 ;archer-line 125 FOOD, 75 GOLD
 (defrule
- 	(can-research-with-escrow ri-archer-line)
+ 	(can-research-with-escrow ri-crossbow)
 	(unit-type-count-total archer-line > ONE-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
 	(release-escrow gold)
- 	(research ri-archer-line)
+ 	(research ri-crossbow)
 ; (chat-local-to-self "research archer-line")
 )
 
