@@ -375,7 +375,7 @@
 (defrule
 	(goal ATTACK-STATE STOP)
 =>
-	(set-goal TOWN-SIZE-FOR-ATTACKING 32)
+	(set-goal TOWN-SIZE-FOR-ATTACKING 50)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
 	(set-goal ATTACK-STATE READY)
@@ -500,12 +500,6 @@
 =>
 	(set-goal ATTACK-STATE ATTACKING)
 	(enable-timer T-ATTACK 180)
-	(set-strategic-number sn-number-attack-groups 4)
-	(set-strategic-number sn-group-form-distance 6)
-	 
-	(set-strategic-number sn-percent-attack-soldiers 90)
-	(set-strategic-number sn-percent-attack-boats 90)
-	(set-strategic-number sn-task-ungrouped-soldiers NO)
 	(attack-now)
 	(chat-local-to-self "ATTACK NOW NON-TSA!")
 	(chat-to-player every-ally "I send new troops into battle! Hopefully you can reinforce my units!")

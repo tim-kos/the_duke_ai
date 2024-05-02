@@ -99,6 +99,12 @@
 	(true)
 =>
 	(set-goal CAN-USE-TOWN-SIZE-ATTACK NO)
+	(set-strategic-number sn-number-attack-groups 20)
+	(set-strategic-number sn-group-form-distance 40)
+	(set-strategic-number sn-attack-group-gather-spacing 9)
+	(set-strategic-number sn-percent-attack-soldiers 90)
+	(set-strategic-number sn-percent-attack-boats 90)
+	(set-strategic-number sn-task-ungrouped-soldiers NO)
 	(disable-self)
 )
 #end-if
@@ -1334,7 +1340,7 @@
 	(set-strategic-number sn-task-ungrouped-soldiers NO)
 	(set-strategic-number sn-group-leader-defense-distance 3)
 	(set-strategic-number sn-percent-enemy-sighted-response 100)
-	(set-strategic-number sn-enemy-sighted-response-distance 8)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
 	(set-strategic-number sn-maximum-gaia-attack-response 2)
 	(set-strategic-number sn-disable-sighted-response-cap 0)
 	(set-strategic-number sn-minimum-dropsite-buffer 13)

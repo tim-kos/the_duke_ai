@@ -9,6 +9,12 @@
 	(game-time > 5400)
 =>
 	(set-goal CAN-USE-TOWN-SIZE-ATTACK NO)
+    (set-strategic-number sn-number-attack-groups 20)
+	(set-strategic-number sn-group-form-distance 40)
+	(set-strategic-number sn-attack-group-gather-spacing 9)
+	(set-strategic-number sn-percent-attack-soldiers 90)
+	(set-strategic-number sn-percent-attack-boats 90)
+	(set-strategic-number sn-task-ungrouped-soldiers NO)
 	(chat-local-to-self "Stop using TSA")
 	(disable-self)
 )
