@@ -874,7 +874,7 @@
 ;	(chat-local-to-self "build MILL")
 )
 ;***********************************************
-#end-if		;if game-type == wonder race
+#end-if		;if game-type != wonder race
 
 
 
@@ -1427,7 +1427,6 @@
 			(stone-amount < 100)
 		)
 	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
  	(building-type-count-total university < 1)
 	(building-type-count-total monastery > 0)
  	(can-build university)
@@ -1465,8 +1464,13 @@
 
 (defrule
 	(building-type-count-total monastery < 2)
-	(goal ALL-ECONOMY-TECH-DONE YES)
-	(building-type-count-total town-center > 2)
+	(or
+		(and
+			(building-type-count-total town-center > 2)
+			(goal ALL-ECONOMY-TECH-DONE YES)
+		)
+		(wood-amount > 700)
+	)
 	(can-build monastery)
 	(goal RUSH-CONTROL NO)
 	(wood-amount > 1000)
@@ -2459,12 +2463,17 @@
 	(set-strategic-number sn-town-center-placement mining-camp)
 )
 
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
 (defrule
  	(current-age == castle-age)
  	(building-type-count-total town-center < 4)
  	(can-build town-center)
- 	(not (research-available ri-bow-saw))
-	(difficulty >= hard)
+ 	(or
+		(wood-amount > 500)
+ 		(goal ALL-ECONOMY-TECH-DONE YES)
+	)
 =>
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build town-center)
@@ -2476,10 +2485,15 @@
 (defrule
  	(current-age >= castle-age)
  	(building-type-count-total town-center < 5)
-	(building-type-count-total castle > 0) ;make sure not to spend all stone on town centers
+	(or
+		(building-type-count-total town-center < 2)
+		(building-type-count-total castle > 0) ;make sure not to spend all stone on town centers
+	)
  	(can-build town-center)
- 	(goal ALL-ECONOMY-TECH-DONE YES)
-	(difficulty >= hard)
+	(or
+		(wood-amount > 500)
+ 		(goal ALL-ECONOMY-TECH-DONE YES)
+	)
 =>
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build town-center)
@@ -2488,10 +2502,6 @@
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 
-
-#load-if-not-defined DIFFICULTY-EASIEST
-#load-if-not-defined DIFFICULTY-EASY
-#load-if-not-defined DIFFICULTY-MODERATE
 (defrule
  	(current-age >= castle-age)
  	(building-type-count-total town-center < 6)
