@@ -877,6 +877,24 @@
 
 ;215 FOOD, 90 GOLD
 (defrule
+ 	(can-research-with-escrow ri-eagle-warrior)
+	(or
+		(unit-type-count-total eagle-warrior-line >= ONE-PERCENT-POP)
+		(or
+			(goal G-PRIMARY-UNIT eagle-warrior-line)
+			(goal G-SECONDARY-UNIT eagle-warrior-line)
+		)
+	)
+	(goal ALL-ECONOMY-TECH-DONE YES)
+=>
+	(release-escrow food)
+	(release-escrow gold)
+ 	(research ri-eagle-warrior)
+; (chat-local-to-self "research ELITE-EAGLE-WARRIOR")
+)
+
+;215 FOOD, 90 GOLD
+(defrule
  	(can-research-with-escrow ri-elite-eagle-warrior)
 	(or
 		(unit-type-count-total eagle-warrior-line >= ONE-PERCENT-POP)
