@@ -2488,9 +2488,12 @@
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
 
+
+#load-if-not-defined DIFFICULTY-EASIEST
+#load-if-not-defined DIFFICULTY-EASY
+#load-if-not-defined DIFFICULTY-MODERATE
 (defrule
  	(current-age >= castle-age)
- 	(difficulty <= hard)
  	(building-type-count-total town-center < 6)
  	(building-type-count-total castle >= 2)
  	(wood-amount > 600)
@@ -2503,6 +2506,9 @@
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 ;	(chat-local-to-self "build TOWN-CENTER")
 )
+#end-if		;if difficult not moderate
+#end-if		;if difficult not easy
+#end-if		;if difficult not easiest
 
 ;***********************************************
 #end-if		;if not game type == wonder race
