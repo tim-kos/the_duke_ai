@@ -148,7 +148,10 @@
  	(can-research-with-escrow ri-heavy-plow)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
-	(building-type-count-total town-center > 1)
+	(or
+		(building-type-count-total town-center > 1)
+		(wood-amount > 400)
+	)
 	(or
 		(goal RUSH-CONTROL NO)
 		(and
