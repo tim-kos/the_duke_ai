@@ -951,10 +951,12 @@
  	(unit-type-count-total skirmisher-line >= ONE-PERCENT-POP)
  	(or
 		(wood-amount > 350)
-		(building-type-count-total town-center > 2)
+		(building-type-count-total town-center > 1)
 	)
-	(building-type-count-total town-center > 1)
-	(goal ALL-ECONOMY-TECH-DONE YES)
+	(or
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(wood-amount > 550)
+	)
 =>
 	(release-escrow wood)
 	(release-escrow gold)
