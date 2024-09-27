@@ -14,17 +14,33 @@
 ;lots of FOOD, lots of GOLD (maybe lots of WOOD)
 (defrule
   (can-research my-unique-research)
-  (building-type-count-total castle >= 1)
 =>
   (research my-unique-research)
+  (disable-self)
 ; (chat-local-to-self "research UNIQUE-RESEARCH")
 )
 
+(defrule
+  (can-research my-second-unique-research)
+=>
+  (research my-second-unique-research)
+  (disable-self)
+; (chat-local-to-self "research SECOND-UNIQUE-RESEARCH")
+)
 
 #end-if     ;if civ == aztec
 ;***********************************************
 ;***********************************************
 
+
+;Placeholder until we define all rules per civ
+(defrule
+  (can-research my-second-unique-research)
+=>
+  (research my-second-unique-research)
+  (disable-self)
+; (chat-local-to-self "research SECOND-UNIQUE-RESEARCH")
+)
 
 
 #load-if-defined BYZANTINE-CIV
