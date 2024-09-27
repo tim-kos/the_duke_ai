@@ -885,7 +885,10 @@
 			(goal G-SECONDARY-UNIT eagle-warrior-line)
 		)
 	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
+	(or
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(goal RUSH-CONTROL RUSHING)
+	)
 =>
 	(release-escrow food)
 	(release-escrow gold)
