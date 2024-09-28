@@ -509,7 +509,6 @@
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(building-type-count stable >= 1)
 	(can-train scout-cavalry-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
@@ -1950,9 +1949,14 @@
 ;Fill up with spearmen if we have gold trouble
 (defrule
 	(game-time > 1200)
-	(dropsite-min-distance gold > 5)
-	(gold-amount < 200)
-	(food-amount > 600)
+	(or
+		(and
+			(dropsite-min-distance gold > 5)
+			(gold-amount < 2000)
+		)
+		(gold-amount < 200)
+	)
+	(food-amount > 1500)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(unit-type-count-total trade-cart < 5)
@@ -2018,14 +2022,14 @@
 ;Fill up with scout cavalry if we have gold trouble
 (defrule
 	(game-time > 2400)
-	(dropsite-min-distance gold > 5)
 	(or
 		(and
-			(gold-amount < 200)
-			(food-amount > 600)
+			(dropsite-min-distance gold > 5)
+			(gold-amount < 2000)
 		)
-		(food-amount > 4000) ; just hammer out scouts if we have tons of food
+		(gold-amount < 200)
 	)
+	(food-amount > 4000) ; just hammer out scouts if we have tons of food
 	(can-train scout-cavalry-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	;(unit-type-count-total trade-cart < 5)
@@ -2060,9 +2064,14 @@
 
 (defrule
 	(current-age >= castle-age)
-	(dropsite-min-distance gold > 5)
-	(gold-amount < 200)
-	(food-amount > 600)
+	(or
+		(and
+			(dropsite-min-distance gold > 5)
+			(gold-amount < 2000)
+		)
+		(gold-amount < 200)
+	)
+	(food-amount > 1500)
 	(can-train skirmisher-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(unit-type-count-total trade-cart < 5)
