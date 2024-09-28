@@ -375,7 +375,7 @@
 (defrule
 	(goal ATTACK-STATE STOP)
 =>
-	(set-goal TOWN-SIZE-FOR-ATTACKING 50)
+	(up-modify-goal TOWN-SIZE-FOR-ATTACKING g:= TOWN-SIZE-FOR-BUILDING)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
 	(set-goal ATTACK-STATE READY)
