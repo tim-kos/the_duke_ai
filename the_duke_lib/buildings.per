@@ -4,17 +4,7 @@
 
 ;Rule1: set the town size in the dark age
 
-(defrule
-	(current-age == dark-age)
-	(not (civ-selected hun))
-=>
-	(set-goal TOWN-SIZE-FOR-BUILDING 10)
-	(set-strategic-number sn-minimum-town-size 6)
-	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
-	(set-strategic-number sn-camp-max-distance 10)
-	(disable-self)
-)
-
+#load-if-defined HUN-CIV
 (defrule
 	(current-age == dark-age)
 	(civ-selected hun)
@@ -26,16 +16,6 @@
 	(disable-self)
 )
 
-(defrule
-	(current-age >= feudal-age)
-	(not (civ-selected hun))
-=>
-	(set-goal TOWN-SIZE-FOR-BUILDING 12)
-	(set-strategic-number sn-minimum-town-size 6)
-	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
-	(set-strategic-number sn-camp-max-distance 18)
-	(disable-self)
-)
 
 (defrule
 	(current-age >= feudal-age)
@@ -49,19 +29,6 @@
 
 (defrule
 	(current-age >= castle-age)
-	(not (civ-selected hun))
-	(goal RUSH-CONTROL RUSHING)
-=>
-	(set-goal TOWN-SIZE-FOR-BUILDING 18)
-	(set-strategic-number sn-minimum-town-size 12)
-	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
-	(set-strategic-number sn-camp-max-distance 24)
-	(disable-self)
-)
-
-(defrule
-	(current-age >= castle-age)
-	(civ-selected hun)
 	(goal RUSH-CONTROL RUSHING)
 =>
 	(set-goal TOWN-SIZE-FOR-BUILDING 16)
@@ -73,7 +40,63 @@
 
 (defrule
 	(current-age >= castle-age)
-	(not (civ-selected hun))
+	(goal RUSH-CONTROL NO)
+=>
+	(set-goal TOWN-SIZE-FOR-BUILDING 20)
+	(set-strategic-number sn-minimum-town-size 10)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(set-strategic-number sn-camp-max-distance 26)
+	(disable-self)
+)
+
+;Huns build no houses. Only increase town size by 1 instead of 2.
+(defrule
+	(up-timer-status T-INCREASE-TOWN-SIZE != timer-running)
+	(up-compare-goal TOWN-SIZE-FOR-BUILDING >= 20)
+	;do not make it too big, or else villagers travel too far to build stuff, when they should gather resources
+	;and newly created units will be alone close to enemy lines and just die.
+	(up-compare-goal TOWN-SIZE-FOR-BUILDING < 90)
+=>
+	(enable-timer T-INCREASE-TOWN-SIZE 90)
+	(up-modify-goal TOWN-SIZE-FOR-BUILDING c:+ 1)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+)
+
+#else ;If civ-selected == hun
+
+(defrule
+	(current-age == dark-age)
+=>
+	(set-goal TOWN-SIZE-FOR-BUILDING 10)
+	(set-strategic-number sn-minimum-town-size 6)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(set-strategic-number sn-camp-max-distance 10)
+	(disable-self)
+)
+
+(defrule
+	(current-age >= feudal-age)
+=>
+	(set-goal TOWN-SIZE-FOR-BUILDING 12)
+	(set-strategic-number sn-minimum-town-size 6)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(set-strategic-number sn-camp-max-distance 18)
+	(disable-self)
+)
+
+(defrule
+	(current-age >= castle-age)
+	(goal RUSH-CONTROL RUSHING)
+=>
+	(set-goal TOWN-SIZE-FOR-BUILDING 18)
+	(set-strategic-number sn-minimum-town-size 12)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(set-strategic-number sn-camp-max-distance 24)
+	(disable-self)
+)
+
+(defrule
+	(current-age >= castle-age)
 	(goal RUSH-CONTROL NO)
 =>
 	(set-goal TOWN-SIZE-FOR-BUILDING 23)
@@ -84,16 +107,17 @@
 )
 
 (defrule
-	(current-age >= castle-age)
-	(civ-selected hun)
-	(goal RUSH-CONTROL NO)
+	(up-timer-status T-INCREASE-TOWN-SIZE != timer-running)
+	(up-compare-goal TOWN-SIZE-FOR-BUILDING >= 20)
+	;do not make it too big, or else villagers travel too far to build stuff, when they should gather resources
+	;and newly created units will be alone close to enemy lines and just die.
+	(up-compare-goal TOWN-SIZE-FOR-BUILDING < 90)
 =>
-	(set-goal TOWN-SIZE-FOR-BUILDING 20)
-	(set-strategic-number sn-minimum-town-size 10)
+	(enable-timer T-INCREASE-TOWN-SIZE 60)
+	(up-modify-goal TOWN-SIZE-FOR-BUILDING c:+ 2)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
-	(set-strategic-number sn-camp-max-distance 26)
-	(disable-self)
 )
+#end-if ;if civ-selected is not hun
 
 ;After 30min gradually increase camp max distance every 10 seconds
 ;if we fail to build new lumber-camps
@@ -111,20 +135,6 @@
 	(enable-timer T-INCREASE-CAMP-DISTANCE 60)
 	(up-modify-sn sn-camp-max-distance c:+ 10)
 	(chat-local-to-self "INCREASE CAMP DISTANCE")
-)
-
-;If we fail to build houses even though we should and can, it is because
-;our town size is too small. Gradually increase it then.
-(defrule
-	(up-timer-status T-INCREASE-TOWN-SIZE != timer-running)
-	(up-compare-goal TOWN-SIZE-FOR-BUILDING >= 20)
-	;do not make it too big, or else villagers travel too far to build stuff, when they should gather resources
-	;and newly created units will be alone close to enemy lines and just die.
-	(up-compare-goal TOWN-SIZE-FOR-BUILDING < 90)
-=>
-	(enable-timer T-INCREASE-TOWN-SIZE 60)
-	(up-modify-goal TOWN-SIZE-FOR-BUILDING c:+ 2)
-	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 )
 
 
