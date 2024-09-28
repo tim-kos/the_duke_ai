@@ -11,8 +11,20 @@
     (set-goal UNDER-ATTACK YES)
 )
 
+;If we are under attack, retreat right away.
 (defrule
     (goal UNDER-ATTACK YES)
+    (up-timer-status T-RETREAT != timer-running)
+=>
+    (up-retreat-now)
+    (enable-timer T-RETREAT 30)
+)
+
+;When we are not under attack and also not attacking, pull troops together every 30s.
+;This also means that as soon as we stop an attack, we retreat right away, as the T-RETREAT timer
+;will not be running anymore in all likelihood.
+(defrule
+    (up-compare-goal ATTACK-STATE != ATTACKING)
     (up-timer-status T-RETREAT != timer-running)
 =>
     (up-retreat-now)
@@ -23,5 +35,6 @@
     (true)
 =>
     (set-goal TOWN-SIZE-FOR-ATTACKING 16)
+    (enable-timer T-RETREAT 60)
     (disable-self)
 )
