@@ -11,13 +11,14 @@
     (set-goal UNDER-ATTACK YES)
 )
 
-;If we are under attack, retreat right away.
+;If we are under attack, retreat right away, but only every 60s to not diturb the defensive
+;work too much.
 (defrule
     (goal UNDER-ATTACK YES)
     (up-timer-status T-RETREAT != timer-running)
 =>
     (up-retreat-now)
-    (enable-timer T-RETREAT 30)
+    (enable-timer T-RETREAT 90)
 )
 
 ;When we are not under attack and also not attacking, pull troops together every 30s.
@@ -28,7 +29,7 @@
     (up-timer-status T-RETREAT != timer-running)
 =>
     (up-retreat-now)
-    (enable-timer T-RETREAT 30)
+    (enable-timer T-RETREAT 50)
 )
 
 (defrule
