@@ -2021,7 +2021,7 @@
 
 ;Fill up with scout cavalry if we have gold trouble
 (defrule
-	(game-time > 2400)
+	(current-age == imperial-age)
 	(or
 		(and
 			(dropsite-min-distance gold > 5)
