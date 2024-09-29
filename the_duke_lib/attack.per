@@ -340,6 +340,14 @@
 			(soldier-count >= THIRTY-PERCENT-POP)
 		)
 	)
+	;Only attack if we have siege units or a really large army
+	(or
+		(unit-type-count battering-ram-line > 0)
+		(or
+			(unit-type-count trebuchet > 0)
+			(soldier-count >= FOURTY-PERCENT-POP)
+		)
+	)
 	(goal SAVE-FOR-RESEARCH NO)
 	(goal UNDER-ATTACK NO)
 =>
@@ -355,7 +363,7 @@
 (defrule
 	(timer-triggered T-ATTACK)
 	(goal ATTACK-STATE ATTACKING)
-	(up-compare-goal MILITARY-PARITY >= PARITY)
+	(up-compare-goal MILITARY-PARITY >= INFERIOR)
 =>
 	(disable-timer T-ATTACK)
 	(enable-timer T-ATTACK 10)
@@ -365,7 +373,7 @@
 (defrule
 	(timer-triggered T-ATTACK)
 	(goal ATTACK-STATE ATTACKING)
-	(up-compare-goal MILITARY-PARITY < PARITY)
+	(up-compare-goal MILITARY-PARITY < INFERIOR)
 =>
 	(disable-timer T-ATTACK)
 	(set-goal ATTACK-STATE STOP)

@@ -2031,7 +2031,10 @@
 	)
 	(food-amount > 4000) ; just hammer out scouts if we have tons of food
 	(can-train scout-cavalry-line)
-	(goal ABLE-TO-TRAIN-UNITS YES)
+	(or
+		(goal ABLE-TO-TRAIN-UNITS YES)
+		(food-amount > 6000)
+	)
 	;(unit-type-count-total trade-cart < 5)
 	;(unit-type-count-total trade-cog < 5)
 =>
