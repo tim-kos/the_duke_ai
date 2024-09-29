@@ -6,7 +6,7 @@
 
 (defrule
     (up-compare-goal ATTACK-STATE != ATTACKING)
-    (up-enemy-units-in-town > 5)
+    (up-enemy-units-in-town > 3)
 =>
     (set-goal UNDER-ATTACK YES)
 )

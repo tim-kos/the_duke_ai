@@ -3805,6 +3805,12 @@
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
 
+(defrule
+	(goal UNDER-ATTACK YES)
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS YES)
+)
+
 ;************************************************************************************************************
 ;FEATURE THAT AN ALLY CAN TELL THE AI WHAT UNITS IT SHOULD TRAIN
 

@@ -1980,7 +1980,7 @@
     (current-age >= castle-age)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
-	(unit-type-count-total spearman-line < 10)
+	(unit-type-count-total spearman-line < FIVE-PERCENT-POP)
 =>
 	(train spearman-line)
 )
@@ -2088,7 +2088,7 @@
     (current-age >= castle-age)
 	(can-train skirmisher-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
-	(unit-type-count-total skirmisher-line < 10)
+	(unit-type-count-total skirmisher-line < FIVE-PERCENT-POP)
 =>
 	(train skirmisher-line)
 )
