@@ -3810,6 +3810,14 @@
 	(set-goal ABLE-TO-TRAIN-UNITS YES)
 )
 
+;Make sure we can get to 100 wood to build a new lumber camp
+(defrule
+	(dropsite-min-distance wood > 7)
+	(wood-amount < 150)
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS NO)
+)
+
 ;************************************************************************************************************
 ;FEATURE THAT AN ALLY CAN TELL THE AI WHAT UNITS IT SHOULD TRAIN
 
