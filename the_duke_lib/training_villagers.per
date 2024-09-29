@@ -1135,7 +1135,7 @@
 (defrule
  	(or
 		(game-time <= 3000)
-		(not (player-in-game any-ally))
+		(players-building-type-count every-ally market < 1)
 	)
 	(unit-type-count-total villager < IMPERIAL-AGE-VILLAGER)
  	(can-train villager)
@@ -1153,7 +1153,7 @@
 )
 
 (defrule
-	(player-in-game any-ally)
+	(players-building-type-count any-ally market > 0)
 	(game-time > 3000)
 	(unit-type-count-total villager < TRADE-REPLACES-VILLAGER)
  	(can-train villager)
@@ -1173,7 +1173,7 @@
 (defrule
 	(game-time > 3000)
 	(unit-type-count-total villager > TRADE-REPLACES-VILLAGER)
-	(player-in-game any-ally)
+	(players-building-type-count any-ally market > 0)
 	;(dropsite-min-distance gold > 5)
 =>
 	(delete-unit villager)

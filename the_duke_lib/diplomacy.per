@@ -69,7 +69,7 @@
 
 
 (defrule
-	(not (player-in-game any-ally))
+	(players-building-type-count every-ally market < 1)
 	(or
 		(unit-type-count-total trade-cart > 0)
 		(unit-type-count-total trade-cog > 0)
