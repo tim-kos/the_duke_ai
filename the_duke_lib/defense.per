@@ -25,7 +25,7 @@
 ;This also means that as soon as we stop an attack, we retreat right away, as the T-RETREAT timer
 ;will not be running anymore in all likelihood.
 (defrule
-    (up-compare-goal ATTACK-STATE != ATTACKING)
+    (goal ATTACK-STATE READY)
     (up-timer-status T-RETREAT != timer-running)
 =>
     (up-retreat-now)
