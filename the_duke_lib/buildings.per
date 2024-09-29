@@ -1305,7 +1305,7 @@
 )
 
 (defrule
- 	(current-age >= feudal-age)
+ 	(current-age == feudal-age)
 	(building-type-count-total market < 1)
 	(or
 		(building-type-count-total blacksmith > 0)
