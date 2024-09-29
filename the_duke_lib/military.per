@@ -619,6 +619,27 @@
 	(train knight-line)
 )
 
+;Train some knights in early castle age as they are the strongest
+;unit at that time then
+(defrule
+    (current-age >= castle-age)
+	(current-age-time < 900)
+	(can-train knight-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(or
+		(and
+			(goal UNDER-ATTACK YES)
+			(unit-type-count-total knight-line < FIVE-PERCENT-POP)
+		)
+		(and
+			(goal RUSH-CONTROL NO)
+			(unit-type-count-total knight-line < TWO-PERCENT-POP)
+		)
+	)
+=>
+	(train knight-line)
+)
+
 (defrule
 	(unit-type-count-total knight-line < SEVENTY-PERCENT-POP)
 	(can-train paladin)
@@ -1975,12 +1996,17 @@
 	(train spearman-line)
 )
 
-;When in castle-age, train 10 spearmen to counter some rushes
 (defrule
     (current-age >= castle-age)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
-	(unit-type-count-total spearman-line < FIVE-PERCENT-POP)
+	(or
+		(and
+			(goal UNDER-ATTACK YES)
+			(unit-type-count-total spearman-line < FIVE-PERCENT-POP)
+		)
+		(unit-type-count-total spearman-line < TWO-PERCENT-POP)
+	)
 =>
 	(train spearman-line)
 )
@@ -2088,7 +2114,13 @@
     (current-age >= castle-age)
 	(can-train skirmisher-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
-	(unit-type-count-total skirmisher-line < FIVE-PERCENT-POP)
+	(or
+		(and
+			(goal UNDER-ATTACK YES)
+			(unit-type-count-total skirmisher-line < FIVE-PERCENT-POP)
+		)
+		(unit-type-count-total skirmisher-line < TWO-PERCENT-POP)
+	)
 =>
 	(train skirmisher-line)
 )
