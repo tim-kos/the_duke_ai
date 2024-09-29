@@ -1386,14 +1386,10 @@
 
 (defrule
 	(goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
-	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < FIFTEEN-PERCENT-POP)
 	(can-train scorpion-line)
-	(nand
-		(goal ABLE-TO-TRAIN-UNITS NO)
-		(current-age < imperial-age)
-	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(goal ABLE-TO-TRAIN-UNITS YES)
 	(military-population >= THREE-PERCENT-POP)
 =>
 	(train scorpion-line)
@@ -1437,14 +1433,10 @@
 
 (defrule
 	(goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
-	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < ONE-PERCENT-POP)
 	(can-train scorpion-line)
-	(nand
-		(goal ABLE-TO-TRAIN-UNITS NO)
-		(current-age < imperial-age)
-	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(goal ABLE-TO-TRAIN-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
 =>
 	(train scorpion-line)
@@ -1465,14 +1457,10 @@
 
 (defrule
 	(goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
-	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < TWO-PERCENT-POP)
 	(can-train scorpion-line)
-	(nand
-		(goal ABLE-TO-TRAIN-UNITS NO)
-		(current-age < imperial-age)
-	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(goal ABLE-TO-TRAIN-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
 =>
 	(train scorpion-line)
@@ -1493,14 +1481,10 @@
 
 (defrule
 	(goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
-	(building-type-count siege-workshop >= 1)
 	(unit-type-count-total scorpion-line < TWO-PERCENT-POP)
 	(can-train scorpion-line)
-	(nand
-		(goal ABLE-TO-TRAIN-UNITS NO)
-		(current-age < imperial-age)
-	)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(goal ABLE-TO-TRAIN-UNITS YES)
 	(military-population >= FIVE-PERCENT-POP)
 =>
 	(train scorpion-line)
