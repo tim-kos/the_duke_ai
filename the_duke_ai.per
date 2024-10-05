@@ -1602,18 +1602,21 @@
 )
 
 (defrule
-	(building-type-count-total lumber-camp > 0)
-	(building-type-count-total stone-wall-line < 12)
+ 	(dropsite-min-distance wood < 5)
 =>
-	(set-strategic-number sn-maximum-wood-drop-distance 3); move wood gatherers from far stragglers to the camp
-	(disable-self)
+ 	(set-strategic-number sn-maximum-wood-drop-distance 5)
 )
 
 (defrule
-	(game-time > 600)
+ 	(dropsite-min-distance wood >= 5)
 =>
-	(set-strategic-number sn-maximum-wood-drop-distance 10); move wood gatherers from far stragglers to the camp
-	(disable-self)
+ 	(set-strategic-number sn-maximum-wood-drop-distance 10)
+)
+
+(defrule
+ 	(dropsite-min-distance wood >= 20)
+=>
+ 	(set-strategic-number sn-maximum-wood-drop-distance 20)
 )
 
 
