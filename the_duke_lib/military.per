@@ -2064,15 +2064,14 @@
 	(gold-amount < 200)
 	(food-amount > 600)
 	(can-build archery-range)
-	(building-type-count-total archery-range < 5)
-	(unit-type-count-total trade-cart < 5)
-	(unit-type-count-total trade-cog < 5)
+	(building-type-count-total archery-range < 7)
 =>
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build archery-range)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
 )
 
+;Train skimishers to fill up the army if we strugggle for gold.
 (defrule
 	(current-age >= castle-age)
 	(or
@@ -2085,8 +2084,6 @@
 	(food-amount > 1500)
 	(can-train skirmisher-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
-	(unit-type-count-total trade-cart < 5)
-	(unit-type-count-total trade-cog < 5)
 =>
 	(train skirmisher-line)
 )
