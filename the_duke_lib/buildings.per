@@ -388,11 +388,15 @@
 (defrule
 	(can-build lumber-camp)
 	;(resource-found wood)
-	(dropsite-min-distance wood >= 7)
-	(up-pending-objects c: lumber-camp <= 2)
+	(or
+		(dropsite-min-distance wood >= 7)
+		(up-timer-status T-LUMBER-CAMP != timer-running)
+	)
+	(up-pending-objects c: lumber-camp <= 1)
 	(game-time >= 1800)
 =>
 	(build lumber-camp)
+	(enable-timer T-LUMBER-CAMP 480)
 ;	(chat-local-to-self "build LUMBER-CAMP")
 )
 
