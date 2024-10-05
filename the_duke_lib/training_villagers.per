@@ -246,12 +246,12 @@
 	(gold-amount > 200)
 	(or
 		(or
-			(building-type-count-total market > 0)
-			(building-type-count-total stable > 0)
+			(building-type-count market > 0)
+			(building-type-count stable > 0)
 		)
-		(building-type-count-total archery-range > 0)
+		(building-type-count archery-range > 0)
 	)
-	(building-type-count-total blacksmith > 0)
+	(building-type-count blacksmith > 0)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
 	(set-escrow-percentage food 100)
@@ -272,9 +272,9 @@
 				(food-amount <= 760)
 				(gold-amount <= 200)
 			)
-			(building-type-count-total market == 0)
+			(building-type-count market == 0)
 		)
-		(building-type-count-total blacksmith == 0)
+		(building-type-count blacksmith == 0)
 	)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
@@ -302,12 +302,12 @@
 	(gold-amount > 200)
 	(or
 		(or
-			(building-type-count-total market > 0)
-			(building-type-count-total stable > 0)
+			(building-type-count market > 0)
+			(building-type-count stable > 0)
 		)
-		(building-type-count-total archery-range > 0)
+		(building-type-count archery-range > 0)
 	)
-	(building-type-count-total blacksmith > 0)
+	(building-type-count blacksmith > 0)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
 	(set-escrow-percentage food 100)
@@ -328,9 +328,9 @@
 				(food-amount <= 760)
 				(gold-amount <= 200)
 			)
-			(building-type-count-total market == 0)
+			(building-type-count market == 0)
 		)
-		(building-type-count-total blacksmith == 0)
+		(building-type-count blacksmith == 0)
 	)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
@@ -354,12 +354,12 @@
 	(gold-amount > 200)
 	(or
 		(or
-			(building-type-count-total market > 0)
-			(building-type-count-total stable > 0)
+			(building-type-count market > 0)
+			(building-type-count stable > 0)
 		)
-		(building-type-count-total archery-range > 0)
+		(building-type-count archery-range > 0)
 	)
-	(building-type-count-total blacksmith > 0)
+	(building-type-count blacksmith > 0)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
 	(set-escrow-percentage food 100)
@@ -375,7 +375,7 @@
 			(food-amount <= 760)
 			(gold-amount <= 200)
 		)
-		(building-type-count-total blacksmith == 0)
+		(building-type-count blacksmith == 0)
 	)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
@@ -387,9 +387,9 @@
 	(goal TRAIN-VILLAGERS NO)
 	(game-time > CASTLE-RESEARCH-TIME-MODERATE)
 	(current-age == feudal-age)
-	(building-type-count-total market == 0)
-	(building-type-count-total archery-range == 0)
-	(building-type-count-total stable == 0)
+	(building-type-count market == 0)
+	(building-type-count archery-range == 0)
+	(building-type-count stable == 0)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
 	(set-escrow-percentage food 0)
@@ -416,12 +416,12 @@
 	(unit-type-count-total villager > 30)
 	(or
 		(or
-			(building-type-count-total market > 0)
-			(building-type-count-total stable > 0)
+			(building-type-count market > 0)
+			(building-type-count stable > 0)
 		)
-		(building-type-count-total archery-range > 0)
+		(building-type-count archery-range > 0)
 	)
-	(building-type-count-total blacksmith > 0)
+	(building-type-count blacksmith > 0)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
 	(set-escrow-percentage food 100)
@@ -440,7 +440,7 @@
 				(food-amount <= 650)
 				(gold-amount <= 200)
 			)
-			(building-type-count-total blacksmith == 0)
+			(building-type-count blacksmith == 0)
 		)
 		(unit-type-count-total villager <= 30)
 	)
@@ -458,12 +458,12 @@
 	(gold-amount > 200)
 	(or
 		(or
-			(building-type-count-total market > 0)
-			(building-type-count-total stable > 0)
+			(building-type-count market > 0)
+			(building-type-count stable > 0)
 		)
-		(building-type-count-total archery-range > 0)
+		(building-type-count archery-range > 0)
 	)
-	(building-type-count-total blacksmith > 0)
+	(building-type-count blacksmith > 0)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
 	(set-escrow-percentage food 100)
@@ -480,7 +480,7 @@
 			(food-amount <= 750)
 			(gold-amount <= 200)
 		)
-		(building-type-count-total blacksmith == 0)
+		(building-type-count blacksmith == 0)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -494,9 +494,9 @@
 	(goal RESEARCHING-CASTLE FAST-CASTLE)
 	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE)
 	(current-age == feudal-age)
-	(building-type-count-total market == 0)
-	(building-type-count-total archery-range == 0)
-	(building-type-count-total stable == 0)
+	(building-type-count market == 0)
+	(building-type-count archery-range == 0)
+	(building-type-count stable == 0)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
@@ -512,12 +512,12 @@
 	(gold-amount > 200)
 	(or
 		(or
-			(building-type-count-total market > 0)
-			(building-type-count-total stable > 0)
+			(building-type-count market > 0)
+			(building-type-count stable > 0)
 		)
-		(building-type-count-total archery-range > 0)
+		(building-type-count archery-range > 0)
 	)
-	(building-type-count-total blacksmith > 0)
+	(building-type-count blacksmith > 0)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
 	(set-escrow-percentage food 100)
@@ -534,7 +534,7 @@
 			(food-amount <= 750)
 			(gold-amount <= 200)
 		)
-		(building-type-count-total blacksmith == 0)
+		(building-type-count blacksmith == 0)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -548,9 +548,9 @@
 	(goal RESEARCHING-CASTLE MIDDLE-CASTLE)
 	(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE)
 	(current-age == feudal-age)
-	(building-type-count-total market == 0)
-	(building-type-count-total archery-range == 0)
-	(building-type-count-total stable == 0)
+	(building-type-count market == 0)
+	(building-type-count archery-range == 0)
+	(building-type-count stable == 0)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
@@ -566,12 +566,12 @@
 	(gold-amount > 200)
 	(or
 		(or
-			(building-type-count-total market > 0)
-			(building-type-count-total stable > 0)
+			(building-type-count market > 0)
+			(building-type-count stable > 0)
 		)
-		(building-type-count-total archery-range > 0)
+		(building-type-count archery-range > 0)
 	)
-	(building-type-count-total blacksmith > 0)
+	(building-type-count blacksmith > 0)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
 	(set-escrow-percentage food 100)
@@ -588,7 +588,7 @@
 			(food-amount <= 750)
 			(gold-amount <= 200)
 		)
-		(building-type-count-total blacksmith == 0)
+		(building-type-count blacksmith == 0)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -602,9 +602,9 @@
 	(goal RESEARCHING-CASTLE LATE-CASTLE)
 	(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE)
 	(current-age == feudal-age)
-	(building-type-count-total market == 0)
-	(building-type-count-total archery-range == 0)
-	(building-type-count-total stable == 0)
+	(building-type-count market == 0)
+	(building-type-count archery-range == 0)
+	(building-type-count stable == 0)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
@@ -638,10 +638,10 @@
 	(gold-amount > 750)
 	(or
 		(and
-			(building-type-count-total university > 0)
-			(building-type-count-total monastery > 0)
+			(building-type-count university > 0)
+			(building-type-count monastery > 0)
 		)
-		(building-type-count-total castle > 0)
+		(building-type-count castle > 0)
 	)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
@@ -677,12 +677,12 @@
 	)
 	(or
 		(and
-			(building-type-count-total university == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count university == 0)
+			(building-type-count castle == 0)
 		)
 		(and
-			(building-type-count-total monastery == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count monastery == 0)
+			(building-type-count castle == 0)
 		)
 	)
 =>
@@ -711,10 +711,10 @@
 	(gold-amount > 750)
 	(or
 		(and
-			(building-type-count-total university > 0)
-			(building-type-count-total monastery > 0)
+			(building-type-count university > 0)
+			(building-type-count monastery > 0)
 		)
-		(building-type-count-total castle > 0)
+		(building-type-count castle > 0)
 	)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
@@ -750,12 +750,12 @@
 	)
 	(or
 		(and
-			(building-type-count-total university == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count university == 0)
+			(building-type-count castle == 0)
 		)
 		(and
-			(building-type-count-total monastery == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count monastery == 0)
+			(building-type-count castle == 0)
 		)
 	)
 =>
@@ -780,10 +780,10 @@
 	(gold-amount > 750)
 	(or
 		(and
-			(building-type-count-total university > 0)
-			(building-type-count-total monastery > 0)
+			(building-type-count university > 0)
+			(building-type-count monastery > 0)
 		)
-		(building-type-count-total castle > 0)
+		(building-type-count castle > 0)
 	)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
@@ -811,12 +811,12 @@
 	(current-age == castle-age)
 	(or
 		(and
-			(building-type-count-total university == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count university == 0)
+			(building-type-count castle == 0)
 		)
 		(and
-			(building-type-count-total monastery == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count monastery == 0)
+			(building-type-count castle == 0)
 		)
 	)
 =>
@@ -844,10 +844,10 @@
 	(gold-amount > 750)
 	(or
 		(and
-			(building-type-count-total university > 0)
-			(building-type-count-total monastery > 0)
+			(building-type-count university > 0)
+			(building-type-count monastery > 0)
 		)
-		(building-type-count-total castle > 0)
+		(building-type-count castle > 0)
 	)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
@@ -877,12 +877,12 @@
 	(current-age == castle-age)
 	(or
 		(and
-			(building-type-count-total university == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count university == 0)
+			(building-type-count castle == 0)
 		)
 		(and
-			(building-type-count-total monastery == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count monastery == 0)
+			(building-type-count castle == 0)
 		)
 	)
 =>
@@ -899,10 +899,10 @@
 	(gold-amount > 750)
 	(or
 		(and
-			(building-type-count-total university > 0)
-			(building-type-count-total monastery > 0)
+			(building-type-count university > 0)
+			(building-type-count monastery > 0)
 		)
-		(building-type-count-total castle > 0)
+		(building-type-count castle > 0)
 	)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
@@ -932,12 +932,12 @@
 	(current-age == castle-age)
 	(or
 		(and
-			(building-type-count-total university == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count university == 0)
+			(building-type-count castle == 0)
 		)
 		(and
-			(building-type-count-total monastery == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count monastery == 0)
+			(building-type-count castle == 0)
 		)
 	)
 =>
@@ -954,10 +954,10 @@
 	(gold-amount > 750)
 	(or
 		(and
-			(building-type-count-total university > 0)
-			(building-type-count-total monastery > 0)
+			(building-type-count university > 0)
+			(building-type-count monastery > 0)
 		)
-		(building-type-count-total castle > 0)
+		(building-type-count castle > 0)
 	)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
@@ -987,12 +987,12 @@
 	(current-age == castle-age)
 	(or
 		(and
-			(building-type-count-total university == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count university == 0)
+			(building-type-count castle == 0)
 		)
 		(and
-			(building-type-count-total monastery == 0)
-			(building-type-count-total castle == 0)
+			(building-type-count monastery == 0)
+			(building-type-count castle == 0)
 		)
 	)
 =>
