@@ -388,8 +388,8 @@
 (defrule
 	(can-build lumber-camp)
 	;(resource-found wood)
-	(dropsite-min-distance wood > 7)
-	(up-pending-objects c: lumber-camp <= 1)
+	(dropsite-min-distance wood >= 7)
+	(up-pending-objects c: lumber-camp <= 2)
 	(game-time >= 1800)
 =>
 	(build lumber-camp)
