@@ -477,7 +477,7 @@
 =>
 	(set-goal ATTACK-STATE PULLING-TROOPS)
 	(up-retreat-now) ;Pull all units together at the town center, so when the attack starts, they all move as one blob and not scattered groups
-	(set-strategic-number sn-task-ungrouped-soldiers YES);spread units a bit
+	;(set-strategic-number sn-task-ungrouped-soldiers YES);spread units a bit
 	(chat-local-to-self "preparing for attack!")
 	;(chat-to-player every-ally "39 I will attack the enemy in one minute!")
 	(enable-timer T-ATTACK 10)
