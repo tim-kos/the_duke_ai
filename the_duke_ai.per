@@ -1587,12 +1587,10 @@
 (defrule
  	(true)
 =>
-	(set-strategic-number sn-wood-dropsite-distance 7)
 	(set-strategic-number sn-food-dropsite-distance 8)
 	(set-strategic-number sn-stone-dropsite-distance 3)
 	(set-strategic-number sn-gold-dropsite-distance 3)
 
- 	(set-strategic-number sn-maximum-wood-drop-distance 10)
 	(set-strategic-number sn-maximum-food-drop-distance 8)
  	(set-strategic-number sn-maximum-hunt-drop-distance 12)
  	(set-strategic-number sn-maximum-gold-drop-distance 5)
@@ -1602,16 +1600,53 @@
 )
 
 (defrule
- 	(dropsite-min-distance wood < 5)
-=>
- 	(set-strategic-number sn-maximum-wood-drop-distance 5)
-)
-
-(defrule
  	(dropsite-min-distance wood >= 5)
 =>
  	(set-strategic-number sn-maximum-wood-drop-distance 10)
+	(set-strategic-number sn-wood-dropsite-distance 10)
 )
+
+(defrule
+ 	(dropsite-min-distance wood >= 7)
+=>
+ 	(set-strategic-number sn-maximum-wood-drop-distance 20)
+	(set-strategic-number sn-wood-dropsite-distance 20)
+)
+
+(defrule
+ 	(dropsite-min-distance wood == 5)
+=>
+ 	(set-strategic-number sn-maximum-wood-drop-distance 5)
+	(set-strategic-number sn-wood-dropsite-distance 5)
+)
+(defrule
+ 	(dropsite-min-distance wood == 4)
+=>
+ 	(set-strategic-number sn-maximum-wood-drop-distance 4)
+	(set-strategic-number sn-wood-dropsite-distance 4)
+)
+(defrule
+ 	(dropsite-min-distance wood == 3)
+=>
+ 	(set-strategic-number sn-maximum-wood-drop-distance 3)
+	(set-strategic-number sn-wood-dropsite-distance 3)
+)
+(defrule
+ 	(dropsite-min-distance wood == 2)
+=>
+ 	(set-strategic-number sn-maximum-wood-drop-distance 2)
+	(set-strategic-number sn-wood-dropsite-distance 2)
+)
+(defrule
+ 	(dropsite-min-distance wood < 2)
+=>
+ 	(set-strategic-number sn-maximum-wood-drop-distance 1)
+	(set-strategic-number sn-wood-dropsite-distance 1)
+)
+
+
+
+
 
 (defrule
  	(dropsite-min-distance wood >= 20)
