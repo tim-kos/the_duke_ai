@@ -3725,6 +3725,17 @@
 	(chat-local-to-self "Save resources for research for 3min")
 )
 
+(defrule
+	(timer-triggered T-SAVE-FOR-RESEARCH)
+	(goal SAVE-FOR-RESEARCH NO)
+	(game-time > 5400) ;In late game, only save for 1min. To save on wood to to build more military buildings and delete the last technologies
+	(military-population > FIVE-PERCENT-POP)
+=>
+	(set-goal SAVE-FOR-RESEARCH YES)
+	(enable-timer T-SAVE-FOR-RESEARCH 60) ;save resources for 1 min
+	(chat-local-to-self "Save resources for research for 1min")
+)
+
 ;If we have exceeded our target time for researching the imperial age, save resources until we are
 ;researching it.
 ;(defrule
