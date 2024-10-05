@@ -1753,13 +1753,13 @@
 (defrule
  	(current-age >= castle-age)
 	(building-type-count-total barracks < barracks-building-imperial)
-	(wood-amount > 800)
+	(wood-amount > 400)
 	(building-type-count-total town-center > 2)
  	(can-build barracks)
 	(or
 		(goal ABLE-TO-BUILD-BARRACKS YES)
 		(or
-			(wood-amount > 1250)
+			(wood-amount > 850)
 			(food-amount > 3000) ;shift too many barracks for helebardiers if we have much food
 		)
 	)
@@ -1955,12 +1955,12 @@
 	(current-age >= castle-age)
 	(can-build stable)
 	(building-type-count-total stable < stable-building-imperial)
-	(wood-amount > 800)
+	(wood-amount > 400)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 	(or
 		(goal ABLE-TO-BUILD-STABLE YES)
 		(or
-			(wood-amount > 1250)
+			(wood-amount > 850)
 			(food-amount > 3000) ;shift too many stables for hussars if we have much food
 		)
 	)
@@ -2176,7 +2176,7 @@
 (defrule
 	(current-age >= castle-age)
 	(can-build archery-range)
-	(wood-amount > 700)
+	(wood-amount > 400)
 	(building-type-count-total archery-range < 3)
 	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -2199,10 +2199,13 @@
 	(building-type-count-total town-center > 2)
 	(goal ALL-ECONOMY-TECH-DONE YES)
  	(can-build archery-range)
-	;(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
+	(wood-amount > 400)
 	(or
-		(wood-amount > 1250)
-		(food-amount > 3000) ;shift too many archery-ranges for skirmishers if we have much food
+		(wood-amount > 850)
+		(or
+			(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
+			(food-amount > 3000) ;shift too many archery-ranges for skirmishers if we have much food
+		)
 	)
 	(unit-type-count-total villager > TWENTY-PERCENT-POP) ;can our economy support this?
 	(up-pending-objects c: archery-range < 2)
