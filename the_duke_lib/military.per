@@ -1942,9 +1942,7 @@
 		(current-age >= feudal-age)
 		(building-type-count-total barracks < 2)
 	)
-	(building-type-count-total barracks < 5)
-	(unit-type-count-total trade-cart < 5)
-	(unit-type-count-total trade-cog < 5)
+	(building-type-count-total barracks < 7)
 =>
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
@@ -1964,8 +1962,6 @@
 	(food-amount > 1500)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
-	(unit-type-count-total trade-cart < 5)
-	(unit-type-count-total trade-cog < 5)
 =>
 	(train spearman-line)
 )
