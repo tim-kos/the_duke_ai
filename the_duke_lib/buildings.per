@@ -55,7 +55,7 @@
 	(up-compare-goal TOWN-SIZE-FOR-BUILDING >= 20)
 	;do not make it too big, or else villagers travel too far to build stuff, when they should gather resources
 	;and newly created units will be alone close to enemy lines and just die.
-	(up-compare-goal TOWN-SIZE-FOR-BUILDING < 90)
+	(up-compare-goal TOWN-SIZE-FOR-BUILDING < 55) ;Do not go too high here, or else we will constantly attack nearby enemies with tiny groups even though we are not wanting to attack
 =>
 	(enable-timer T-INCREASE-TOWN-SIZE 90)
 	(up-modify-goal TOWN-SIZE-FOR-BUILDING c:+ 1)
@@ -111,7 +111,7 @@
 	(up-compare-goal TOWN-SIZE-FOR-BUILDING >= 20)
 	;do not make it too big, or else villagers travel too far to build stuff, when they should gather resources
 	;and newly created units will be alone close to enemy lines and just die.
-	(up-compare-goal TOWN-SIZE-FOR-BUILDING < 90)
+	(up-compare-goal TOWN-SIZE-FOR-BUILDING < 55) ;Do not go too high here, or else we will constantly attack nearby enemies with tiny groups even though we are not wanting to attack
 =>
 	(enable-timer T-INCREASE-TOWN-SIZE 60)
 	(up-modify-goal TOWN-SIZE-FOR-BUILDING c:+ 2)
