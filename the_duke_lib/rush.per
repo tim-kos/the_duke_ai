@@ -91,13 +91,6 @@
 #load-if-not-defined GIANT-MAP
 
 (defrule
-	(or
-		(goal HOW-MANY-PLAYERS TWO)
-		(or
-			(goal HOW-MANY-PLAYERS THREE)
-			(goal HOW-MANY-PLAYERS FOUR)
-		)
-	)
 	(goal RUSH-CONTROL ENABLE)
 =>
 	(set-goal RUSH-CONTROL PRIVILEGED)
@@ -131,61 +124,6 @@
 #end-if		;if map != medium
 #end-if		;if map != small
 #end-if		;if map != tiny
-
-
-
-(defrule
-	(goal HOW-MANY-PLAYERS FIVE)
-	(goal RUSH-CONTROL ENABLE)
-=>
-	(chat-local-to-self "five players in game, no ally -> no rush")
-	(set-goal RUSH-CONTROL NO)
-	(disable-self)
-)
-
-
-
-(defrule
-	(goal HOW-MANY-PLAYERS FIVE)
-	(goal RUSH-CONTROL ENABLE)
-=>
-;	(chat-local-to-self "five players in game, ally -> rush")
-	(disable-self)
-)
-
-
-
-(defrule
-	(goal HOW-MANY-PLAYERS SIX)
-	(goal RUSH-CONTROL ENABLE)
-=>
-	(chat-local-to-self "six players in game ->no rush")
-	(set-goal RUSH-CONTROL NO)
-	(disable-self)
-)
-
-
-
-(defrule
-	(goal HOW-MANY-PLAYERS SEVEN)
-	(goal RUSH-CONTROL ENABLE)
-=>
-	(chat-local-to-self "seven players in game -> no rush")
-	(set-goal RUSH-CONTROL NO)
-	(disable-self)
-)
-
-
-
-(defrule
-	(goal HOW-MANY-PLAYERS EIGHT)
-	(goal RUSH-CONTROL ENABLE)
-=>
-	(chat-local-to-self "eight players in game -> no rush")
-	(set-goal RUSH-CONTROL NO)
-	(disable-self)
-)
-
 
 
 
@@ -261,7 +199,7 @@
 
 (defrule
 	(random-number > 2)
-	(random-number <= 6)
+	(random-number <= 7)
 	(goal RUSH-CONTROL ENABLE)
 	(current-age <= castle-age)
 =>
@@ -271,7 +209,7 @@
 )
 
 (defrule
-	(random-number > 6)
+	(random-number > 7)
 	(random-number <= 10)
 	(goal RUSH-CONTROL ENABLE)
 =>
@@ -951,6 +889,41 @@
 
 
 #end-if		;if civ == viking
+
+
+;FOR ALL OTHER (NEW) CIVS
+;*****************************************
+;*****************************************
+(defrule
+	(random-number <= 3)
+	(goal RUSH-CONTROL ENABLE)
+	(current-age <= feudal-age)
+=>
+	(set-goal RUSH-CONTROL FEUDAL)
+	(chat-local-to-self "RUSH-CONTROL FEUDAL")
+	(disable-self)
+)
+
+(defrule
+	(random-number > 3)
+	(random-number <= 6)
+	(goal RUSH-CONTROL ENABLE)
+	(current-age <= castle-age)
+=>
+	(set-goal RUSH-CONTROL CASTLE)
+	(chat-local-to-self "RUSH-CONTROL CASTLE")
+	(disable-self)
+)
+
+(defrule
+	(random-number > 6)
+	(random-number <= 10)
+	(goal RUSH-CONTROL ENABLE)
+=>
+	(set-goal RUSH-CONTROL NO)
+	(chat-local-to-self "NO RUSHING")
+	(disable-self)
+)
 
 
 ;******************************************************
