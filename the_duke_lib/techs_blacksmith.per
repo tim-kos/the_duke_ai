@@ -24,12 +24,6 @@
 ;Rule66: define when can we upgrade our CAVALRY in feudal-age
 
 (defrule
-	(true)
-=>
-	(set-goal G-ABLE-TO-UPGRADE-CAVALRY NO)
-)
-
-(defrule
 	(unit-type-count-total scout-cavalry-line >= THREE-PERCENT-POP)
 	(food-amount >= 1000)
 	(gold-amount >= 400)
@@ -121,12 +115,6 @@
 
 
 ;Rule43: start the lopp of upgrading our militiaman-line
-
-(defrule
-	(true)
-=>
-	(set-goal G-ABLE-TO-UPGRADE-INFANTRY NO)
-)
 
 (defrule
 	(current-age == feudal-age)
@@ -503,13 +491,8 @@
 
 (defrule
  	(can-research-with-escrow ri-forging)
-	(or
-		(or
-			(goal G-ABLE-TO-UPGRADE-INFANTRY LOW)
-			(goal G-ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		)
-		(goal G-ABLE-TO-UPGRADE-INFANTRY HIGH)
-	)
+	(not (goal G-ABLE-TO-UPGRADE-INFANTRY NO))
+	(not (goal G-ABLE-TO-UPGRADE-CAVALRY NO))
 	(or
 		(soldier-count > TWO-PERCENT-POP)
 		(or
@@ -698,45 +681,13 @@
 			(food-amount > 800)
 			(gold-amount > 500)
 		)
-		(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
+		(or
+			(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= HIGH)
+			(up-compare-goal G-ABLE-TO-UPGRADE-CALVALRY >= HIGH)
+		)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
- 	(research ri-iron-casting)
-; (chat-local-to-self "research IRON-CASTING")
-)
-
-(defrule
- 	(can-research-with-escrow ri-iron-casting)
-	(or
-		(and
-			(food-amount > 800)
-			(gold-amount > 500)
-		)
-		(up-compare-goal G-ABLE-TO-UPGRADE-CAVALRY >= MIDDLE)
-	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
-=>
-	(release-escrow food)
-	(release-escrow gold)
- 	(research ri-iron-casting)
-; (chat-local-to-self "research IRON-CASTING")
-)
-
-;150 FOOD, 150 gold
-(defrule
- 	(can-research-with-escrow ri-iron-casting)
-	(or
-		(and
-			(food-amount > 800)
-			(gold-amount > 500)
-		)
-		(up-compare-goal G-ABLE-TO-UPGRADE-CAVALRY >= MIDDLE)
-	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
-=>					;then
 	(release-escrow food)
 	(release-escrow gold)
  	(research ri-iron-casting)
@@ -754,7 +705,7 @@
 			(food-amount > 800)
 			(gold-amount > 500)
 		)
-		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= MIDDLE)
+		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= LOW)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -809,7 +760,7 @@
 			(food-amount > 800)
 			(gold-amount > 500)
 		)
-		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= MIDDLE)
+		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= HIGH)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -830,7 +781,7 @@
 			(food-amount > 800)
 			(gold-amount > 500)
 		)
-		(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
+		(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= LOW)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -886,7 +837,7 @@
 			(food-amount > 800)
 			(gold-amount > 500)
 		)
-		(goal G-ABLE-TO-UPGRADE-INFANTRY HIGH)
+		(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -907,7 +858,7 @@
 			(food-amount > 800)
 			(gold-amount > 500)
 		)
-		(goal G-ABLE-TO-UPGRADE-CAVALRY HIGH)
+		(up-compare-goal G-ABLE-TO-UPGRADE-CAVALRY >= MIDDLE)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -949,7 +900,7 @@
 			(food-amount > 800)
 			(gold-amount > 500)
 		)
-		(goal G-ABLE-TO-UPGRADE-ARCHERS HIGH)
+		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= MIDDLE)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
