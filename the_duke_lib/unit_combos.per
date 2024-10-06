@@ -3829,6 +3829,15 @@
 	(set-goal ABLE-TO-TRAIN-UNITS NO)
 )
 
+;Save resources for an earlier imperial-age
+(defrule
+	(military-population > FIVE-PERCENT-POP)
+	(up-research-status c: imperial-age < research-pending)
+	(goal RUSH-CONTROL NO)
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS NO)
+)
+
 ;************************************************************************************************************
 ;FEATURE THAT AN ALLY CAN TELL THE AI WHAT UNITS IT SHOULD TRAIN
 
