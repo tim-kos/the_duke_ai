@@ -1460,6 +1460,10 @@
 		(goal RUSH-CONTROL NO)
 		(wood-amount > 600)
 	)
+	(or
+		(goal RESEARCHING-IMPERIAL LATE-IMPERIAL)
+		(up-research-status c: imperial-age >= research-pending)
+	)
 	(not (current-age == post-imperial-age))
 =>
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
