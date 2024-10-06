@@ -38,6 +38,11 @@
 
 (defrule
   (can-research my-second-unique-research)
+  (or
+    (game-time > 3600)
+    (current-age == imperial-age)
+  )
+  (food-amount > 2000)
 =>
   (research my-second-unique-research)
   (disable-self)
