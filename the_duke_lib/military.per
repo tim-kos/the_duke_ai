@@ -28,11 +28,11 @@
 ;TODO: Doing this like this for now, until proper implementation
 (defrule
 	(or
-		(unit-type-count-total g: G-PRIMARY-UNIT < TWO-PERCENT-POP)
+		(up-object-type-count-total g: G-PRIMARY-UNIT < TWO-PERCENT-POP)
 		(or
 			(and
 				(goal G-UPGRADED-PRIMARY-UNIT YES)
-				(unit-type-count-total g: G-PRIMARY-UNIT < FIVE-PERCENT-POP)
+				(up-object-type-count-total g: G-PRIMARY-UNIT < FIVE-PERCENT-POP)
 			)
 			(and
 				(goal G-UPGRADED-PRIMARY-UNIT YES)
@@ -46,11 +46,11 @@
 
 (defrule
 	(or
-		(unit-type-count-total g: G-SECONDARY-UNIT < TWO-PERCENT-POP)
+		(up-object-type-count-total g: G-SECONDARY-UNIT < TWO-PERCENT-POP)
 		(or
 			(and
 				(goal G-UPGRADED-SECONDARY-UNIT YES)
-				(unit-type-count-total g: G-SECONDARY-UNIT < FIVE-PERCENT-POP)
+				(up-object-type-count-total g: G-SECONDARY-UNIT < FIVE-PERCENT-POP)
 			)
 			(and
 				(goal G-UPGRADED-PRIMARY-UNIT YES)
