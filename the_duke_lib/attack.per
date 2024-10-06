@@ -298,6 +298,8 @@
 	(goal SAVE-FOR-RESEARCH NO)
 	(goal RUSH-CONTROL NO)
 	(goal UNDER-ATTACK NO)
+	(goal G-UPGRADED-PRIMARY-UNIT YES)
+	(goal G-UPGRADED-SECONDARY-UNIT YES)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(chat-local-to-self "Prepare attack4")
@@ -314,6 +316,13 @@
 			(death-match-game)
 		)
 		(current-age-time > 420)
+	)
+	(or
+		(unit-type-count trebuchet > 1)
+		(or
+			(unit-type-count battering-ram-line > 1)
+			(unit-type-count bombard-cannon > 1)
+		)
 	)
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL NO)
@@ -333,11 +342,11 @@
 	(or
 		(and
 			(goal MILITARY-PARITY VASTLY-SUPERIOR)
-			(defend-soldier-count >= TWENTY-PERCENT-POP)
+			(defend-soldier-count >= TEN-PERCENT-POP)
 		)
 		(and
 			(goal MILITARY-PARITY SUPERIOR)
-			(soldier-count >= THIRTY-PERCENT-POP)
+			(soldier-count >= TWENTY-PERCENT-POP)
 		)
 	)
 	;Only attack if we have siege units or a really large army
@@ -350,6 +359,8 @@
 	)
 	(goal SAVE-FOR-RESEARCH NO)
 	(goal UNDER-ATTACK NO)
+	(goal G-UPGRADED-PRIMARY-UNIT YES)
+	(goal G-UPGRADED-SECONDARY-UNIT YES)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(chat-local-to-self "Prepare attack5")

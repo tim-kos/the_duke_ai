@@ -402,6 +402,7 @@
 	(food-amount > 800)
 	(wood-amount > 600)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
  	(research ri-masonry)
 ; (chat-local-to-self "research MASONRY")
@@ -417,6 +418,7 @@
 	(wood-amount > 600)
 	(stone-amount > 300)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(research ri-guard-tower)
 ; (chat-local-to-self "research GUARD-TOWER")
@@ -488,6 +490,7 @@
 	(food-amount > 600)
 	(wood-amount > 400)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(research ri-heated-shot)
 ; (chat-local-to-self "research HEATED-SHOT")
@@ -526,6 +529,7 @@
  	(can-research ri-stonecutting)
 	(not (research-available ri-ballistics))
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(research ri-stonecutting)
 ; (chat-local-to-self "research STONECUTTING")
@@ -544,6 +548,7 @@
 	(wood-amount > 700)
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
  	(research ri-siege-engineers)
 ; (chat-local-to-self "research SIEGE-ENGINEERS")
@@ -560,6 +565,7 @@
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
  	(research ri-siege-engineers)
 ; (chat-local-to-self "research SIEGE-ENGINEERS")
@@ -571,6 +577,7 @@
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
  	(research ri-architecture)
 ; (chat-local-to-self "research ARCHITECTURE")
@@ -583,6 +590,7 @@
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
  	(research ri-keep)
 ; (chat-local-to-self "research KEEP")
@@ -592,6 +600,7 @@
  	(can-research ri-chemistry)
 	(not (research-available ri-ballistics))
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
  	(research ri-chemistry)
 ; (chat-local-to-self "research CHEMISTRY")
@@ -602,6 +611,7 @@
 	(not (research-available ri-ballistics))
 	(building-type-count town-center > 1)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(research ri-bombard-tower)
 ; (chat-local-to-self "research BOMBARD-TOWER")
@@ -619,6 +629,7 @@
  	(can-research-with-escrow ri-atonement)
 	(cc-players-unit-type-count any-enemy monk >= 4)
 	(gold-amount > 2000)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow gold)
  	(research ri-atonement)
@@ -629,6 +640,7 @@
  	(can-research-with-escrow ri-fervor)
 	(unit-type-count monk >= 3)
 	(gold-amount > 1700)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow gold)
 	(research ri-fervor)
@@ -639,6 +651,7 @@
  	(can-research-with-escrow ri-sanctity)
 	(unit-type-count monk >= 3)
 	(gold-amount > 1700)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow gold)
  	(research ri-sanctity)
@@ -653,6 +666,7 @@
 		(not (death-match-game))
 		(game-time > 1800)
 	)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow gold)
  	(research ri-redemption)
@@ -662,6 +676,7 @@
 ;(defrule
 ; (can-research-with-escrow ri-herbal-medicine)
 ;	(gold-amount > 2000)
+;(goal ALL-MILITARY-TECH-DONE YES)
 ;=>
 ;	(release-escrow gold)
 ;	(research ri-herbal-medicine)
@@ -672,11 +687,12 @@
 (defrule
  	(can-research-with-escrow ri-heresy)
 	(gold-amount > 4000)
-	(military-population > 30)
+	(military-population > TWENTY-PERCENT-POP)
 	(or
 		(not (death-match-game))
 		(game-time > 1800)
 	)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow gold)
  	(research ri-heresy)
@@ -686,12 +702,13 @@
 (defrule
  	(can-research-with-escrow ri-faith)
 	(gold-amount > 2500)
-	(military-population > 30)
+	(military-population > TWENTY-PERCENT-POP)
 	(food-amount > 2500)
 	(or
 		(not (death-match-game))
 		(game-time > 1800)
 	)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow gold)
  	(research ri-faith)
@@ -702,6 +719,7 @@
  	(can-research-with-escrow ri-illumination)
 	(unit-type-count monk >= 3)
 	(gold-amount > 1700)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow gold)
 	(research ri-illumination)
@@ -713,6 +731,7 @@
 	(building-type-count-total monastery >= 1)
 	(unit-type-count monk >= 3)
 	(gold-amount > 1700)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow gold)
 	(research ri-block-printing)
@@ -727,6 +746,7 @@
 		(not (death-match-game))
 		(game-time > 1800)
 	)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow gold)
 	(research ri-theocracy)
@@ -742,10 +762,7 @@
 ;TRACKING 75 FOOD
 (defrule
  	(can-research-with-escrow ri-tracking)
-	(or
-		(goal G-ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal G-ABLE-TO-UPGRADE-INFANTRY HIGH)
-	)
+	(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
 	(food-amount > 500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -756,10 +773,7 @@
 ;200 FOOD
 (defrule
  	(can-research-with-escrow ri-squires)
-	(or
-		(goal G-ABLE-TO-UPGRADE-INFANTRY MIDDLE)
-		(goal G-ABLE-TO-UPGRADE-INFANTRY HIGH)
-	)
+	(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
 	(food-amount > 500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -815,7 +829,7 @@
 		(unit-type-count-total militiaman-line > TWO-PERCENT-POP)
 		(or
 			(goal G-PRIMARY-UNIT militiaman-line)
-			(goal G-PRIMARY-UNIT militiaman-line)
+			(goal G-SECONDARY-UNIT militiaman-line)
 		)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -831,7 +845,13 @@
 ;750 FOOD, 350 GOLD
 (defrule
  	(can-research-with-escrow ri-champion)
-	(unit-type-count-total militiaman-line > TWO-PERCENT-POP)
+	(or
+		(unit-type-count-total militiaman-line > TWO-PERCENT-POP)
+		(or
+			(goal G-PRIMARY-UNIT militiaman-line)
+			(goal G-SECONDARY-UNIT militiaman-line)
+		)
+	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -924,7 +944,13 @@
 ;archer-line 125 FOOD, 75 GOLD
 (defrule
  	(can-research-with-escrow ri-crossbow)
-	(unit-type-count-total archer-line > ONE-PERCENT-POP)
+	(or
+		(unit-type-count-total archer-line >= ONE-PERCENT-POP)
+		(or
+			(goal G-PRIMARY-UNIT archer-line)
+			(goal G-SECONDARY-UNIT archer-line)
+		)
+	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -936,7 +962,13 @@
 ;350 FOOD, 300 GOLD
 (defrule
  	(can-research-with-escrow ri-arbalest)
-	(unit-type-count-total archer-line >= TWO-PERCENT-POP)
+	(or
+		(unit-type-count-total archer-line >= TWO-PERCENT-POP)
+		(or
+			(goal G-PRIMARY-UNIT archer-line)
+			(goal G-SECONDARY-UNIT archer-line)
+		)
+	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -967,7 +999,13 @@
 ;900 FOOD, 500 GOLD
 (defrule
  	(can-research-with-escrow ri-heavy-cavalry-archer)
-	(unit-type-count-total cavalry-archer-line >= TWO-PERCENT-POP)
+	(or
+		(unit-type-count-total cavalry-archer-line >= TWO-PERCENT-POP)
+		(or
+			(goal G-PRIMARY-UNIT cavalry-archer-line)
+			(goal G-SECONDARY-UNIT cavalry-archer-line)
+		)
+	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -979,10 +1017,7 @@
 (defrule
  	(can-research-with-escrow ri-thumb-ring)
 	(or
-		(or
-			(goal G-ABLE-TO-UPGRADE-ARCHERS MIDDLE)
-			(goal G-ABLE-TO-UPGRADE-ARCHERS HIGH)
-		)
+		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= MIDDLE)
 		(or
 			(game-time > 1800) ;prepare for late game where gold will be scarce and we need to train skirmishers
 			(unit-type-count-total skirmisher-line >= TWO-PERCENT-POP)
@@ -999,7 +1034,7 @@
 ;200 FOOD, 250 GOLD
 (defrule
  	(can-research-with-escrow ri-parthian-tactics)
-	(unit-type-count-total cavalry-archer-line >= TWO-PERCENT-POP)
+	(unit-type-count-total cavalry-archer-class >= TWO-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -1023,6 +1058,20 @@
 		)
 	)
 	(not (research-available ri-bloodlines))
+	(or
+		(and
+			(goal G-UPGRADED-PRIMARY-UNIT YES)
+			(goal G-UPGRADED-SECONDARY-UNIT YES)
+		)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(goal RUSH-ATTACK-STARTED YES)
+		)
+	)
+	(or
+		(research-status c: imperial-age >= research-pending)
+		(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL))
+	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -1039,6 +1088,20 @@
 			(goal G-ABLE-TO-UPGRADE-CAVALRY HIGH)
 			(food-amount > 500)
 		)
+	)
+	(or
+		(and
+			(goal G-UPGRADED-PRIMARY-UNIT YES)
+			(goal G-UPGRADED-SECONDARY-UNIT YES)
+		)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(goal RUSH-ATTACK-STARTED YES)
+		)
+	)
+	(or
+		(research-status c: imperial-age >= research-pending)
+		(not (goal RESEARCHING-IMPERIAL FAST-IMPERIAL))
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -1066,7 +1129,7 @@
 (defrule
  	(can-research-with-escrow ri-hussar)
 	(or
-		(unit-type-count-total scout-cavalry-line >= TWO-PERCENT-POP)
+		(unit-type-count-total scout-cavalry-line >= ONE-PERCENT-POP)
 		(or
 			(goal G-PRIMARY-UNIT scout-cavalry-line)
 			(goal G-SECONDARY-UNIT scout-cavalry-line)
@@ -1083,7 +1146,7 @@
 ;CAVALIER 300 FOOD, 300 GOLD
 (defrule
  	(can-research-with-escrow ri-cavalier)
- 	(unit-type-count-total knight-line >= TWO-PERCENT-POP)
+ 	(unit-type-count-total knight-line >= ONE-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -1095,7 +1158,7 @@
 ;PALADIN 1300 FOOD, 750 GOLD
 (defrule
  	(can-research-with-escrow ri-paladin)
-	(unit-type-count-total knight-line >= THREE-PERCENT-POP)
+	(unit-type-count-total knight-line >= TWO-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -1119,7 +1182,7 @@
 ;1300 FOOD, 750 GOLD
 (defrule
  	(can-research-with-escrow ri-heavy-camel)
-	(unit-type-count-total camel-line >= THREE-PERCENT-POP)
+	(unit-type-count-total camel-line >= TWO-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -1152,12 +1215,8 @@
 ;SIEGE-battering-ram-line 1000 FOOD
 (defrule
  	(can-research-with-escrow ri-siege-ram)
-	(or
-		(goal PRIMARY-COMBAT-SIEGE-UNIT battering-ram-line)
-		(goal SECONDARY-COMBAT-SIEGE-UNIT battering-ram-line)
-	)
 	(food-amount > 1800)
-	(unit-type-count-total battering-ram-line > 2)
+	(unit-type-count-total battering-ram-line > 1)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -1169,10 +1228,6 @@
 ;ONAGER 800 FOOD, 500 GOLD
 (defrule
  	(can-research-with-escrow ri-onager)
-	(or
-		(goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
-		(goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
-	)
 	(unit-type-count-total mangonel-line > 2)
 	(food-amount > 1000)
 	(gold-amount > 700)
@@ -1188,11 +1243,7 @@
 ;SIEGE-ONAGER 1450 FOOD, 1000 GOLD
 (defrule
  	(can-research-with-escrow ri-siege-onager)
- 	(unit-type-count-total mangonel-line > 3)
-	(or
-		(goal PRIMARY-COMBAT-SIEGE-UNIT mangonel-line)
-		(goal SECONDARY-COMBAT-SIEGE-UNIT mangonel-line)
-	)
+ 	(unit-type-count-total mangonel-line > 2)
 	(food-amount > 2600)
 	(gold-amount > 1500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -1206,11 +1257,7 @@
 ;HEAVY-scorpion-line 1000 FOOD, 1100 WOOD
 (defrule
  	(can-research-with-escrow ri-heavy-scorpion)
-	(or
-		(goal PRIMARY-COMBAT-SIEGE-UNIT scorpion-line)
-		(goal SECONDARY-COMBAT-SIEGE-UNIT scorpion-line)
-	)
-	(unit-type-count-total scorpion-line > 3)
+	(unit-type-count-total scorpion-line > 2)
 	(wood-amount > 1400)
 	(food-amount > 1500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -1480,6 +1527,401 @@
 	(not (research-available ri-stone-mining))
 =>
 	(set-goal ALL-ECONOMY-TECH-DONE YES)
+	(chat-local-to-self "ALL ECONOMY TECH DONE")
+	(disable-self)
+)
+
+
+;---------------------
+;Check when all military tech is done
+
+(defrule
+	(current-age == dark-age)
+=>
+	(set-goal ALL-MILITARY-TECH-DONE YES)
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age == feudal-age)
+=>
+	(set-goal ALL-MILITARY-TECH-DONE NO)
+	(set-goal G-UPGRADED-PRIMARY-UNIT NO)
+	(set-goal G-UPGRADED-SECONDARY-UNIT NO)
+	(disable-self)
+)
+
+(defrule
+	(current-age == castle-age)
+=>
+	(set-goal ALL-MILITARY-TECH-DONE NO)
+	(set-goal G-UPGRADED-PRIMARY-UNIT NO)
+	(set-goal G-UPGRADED-SECONDARY-UNIT NO)
+	(disable-self)
+)
+
+(defrule
+	(current-age == imperial-age)
+=>
+	(set-goal ALL-MILITARY-TECH-DONE NO)
+	(set-goal G-UPGRADED-PRIMARY-UNIT NO)
+	(set-goal G-UPGRADED-SECONDARY-UNIT NO)
+	(disable-self)
+)
+
+(defrule
+	(goal G-SECONDARY-UNIT NO)
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(goal G-PRIMARY-UNIT militiaman-line)
+	(not (research-available ri-man-at-arms))
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(goal G-SECONDARY-UNIT militiaman-line)
+	(not (research-available ri-man-at-arms))
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(not (goal G-PRIMARY-UNIT militiaman-line))
+	(not (goal G-SECONDARY-UNIT militiaman-line))
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+	(disable-self)
+)
+
+;Castle-age in barracks
+(defrule
+	(current-age == castle-age)
+	(or
+		(and
+			(goal G-PRIMARY-UNIT militiaman-line)
+			(not (research-available ri-long-swordsman))
+		)
+		(and
+			(goal G-PRIMARY-UNIT spearman-line)
+			(not (research-available ri-pikeman))
+		)
+	)
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+)
+(defrule
+	(current-age == castle-age)
+	(or
+		(and
+			(goal G-SECONDARY-UNIT militiaman-line)
+			(not (research-available ri-long-swordsman))
+		)
+		(and
+			(goal G-SECONDARY-UNIT spearman-line)
+			(not (research-available ri-pikeman))
+		)
+	)
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+)
+
+;Castle-age in archery range
+(defrule
+	(current-age == castle-age)
+	(or
+		(and
+			(goal G-PRIMARY-UNIT archer-line)
+			(not (research-available ri-crossbow))
+		)
+		(and
+			(goal G-PRIMARY-UNIT skirmisher-line)
+			(not (research-available ri-elite-skirmisher))
+		)
+		(goal G-PRIMARY-UNIT cavalry-archer-line)
+	)
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+)
+(defrule
+	(current-age == castle-age)
+	(or
+		(and
+			(goal G-SECONDARY-UNIT archer-line)
+			(not (research-available ri-crossbow))
+		)
+		(and
+			(goal G-SECONDARY-UNIT skirmisher-line)
+			(not (research-available ri-elite-skirmisher))
+		)
+		(goal G-SECONDARY-UNIT cavalry-archer-line)
+	)
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+)
+
+;Castle-age in stable
+(defrule
+	(current-age == castle-age)
+	(or
+		(and
+			(goal G-PRIMARY-UNIT scout-cavalry-line)
+			(not (research-available ri-light-cavalry))
+		)
+		(or
+			(goal G-PRIMARY-UNIT knight-line)
+			(or
+				(goal G-PRIMARY-UNIT steppe-lancer-line)
+				(goal G-PRIMARY-UNIT camel-line)
+			)
+		)
+	)
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+)
+(defrule
+	(current-age == castle-age)
+	(or
+		(and
+			(goal G-SECONDARY-UNIT scout-cavalry-line)
+			(not (research-available ri-light-cavalry))
+		)
+		(or
+			(goal G-SECONDARY-UNIT knight-line)
+			(or
+				(goal G-SECONDARY-UNIT steppe-lancer-line)
+				(goal G-SECONDARY-UNIT camel-line)
+			)
+		)
+	)
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+)
+
+;Castle-age in castle
+(defrule
+	(current-age == castle-age)
+	(goal G-PRIMARY-UNIT my-unique-unit-line)
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+)
+(defrule
+	(current-age == castle-age)
+	(goal G-SECONDARY-UNIT my-unique-unit-line)
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+)
+
+
+;********* Imperial Age
+;Imperial-age in barracks
+(defrule
+	(current-age == imperial-age)
+	(or
+		(and
+			(goal G-PRIMARY-UNIT militiaman-line)
+			(and
+				(not (research-available ri-two-handed-swordsman))
+				(not (research-available ri-champion))
+			)
+		)
+		(and
+			(goal G-PRIMARY-UNIT spearman-line)
+			(not (research-available ri-halberdier))
+		)
+	)
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+)
+(defrule
+	(current-age == imperial-age)
+	(or
+		(and
+			(goal G-SECONDARY-UNIT militiaman-line)
+			(and
+				(not (research-available ri-two-handed-swordsman))
+				(not (research-available ri-champion))
+			)
+		)
+		(and
+			(goal G-SECONDARY-UNIT spearman-line)
+			(not (research-available ri-halberdier))
+		)
+	)
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+)
+
+;Imperial-age in archery range
+(defrule
+	(current-age == imperial-age)
+	(or
+		(and
+			(goal G-PRIMARY-UNIT archer-line)
+			(not (research-available ri-arbalest))
+		)
+		(and
+			(goal G-PRIMARY-UNIT skirmisher-line)
+			(not (research-available ri-elite-skirmisher))
+		)
+		(and
+			(goal G-PRIMARY-UNIT cavalry-archer-line)
+			(not (research-available ri-heavy-cavalry-archer))
+		)
+		(goal G-PRIMARY-UNIT hand-cannoneer)
+	)
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+)
+(defrule
+	(current-age == imperial-age)
+	(or
+		(and
+			(goal G-SECONDARY-UNIT archer-line)
+			(not (research-available ri-arbalest))
+		)
+		(and
+			(goal G-SECONDARY-UNIT skirmisher-line)
+			(not (research-available ri-elite-skirmisher))
+		)
+		(and
+			(goal G-SECONDARY-UNIT cavalry-archer-line)
+			(not (research-available ri-heavy-cavalry-archer))
+		)
+		(goal G-SECONDARY-UNIT hand-cannoneer)
+	)
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+)
+
+;Imperial-age in stable
+(defrule
+	(current-age == imperial-age)
+	(or
+		(and
+			(goal G-PRIMARY-UNIT scout-cavalry-line)
+			(not (research-available ri-hussar))
+		)
+		(and
+			(goal G-PRIMARY-UNIT camel-line)
+			(not (research-available ri-heavy-camel))
+		)
+		(and
+			(goal G-PRIMARY-UNIT steppe-lancer-line)
+			(not (research-available ri-elite-steppe-lancer))
+		)
+		(and
+			(goal G-PRIMARY-UNIT knight-line)
+			(and
+				(not (research-available ri-chevalier))
+				(not (research-available ri-paladin))
+			)
+		)
+	)
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+)
+(defrule
+	(current-age == imperial-age)
+	(or
+		(and
+			(goal G-SECONDARY-UNIT scout-cavalry-line)
+			(not (research-available ri-hussar))
+		)
+		(and
+			(goal G-SECONDARY-UNIT camel-line)
+			(not (research-available ri-heavy-camel))
+		)
+		(and
+			(goal G-SECONDARY-UNIT steppe-lancer-line)
+			(not (research-available ri-elite-steppe-lancer))
+		)
+		(and
+			(goal G-SECONDARY-UNIT knight-line)
+			(and
+				(not (research-available ri-chevalier))
+				(not (research-available ri-paladin))
+			)
+		)
+	)
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+)
+
+;Imperial-age in castle
+(defrule
+	(current-age == imperial-age)
+	(goal G-PRIMARY-UNIT my-unique-unit-line)
+	(not (research-available my-unique-unit-upgrade))
+=>
+	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
+)
+(defrule
+	(current-age == imperial-age)
+	(goal G-SECONDARY-UNIT my-unique-unit-line)
+	(not (research-available my-unique-unit-upgrade))
+=>
+	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(not (research-available ri-forging))
+	(not (research-available ri-scale-mail))
+	(not (research-available ri-scale-barding))
+	(not (research-available ri-fletching))
+	(not (research-available ri-padded-archer-armor))
+	(goal G-UPGRADED-PRIMARY-UNIT YES)
+	(goal G-UPGRADED-SECONDARY-UNIT YES)
+=>
+	(set-goal ALL-MILITARY-TECH-DONE YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age == castle-age)
+	(not (research-available ri-pikeman))
+	(not (research-available ri-elite-skirmisher))
+	(not (research-available ri-light-cavalry))
+	(not (research-available ri-bodkin-arrow))
+	(not (research-available ri-leather-archer-armor))
+	(not (research-available ri-iron-casting))
+	(not (research-available ri-chain-mail))
+	(not (research-available ri-chain-barding))
+	(not (research-available ri-ballistics))
+	(not (research-available ri-murder-holes))
+	(goal G-UPGRADED-PRIMARY-UNIT YES)
+	(goal G-UPGRADED-SECONDARY-UNIT YES)
+=>
+	(set-goal ALL-MILITARY-TECH-DONE YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age == imperial-age)
+	(not (research-available ri-halberdier))
+	(not (research-available ri-elite-skirmisher))
+	(not (research-available ri-hussar))
+	(not (research-available ri-blast-furnace))
+	(not (research-available ri-plate-mail))
+	(not (research-available ri-plate-barding))
+	(not (research-available ri-bracer))
+	(not (research-available ri-ring-archer-armor))
+	(goal G-UPGRADED-PRIMARY-UNIT YES)
+	(goal G-UPGRADED-SECONDARY-UNIT YES)
+=>
+	(set-goal ALL-MILITARY-TECH-DONE YES)
 	(chat-local-to-self "ALL ECONOMY TECH DONE")
 	(disable-self)
 )

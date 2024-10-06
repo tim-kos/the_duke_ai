@@ -141,7 +141,7 @@
 
 (defrule
 	(current-age == castle-age)
-	(unit-type-count-total infantry-class >= TWO-PERCENT-POP)
+	(unit-type-count-total infantry-class >= ONE-PERCENT-POP)
 	(not (goal RUSH-CONTROL RUSHING))
 =>
 	(set-goal G-ABLE-TO-UPGRADE-INFANTRY LOW)
@@ -151,7 +151,7 @@
 
 (defrule
 	(current-age == castle-age)
-	(unit-type-count-total infantry-class >= THREE-PERCENT-POP)
+	(unit-type-count-total infantry-class >= TWO-PERCENT-POP)
 	(not (goal RUSH-CONTROL RUSHING))
 =>
 	(set-goal G-ABLE-TO-UPGRADE-INFANTRY MIDDLE)
@@ -199,18 +199,12 @@
 =>
 	(set-goal G-ABLE-TO-UPGRADE-INFANTRY LOW)
 )
-
-
-
 (defrule
 	(current-age == imperial-age)
 	(unit-type-count-total infantry-class >= TWO-PERCENT-POP)
 =>
 	(set-goal G-ABLE-TO-UPGRADE-INFANTRY MIDDLE)
 )
-
-
-
 (defrule
 	(current-age == imperial-age)
 	(unit-type-count-total infantry-class >= THREE-PERCENT-POP)
@@ -819,6 +813,8 @@
 		(goal G-ABLE-TO-UPGRADE-CAVALRY HIGH)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal G-UPGRADED-PRIMARY-UNIT YES)
+	(goal G-UPGRADED-SECONDARY-UNIT YES)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -876,7 +872,7 @@
  	(can-research-with-escrow ri-bracer)
 	(or
 		(or
-			(goal G-ABLE-TO-UPGRADE-ARCHERS HIGH)
+			(goal G-ABLE-TO-UPGRADE-ARCHERS MIDDLE)
 			(building-type-count castle >= 2)
 		)
 		(unit-type-count-total galley-line >= FIVE-PERCENT-POP)
@@ -903,6 +899,8 @@
 		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= MIDDLE)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal G-UPGRADED-PRIMARY-UNIT YES)
+	(goal G-UPGRADED-SECONDARY-UNIT YES)
 =>
 	(release-escrow food)
 	(release-escrow gold)

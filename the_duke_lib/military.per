@@ -27,9 +27,38 @@
 
 ;TODO: Doing this like this for now, until proper implementation
 (defrule
-	(true)
+	(or
+		(unit-type-count-total g: G-PRIMARY-UNIT < TWO-PERCENT-POP)
+		(or
+			(and
+				(goal G-UPGRADED-PRIMARY-UNIT YES)
+				(unit-type-count-total g: G-PRIMARY-UNIT < FIVE-PERCENT-POP)
+			)
+			(and
+				(goal G-UPGRADED-PRIMARY-UNIT YES)
+				(goal G-UPGRADED-SECONDARY-UNIT YES)
+			)
+		)
+	)
 =>
 	(set-goal G-CAN-TRAIN-PRIMARY-UNIT YES)
+)
+
+(defrule
+	(or
+		(unit-type-count-total g: G-SECONDARY-UNIT < TWO-PERCENT-POP)
+		(or
+			(and
+				(goal G-UPGRADED-SECONDARY-UNIT YES)
+				(unit-type-count-total g: G-SECONDARY-UNIT < FIVE-PERCENT-POP)
+			)
+			(and
+				(goal G-UPGRADED-PRIMARY-UNIT YES)
+				(goal G-UPGRADED-SECONDARY-UNIT YES)
+			)
+		)
+	)
+=>
 	(set-goal G-CAN-TRAIN-SECONDARY-UNIT YES)
 )
 
