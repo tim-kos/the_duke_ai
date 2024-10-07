@@ -478,6 +478,17 @@
 ; (chat-local-to-self "research FLETCHING")
 )
 
+(defrule
+ 	(can-research-with-escrow ri-fletching)
+	(current-age == feudal-age)
+	(goal RUSH-ATTACK-STARTED YES)
+=>
+	(release-escrow food)
+	(release-escrow gold)
+	(research ri-fletching)
+; (chat-local-to-self "research FLETCHING")
+)
+
 ;***********************************************
 ;FORGING
 ;150 FOOD
@@ -497,6 +508,10 @@
 	(or
 		(not (research-available ri-scale-mail))
 		(not (research-available ri-scale-barding))
+	)
+	(or
+		(not (research-available ri-plate-mail))
+		(not (research-available ri-plate-barding))
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>					;then
