@@ -498,8 +498,6 @@
 
 (defrule
  	(can-research-with-escrow ri-forging)
-	(not (goal G-ABLE-TO-UPGRADE-INFANTRY NO))
-	(not (goal G-ABLE-TO-UPGRADE-CAVALRY NO))
 	(or
 		(unit-type-count-total infantry-class > TWO-PERCENT-POP)
 		(unit-type-count-total cavalry-class > TWO-PERCENT-POP)
