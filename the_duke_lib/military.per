@@ -258,6 +258,7 @@
 )
 (defrule
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(unit-type-count-total eagle-warrior-line < 16)
 =>
 	(chat-local-to-self "EA")
 )
@@ -271,6 +272,7 @@
 		)
 		(up-research-status c: castle-age >= research-pending)
 	)
+	(can-train eagle-warrior-line)
 =>
 	(chat-local-to-self "Yup")
 )
