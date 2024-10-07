@@ -523,21 +523,7 @@
 	(wood-amount > 500)
 	(or
 		(goal RUSH-CONTROL NO)
-		(or
-			(wood-amount > 800)
-			(civilian-population > TEN-PERCENT-POP)
-		)
-	)
-	(up-research-status c: castle-age >= research-pending)
-	(or
-		(and
-			(not (goal RUSH-CONTROL CASTLE))
-			(not (goal RUSH-CONTROL RUSHING))
-		)
-		(or
-			(goal RUSH-ATTACK-STARTED YES)
-			(current-age-time > 420)
-		)
+		(goal RUSH-ATTACK-STARTED YES)
 	)
 =>
  	(build mining-camp)
@@ -551,6 +537,13 @@
 		(and
 			(current-age >= feudal-age)
 			(game-time > 900)
+		)
+	)
+	(or
+		(not (goal RUSH-CONTROL CASTLE))
+		(or
+			(not (goal G-PRIMARY-UNIT eagle-warrior-line))
+			(up-research-status c: castle-age >= research-pending)
 		)
 	)
 	(resource-found gold)
@@ -587,6 +580,13 @@
 			(game-time > 900)
 		)
 	)
+	(or
+		(not (goal RUSH-CONTROL CASTLE))
+		(or
+			(not (goal G-PRIMARY-UNIT eagle-warrior-line))
+			(up-research-status c: castle-age >= research-pending)
+		)
+	)
 	(wood-amount > 300)
 	(resource-found gold)
 	(dropsite-min-distance gold > 0)
@@ -617,6 +617,10 @@
 	(building-type-count-total lumber-camp > 0)
 	(up-pending-objects c: mining-camp < 1)
 	(building-type-count-total mining-camp < 4)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
+	)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
@@ -643,6 +647,10 @@
 	(and	(strategic-number sn-camp-max-distance > 45)
 		(dropsite-min-distance stone > 13))); don't spam camps if it's in an unreachable spot
 	(building-type-count-total mining-camp < 20)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
+	)
 =>
  	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
