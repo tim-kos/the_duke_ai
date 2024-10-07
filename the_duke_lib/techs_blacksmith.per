@@ -448,6 +448,7 @@
 		(unit-type-count-total galley-line >= THREE-PERCENT-POP)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal RUSH-CONTROL NO)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -471,6 +472,7 @@
 		(goal ALL-ECONOMY-TECH-DONE NO)
 		(goal UNDER-ATTACK NO)
 	)
+	(goal RUSH-CONTROL NO)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -480,7 +482,7 @@
 
 (defrule
  	(can-research-with-escrow ri-fletching)
-	(current-age == feudal-age)
+	(not (goal RUSH-CONTROL NO))
 	(goal RUSH-ATTACK-STARTED YES)
 =>
 	(release-escrow food)
