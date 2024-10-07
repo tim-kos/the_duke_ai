@@ -529,6 +529,16 @@
 		)
 	)
 	(up-research-status c: castle-age >= research-pending)
+	(or
+		(and
+			(not (goal RUSH-CONTROL CASTLE))
+			(not (goal RUSH-CONTROL RUSHING))
+		)
+		(or
+			(goal RUSH-ATTACK-STARTED YES)
+			(current-age-time > 420)
+		)
+	)
 =>
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 9); 12
