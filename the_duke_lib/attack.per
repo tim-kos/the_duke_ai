@@ -184,7 +184,7 @@
 	(military-population >= 4)
 	(players-building-count target-player > 0)
 	(goal RUSH-ATTACK-STARTED NO)
-	(up-compare-goal MILITARY-PARITY >= PARITY)
+	;(up-compare-goal MILITARY-PARITY >= PARITY)
 	(goal UNDER-ATTACK NO)
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack

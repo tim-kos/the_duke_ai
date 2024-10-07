@@ -1027,8 +1027,11 @@
 (defrule
 	(goal RUSH-CONTROL RUSHING)
 	(or
-		(up-compare-goal MILITARY-PARITY < INFERIOR)
-		(game-time > 1800)
+		(up-compare-goal MILITARY-PARITY < PARITY)
+		(or
+			(game-time > 1800)
+			(goal UNDER-ATTACK YES)
+		)
 	)
 =>
 	(set-strategic-number sn-maximum-town-size 24)
