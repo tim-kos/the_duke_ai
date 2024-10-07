@@ -3581,6 +3581,16 @@
 )
 
 (defrule
+	(current-age == feudal-age)
+	(up-research-status c: castle-age >= research-pending)
+	(goal RUSH-CONTROL CASTLE)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(food-amount > 300) ;leave food for villager creation and blacksmith and eagle-warrior tech
+=>
+	(set-goal ABLE-TO-TRAIN-UNITS YES)
+)
+
+(defrule
 	(goal RUSH-CONTROL RUSHING)
 	(current-age == castle-age)
 	(or
