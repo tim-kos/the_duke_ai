@@ -464,8 +464,8 @@
 			(goal UNDER-ATTACK YES) ;To improve damage of the TC and defending skirmishers
 		)
 		(and
-			(food-amount > 900)
-			(gold-amount > 250)
+			(food-amount > 1000)
+			(gold-amount > 400)
 		)
 	)
 	(nand
@@ -569,7 +569,10 @@
 (defrule
  	(can-research-with-escrow ri-scale-mail)
 	(or
-		(soldier-count > TWO-PERCENT-POP)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(goal RUSH-ATTACK-STARTED YES)
+		)
 		(or
 			(up-research-status c: castle-age >= research-pending)
 			(food-amount > 950)
@@ -607,7 +610,10 @@
 (defrule
  	(can-research-with-escrow ri-scale-barding)
 	(or
-		(soldier-count > TWO-PERCENT-POP)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(goal RUSH-ATTACK-STARTED YES)
+		)
 		(or
 			(up-research-status c: castle-age >= research-pending)
 			(food-amount > 950)
@@ -650,7 +656,10 @@
 		)
 	)
 	(or
-		(soldier-count > TWO-PERCENT-POP)
+		(and
+			(goal RUSH-CONTROL RUSHING)
+			(goal RUSH-ATTACK-STARTED YES)
+		)
 		(or
 			(up-research-status c: castle-age >= research-pending)
 			(food-amount > 900)
