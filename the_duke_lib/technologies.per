@@ -337,6 +337,7 @@
 	(up-research-status c: imperial-age >= research-pending)
 	(goal RUSH-CONTROL NO)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -353,6 +354,7 @@
 	(food-amount > 1000)
 	(gold-amount > 1000)
 	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow food)
 	(release-escrow gold)
@@ -379,8 +381,8 @@
 ;GUILDS 300 FOOD, 200 GOLD
 (defrule
  	(can-research-with-escrow ri-guilds)
-	(food-amount > 1000)
-	(gold-amount > 800)
+	(goal ALL-ECONOMY-TECH-DONE YES)
+	(goal ALL-MILITARY-TECH-DONE YES)
 =>
 	(release-escrow food)
 	(release-escrow gold)
