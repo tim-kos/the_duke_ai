@@ -273,6 +273,18 @@
 ; (chat-local-to-self "research GOLD-SHAFT-MINING")
 )
 
+(defrule
+ 	(can-research-with-escrow ri-gold-shaft-mining)
+	;(strategic-number sn-gold-gatherer-percentage > 0)
+	(goal RUSH-CONTROL RUSHING)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+ 	(research ri-gold-shaft-mining)
+; (chat-local-to-self "research GOLD-SHAFT-MINING")
+)
+
 ;STONE-MINING 125 WOOD, 125 FOOD
 (defrule
  	(can-research-with-escrow ri-stone-mining)
