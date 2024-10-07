@@ -267,6 +267,25 @@
 
 (defrule
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(current-age == feudal-age)
+	(goal RUSH-CONTROL CASTLE)
+	(or
+		(and
+			(food-amount > 825)
+			(gold-amount > 250)
+		)
+		(up-research-status c: castle-age >= research-pending)
+	)
+	(unit-type-count-total eagle-warrior-line < 12)
+	(can-train eagle-warrior-line)
+	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+=>
+	(train eagle-warrior-line)
+)
+
+(defrule
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
 	(or
