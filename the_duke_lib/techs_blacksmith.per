@@ -501,11 +501,16 @@
 	(not (goal G-ABLE-TO-UPGRADE-INFANTRY NO))
 	(not (goal G-ABLE-TO-UPGRADE-CAVALRY NO))
 	(or
-		(soldier-count > TWO-PERCENT-POP)
-		(or
-			(up-research-status c: castle-age >= research-pending)
-			(food-amount > 950)
-		)
+		(unit-type-count-total infantry-class > TWO-PERCENT-POP)
+		(unit-type-count-total cavalry-class > TWO-PERCENT-POP)
+	)
+	(or
+		(up-research-status c: castle-age >= research-pending)
+		(food-amount > 950)
+	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
 	)
 	(or
 		(not (research-available ri-scale-mail))
@@ -522,84 +527,25 @@
 ; (chat-local-to-self "research FORGING")
 )
 
-(defrule
- 	(can-research-with-escrow ri-forging)
-	(or
-		(and
-			(goal RUSH-CONTROL RUSHING)
-			(goal RUSH-ATTACK-STARTED YES)
-		)
-		(or
-			(up-research-status c: castle-age >= research-pending)
-			(food-amount > 950)
-		)
-	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
-=>					;then
-	(release-escrow food)
- 	(research ri-forging)
-; (chat-local-to-self "research FORGING")
-)
-
-(defrule
- 	(can-research-with-escrow ri-forging)
-	(or
-		(goal RUSH-CONTROL CASTLE)
-		(and
-			(goal RUSH-CONTROL RUSHING)
-			(current-age == castle-age)
-		)
-	)
-	(or
-		(goal G-PRIMARY-UNIT knight-line)
-		(goal G-PRIMARY-UNIT eagle-warrior-line)
-	)
-	(food-amount > 200)
-	(up-research-status c: castle-age >= research-pending)
-=>					;then
-	(release-escrow food)
- 	(research ri-forging)
-; (chat-local-to-self "research FORGING")
-)
-
 ;***********************************************
 ;SCALE-MAIL
 ;100 FOOD
 
 (defrule
  	(can-research-with-escrow ri-scale-mail)
+	(unit-type-count-total infantry-class > TWO-PERCENT-POP)
 	(or
-		(and
-			(goal RUSH-CONTROL RUSHING)
-			(goal RUSH-ATTACK-STARTED YES)
-		)
-		(or
-			(up-research-status c: castle-age >= research-pending)
-			(food-amount > 950)
-		)
+		(up-research-status c: castle-age >= research-pending)
+		(food-amount > 950)
+	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>					;then
 	(release-escrow food)
 	(research ri-scale-mail)
-; (chat-local-to-self "research SCALE-MAIL")
-)
-
-(defrule
- 	(can-research-with-escrow ri-scale-mail)
-	(or
-		(goal RUSH-CONTROL CASTLE)
-		(and
-			(goal RUSH-CONTROL RUSHING)
-			(current-age == castle-age)
-		)
-	)
-	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(food-amount > 200)
-	(up-research-status c: castle-age >= research-pending)
-=>					;then
-	(release-escrow food)
- 	(research ri-scale-mail)
 ; (chat-local-to-self "research SCALE-MAIL")
 )
 
@@ -609,15 +555,14 @@
 
 (defrule
  	(can-research-with-escrow ri-scale-barding)
+	(unit-type-count-total cavalry-class > TWO-PERCENT-POP)
 	(or
-		(and
-			(goal RUSH-CONTROL RUSHING)
-			(goal RUSH-ATTACK-STARTED YES)
-		)
-		(or
-			(up-research-status c: castle-age >= research-pending)
-			(food-amount > 950)
-		)
+		(up-research-status c: castle-age >= research-pending)
+		(food-amount > 950)
+	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -626,28 +571,13 @@
 ; (chat-local-to-self "research SCALE-BARDING")
 )
 
-(defrule
- 	(can-research-with-escrow ri-scale-barding)
-	(or
-		(goal RUSH-CONTROL CASTLE)
-		(and
-			(goal RUSH-CONTROL RUSHING)
-			(current-age == castle-age)
-		)
-	)
-	(goal G-PRIMARY-UNIT knight-line)
-	(up-research-status c: castle-age >= research-pending)
-=>
-	(release-escrow food)
- 	(research ri-scale-barding)
-; (chat-local-to-self "research SCALE-BARDING")
-)
 ;***********************************************
 ;PADDED-ARCHER-ARMOR
 ;100 FOOD
 
 (defrule
  	(can-research-with-escrow ri-padded-archer-armor)
+	(unit-type-count-total archer-class > TWO-PERCENT-POP)
 	(or
 		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS < HIGH)
 		(or
@@ -656,14 +586,12 @@
 		)
 	)
 	(or
-		(and
-			(goal RUSH-CONTROL RUSHING)
-			(goal RUSH-ATTACK-STARTED YES)
-		)
-		(or
-			(up-research-status c: castle-age >= research-pending)
-			(food-amount > 900)
-		)
+		(up-research-status c: castle-age >= research-pending)
+		(food-amount > 950)
+	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
 	)
 	(not (research-available ri-fletching))
 	(goal ALL-ECONOMY-TECH-DONE YES)
@@ -709,6 +637,10 @@
 			(up-compare-goal G-ABLE-TO-UPGRADE-CAVALRY >= HIGH)
 		)
 	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
+	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -729,6 +661,10 @@
 			(gold-amount > 500)
 		)
 		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= LOW)
+	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
@@ -764,6 +700,10 @@
 		)
 		(up-compare-goal G-ABLE-TO-UPGRADE-CAVALRY >= MIDDLE)
 	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
+	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(release-escrow food)
@@ -784,6 +724,10 @@
 			(gold-amount > 500)
 		)
 		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= HIGH)
+	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
