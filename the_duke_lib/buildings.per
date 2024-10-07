@@ -428,6 +428,16 @@
  	(can-build mining-camp)
 	(building-type-count-total mining-camp < 4)
 	(up-research-status c: feudal-age >= research-pending)
+	
+	;Do not build a mining camp for the eagle warrior rush, as we will sell
+	;stone to get the gold as we will build a market.
+	(or
+		(not (goal RUSH-CONTROL CASTLE))
+		(or
+			(not (goal G-PRIMARY-UNIT eagle-warrior-line))
+			(up-research-status c: castle-age >= research-pending)
+		)
+	)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)

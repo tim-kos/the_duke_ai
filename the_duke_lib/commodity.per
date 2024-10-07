@@ -382,6 +382,35 @@
 	(disable-self)
 )
 
+(defrule
+	(can-sell-commodity wood)
+	(current-age == feudal-age)
+	(goal RUSH-CONTROL CASTLE)
+	(gold-amount < 200)
+	(building-type-count-total blacksmith > 0)
+	(up-research-status c: castle-age < research-pending)
+=>
+	(release-escrow wood)
+	(sell-commodity wood)
+	(chat-local-to-self "Sell wood.")
+	(disable-self)
+)
+
+(defrule
+	(can-sell-commodity wood)
+	(current-age == feudal-age)
+	(goal RUSH-CONTROL CASTLE)
+	(food-amount > 900)
+	(gold-amount < 200)
+	(building-type-count-total blacksmith > 0)
+	(up-research-status c: castle-age < research-pending)
+=>
+	(release-escrow food)
+	(sell-commodity food)
+	(chat-local-to-self "Sell food.")
+	(disable-self)
+)
+
 #load-if-defined DEATH-MATCH
 
 
