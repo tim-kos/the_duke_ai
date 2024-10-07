@@ -1008,6 +1008,8 @@
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
 	(set-goal RUSH-CONTROL NO)
 	(chat-local-to-self "QUIT RUSHING")
+	(disable-timer T-ATTACK)
+	(set-goal ATTACK-STATE STOP)
 	(chat-to-allies "39 I will not continue rushing the enemy, because he got too strong!")
 )
 
@@ -1038,6 +1040,8 @@
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
 	(set-goal RUSH-CONTROL NO)
 	(chat-local-to-self "QUIT RUSHING")
+	(disable-timer T-ATTACK)
+	(set-goal ATTACK-STATE STOP)
 	(chat-to-allies "39 I will not continue rushing the enemy, because he potentially got too strong!")
 	(chat-local-to-self "No rush anymore -> enemy too strong")
 )
