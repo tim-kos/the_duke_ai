@@ -252,6 +252,30 @@
 )
 
 (defrule
+	(up-research-status c: castle-age >= research-pending)
+=>
+	(chat-local-to-self "Pending Castle reserach")
+)
+(defrule
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+=>
+	(chat-local-to-self "EA")
+)
+(defrule
+	(current-age == feudal-age)
+	(goal RUSH-CONTROL CASTLE)
+	(or
+		(and
+			(food-amount > 825)
+			(gold-amount > 250)
+		)
+		(up-research-status c: castle-age >= research-pending)
+	)
+=>
+	(chat-local-to-self "Yup")
+)
+
+(defrule
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL CASTLE)
