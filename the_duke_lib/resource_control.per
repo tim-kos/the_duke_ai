@@ -286,7 +286,10 @@
 	(or
 		(and
 			(building-type-count-total stable < 1)
-			(building-type-count-total archery-range < 1)
+			(and
+				(building-type-count-total archery-range < 1)
+				(building-type-count-total market < 1)
+			)
 		)
 		(building-type-count-total blacksmith < 1)
 	)
@@ -305,7 +308,10 @@
 	(up-research-status c: castle-age < research-pending)
 	(or
 		(building-type-count-total stable > 0)
-		(building-type-count-total archery-range > 0)
+		(or
+			(building-type-count-total archery-range > 0)
+			(building-type-count-total market > 0)
+		)
 	)
 	(building-type-count-total blacksmith > 0)
 =>					;then
@@ -325,7 +331,10 @@
 	(or
 		(and
 			(building-type-count-total stable < 1)
-			(building-type-count-total archery-range < 1)
+			(and
+				(building-type-count-total archery-range < 1)
+				(building-type-count-total market < 1)
+			)
 		)
 		(building-type-count-total blacksmith < 1)
 	)
@@ -343,7 +352,10 @@
 	(food-amount >= 850)
 	(or
 		(building-type-count-total stable > 0)
-		(building-type-count-total archery-range > 0)
+		(or
+			(building-type-count-total archery-range > 0)
+			(building-type-count-total market > 0)
+		)
 	)
 	(building-type-count-total blacksmith > 0)
 	(up-research-status c: castle-age < research-pending)
@@ -362,7 +374,10 @@
 	(or
 		(and
 			(building-type-count-total stable < 1)
-			(building-type-count-total archery-range < 1)
+			(and
+				(building-type-count-total archery-range < 1)
+				(building-type-count-total market < 1)
+			)
 		)
 		(building-type-count-total blacksmith < 1)
 	)
