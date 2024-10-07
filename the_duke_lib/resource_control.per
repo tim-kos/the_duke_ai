@@ -614,18 +614,32 @@
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
-(defrule 				;If
+(defrule 			
 	(current-age == castle-age)
 	(not (goal RUSH-CONTROL NO))
 	(building-type-count mining-camp > 0)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(goal RUSH-ATTACK-STARTED NO)
+	(research-available ri-gold-shaft-mining)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 35)
+ 	(set-strategic-number sn-food-gatherer-percentage 45)
  	(set-strategic-number sn-wood-gatherer-percentage 20)
- 	(set-strategic-number sn-gold-gatherer-percentage 45)
+ 	(set-strategic-number sn-gold-gatherer-percentage 35)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
+
+(defrule 			
+	(current-age == castle-age)
+	(not (goal RUSH-CONTROL NO))
+	(building-type-count mining-camp > 0)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(not (research-available ri-gold-shaft-mining))
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 50)
+ 	(set-strategic-number sn-wood-gatherer-percentage 30)
+ 	(set-strategic-number sn-gold-gatherer-percentage 20)
+ 	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+
 ;**************************
 ;IF WE STARTED THE RUSH
 
