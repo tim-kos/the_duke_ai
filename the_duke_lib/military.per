@@ -199,26 +199,12 @@
 (defrule
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(unit-type-count-total spearman-line < SEVENTY-PERCENT-POP)
-	(can-train spearman-line)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(goal G-SECONDARY-UNIT spearman-line)
-	(not (research-available ri-scale-mail))
-=>
-	(train spearman-line)
-)
-
-(defrule
-	(current-age >= castle-age)
-	(goal RUSH-CONTROL RUSHING)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 	(not (goal G-PRIMARY-UNIT eagle-warrior-line))
-	(gold-amount < 20)
-	(food-amount > 300)
+	(gold-amount < 50)
+	(food-amount > 500)
 	(current-age-time > 420)
 =>
 	(train spearman-line)
