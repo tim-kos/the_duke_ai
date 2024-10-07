@@ -1703,14 +1703,20 @@
 )
 
 (defrule
-	(current-age >= feudal-age)
  	(can-build barracks)
-	(building-type-count-total barracks < 4)
 	(or
-		(building-type-count-total archery-range > 0)
-		(building-type-count-total market > 0)
+		(and
+			(up-research-status c: castle-age >= research-pending)
+			(building-type-count-total barracks < 3)
+		)
+		(and
+			(current-age >= castle-age)
+			(and
+				(building-type-count-total barracks < 4)
+				(goal ALL-ECONOMY-TECH-DONE YES)
+			)
+		)
 	)
-	(building-type-count-total blacksmith >= 1)
 	(or
 		(goal RUSH-CONTROL CASTLE)
 		(goal RUSH-CONTROL RUSHING)
@@ -1754,8 +1760,11 @@
  	(current-age >= castle-age)
 	(building-type-count-total barracks < barracks-building-imperial)
 	(or
-		(wood-amount > 850)
-		(building-type-count-total town-center > 2)
+		(wood-amount > 1050)
+		(and
+			(building-type-count-total town-center > 2)
+			(wood-amount > 850)
+		)
 	)
 	(building-type-count-total archery-range >= 2)
  	(can-build barracks)
@@ -1778,8 +1787,11 @@
  	(current-age >= castle-age)
 	(building-type-count-total barracks < barracks-building-imperial)
 	(or
-		(wood-amount > 850)
-		(building-type-count-total town-center > 2)
+		(wood-amount > 1050)
+		(and
+			(building-type-count-total town-center > 2)
+			(wood-amount > 850)
+		)
 	)
 	(building-type-count-total stable >= 2)
  	(can-build barracks)
@@ -1801,8 +1813,13 @@
 (defrule
  	(current-age >= castle-age)
 	(building-type-count-total barracks < barracks-building-imperial)
-	(wood-amount > 400)
-	(building-type-count-total town-center > 2)
+	(or
+		(wood-amount > 1050)
+		(and
+			(building-type-count-total town-center > 2)
+			(wood-amount > 850)
+		)
+	)
  	(can-build barracks)
 	(or
 		(goal ABLE-TO-BUILD-BARRACKS YES)
@@ -2026,8 +2043,35 @@
 (defrule
 	(current-age >= castle-age)
 	(can-build stable)
+	(building-type-count-total stable < 3)
+	(wood-amount > 500)
+	(building-type-count-total town-center > 1)
+	(goal ALL-ECONOMY-TECH-DONE YES)
+	(up-pending-objects c: stable < 2)
+=>
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(set-strategic-number sn-ignore-tower-elevation 0)
+	(set-strategic-number sn-placement-to-center 1)
+	(up-set-placement-data my-player-number -1 c: 12)
+	(set-strategic-number sn-placement-zone-size 12)
+	(set-strategic-number sn-placement-fail-delta 1)
+	(up-build place-control 0 c: stable)
+	(build stable)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
+;	(chat-local-to-self "build STABLE")
+)
+
+(defrule
+	(current-age >= castle-age)
+	(can-build stable)
 	(building-type-count-total stable < stable-building-imperial)
-	(wood-amount > 400)
+	(or
+		(wood-amount > 1050)
+		(and
+			(building-type-count-total town-center > 2)
+			(wood-amount > 850)
+		)
+	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 	(or
 		(goal ABLE-TO-BUILD-STABLE YES)
@@ -2301,12 +2345,11 @@
 	(building-type-count-total town-center > 2)
 	(goal ALL-ECONOMY-TECH-DONE YES)
  	(can-build archery-range)
-	(wood-amount > 400)
 	(or
-		(wood-amount > 850)
-		(or
-			(goal ABLE-TO-BUILD-ARCHERY-RANGE YES)
-			(food-amount > 3000) ;shift too many archery-ranges for skirmishers if we have much food
+		(wood-amount > 1050)
+		(and
+			(building-type-count-total town-center > 2)
+			(wood-amount > 850)
 		)
 	)
 	(unit-type-count-total villager > TWENTY-PERCENT-POP) ;can our economy support this?
