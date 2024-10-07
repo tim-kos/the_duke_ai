@@ -772,6 +772,17 @@
  	(research ri-tracking)
 ; (chat-local-to-self "research TRACKING")
 )
+
+(defrule
+	(goal RUSH-ATTACK-STARTED YES)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(can-research-with-escrow ri-tracking)
+=>
+	(release-escrow food)
+ 	(research ri-tracking)
+; (chat-local-to-self "research TRACKING")
+)
+
 ;200 FOOD
 (defrule
  	(can-research-with-escrow ri-squires)
