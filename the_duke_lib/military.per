@@ -166,20 +166,12 @@
  	(unit-type-count-total spearman-line < 5)
  	(can-train spearman-line)
 	(players-military-population any-enemy > 5)
+	(not (goal RUSH-CONTROL RUSHING))
+	(not (goal RUSH-CONTROL CASTLE))
 =>			;then
  	(train spearman)
 )
 
-(defrule
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL RUSHING)
-	(unit-type-count-total spearman-line < SEVENTY-PERCENT-POP)
-	(can-train spearman-line)
-	(goal ABLE-TO-TRAIN-UNITS YES)
-	(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-=>
-	(train spearman-line)
-)
 
 ;Add some spearmen when rushing when we have enough knights
 (defrule
