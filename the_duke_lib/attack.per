@@ -207,8 +207,8 @@
 		)
 		(military-population >= 16) ;Change this to a constant based on pop-cap
 	)
-	(players-building-count target-player > 0)
-	(up-compare-goal MILITARY-PARITY >= PARITY)
+	(players-building-count any-enemy > 0)
+	;(up-compare-goal MILITARY-PARITY >= PARITY)
 	(goal UNDER-ATTACK NO)
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
@@ -245,6 +245,7 @@
 	(defend-soldier-count >= EIGHT-PERCENT-POP)
 	(current-age >= castle-age)
 	(goal UNDER-ATTACK NO)
+	(goal RUSH-CONTROL NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(set-strategic-number sn-special-attack-type1 1)
@@ -260,6 +261,7 @@
 	(defend-soldier-count >= EIGHT-PERCENT-POP)
 	(current-age >= castle-age)
 	(goal UNDER-ATTACK NO)
+	(goal RUSH-CONTROL NO)
 =>
 	(set-goal ATTACK-STATE PREPARING)
 	(set-strategic-number sn-special-attack-type1 -1)
