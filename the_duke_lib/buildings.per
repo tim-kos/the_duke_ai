@@ -322,8 +322,15 @@
 		(building-type-count house > 0)
 	)
 	(or
-		(unit-type-count-total villager > 20)
+		(unit-type-count-total villager > 30)
 		(dropsite-min-distance wood > 6)
+	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(or
+			(goal RUSH-ATTACK-STARTED YES)
+			(dropsite-min-distance wood > 7)
+		)
 	)
 =>
  	(build lumber-camp)
