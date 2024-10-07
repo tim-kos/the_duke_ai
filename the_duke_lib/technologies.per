@@ -1645,11 +1645,13 @@
 			(goal G-PRIMARY-UNIT archer-line)
 			(not (research-available ri-crossbow))
 		)
-		(and
-			(goal G-PRIMARY-UNIT skirmisher-line)
-			(not (research-available ri-elite-skirmisher))
+		(or
+			(and
+				(goal G-PRIMARY-UNIT skirmisher-line)
+				(not (research-available ri-elite-skirmisher))
+			)
+			(goal G-PRIMARY-UNIT cavalry-archer-line)
 		)
-		(goal G-PRIMARY-UNIT cavalry-archer-line)
 	)
 =>
 	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
@@ -1661,11 +1663,13 @@
 			(goal G-SECONDARY-UNIT archer-line)
 			(not (research-available ri-crossbow))
 		)
-		(and
-			(goal G-SECONDARY-UNIT skirmisher-line)
-			(not (research-available ri-elite-skirmisher))
+		(or
+			(and
+				(goal G-SECONDARY-UNIT skirmisher-line)
+				(not (research-available ri-elite-skirmisher))
+			)
+			(goal G-SECONDARY-UNIT cavalry-archer-line)
 		)
-		(goal G-SECONDARY-UNIT cavalry-archer-line)
 	)
 =>
 	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
@@ -1767,19 +1771,23 @@
 (defrule
 	(current-age == imperial-age)
 	(or
-		(and
-			(goal G-PRIMARY-UNIT archer-line)
-			(not (research-available ri-arbalest))
+		(or
+			(and
+				(goal G-PRIMARY-UNIT archer-line)
+				(not (research-available ri-arbalest))
+			)
+			(and
+				(goal G-PRIMARY-UNIT skirmisher-line)
+				(not (research-available ri-elite-skirmisher))
+			)
 		)
-		(and
-			(goal G-PRIMARY-UNIT skirmisher-line)
-			(not (research-available ri-elite-skirmisher))
+		(or
+			(and
+				(goal G-PRIMARY-UNIT cavalry-archer-line)
+				(not (research-available ri-heavy-cavalry-archer))
+			)
+			(goal G-PRIMARY-UNIT hand-cannoneer)
 		)
-		(and
-			(goal G-PRIMARY-UNIT cavalry-archer-line)
-			(not (research-available ri-heavy-cavalry-archer))
-		)
-		(goal G-PRIMARY-UNIT hand-cannoneer)
 	)
 =>
 	(set-goal G-UPGRADED-PRIMARY-UNIT YES)
@@ -1787,19 +1795,23 @@
 (defrule
 	(current-age == imperial-age)
 	(or
-		(and
-			(goal G-SECONDARY-UNIT archer-line)
-			(not (research-available ri-arbalest))
+		(or
+			(and
+				(goal G-SECONDARY-UNIT archer-line)
+				(not (research-available ri-arbalest))
+			)
+			(and
+				(goal G-SECONDARY-UNIT skirmisher-line)
+				(not (research-available ri-elite-skirmisher))
+			)
 		)
-		(and
-			(goal G-SECONDARY-UNIT skirmisher-line)
-			(not (research-available ri-elite-skirmisher))
+		(or
+			(and
+				(goal G-SECONDARY-UNIT cavalry-archer-line)
+				(not (research-available ri-heavy-cavalry-archer))
+			)
+			(goal G-SECONDARY-UNIT hand-cannoneer)
 		)
-		(and
-			(goal G-SECONDARY-UNIT cavalry-archer-line)
-			(not (research-available ri-heavy-cavalry-archer))
-		)
-		(goal G-SECONDARY-UNIT hand-cannoneer)
 	)
 =>
 	(set-goal G-UPGRADED-SECONDARY-UNIT YES)
@@ -1809,23 +1821,27 @@
 (defrule
 	(current-age == imperial-age)
 	(or
-		(and
-			(goal G-PRIMARY-UNIT scout-cavalry-line)
-			(not (research-available ri-hussar))
-		)
-		(and
-			(goal G-PRIMARY-UNIT camel-line)
-			(not (research-available ri-heavy-camel))
-		)
-		(and
-			(goal G-PRIMARY-UNIT steppe-lancer-line)
-			(not (research-available ri-elite-steppe-lancer))
-		)
-		(and
-			(goal G-PRIMARY-UNIT knight-line)
+		(or
 			(and
-				(not (research-available ri-chevalier))
-				(not (research-available ri-paladin))
+				(goal G-PRIMARY-UNIT scout-cavalry-line)
+				(not (research-available ri-hussar))
+			)
+			(and
+				(goal G-PRIMARY-UNIT camel-line)
+				(not (research-available ri-heavy-camel))
+			)
+		)
+		(or
+			(and
+				(goal G-PRIMARY-UNIT steppe-lancer-line)
+				(not (research-available ri-elite-steppe-lancer))
+			)
+			(and
+				(goal G-PRIMARY-UNIT knight-line)
+				(and
+					(not (research-available ri-chevalier))
+					(not (research-available ri-paladin))
+				)
 			)
 		)
 	)
@@ -1835,23 +1851,27 @@
 (defrule
 	(current-age == imperial-age)
 	(or
-		(and
-			(goal G-SECONDARY-UNIT scout-cavalry-line)
-			(not (research-available ri-hussar))
-		)
-		(and
-			(goal G-SECONDARY-UNIT camel-line)
-			(not (research-available ri-heavy-camel))
-		)
-		(and
-			(goal G-SECONDARY-UNIT steppe-lancer-line)
-			(not (research-available ri-elite-steppe-lancer))
-		)
-		(and
-			(goal G-SECONDARY-UNIT knight-line)
+		(or
 			(and
-				(not (research-available ri-chevalier))
-				(not (research-available ri-paladin))
+				(goal G-SECONDARY-UNIT scout-cavalry-line)
+				(not (research-available ri-hussar))
+			)
+			(and
+				(goal G-SECONDARY-UNIT camel-line)
+				(not (research-available ri-heavy-camel))
+			)
+		)
+		(or
+			(and
+				(goal G-SECONDARY-UNIT steppe-lancer-line)
+				(not (research-available ri-elite-steppe-lancer))
+			)
+			(and
+				(goal G-SECONDARY-UNIT knight-line)
+				(and
+					(not (research-available ri-chevalier))
+					(not (research-available ri-paladin))
+				)
 			)
 		)
 	)
