@@ -428,16 +428,6 @@
  	(can-build mining-camp)
 	(building-type-count-total mining-camp < 4)
 	(up-research-status c: feudal-age >= research-pending)
-	
-	;Do not build a mining camp for the eagle warrior rush, as we will sell
-	;stone to get the gold as we will build a market.
-	(or
-		(not (goal RUSH-CONTROL CASTLE))
-		(or
-			(not (goal G-PRIMARY-UNIT eagle-warrior-line))
-			(up-research-status c: castle-age >= research-pending)
-		)
-	)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
@@ -508,6 +498,16 @@
  	(can-build mining-camp)
 	(building-type-count-total mining-camp < 4)
 	(up-research-status c: feudal-age >= research-pending)
+
+	;Do not build a mining camp for the eagle warrior rush, as we will sell
+	;stone to get the gold as we will build a market.
+	(or
+		(not (goal RUSH-CONTROL CASTLE))
+		(or
+			(not (goal G-PRIMARY-UNIT eagle-warrior-line))
+			(up-research-status c: castle-age >= research-pending)
+		)
+	)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
@@ -1671,8 +1671,8 @@
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(set-strategic-number sn-ignore-tower-elevation 0)
 	(set-strategic-number sn-placement-to-center 1)
-	(up-set-placement-data my-player-number -1 c: 8)
-	(set-strategic-number sn-placement-zone-size 8)
+	(up-set-placement-data my-player-number -1 c: 6)
+	(set-strategic-number sn-placement-zone-size 6)
 	(set-strategic-number sn-placement-fail-delta 1)
 	(up-build place-control 0 c: barracks)
 	(build barracks)
