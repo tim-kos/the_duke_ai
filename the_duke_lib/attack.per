@@ -191,6 +191,7 @@
 	(set-goal ATTACK-STATE PREPARING)
 	(chat-local-to-self "FLUSH")
 	(chat-to-player every-ally "39 I do the Flush now!")
+	(chat-local-to-self "Start rush")
 	(set-goal RUSH-ATTACK-STARTED YES)
 	(disable-self)
 )
@@ -214,6 +215,7 @@
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
 	(set-goal ATTACK-STATE PREPARING)
 	(chat-to-player every-ally "39 I rush the enemy now! Please protect my town, I have no units in there!")
+	(chat-local-to-self "Start rush")
 	(set-goal RUSH-ATTACK-STARTED YES)
 	(disable-self)
 )
