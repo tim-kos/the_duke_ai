@@ -1053,7 +1053,6 @@
 
 (defrule
 	(goal RUSH-CONTROL CASTLE)
-	(current-age >= feudal-age)
 	(current-age-time > 30)
 =>
 	(generate-random-number 6)
@@ -1067,7 +1066,6 @@
 
 (defrule
 	(goal RUSH-CONTROL CASTLE)
-	(current-age >= feudal-age)
 	(current-age-time > 30)
 	(random-number <= 2)
 =>
@@ -1082,7 +1080,6 @@
 
 (defrule
 	(goal RUSH-CONTROL CASTLE)
-	(current-age >= feudal-age)
 	(current-age-time > 30)
 	(random-number > 2)
 	(random-number <= 4)
@@ -1116,7 +1113,6 @@
 
 (defrule
 	(goal RUSH-CONTROL CASTLE)
-	(current-age >= feudal-age)
 	(current-age-time > 30)
 =>
 	(set-goal G-PRIMARY-UNIT eagle-warrior-line)
@@ -1134,7 +1130,6 @@
 
 (defrule
 	(goal RUSH-CONTROL CASTLE)
-	(current-age >= feudal-age)
 	(current-age-time > 30)
 =>
 	(set-goal G-PRIMARY-UNIT eagle-warrior-line)
