@@ -1029,6 +1029,32 @@
 			(up-pending-objects c: farm < 4)
 		)
 	)
+	(nand
+		(goal RUSH-CONTROL CASTLE)
+		(goal G-PRIMARY-UNIT eagle-warrior-line)
+	)
+=>
+ 	(build farm)
+;	(chat-local-to-self "build FARM")
+)
+
+(defrule
+ 	(current-age == feudal-age)
+ 	(can-build farm)
+	(or	(sheep-and-forage-too-far)
+(or	(dropsite-min-distance food >= 10)
+	(dropsite-min-distance food <= -1)))
+	(building-type-count-total lumber-camp > 0)
+	(idle-farm-count < 2)
+	(or
+		(up-pending-objects c: farm < 1)
+		(and
+			(wood-amount > 500)
+			(up-pending-objects c: farm < 2)
+		)
+	)
+	(goal RUSH-CONTROL CASTLE)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
 =>
  	(build farm)
 ;	(chat-local-to-self "build FARM")
