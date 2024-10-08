@@ -851,6 +851,7 @@
 	(set-strategic-number sn-number-explore-groups 3)
 	(set-strategic-number sn-minimum-explore-group-size 1)
 	(set-strategic-number sn-maximum-explore-group-size 1)
+	(set-strategic-number sn-blot-exploration-map 0) ;0 = do not allow exploring previously explored areas
 	(disable-self)
 )
 
@@ -865,8 +866,6 @@
 	(set-strategic-number sn-number-enemy-objects-required 2)
 	(disable-self)
 )
-
-
 
 (defrule
 	(or
