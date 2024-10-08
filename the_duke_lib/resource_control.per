@@ -619,7 +619,7 @@
 	(goal RUSH-CONTROL RUSHING)
 	(building-type-count mining-camp > 0)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(up-research-status ri-gold-shaft-mining < research-pending)
+	(up-research-status c: ri-gold-shaft-mining < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 45)
  	(set-strategic-number sn-wood-gatherer-percentage 20)
@@ -632,7 +632,7 @@
 	(goal RUSH-CONTROL RUSHING)
 	(building-type-count mining-camp > 0)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(up-research-status ri-gold-shaft-mining >= research-pending)
+	(up-research-status c: ri-gold-shaft-mining >= research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 60)
  	(set-strategic-number sn-wood-gatherer-percentage 15)
