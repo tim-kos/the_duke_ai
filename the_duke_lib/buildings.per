@@ -1257,7 +1257,13 @@
 	)
 	(or
 		(goal ALL-ECONOMY-TECH-DONE YES)
-		(wood-amount > 250)
+		(or
+			(wood-amount > 250)
+			(and
+				(current-age == feudal-age)
+				(goal RUSH-CONTROL CASTLE)
+			)
+		)
 	)
 =>
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
