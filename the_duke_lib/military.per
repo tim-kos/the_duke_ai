@@ -270,6 +270,7 @@
 	(chat-local-to-self "EW 2")
 )
 
+;Always keep a steady flow of EW coming
 (defrule
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(current-age >= castle-age)
@@ -292,11 +293,13 @@
 	(can-train eagle-warrior-line)
 	;(goal ABLE-TO-TRAIN-UNITS YES)
 	;(goal ABLE-TO-TRAIN-LAND-UNITS YES)
+	(food-amount > 75) ;leave room for constant villager production
 	(up-research-status c: ri-scale-mail >= research-pending)
 	(up-research-status c: ri-forging >= research-pending)
 	(up-research-status c: ri-tracking >= research-pending)
 	(up-research-status c: ri-squires >= research-pending)
 	(up-research-status c: ri-eagle-warrior >= research-pending)
+	(up-research-status c: ri-hand-cart >= research-pending)
 =>
 	(train eagle-warrior-line)
 	(chat-local-to-self "EW 4")

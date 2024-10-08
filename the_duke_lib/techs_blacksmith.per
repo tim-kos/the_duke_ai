@@ -552,6 +552,19 @@
 ; (chat-local-to-self "research SCALE-MAIL")
 )
 
+(defrule
+ 	(can-research ri-scale-mail)
+	(or
+		(up-research-status c: castle-age >= research-pending)
+		(food-amount > 950)
+	)
+	(goal RUSH-CONTROL CASTLE)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+=>					;then
+	(research ri-scale-mail)
+; (chat-local-to-self "research SCALE-MAIL")
+)
+
 ;***********************************************
 ;SCALE-BARDING
 ;150 FOOD

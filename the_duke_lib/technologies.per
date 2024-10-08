@@ -55,8 +55,11 @@
  	(can-research ri-hand-cart)
 	(building-type-count-total lumber-camp >= 1)
 	(or
-		(unit-type-count-total eagle-warrior-line > 20)
-		(unit-type-count-total knight-line > 10)
+		(unit-type-count-total eagle-warrior-line >= 16)
+		(or
+			(unit-type-count-total knight-line > 10)
+			(goal RUSH-ATTACK-STARTED YES)
+		)
 	)
 	(goal RUSH-CONTROL RUSHING)
 	(unit-type-count-total villager > FIVE-PERCENT-POP)
@@ -276,10 +279,12 @@
 ;STONE-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
  	(can-research ri-stone-shaft-mining)
+	(not (research-available ri-hand-cart))
 	(cc-players-unit-type-count 0 STONE-MINE > 5); stone left on map
 (or	(unit-type-count 124 > 0)
 	(unit-type-count 220 > 0))
 	(strategic-number sn-stone-gatherer-percentage > 4)
+	(goal RUSH-CONTROL NO)
 =>
  	(research ri-stone-shaft-mining)
 ; (chat-local-to-self "research STONE-MINING")
