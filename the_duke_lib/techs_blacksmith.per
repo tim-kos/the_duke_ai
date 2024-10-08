@@ -512,7 +512,10 @@
 		(not (research-available ri-plate-mail))
 		(not (research-available ri-plate-barding))
 	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
+	(or
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(goal RUSH-ATTACK-STARTED YES)
+	)
 =>					;then
  	(research ri-forging)
 ; (chat-local-to-self "research FORGING")
@@ -533,7 +536,10 @@
 		(goal RUSH-CONTROL NO)
 		(goal RUSH-ATTACK-STARTED YES)
 	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
+	(or
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(goal RUSH-ATTACK-STARTED YES)
+	)
 =>					;then
 	(research ri-scale-mail)
 ; (chat-local-to-self "research SCALE-MAIL")
@@ -554,7 +560,10 @@
 		(goal RUSH-CONTROL NO)
 		(goal RUSH-ATTACK-STARTED YES)
 	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
+	(or
+		(goal ALL-ECONOMY-TECH-DONE YES)
+		(goal RUSH-ATTACK-STARTED YES)
+	)
 =>
  	(research ri-scale-barding)
 ; (chat-local-to-self "research SCALE-BARDING")
