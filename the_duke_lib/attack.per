@@ -188,7 +188,7 @@
 	(goal UNDER-ATTACK NO)
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
-	(set-goal ATTACK-STATE PREPARING)
+	(set-goal ATTACK-STATE PULLING-TROOPS) ;skip the pulling troops step by setting this to PULLING-TROOPS instead of PREPARING
 	(chat-local-to-self "FLUSH")
 	(chat-to-player every-ally "39 I do the Flush now!")
 	(chat-local-to-self "Start rush")
@@ -213,7 +213,7 @@
 	(goal UNDER-ATTACK NO)
 =>
 	(enable-timer T-ATTACK 1);enabling the timer here means no retreat/regrouping before attack
-	(set-goal ATTACK-STATE PREPARING)
+	(set-goal ATTACK-STATE PULLING-TROOPS) ;skip the pulling troops step by setting this to PULLING-TROOPS instead of PREPARING
 	(chat-to-player every-ally "39 I rush the enemy now! Please protect my town, I have no units in there!")
 	(chat-local-to-self "Start rush")
 	(set-goal RUSH-ATTACK-STARTED YES)
