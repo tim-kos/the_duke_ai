@@ -225,7 +225,13 @@
 			(military-population >= 6)
 			(goal G-PRIMARY-UNIT knight-line)
 		)
-		(military-population >= 16) ;Change this to a constant based on pop-cap
+		(and
+			(military-population >= 16) ;Change this to a constant based on pop-cap
+			(and
+				(goal G-PRIMARY-UNIT knight-line)
+				(up-research-status c: ri-eagle-warrior >= research-pending)
+			)
+		)
 	)
 	(players-building-count any-enemy > 0)
 	;(up-compare-goal MILITARY-PARITY >= PARITY)

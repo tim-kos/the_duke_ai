@@ -888,7 +888,10 @@
 	)
 	(or
 		(goal ALL-ECONOMY-TECH-DONE YES)
-		(goal RUSH-ATTACK-STARTED YES)
+		(or
+			(goal RUSH-CONTROL RUSHING)
+			(unit-type-count-total eagle-warrior-line >= 16)
+		)
 	)
 =>
  	(research ri-eagle-warrior)
