@@ -172,7 +172,7 @@
 		(housing-headroom <= 2)
 		(and
 			(game-time >= 300)
-			(housing-headroom <= 8)
+			(housing-headroom <= 6)
 		)
 	)
  	(can-build house)
@@ -182,7 +182,13 @@
 		(goal RUSH-CONTROL CASTLE)
 		(goal RUSH-CONTROL RUSHING)
 	)
-	(up-pending-objects c: house < 2)
+	(or
+		(up-pending-objects c: house < 1)
+		(and
+			(villager-count > 40)
+			(up-pending-objects c: house < 2)
+		)
+	)
 =>
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build house)

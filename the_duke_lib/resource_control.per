@@ -400,6 +400,39 @@
  	(set-strategic-number sn-gold-gatherer-percentage 15)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
+
+(defrule 				;If
+	(current-age == feudal-age)
+	(building-type-count mining-camp > 0)
+	(goal RUSH-CONTROL CASTLE)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(or
+		(building-type-count-total market < 0)
+		(building-type-count-total blacksmith < 0)
+	)
+	(building-type-count-total mining-camp == 0)
+	(wood-amount < 175)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 35)
+ 	(set-strategic-number sn-wood-gatherer-percentage 55)
+ 	(set-strategic-number sn-gold-gatherer-percentage 0)
+ 	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
+
+(defrule 				;If
+	(current-age == feudal-age)
+	(building-type-count mining-camp > 0)
+	(goal RUSH-CONTROL CASTLE)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(building-type-count-total market > 0)
+	(building-type-count-total blacksmith > 0)
+	(building-type-count-total mining-camp == 0)
+=>					;then
+ 	(set-strategic-number sn-food-gatherer-percentage 60)
+ 	(set-strategic-number sn-wood-gatherer-percentage 40)
+ 	(set-strategic-number sn-gold-gatherer-percentage 0)
+ 	(set-strategic-number sn-stone-gatherer-percentage 0)
+)
 ;************************************
 
 
