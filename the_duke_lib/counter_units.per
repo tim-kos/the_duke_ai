@@ -25,6 +25,10 @@
       (current-age == feudal-age)
     )
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
@@ -53,6 +57,10 @@
       (current-age == feudal-age)
     )
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build archery-range)
@@ -79,6 +87,10 @@
       (current-age == feudal-age)
     )
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build archery-range)
@@ -101,6 +113,10 @@
       (wood-amount > 400)
       (current-age == feudal-age)
     )
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
@@ -127,6 +143,10 @@
       (wood-amount > 400)
       (current-age == feudal-age)
     )
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
@@ -159,6 +179,10 @@
       (current-age == feudal-age)
     )
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build stable)
@@ -184,6 +208,10 @@
       (wood-amount > 400)
       (current-age == feudal-age)
     )
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
@@ -247,7 +275,6 @@
       (research-completed ri-man-at-arms)
     )
   )
-  (goal RUSH-CONTROL NO)
 =>
   (train militiaman-line)
 )
@@ -354,6 +381,10 @@
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
   (unit-type-count-total skirmisher-line < FIFTEEN-PERCENT-POP)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train skirmisher-line)
 )
@@ -363,6 +394,10 @@
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
   (unit-type-count-total spearman-line < FIFTEEN-PERCENT-POP)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train spearman-line)
 )
@@ -392,6 +427,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train skirmisher-line)
 )
@@ -415,6 +454,10 @@
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train skirmisher-line)
 )
@@ -434,6 +477,10 @@
   (or
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (train skirmisher-line)
@@ -458,6 +505,10 @@
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train skirmisher-line)
 )
@@ -477,6 +528,10 @@
   (or
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (train skirmisher-line)
@@ -501,6 +556,10 @@
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train skirmisher-line)
 )
@@ -521,6 +580,10 @@
       (goal ABLE-TO-TRAIN-LAND-UNITS YES)
     )
     (not (death-match-game))
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (train skirmisher-line)
@@ -544,6 +607,10 @@
   (or
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (train skirmisher-line)
@@ -579,6 +646,10 @@
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train spearman-line)
 )
@@ -601,6 +672,10 @@
   (or
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (train spearman-line)
@@ -625,6 +700,10 @@
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train spearman-line)
 )
@@ -647,6 +726,10 @@
   (or
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (train spearman-line)
@@ -671,6 +754,10 @@
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train spearman-line)
 )
@@ -693,6 +780,10 @@
   (or
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (train spearman-line)
@@ -717,6 +808,10 @@
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
   )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train spearman-line)
 )
@@ -739,6 +834,10 @@
   (or
     (building-type-count-total town-center > 1)
     (wood-amount > 400)
+  )
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
   )
 =>
   (train spearman-line)
@@ -773,6 +872,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train camel-line)
 )
@@ -792,6 +895,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train camel-line)
 )
@@ -811,6 +918,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train camel-line)
 )
@@ -830,6 +941,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train camel-line)
 )
@@ -849,6 +964,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train camel-line)
 )
@@ -868,6 +987,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train camel-line)
 )
@@ -894,6 +1017,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train camel-line)
 )
@@ -914,6 +1041,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train camel-line)
 )
@@ -943,6 +1074,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train scout-cavalry-line)
 )
@@ -962,6 +1097,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train scout-cavalry-line)
 )
@@ -978,6 +1117,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train scout-cavalry-line)
 )
@@ -994,6 +1137,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train scout-cavalry-line)
 )
@@ -1023,6 +1170,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train knight-line)
 )
@@ -1042,6 +1193,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train knight-line)
 )
@@ -1058,6 +1213,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train knight-line)
 )
@@ -1074,6 +1233,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train knight-line)
 )
@@ -1104,6 +1267,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train eagle-warrior-line)
 )
@@ -1123,6 +1290,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train eagle-warrior-line)
 )
@@ -1142,6 +1313,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train eagle-warrior-line)
 )
@@ -1161,6 +1336,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train eagle-warrior-line)
 )
@@ -1177,6 +1356,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train eagle-warrior-line)
 )
@@ -1193,6 +1376,10 @@
   )
   (goal ABLE-TO-TRAIN-UNITS YES)
   (goal ABLE-TO-TRAIN-LAND-UNITS YES)
+  (or
+    (goal RUSH-CONTROL NO)
+    (goal RUSH-ATTACK-STARTED YES)
+  )
 =>
   (train eagle-warrior-line)
 )
