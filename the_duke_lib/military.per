@@ -249,6 +249,7 @@
 	(goal RUSH-CONTROL NO)
 =>
 	(train eagle-warrior-line)
+	(chat-local-to-self "EW 1")
 )
 
 (defrule
@@ -266,6 +267,7 @@
 	(can-train eagle-warrior-line)
 =>
 	(train eagle-warrior-line)
+	(chat-local-to-self "EW 2")
 )
 
 (defrule
@@ -278,6 +280,7 @@
 	;(goal ABLE-TO-TRAIN-LAND-UNITS YES)
 =>
 	(train eagle-warrior-line)
+	(chat-local-to-self "EW 3")
 )
 
 (defrule
@@ -297,6 +300,7 @@
 	(up-research-status c: ri-eagle-warrior >= research-pending)
 =>
 	(train eagle-warrior-line)
+	(chat-local-to-self "EW 4")
 )
 ;//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
