@@ -619,7 +619,7 @@
 	(goal RUSH-CONTROL RUSHING)
 	(building-type-count mining-camp > 0)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(research-available ri-gold-shaft-mining)
+	(up-research-status ri-gold-shaft-mining < research-pending)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 45)
  	(set-strategic-number sn-wood-gatherer-percentage 20)
@@ -632,11 +632,11 @@
 	(goal RUSH-CONTROL RUSHING)
 	(building-type-count mining-camp > 0)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(not (research-available ri-gold-shaft-mining))
+	(up-research-status ri-gold-shaft-mining >= research-pending)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 56)
- 	(set-strategic-number sn-wood-gatherer-percentage 22)
- 	(set-strategic-number sn-gold-gatherer-percentage 22)
+ 	(set-strategic-number sn-food-gatherer-percentage 60)
+ 	(set-strategic-number sn-wood-gatherer-percentage 15)
+ 	(set-strategic-number sn-gold-gatherer-percentage 25)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
@@ -697,8 +697,8 @@
 	(goal RUSH-ATTACK-STARTED YES)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 35)
- 	(set-strategic-number sn-wood-gatherer-percentage 40)
+ 	(set-strategic-number sn-food-gatherer-percentage 50)
+ 	(set-strategic-number sn-wood-gatherer-percentage 25)
  	(set-strategic-number sn-gold-gatherer-percentage 23)
  	(set-strategic-number sn-stone-gatherer-percentage 2)
 )
