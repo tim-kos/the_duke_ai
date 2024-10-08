@@ -1630,22 +1630,25 @@
 (defrule
 	(current-age == feudal-age)
 	(can-build barracks)
-	(building-type-count-total barracks < 2)
+	(or
+		(and
+			(wood-amount > 600)
+			(building-type-count-total barracks < 2)
+		)
+		(and
+			(wood-amount > 1500)
+			(building-type-count-total barracks < barracks-building-feudal)
+		)
+	)
 	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(wood-amount > 600)
-=>
-	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
-	(build barracks)
-	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build BARRACKS")
-)
-
-(defrule
-	(current-age == feudal-age)
-	(can-build barracks)
-	(building-type-count-total barracks < barracks-building-feudal)
-	(goal ABLE-TO-BUILD-BARRACKS YES)
-	(wood-amount > 1500)
+	(building-type-count-total blacksmith > 0)
+	(or
+		(building-type-count-total market > 0)
+		(or
+			(building-type-count-total stable > 0)
+			(building-type-count-total archery-range > 0)
+		)
+	)
 =>
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)

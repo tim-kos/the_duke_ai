@@ -21,7 +21,7 @@
 
 ;WHEEL-BARROW 175 FOOD, 50 WOOD
 (defrule
-	(can-research-with-escrow ri-wheel-barrow)
+	(can-research ri-wheel-barrow)
 	(or
 		(unit-type-count villager > 20)
 		(and
@@ -31,8 +31,6 @@
 	)
 	(not (research-available ri-double-bit-axe))
 =>
-	(release-escrow food)
-	(release-escrow wood)
  	(research ri-wheel-barrow)
 ;	(chat-local-to-self "research WHEEL-BARROW")
 )
@@ -41,14 +39,12 @@
 ;Important: We need to do the important stuff with escrow resources (even though we don't use them),
 ;otherwise the game will take ages before it does the research, even though all conditions are met
 (defrule
- 	(can-research-with-escrow ri-hand-cart)
+ 	(can-research ri-hand-cart)
 	(goal UNDER-ATTACK NO)
 	(unit-type-count-total villager > FIVE-PERCENT-POP)
 	(not (research-available ri-bow-saw))
 	(goal RUSH-CONTROL NO)
 =>
-	(release-escrow food)
-	(release-escrow wood)
 	(research ri-hand-cart)
 ;	(chat-local-to-self "research HAND-CART")
 )
@@ -99,30 +95,24 @@
 
 ;DOUBLE-BIT-AXE 50 WOOD, 100 FOOD
 (defrule
- 	(can-research-with-escrow ri-double-bit-axe)
+ 	(can-research ri-double-bit-axe)
 =>
-	(release-escrow wood)
-	(release-escrow food)
 	(research ri-double-bit-axe)
 ; (chat-local-to-self "research DOUBLE-BIT-AXE")
 )
 
 ;BOW-SAW 100 WOOD, 150 FOOD
 (defrule
- 	(can-research-with-escrow ri-bow-saw)
+ 	(can-research ri-bow-saw)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-bow-saw)
 ; (chat-local-to-self "research BOW-SAW")
 )
 
 ;200 WOOD, 300 FOOD
 (defrule
- 	(can-research-with-escrow ri-two-man-saw)
+ 	(can-research ri-two-man-saw)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-two-man-saw)
 ; (chat-local-to-self "research TWO-MAN-SAW")
 )
@@ -134,18 +124,16 @@
 
 ;HORSE-COLLAR 75 WOOD, 75 FOOD
 (defrule
- 	(can-research-with-escrow ri-horse-collar)
+ 	(can-research ri-horse-collar)
 	(not (research-available ri-double-bit-axe))
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-horse-collar)
 ; (chat-local-to-self "research HORSE-COLLAR")
 )
 
 ;HEAVY-PLOW 125 WOOD, 125 FOOD
 (defrule
- 	(can-research-with-escrow ri-heavy-plow)
+ 	(can-research ri-heavy-plow)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
 	(or
@@ -163,20 +151,16 @@
 		)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-heavy-plow)
 ; (chat-local-to-self "research HEAVY-PLOW")
 )
 
 ;CROP ROTATION 250 WOOD, 250 FOOD
 (defrule
- 	(can-research-with-escrow ri-crop-rotation)
+ 	(can-research ri-crop-rotation)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-two-man-saw))
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-crop-rotation)
 ; (chat-local-to-self "research CROP-ROTATION")
 )
@@ -187,7 +171,7 @@
 
 ;GOLD-MINING 75 WOOD, 100 FOOD
 (defrule
- 	(can-research-with-escrow ri-gold-mining)
+ 	(can-research ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(or
 		(or
@@ -211,15 +195,13 @@
 		)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-gold-mining)
 ; (chat-local-to-self "research GOLD-MINING")
 )
 
 ;GOLD-MINING 75 WOOD, 100 FOOD
 (defrule
- 	(can-research-with-escrow ri-gold-mining)
+ 	(can-research ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(current-age >= castle-age)
 	(not (research-available ri-hand-cart))
@@ -236,30 +218,26 @@
 		)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-gold-mining)
 ; (chat-local-to-self "research GOLD-MINING")
 )
 
 ;GOLD-MINING 75 WOOD, 100 FOOD
 (defrule
- 	(can-research-with-escrow ri-gold-mining)
+ 	(can-research ri-gold-mining)
 	(strategic-number sn-gold-gatherer-percentage > 0)
 	(current-age == feudal-age)
 	(up-research-status c: castle-age >= research-pending)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(goal RUSH-CONTROL CASTLE)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-gold-mining)
 ; (chat-local-to-self "research GOLD-MINING")
 )
 
 ;GOLD-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
- 	(can-research-with-escrow ri-gold-shaft-mining)
+ 	(can-research ri-gold-shaft-mining)
 	;(strategic-number sn-gold-gatherer-percentage > 0)
 	(not (research-available ri-hand-cart))
 	(not (research-available ri-bow-saw))
@@ -267,27 +245,23 @@
 	;(food-amount > 400)
 	;(wood-amount > 400)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-gold-shaft-mining)
 ; (chat-local-to-self "research GOLD-SHAFT-MINING")
 )
 
 (defrule
- 	(can-research-with-escrow ri-gold-shaft-mining)
+ 	(can-research ri-gold-shaft-mining)
 	;(strategic-number sn-gold-gatherer-percentage > 0)
 	(goal RUSH-CONTROL RUSHING)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-gold-shaft-mining)
 ; (chat-local-to-self "research GOLD-SHAFT-MINING")
 )
 
 ;STONE-MINING 125 WOOD, 125 FOOD
 (defrule
- 	(can-research-with-escrow ri-stone-mining)
+ 	(can-research ri-stone-mining)
 	;(strategic-number sn-stone-gatherer-percentage > 0)
 	;(not (research-available ri-gold-shaft-mining))
 	(goal RUSH-CONTROL NO)
@@ -295,22 +269,18 @@
 	(wood-amount > 200)
 	(food-amount > 200)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-stone-mining)
 ; (chat-local-to-self "research STONE-MINING")
 )
 
 ;STONE-SHAFT-MINING 150 WOOD, 200 FOOD
 (defrule
- 	(can-research-with-escrow ri-stone-shaft-mining)
+ 	(can-research ri-stone-shaft-mining)
 	(cc-players-unit-type-count 0 STONE-MINE > 5); stone left on map
 (or	(unit-type-count 124 > 0)
 	(unit-type-count 220 > 0))
 	(strategic-number sn-stone-gatherer-percentage > 4)
 =>
-	(release-escrow wood)
-	(release-escrow food)
  	(research ri-stone-shaft-mining)
 ; (chat-local-to-self "research STONE-MINING")
 )
@@ -325,7 +295,7 @@
 
 ;CARTOGRAPHY 100 FOOD, 100 GOLD
 (defrule
- 	(can-research-with-escrow ri-cartography)
+ 	(can-research ri-cartography)
 	(player-in-game any-ally)
 	(or
 		(not (goal RESEARCHING-CASTLE FAST-CASTLE))
@@ -336,30 +306,26 @@
 	(gold-amount > 700)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-cartography)
 ; (chat-local-to-self "research CARTOGRAPHY")
 )
 
 ;COINAGE 150 FOOD, 50 GOLD
 (defrule
- 	(can-research-with-escrow ri-coinage)
+ 	(can-research ri-coinage)
 	(player-in-game any-ally)
 	(up-research-status c: imperial-age >= research-pending)
 	(goal RUSH-CONTROL NO)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-coinage)
 ; (chat-local-to-self "research COINAGE")
 )
 
 ;BANKING 200 FOOD, 100 GOLD
 (defrule
- 	(can-research-with-escrow ri-banking)
+ 	(can-research ri-banking)
 	(player-in-game any-ally)
 	(up-research-status c: imperial-age >= research-pending)
 	(goal RUSH-CONTROL NO)
@@ -368,15 +334,13 @@
 	(goal ALL-ECONOMY-TECH-DONE YES)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-banking)
 ; (chat-local-to-self "research BANKING")
 )
 
 ;CARAVAN 200 FOOD, 200 GOLD
 (defrule
- 	(can-research-with-escrow ri-caravan)
+ 	(can-research ri-caravan)
 	(player-in-game any-ally)
 	(or
 		(unit-type-count-total trade-cart > 3)
@@ -384,20 +348,16 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-caravan)
 ; (chat-local-to-self "research CARAVAN")
 )
 
 ;GUILDS 300 FOOD, 200 GOLD
 (defrule
- 	(can-research-with-escrow ri-guilds)
+ 	(can-research ri-guilds)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-guilds)
 ; (chat-local-to-self "research GUILDS")
 )
@@ -640,40 +600,39 @@
 ;Rule214: research ATONEMENT
 ;325 GOLD
 (defrule
- 	(can-research-with-escrow ri-atonement)
+ 	(can-research ri-atonement)
 	(cc-players-unit-type-count any-enemy monk >= 4)
 	(gold-amount > 2000)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow gold)
+	
  	(research ri-atonement)
 ;	(chat-local-to-self "research ATONEMENT")
 )
 ;140 GOLD
 (defrule
- 	(can-research-with-escrow ri-fervor)
+ 	(can-research ri-fervor)
 	(unit-type-count monk >= 3)
 	(gold-amount > 1700)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow gold)
-	(research ri-fervor)
+  (research ri-fervor)
 ;	(chat-local-to-self "research FERVOR")
 )
 ;120 GOLD
 (defrule
- 	(can-research-with-escrow ri-sanctity)
+ 	(can-research ri-sanctity)
 	(unit-type-count monk >= 3)
 	(gold-amount > 1700)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow gold)
+	
  	(research ri-sanctity)
 ;	(chat-local-to-self "research SANCTITY")
 )
 ;475 GOLD
 (defrule
- 	(can-research-with-escrow ri-redemption)
+ 	(can-research ri-redemption)
 	(unit-type-count monk >= 3)
 	(gold-amount > 2500)
 	(or
@@ -682,24 +641,24 @@
 	)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow gold)
+	
  	(research ri-redemption)
 ;	(chat-local-to-self "research REDEMPTION")
 )
 ;350 GOLD
 ;(defrule
-; (can-research-with-escrow ri-herbal-medicine)
+; (can-research ri-herbal-medicine)
 ;	(gold-amount > 2000)
 ;(goal ALL-MILITARY-TECH-DONE YES)
 ;=>
-;	(release-escrow gold)
+;	
 ;	(research ri-herbal-medicine)
 ;	(chat-local-to-self "research HERBAL-MEDICINE")
 ;)
 
 ;HERESY 1000 GOLD
 (defrule
- 	(can-research-with-escrow ri-heresy)
+ 	(can-research ri-heresy)
 	(gold-amount > 4000)
 	(military-population > TWENTY-PERCENT-POP)
 	(or
@@ -708,13 +667,13 @@
 	)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow gold)
+	
  	(research ri-heresy)
 ;	(chat-local-to-self "research HERESY")
 )
 ;750 FOOD, 1000 GOLD
 (defrule
- 	(can-research-with-escrow ri-faith)
+ 	(can-research ri-faith)
 	(gold-amount > 2500)
 	(military-population > TWENTY-PERCENT-POP)
 	(food-amount > 2500)
@@ -724,19 +683,18 @@
 	)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow gold)
+	
  	(research ri-faith)
 ;	(chat-local-to-self "research FAITH")
 )
 ;120 GOLD
 (defrule
- 	(can-research-with-escrow ri-illumination)
+ 	(can-research ri-illumination)
 	(unit-type-count monk >= 3)
 	(gold-amount > 1700)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow gold)
-	(research ri-illumination)
+  (research ri-illumination)
 ;	(chat-local-to-self "research ILLUMINATION")
 )
 ;200 GOLD
@@ -747,8 +705,7 @@
 	(gold-amount > 1700)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow gold)
-	(research ri-block-printing)
+  (research ri-block-printing)
 ;	(chat-local-to-self "research BLOCK-PRINTING")
 )
 ;400 FOOD, 800 GOLD
@@ -762,8 +719,7 @@
 	)
 	(goal ALL-MILITARY-TECH-DONE YES)
 =>
-	(release-escrow gold)
-	(research ri-theocracy)
+  (research ri-theocracy)
 ;	(chat-local-to-self "research THEOCRACY")
 )
 
@@ -775,12 +731,12 @@
 
 ;TRACKING 75 FOOD
 (defrule
- 	(can-research-with-escrow ri-tracking)
+ 	(can-research ri-tracking)
 	(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
 	(food-amount > 500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
+	
  	(research ri-tracking)
 ; (chat-local-to-self "research TRACKING")
 )
@@ -788,21 +744,21 @@
 (defrule
 	(goal RUSH-ATTACK-STARTED YES)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(can-research-with-escrow ri-tracking)
+	(can-research ri-tracking)
 =>
-	(release-escrow food)
+	
  	(research ri-tracking)
 ; (chat-local-to-self "research TRACKING")
 )
 
 ;200 FOOD
 (defrule
- 	(can-research-with-escrow ri-squires)
+ 	(can-research ri-squires)
 	(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
 	(food-amount > 500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
+	
  	(research ri-squires)
 ; (chat-local-to-self "research SQUIRES")
 )
@@ -810,7 +766,7 @@
 ;Rule228: research MAN-AT-ARMS- EASY, MODERATE, HARD, HARDEST, part 1
 ;100 FOOD, 40 GOLD
 (defrule
- 	(can-research-with-escrow ri-man-at-arms)
+ 	(can-research ri-man-at-arms)
 	(or
 		(unit-type-count-total militiaman-line > 1)
 		(and
@@ -823,15 +779,13 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-man-at-arms)
 ; (chat-local-to-self "research MAN-AT-ARMS")
 )
 
 ;LONG-SWORDSMAN 200 FOOD, 65 GOLD
 (defrule
- 	(can-research-with-escrow ri-long-swordsman)
+ 	(can-research ri-long-swordsman)
 	(or
 		(unit-type-count-total militiaman-line > TWO-PERCENT-POP)
 		(and
@@ -841,15 +795,13 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-long-swordsman)
 ; (chat-local-to-self "research LONG-SWORDSMAN")
 )
 
 ;300 FOOD, 100 GOLD
 (defrule
- 	(can-research-with-escrow ri-two-handed-swordsman)
+ 	(can-research ri-two-handed-swordsman)
 	(or
 		(unit-type-count-total militiaman-line > TWO-PERCENT-POP)
 		(or
@@ -859,8 +811,6 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-two-handed-swordsman)
 ; (chat-local-to-self "research TWO-HANDED-SWORDSMAN")
 )
@@ -869,7 +819,7 @@
 ;CHAMPION
 ;750 FOOD, 350 GOLD
 (defrule
- 	(can-research-with-escrow ri-champion)
+ 	(can-research ri-champion)
 	(or
 		(unit-type-count-total militiaman-line > TWO-PERCENT-POP)
 		(or
@@ -879,8 +829,6 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-champion)
 ; (chat-local-to-self "research CHAMPION")
 )
@@ -889,7 +837,7 @@
 
 ;PIKEMAN 215 FOOD, 90 GOLD
 (defrule
- 	(can-research-with-escrow ri-pikeman)
+ 	(can-research ri-pikeman)
 	(or
 		(unit-type-count-total spearman-line >= ONE-PERCENT-POP)
 		(and
@@ -899,15 +847,13 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-pikeman)
 ; (chat-local-to-self "research PIKEMAN")
 )
 
 ;500 FOOD, 600 GOLD
 (defrule
- 	(can-research-with-escrow ri-halberdier)
+ 	(can-research ri-halberdier)
 	(or
 		(unit-type-count-total spearman-line >= ONE-PERCENT-POP)
 		(or
@@ -917,15 +863,13 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-halberdier)
 ; (chat-local-to-self "research HALBERDIER")
 )
 
 ;215 FOOD, 90 GOLD
 (defrule
- 	(can-research-with-escrow ri-eagle-warrior)
+ 	(can-research ri-eagle-warrior)
 	(or
 		(unit-type-count-total eagle-warrior-line >= ONE-PERCENT-POP)
 		(or
@@ -938,15 +882,13 @@
 		(goal RUSH-ATTACK-STARTED YES)
 	)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-eagle-warrior)
 ; (chat-local-to-self "research ELITE-EAGLE-WARRIOR")
 )
 
 ;215 FOOD, 90 GOLD
 (defrule
- 	(can-research-with-escrow ri-elite-eagle-warrior)
+ 	(can-research ri-elite-eagle-warrior)
 	(or
 		(unit-type-count-total eagle-warrior-line >= ONE-PERCENT-POP)
 		(or
@@ -956,8 +898,6 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-elite-eagle-warrior)
 ; (chat-local-to-self "research ELITE-EAGLE-WARRIOR")
 )
@@ -968,7 +908,7 @@
 
 ;archer-line 125 FOOD, 75 GOLD
 (defrule
- 	(can-research-with-escrow ri-crossbow)
+ 	(can-research ri-crossbow)
 	(or
 		(unit-type-count-total archer-line >= ONE-PERCENT-POP)
 		(or
@@ -978,15 +918,13 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-crossbow)
 ; (chat-local-to-self "research archer-line")
 )
 
 ;350 FOOD, 300 GOLD
 (defrule
- 	(can-research-with-escrow ri-arbalest)
+ 	(can-research ri-arbalest)
 	(or
 		(unit-type-count-total archer-line >= TWO-PERCENT-POP)
 		(or
@@ -996,15 +934,13 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-arbalest)
 ; (chat-local-to-self "research ARBALEST")
 )
 
 ;250 WOOD, 160 GOLD
 (defrule
- 	(can-research-with-escrow ri-elite-skirmisher)
+ 	(can-research ri-elite-skirmisher)
  	(unit-type-count-total skirmisher-line >= ONE-PERCENT-POP)
  	(or
 		(wood-amount > 350)
@@ -1015,15 +951,13 @@
 		(wood-amount > 550)
 	)
 =>
-	(release-escrow wood)
-	(release-escrow gold)
 	(research ri-elite-skirmisher)
 ; (chat-local-to-self "research ELITE-skirmisher-line")
 )
 
 ;900 FOOD, 500 GOLD
 (defrule
- 	(can-research-with-escrow ri-heavy-cavalry-archer)
+ 	(can-research ri-heavy-cavalry-archer)
 	(or
 		(unit-type-count-total cavalry-archer-line >= TWO-PERCENT-POP)
 		(or
@@ -1033,14 +967,12 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-heavy-cavalry-archer)
 ; (chat-local-to-self "research HEAVY-CAVALRY-ARCHER")
 )
 ;350 FOOD, 250 GOLD
 (defrule
- 	(can-research-with-escrow ri-thumb-ring)
+ 	(can-research ri-thumb-ring)
 	(or
 		(up-compare-goal G-ABLE-TO-UPGRADE-ARCHERS >= MIDDLE)
 		(or
@@ -1050,20 +982,16 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-thumb-ring)
 ; (chat-local-to-self "research THUMB-RING")
 )
 
 ;200 FOOD, 250 GOLD
 (defrule
- 	(can-research-with-escrow ri-parthian-tactics)
+ 	(can-research ri-parthian-tactics)
 	(unit-type-count-total cavalry-archer-class >= TWO-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-parthian-tactics)
 ; (chat-local-to-self "research PARTHIAN-TACTICS")
 )
@@ -1074,7 +1002,7 @@
 
 ;HUSBANDRY 250 FOOD
 (defrule
- 	(can-research-with-escrow ri-husbandry)
+ 	(can-research ri-husbandry)
 	(or
 		(goal G-ABLE-TO-UPGRADE-CAVALRY MIDDLE)
 		(or
@@ -1099,14 +1027,13 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
  	(research ri-husbandry)
 ; (chat-local-to-self "research HUSBANDRY")
 )
 
 ;BLOODLINES 150 FOOD, 100 GOLD
 (defrule
- 	(can-research-with-escrow ri-bloodlines)
+ 	(can-research ri-bloodlines)
 	(or
 		(goal G-ABLE-TO-UPGRADE-CAVALRY MIDDLE)
 		(or
@@ -1130,29 +1057,25 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-bloodlines)
 ; (chat-local-to-self "research BLOODLINES")
 )
 
 ;LIGHT CAVALRY 150 FOOD, 50 GOLD
 (defrule
- 	(can-research-with-escrow ri-light-cavalry)
+ 	(can-research ri-light-cavalry)
 	(unit-type-count-total scout-cavalry-line > 1)
 	(food-amount > 300)
 	(gold-amount > 150)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-light-cavalry)
 ; (chat-local-to-self "research LIGHT-CAVALRY")
 )
 
 ;HUSSAR 500 FOOD, 600 GOLD
 (defrule
- 	(can-research-with-escrow ri-hussar)
+ 	(can-research ri-hussar)
 	(or
 		(unit-type-count-total scout-cavalry-line >= ONE-PERCENT-POP)
 		(or
@@ -1162,56 +1085,46 @@
 	)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-hussar)
 ; (chat-local-to-self "research HUSSAR")
 )
 
 ;CAVALIER 300 FOOD, 300 GOLD
 (defrule
- 	(can-research-with-escrow ri-cavalier)
+ 	(can-research ri-cavalier)
  	(unit-type-count-total knight-line >= ONE-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-cavalier)
 ; (chat-local-to-self "research CAVALIER")
 )
 
 ;PALADIN 1300 FOOD, 750 GOLD
 (defrule
- 	(can-research-with-escrow ri-paladin)
+ 	(can-research ri-paladin)
 	(unit-type-count-total knight-line >= TWO-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-paladin)
 ; (chat-local-to-self "research PALADIN")
 )
 
 ;ELITE-steppe-lancer-line 900 FOOD, 550 GOLD
 (defrule
- 	(can-research-with-escrow ri-elite-steppe-lancer)
+ 	(can-research ri-elite-steppe-lancer)
  	(unit-type-count-total steppe-lancer-line >= TWO-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-elite-steppe-lancer)
 ; (chat-local-to-self "research steppe-lancer-line")
 )
 
 ;1300 FOOD, 750 GOLD
 (defrule
- 	(can-research-with-escrow ri-heavy-camel)
+ 	(can-research ri-heavy-camel)
 	(unit-type-count-total camel-line >= TWO-PERCENT-POP)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-heavy-camel)
 ; (chat-local-to-self "research HEAVY-camel-line")
 )
@@ -1226,25 +1139,24 @@
 
 ;CAPPED-battering-ram-line 300 FOOD
 (defrule
- 	(can-research-with-escrow ri-capped-ram)
+ 	(can-research ri-capped-ram)
 	(unit-type-count-total battering-ram-line > 1)
 	(food-amount > 500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(research ri-capped-ram)
+  (research ri-capped-ram)
 ; (chat-local-to-self "research CAPPED-battering-ram-line")
 )
 
 
 ;SIEGE-battering-ram-line 1000 FOOD
 (defrule
- 	(can-research-with-escrow ri-siege-ram)
+ 	(can-research ri-siege-ram)
 	(food-amount > 1800)
 	(unit-type-count-total battering-ram-line > 1)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
+	
  	(research ri-siege-ram)
 ; (chat-local-to-self "research SIEGE-battering-ram-line")
 )
@@ -1252,14 +1164,12 @@
 
 ;ONAGER 800 FOOD, 500 GOLD
 (defrule
- 	(can-research-with-escrow ri-onager)
+ 	(can-research ri-onager)
 	(unit-type-count-total mangonel-line > 2)
 	(food-amount > 1000)
 	(gold-amount > 700)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
  	(research ri-onager)
 ; (chat-local-to-self "research ONAGER")
 )
@@ -1267,28 +1177,24 @@
 
 ;SIEGE-ONAGER 1450 FOOD, 1000 GOLD
 (defrule
- 	(can-research-with-escrow ri-siege-onager)
+ 	(can-research ri-siege-onager)
  	(unit-type-count-total mangonel-line > 2)
 	(food-amount > 2600)
 	(gold-amount > 1500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-siege-onager)
 ; (chat-local-to-self "research SIEGE-ONAGER")
 )
 
 ;HEAVY-scorpion-line 1000 FOOD, 1100 WOOD
 (defrule
- 	(can-research-with-escrow ri-heavy-scorpion)
+ 	(can-research ri-heavy-scorpion)
 	(unit-type-count-total scorpion-line > 2)
 	(wood-amount > 1400)
 	(food-amount > 1500)
 	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
-	(release-escrow food)
-	(release-escrow gold)
 	(research ri-heavy-scorpion)
 ; (chat-local-to-self "research HEAVY-scorpion-line")
 )

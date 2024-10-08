@@ -105,7 +105,6 @@
 	(research feudal-age)
 	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!")
 	(chat-local-to-self "advance to FEUDAL-AGE")
-	(set-escrow-percentage food 0)
 )
 ;500 FOOD
 (defrule
@@ -118,7 +117,6 @@
 	(research feudal-age)
 	(chat-to-player every-ally "39 I'm advancing to the feudal-age now!")
 	(chat-local-to-self "advance to FEUDAL-AGE")
-	(set-escrow-percentage food 0)
 )
 
 ;Rule109: research CASTLE-AGE4- MODERATE, HARD, HARDEST -fast castle-age
@@ -134,8 +132,6 @@
  	(research castle-age)
 	(chat-to-player every-ally "39 I'm advancing to the castle-age now!")
 	(chat-local-to-self "advance to CASTLE-AGE")
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
 )
 ;800 FOOD, 200 GOLD
 (defrule
@@ -149,8 +145,6 @@
  	(research castle-age)
 	(chat-to-player every-ally "39 I'm advancing to the castle-age now!")
 	(chat-local-to-self "advance to CASTLE-AGE")
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
 )
 ;800 FOOD, 200 GOLD
 (defrule
@@ -164,8 +158,6 @@
  	(research castle-age)
 	(chat-to-player every-ally "39 I'm advancing to the castle-age now!")
 	(chat-local-to-self "advance to CASTLE-AGE")
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
 )
 
 ;Rule115: research IMPERIAL-AGE4- HARD, HARDEST -fast imperial-age
@@ -181,8 +173,6 @@
  	(research imperial-age)
 	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!")
 	(chat-local-to-self "advance to IMPERIAL-AGE")
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
 )
 ;1000 FOOD, 800 GOLD
 (defrule
@@ -196,8 +186,6 @@
  	(research imperial-age)
 	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!")
 	(chat-local-to-self "advance to IMPERIAL-AGE")
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
 )
 ;1000 FOOD, 800 GOLD
 (defrule
@@ -211,8 +199,6 @@
  	(research imperial-age)
 	(chat-to-player every-ally "39 I'm advancing to the imperial-age now!")
 	(chat-local-to-self "advance to IMPERIAL-AGE")
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
 )
 
 ;***********************************************
@@ -229,7 +215,6 @@
 	(chat-local-to-self "advance to FEUDAL-AGE")
 	(release-escrow food)
 	(research feudal-age)
-	(set-escrow-percentage food 0)
 )
 
 (defrule
@@ -243,8 +228,6 @@
 	(release-escrow food)
 	(release-escrow gold)
 	(research castle-age)
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
 )
 
 (defrule
@@ -258,8 +241,29 @@
 	(release-escrow food)
 	(release-escrow gold)
 	(research imperial-age)
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
 )
 ;***********************************************
 #end-if
+
+(defrule
+	(up-research-status c: feudal-age >= research-pending)
+=>
+	(set-escrow-percentage food 0)
+	(disable-self)
+)
+
+(defrule
+	(up-research-status c: castle-age >= research-pending)
+=>
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
+	(disable-self)
+)
+
+(defrule
+	(up-research-status c: imperial-age >= research-pending)
+=>
+	(set-escrow-percentage food 0)
+	(set-escrow-percentage gold 0)
+	(disable-self)
+)
