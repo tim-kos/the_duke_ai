@@ -434,7 +434,7 @@
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 9); 12
-;	(chat-local-to-self "build MINING-CAMP for GOLD")
+	(chat-local-to-self "build MINING-CAMP for GOLD1")
 )
 
 (defrule
@@ -454,7 +454,7 @@
 =>
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 9); 12
-;	(chat-local-to-self "build MINING-CAMP for STONE")
+	(chat-local-to-self "build MINING-CAMP for STONE1")
 )
 
 (defrule
@@ -466,7 +466,7 @@
 	(building-type-count-total lumber-camp > 0)
 =>
  	(build mining-camp)
-;	(chat-local-to-self "build MINING-CAMP for GOLD")
+	(chat-local-to-self "build MINING-CAMP for GOLD2")
 )
 
 (defrule
@@ -479,7 +479,7 @@
 	(building-type-count-total market > 0)
 =>
  	(build mining-camp)
-;	(chat-local-to-self "build MINING-CAMP for STONE")
+	(chat-local-to-self "build MINING-CAMP for STONE2")
 )
 ;***********************************************
 #end-if		;if game type == wonder race
@@ -504,7 +504,10 @@
 	;Do not build a mining camp for the eagle warrior rush, as we will sell
 	;stone to get the gold as we will build a market.
 	(or
-		(not (goal RUSH-CONTROL CASTLE))
+		(and
+			(not (goal RUSH-CONTROL CASTLE))
+			(not (goal RUSH-CONTROL RUSHING))
+		)
 		(or
 			(not (goal G-PRIMARY-UNIT eagle-warrior-line))
 			(up-research-status c: castle-age >= research-pending)
@@ -514,7 +517,7 @@
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 9); 12
-;	(chat-local-to-self "build MINING-CAMP for GOLD")
+	(chat-local-to-self "build MINING-CAMP for GOLD 1")
 )
 
 (defrule
@@ -530,7 +533,7 @@
 =>
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 9); 12
-;	(chat-local-to-self "build MINING-CAMP for STONE")
+	(chat-local-to-self "build MINING-CAMP for STONE 1")
 )
 
 (defrule
@@ -569,7 +572,7 @@
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 6)
-;	(chat-local-to-self "build MINING-CAMP")
+	(chat-local-to-self "build MINING-CAMP FOR GOLD 2")
 )
 
 ;Build a second mining camp in castle-age, which has a high probability
@@ -601,7 +604,7 @@
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 6)
-;	(chat-local-to-self "build MINING-CAMP")
+	(chat-local-to-self "build MINING-CAMP FOR GOLD 3")
 )
 
 ;Build a fourth mining camp in castle-age, which has a high probability
@@ -627,7 +630,7 @@
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 6)
-;	(chat-local-to-self "build MINING-CAMP")
+;	(chat-local-to-self "build MINING-CAMP FOR STONE 2")
 )
 
 (defrule
@@ -657,7 +660,7 @@
  	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
 	(set-strategic-number sn-dropsite-separation-distance 6)
-;	(chat-local-to-self "build MINING-CAMP")
+;	(chat-local-to-self "build MINING-CAMP FOR STONE 3")
 )
 
 ;***********************************************
