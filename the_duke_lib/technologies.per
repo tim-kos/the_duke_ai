@@ -732,21 +732,20 @@
 ;TRACKING 75 FOOD
 (defrule
  	(can-research ri-tracking)
-	(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
-	(food-amount > 500)
-	(goal ALL-ECONOMY-TECH-DONE YES)
+	(or
+		(and
+			(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
+			(and
+				(food-amount > 500)
+				(goal ALL-ECONOMY-TECH-DONE YES)
+			)
+		)
+		(and
+			(goal RUSH-ATTACK-STARTED YES)
+			(goal G-PRIMARY-UNIT eagle-warrior-line)
+		)
+	)
 =>
-	
- 	(research ri-tracking)
-; (chat-local-to-self "research TRACKING")
-)
-
-(defrule
-	(goal RUSH-ATTACK-STARTED YES)
-	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(can-research ri-tracking)
-=>
-	
  	(research ri-tracking)
 ; (chat-local-to-self "research TRACKING")
 )
@@ -754,9 +753,19 @@
 ;200 FOOD
 (defrule
  	(can-research ri-squires)
-	(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
-	(food-amount > 500)
-	(goal ALL-ECONOMY-TECH-DONE YES)
+	(or
+		(and
+			(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
+			(and
+				(food-amount > 500)
+				(goal ALL-ECONOMY-TECH-DONE YES)
+			)
+		)
+		(and
+			(goal RUSH-ATTACK-STARTED YES)
+			(goal G-PRIMARY-UNIT eagle-warrior-line)
+		)
+	)
 =>
 	
  	(research ri-squires)

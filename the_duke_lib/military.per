@@ -298,13 +298,7 @@
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(current-age >= castle-age)
 	(goal RUSH-CONTROL RUSHING)
-	(or
-		(and
-			(food-amount > 500)
-			(gold-amount > 350)
-		)
-		(unit-type-count-total eagle-warrior-line < 16)
-	)
+	(unit-type-count-total eagle-warrior-line < 16)
 	(can-train eagle-warrior-line)
 	;(goal ABLE-TO-TRAIN-UNITS YES)
 	;(goal ABLE-TO-TRAIN-LAND-UNITS YES)
@@ -324,6 +318,7 @@
 	(not (research-available ri-chain-mail))
 	(not (research-available ri-forging))
 	(not (research-available ri-tracking))
+	(not (research-available ri-squires))
 	(not (research-available ri-eagle-warrior))
 =>
 	(train eagle-warrior-line)

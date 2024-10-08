@@ -616,7 +616,7 @@
 
 (defrule 			
 	(current-age == castle-age)
-	(not (goal RUSH-CONTROL NO))
+	(goal RUSH-CONTROL RUSHING)
 	(building-type-count mining-camp > 0)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(research-available ri-gold-shaft-mining)
@@ -629,14 +629,14 @@
 
 (defrule 			
 	(current-age == castle-age)
-	(not (goal RUSH-CONTROL NO))
+	(goal RUSH-CONTROL RUSHING)
 	(building-type-count mining-camp > 0)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(not (research-available ri-gold-shaft-mining))
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 50)
- 	(set-strategic-number sn-wood-gatherer-percentage 30)
- 	(set-strategic-number sn-gold-gatherer-percentage 20)
+ 	(set-strategic-number sn-food-gatherer-percentage 56)
+ 	(set-strategic-number sn-wood-gatherer-percentage 22)
+ 	(set-strategic-number sn-gold-gatherer-percentage 22)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 

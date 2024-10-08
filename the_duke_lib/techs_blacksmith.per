@@ -480,6 +480,13 @@
  	(can-research ri-fletching)
 	(goal RUSH-CONTROL RUSHING)
 	(goal RUSH-ATTACK-STARTED YES)
+	(or
+		(goal G-PRIMARY-UNIT archer-line)
+		(or
+			(goal G-PRIMARY-UNIT skirmisher-line)
+			(goal G-PRIMARY-UNIT cavalry-archer-line)
+		)
+	)
 =>
 	(research ri-fletching)
 ; (chat-local-to-self "research FLETCHING")

@@ -1271,8 +1271,17 @@
  	(current-age >= feudal-age)
  	(can-build blacksmith)
 	(or
+		;make sure we build a mining camp before the blacksmith if necessary
 		(building-type-count-total mining-camp > 0)
-		(gold-amount >= 200)
+		(or
+			(gold-amount >= 200)
+			;No need to wait for a mining camp with the EA rush as we get
+			;the gold for castle-age from selling stone.
+			(and
+				(goal RUSH-CONTROL CASTLE)
+				(goal G-PRIMARY-UNIT eagle-warrior-line)
+			)
+		)
 	)
 	(or
 		(not (goal RUSH-CONTROL RUSHING))
@@ -1285,10 +1294,7 @@
 		(goal ALL-ECONOMY-TECH-DONE YES)
 		(or
 			(wood-amount > 250)
-			(and
-				(current-age == feudal-age)
-				(goal RUSH-CONTROL CASTLE)
-			)
+			(goal RUSH-CONTROL CASTLE)
 		)
 	)
 =>
@@ -1768,8 +1774,11 @@
 		(and
 			(current-age >= castle-age)
 			(and
-				(building-type-count-total barracks < 4)
-				(goal ALL-ECONOMY-TECH-DONE YES)
+				(building-type-count-total barracks < 6)
+				(or
+					(goal ALL-ECONOMY-TECH-DONE YES)
+					(wood-amount > 550)
+				)
 			)
 		)
 	)
