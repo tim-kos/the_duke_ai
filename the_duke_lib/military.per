@@ -1987,6 +1987,7 @@
 	(food-amount > 1500)
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
+	(goal RUSH-CONTROL NO)
 =>
 	(train spearman-line)
 )
@@ -1997,6 +1998,7 @@
 	(can-train spearman-line)
 	(goal ABLE-TO-TRAIN-UNITS YES)
 	(unit-type-count-total spearman-line < TEN-PERCENT-POP)
+	(goal RUSH-CONTROL NO)
 =>
 	(train spearman-line)
 )
@@ -2012,6 +2014,7 @@
 		)
 		(unit-type-count-total spearman-line < TWO-PERCENT-POP)
 	)
+	(goal RUSH-CONTROL NO)
 =>
 	(train spearman-line)
 )
