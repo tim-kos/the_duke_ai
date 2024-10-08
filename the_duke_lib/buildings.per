@@ -198,6 +198,7 @@
 	(current-age >= castle-age)
 	(up-pending-objects c: house < 3)
 	(wood-amount > 150)
+	(goal RUSH-CONTROL NO)
 =>
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build house)
@@ -207,11 +208,12 @@
 
 (defrule
 	(game-time >= 900)
-	(housing-headroom <= 25)
+	(housing-headroom <= 15)
  	(can-build house)
 	(population-headroom != 0)
 	(current-age >= castle-age)
-	(up-pending-objects c: house < 5)
+	(up-pending-objects c: house < 3)
+	(goal RUSH-CONTROL NO)
 =>
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build house)
