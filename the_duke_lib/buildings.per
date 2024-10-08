@@ -599,7 +599,13 @@
  	(can-build mining-camp)
 	(building-type-count-total lumber-camp > 0)
 	(up-pending-objects c: mining-camp < 1)
-	(building-type-count-total mining-camp < 3)
+	(or
+		(building-type-count-total mining-camp < 1)
+		(and
+			(building-type-count-total mining-camp < 3)
+			(goal RUSH-CONTROL NO)
+		)
+	)
 =>
 	(set-strategic-number sn-allow-adjacent-dropsites 0)
  	(build mining-camp)
