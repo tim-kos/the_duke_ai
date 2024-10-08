@@ -182,7 +182,7 @@
 	(goal ATTACK-STATE READY)
 	;(goal ABLE-TO-ATTACK YES) // Used for normal kind of attacks, not for rush attack as it checks for high military pop
 	(military-population >= 4)
-	(players-building-count target-player > 0)
+	(players-building-count any-enemy > 0)
 	(goal RUSH-ATTACK-STARTED NO)
 	;(up-compare-goal MILITARY-PARITY >= PARITY)
 	(goal UNDER-ATTACK NO)
@@ -193,6 +193,25 @@
 	(chat-to-player every-ally "39 I do the Flush now!")
 	(chat-local-to-self "Start rush")
 	(set-goal RUSH-ATTACK-STARTED YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(goal RUSH-CONTROL RUSHING)
+	(goal ATTACK-STATE READY)
+	;(goal ABLE-TO-ATTACK YES) // Used for normal kind of attacks, not for rush attack as it checks for high military pop
+	(military-population >= 4)
+	(players-building-count every-enemy == 0)
+	(goal RUSH-ATTACK-STARTED NO)
+	(goal UNDER-ATTACK NO)
+=>
+	(set-strategic-number sn-maximum-town-size 24)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(set-goal RUSH-CONTROL NO)
+	(chat-local-to-self "QUIT RUSHING")
+	(chat-to-player every-ally "39 I will not do the rush even though I am ready, as I did not see any enemy yet!")
+	(chat-local-to-self "Stop rush, enemy not sighted")
 	(disable-self)
 )
 
@@ -217,6 +236,29 @@
 	(chat-to-player every-ally "39 I rush the enemy now! Please protect my town, I have no units in there!")
 	(chat-local-to-self "Start rush")
 	(set-goal RUSH-ATTACK-STARTED YES)
+	(disable-self)
+)
+
+(defrule
+	(current-age == castle-age)
+	(goal RUSH-CONTROL RUSHING)
+	(goal ATTACK-STATE READY)
+	(or
+		(and
+			(military-population >= 6)
+			(goal G-PRIMARY-UNIT knight-line)
+		)
+		(military-population >= 16) ;Change this to a constant based on pop-cap
+	)
+	(players-building-count every-enemy == 0)
+	(goal UNDER-ATTACK NO)
+=>
+	(set-strategic-number sn-maximum-town-size 24)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(set-goal RUSH-CONTROL NO)
+	(chat-local-to-self "QUIT RUSHING")
+	(chat-to-player every-ally "39 I will not do the rush even though I am ready, as I did not see any enemy yet!")
+	(chat-local-to-self "Stop rush, enemy not sighted")
 	(disable-self)
 )
 
