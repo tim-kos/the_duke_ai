@@ -252,32 +252,6 @@
 )
 
 (defrule
-	(up-research-status c: castle-age >= research-pending)
-=>
-	(chat-local-to-self "Pending Castle reserach")
-)
-(defrule
-	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(unit-type-count-total eagle-warrior-line < 16)
-=>
-	(chat-local-to-self "EA")
-)
-(defrule
-	(current-age == feudal-age)
-	(goal RUSH-CONTROL CASTLE)
-	(or
-		(and
-			(food-amount > 825)
-			(gold-amount > 250)
-		)
-		(up-research-status c: castle-age >= research-pending)
-	)
-	(can-train eagle-warrior-line)
-=>
-	(chat-local-to-self "Yup")
-)
-
-(defrule
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(current-age == feudal-age)
 	(goal RUSH-CONTROL CASTLE)
@@ -310,16 +284,17 @@
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(current-age >= castle-age)
 	(goal RUSH-ATTACK-STARTED YES)
+	(goal RUSH-CONTROL RUSHING)
 	(unit-type-count-total eagle-warrior-line < SEVENTY-PERCENT-POP)
 	(can-train eagle-warrior-line)
 	;(goal ABLE-TO-TRAIN-UNITS YES)
 	;(goal ABLE-TO-TRAIN-LAND-UNITS YES)
-	(not (research-available ri-scale-mail))
-	(not (research-available ri-chain-mail))
-	(not (research-available ri-forging))
-	(not (research-available ri-tracking))
-	(not (research-available ri-squires))
-	(not (research-available ri-eagle-warrior))
+	(up-research-status c: ri-scale-mail >= research-pending)
+	(up-research-status c: ri-chain-mail >= research-pending)
+	(up-research-status c: ri-forging >= research-pending)
+	(up-research-status c: ri-tracking >= research-pending)
+	(up-research-status c: ri-squires >= research-pending)
+	(up-research-status c: ri-eagle-warrior >= research-pending)
 =>
 	(train eagle-warrior-line)
 )

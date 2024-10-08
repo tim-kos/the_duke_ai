@@ -319,6 +319,20 @@
 ;	(chat-local-to-self "Sell wood.")
 ;)
 
+(defrule
+	(current-age == castle-age)
+	(research-completed ri-bow-saw)
+	(wood-amount > 200)
+	(gold-amount < 200)
+	(goal RUSH-CONTROL RUSHING)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(can-sell-commodity wood)
+=>
+	(sell-commodity wood)
+	(release-escrow wood)
+	(chat-local-to-self "Sell wood.")
+)
+
 (defrule			;If
 	(wood-amount > 2000)
   (gold-amount < 800)
