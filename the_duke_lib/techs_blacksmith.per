@@ -630,6 +630,10 @@
 		)
 		(up-compare-goal G-ABLE-TO-UPGRADE-INFANTRY >= MIDDLE)
 	)
+	(or
+		(goal RUSH-CONTROL NO)
+		(goal RUSH-ATTACK-STARTED YES)
+	)
 =>
  	(research ri-arson)
 ; (chat-local-to-self "research ARSON")
@@ -766,6 +770,13 @@
 	(goal RUSH-CONTROL RUSHING)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(unit-type-count-total eagle-warrior-line > 3)
+	(or
+		(goal RUSH-ATTACK-STARTED YES)
+		(and
+			(food-amount > 500)
+			(gold-amount > 300)
+		)
+	)
 =>
  	(research ri-chain-mail)
 ; (chat-local-to-self "research CHAIN-MAIL")
