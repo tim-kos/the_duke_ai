@@ -119,10 +119,10 @@
 )
 #end-if ;if civ-selected is not hun
 
-;After 30min gradually increase camp max distance every 10 seconds
+;After 30min gradually increase camp max distance every 60 seconds
 ;if we fail to build new lumber-camps
 (defrule
-	(game-time > 900)
+	(game-time > 1800)
 	(or
 		(dropsite-min-distance wood > 10)
 		(or
@@ -133,7 +133,7 @@
 	(up-timer-status T-INCREASE-CAMP-DISTANCE <= timer-triggered)
 =>
 	(enable-timer T-INCREASE-CAMP-DISTANCE 60)
-	(up-modify-sn sn-camp-max-distance c:+ 10)
+	(up-modify-sn sn-camp-max-distance c:+ 5)
 	(chat-local-to-self "INCREASE CAMP DISTANCE")
 )
 
