@@ -771,17 +771,25 @@
 
 ;build MILL (FIRST) when we found some berry-bush, deer or fish
 (defrule
-	(or
-		(resource-found food)
-		(game-time > 250)
-	)
+	(resource-found food)
 	(can-build mill)
 	(building-type-count-total mill < 1)
 =>
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-	(chat-local-to-self "build MILL 1")
+	(chat-local-to-self "build MILL 1a")
+)
+
+(defrule
+	(game-time > 250) ;Do not move this into an (or with the previous rule, or else mills might get misplaced
+	(can-build mill)
+	(building-type-count-total mill < 1)
+=>
+ 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
+	(build mill)
+	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
+	(chat-local-to-self "build MILL 1b")
 )
 
 
