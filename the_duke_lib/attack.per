@@ -249,13 +249,8 @@
 	(current-age == castle-age)
 	(goal RUSH-CONTROL RUSHING)
 	(goal ATTACK-STATE READY)
-	(or
-		(and
-			(military-population >= 6)
-			(goal G-PRIMARY-UNIT knight-line)
-		)
-		(military-population >= 16) ;Change this to a constant based on pop-cap
-	)
+	(military-population >= 6)
+	(goal G-PRIMARY-UNIT knight-line)
 	(players-building-count every-enemy == 0)
 	(goal UNDER-ATTACK NO)
 =>
@@ -263,6 +258,27 @@
 	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
 	(set-goal RUSH-CONTROL NO)
 	(chat-local-to-self "QUIT RUSHING")
+	(set-goal COMBAT-COMBO-PARITY DEFINED)
+	(set-goal G-SECONDARY-UNIT2 skirmisher-line)
+	(chat-to-player every-ally "39 I will not do the rush even though I am ready, as I did not see any enemy yet!")
+	(chat-local-to-self "Stop rush, enemy not sighted")
+	(disable-self)
+)
+
+(defrule
+	(current-age == castle-age)
+	(goal RUSH-CONTROL RUSHING)
+	(goal ATTACK-STATE READY)
+	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(players-building-count every-enemy == 0)
+	(goal UNDER-ATTACK NO)
+=>
+	(set-strategic-number sn-maximum-town-size 24)
+	(set-strategic-number sn-enemy-sighted-response-distance enemy-sighted-response-distance)
+	(set-goal RUSH-CONTROL NO)
+	(chat-local-to-self "QUIT RUSHING")
+	(set-goal COMBAT-COMBO-PARITY DEFINED)
+	(set-goal G-SECONDARY-UNIT2 skirmisher-line)
 	(chat-to-player every-ally "39 I will not do the rush even though I am ready, as I did not see any enemy yet!")
 	(chat-local-to-self "Stop rush, enemy not sighted")
 	(disable-self)
