@@ -867,9 +867,11 @@
 	(disable-self)
 )
 
+
+
 (defrule
 	(or
-		(players-unit-type-count my-player-number 958 > 0)
+		(unit-type-count livestock-class > 0)
 		(resource-found food)
 	)
 =>
