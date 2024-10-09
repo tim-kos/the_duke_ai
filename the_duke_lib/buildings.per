@@ -781,7 +781,7 @@
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL")
+	(chat-local-to-self "build MILL 1")
 )
 
 
@@ -790,15 +790,14 @@
 	(dropsite-min-distance food > 8)
 	(dropsite-min-distance food < 25)
 	(building-type-count-total lumber-camp > 0)
-	(building-type-count-total mill > 0)
-	(building-type-count-total mill < 2)
+	(building-type-count-total mill == 1)
 	(resource-found food)
 	(can-build mill)
 =>
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL")
+	(chat-local-to-self "build MILL 2")
 )
 
 
@@ -830,7 +829,7 @@
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL")
+	(chat-local-to-self "build MILL 3")
 )
 
 (defrule
@@ -851,7 +850,7 @@
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL")
+	(chat-local-to-self "build MILL 4")
 )
 ;***********************************************
 #else			;if we do not play on the yucatan map
@@ -876,7 +875,7 @@
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL")
+	(chat-local-to-self "build MILL 5")
 )
 
 (defrule
@@ -897,7 +896,7 @@
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL")
+	(chat-local-to-self "build MILL 6")
 )
 
 (defrule
@@ -918,7 +917,7 @@
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL")
+	(chat-local-to-self "build MILL 7")
 )
 ;***********************************************
 #end-if		;if we play on the yucatan map
@@ -939,7 +938,7 @@
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL")
+	(chat-local-to-self "build MILL 8")
 )
 ;***********************************************
 #end-if		;if game-type != wonder race
@@ -957,6 +956,7 @@
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
+	(chat-local-to-self "build MILL 9")
 )
 
 (defrule
@@ -983,7 +983,7 @@
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL (many farms)")
+	(chat-local-to-self "build MILL (many farms)")
 )
 
 (defrule
@@ -1010,7 +1010,7 @@
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build mill)
 	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-ATTACKING)
-;	(chat-local-to-self "build MILL (many farms)")
+	(chat-local-to-self "build MILL (many farms)")
 )
 
 
