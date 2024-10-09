@@ -1062,63 +1062,6 @@
 #end-if		;if game type == death-match
 
 
-(defrule
-	(current-age == castle-age)
-	(goal RUSH-CONTROL RUSHING)
-	(goal RUSH-ATTACK-STARTED NO)
-	(research-available ri-long-swordsman)
-	(goal TRAIN-VILLAGERS YES)
-	(goal G-PRIMARY-UNIT knight-line)
-	(goal G-SECONDARY-UNIT militiaman-line)
-	(unit-type-count-total villager > 28)
-	(food-amount < 300)
-=>
-	(set-goal TRAIN-VILLAGERS NO)
-)
-
-(defrule
-	(current-age == castle-age)
-	(goal RUSH-CONTROL RUSHING)
-	(goal RUSH-ATTACK-STARTED NO)
-	(food-amount > 250)
-	(goal TRAIN-VILLAGERS NO)
-	(goal G-PRIMARY-UNIT knight-line)
-=>
-	(set-goal TRAIN-VILLAGERS YES)
-)
-
-(defrule
-	(current-age == castle-age)
-	(goal RUSH-CONTROL RUSHING)
-	(goal RUSH-ATTACK-STARTED NO)
-	(research-available ri-pikeman)
-	(goal TRAIN-VILLAGERS YES)
-	(goal G-PRIMARY-UNIT knight-line)
-	(goal G-SECONDARY-UNIT spearman-line)
-	(unit-type-count-total villager > 28)
-	(food-amount < 300)
-=>
-	(set-goal TRAIN-VILLAGERS NO)
-)
-
-(defrule
-	(current-age == castle-age)
-	(goal RUSH-CONTROL RUSHING)
-	(goal RUSH-ATTACK-STARTED NO)
-	(or
-		(or
-			(research-available ri-iron-casting)
-			(research-available ri-chain-mail)
-		)
-		(unit-type-count-total villager < 28)
-	)
-	(goal TRAIN-VILLAGERS YES)
-	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(food-amount < 300)
-=>
-	(set-goal TRAIN-VILLAGERS NO)
-)
-
 ;WHEN TO TRAIN VILLAGERS IN IMPERIAL AGE
 ;----------------------------------------------------------------------
 
