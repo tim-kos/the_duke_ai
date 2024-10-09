@@ -58,14 +58,11 @@
  	(current-age == castle-age)
  	(can-research ri-hand-cart)
 	(building-type-count-total lumber-camp >= 1)
-	(or
-		(unit-type-count-total eagle-warrior-line >= 16)
-		(or
-			(unit-type-count-total knight-line > 10)
-			(goal RUSH-ATTACK-STARTED YES)
-		)
-	)
 	(goal RUSH-CONTROL RUSHING)
+	(or
+		(goal RUSH-ATTACK-STARTED YES)
+		(food-amount > 500)
+	)
 	(unit-type-count-total villager > FIVE-PERCENT-POP)
 =>
 	(research ri-hand-cart)

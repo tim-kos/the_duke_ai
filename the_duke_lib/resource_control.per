@@ -710,7 +710,7 @@
 
 (defrule 				;If
 	(current-age == castle-age)
-	(not (goal RUSH-CONTROL NO))
+	(goal RUSH-CONTROL RUSHING)
 	(building-type-count mining-camp > 0)
 	(dropsite-min-distance stone > 5)
 	(goal RUSH-ATTACK-STARTED YES)
