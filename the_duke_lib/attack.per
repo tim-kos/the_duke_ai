@@ -637,3 +637,46 @@
 	(chat-to-player this-any-neutral "Okay, I will be less aggressive!")
 	(chat-to-player this-any-enemy "Okay, I will be less aggressive!")
 )
+
+;Retreat units to defend firing trebuchets
+(defrule
+	(unit-type-count unpacked-trebuchet > 0)
+	(or
+		(unit-type-count 469 > 0); normal trebuchet projectile
+		(unit-type-count 371 > 0); chemistry trebuchet projectile
+	)
+=>
+	(up-reset-unit c: -1)
+	(up-reset-attack-now)
+	(up-retreat-to unpacked-trebuchet c: infantry-class)
+	(up-retreat-to unpacked-trebuchet c: cavalry-class)
+	(chat-local-to-self "Retreat to firing trebuchet")
+)
+
+;Retreat from enemy TC fire if we are too weak
+(defrule
+	(goal G-CAN-RETREAT-FROM-PROJECTILES YES)
+	(up-projectile-detected projectile-town-center < 3000)
+	(unit-type-count siege-weapon-class < 2)
+	(military-population < 24)
+	(up-timer-status T-RETREAT-FROM-PROJECTILES == timer-disabled)
+=>
+	(up-full-reset-search)
+	(up-set-group search-local c: 8)
+	(up-remove-objects search-local object-data-action == actionid-move);
+	(up-set-target-point retreatpoint-x)
+	(chat-local-to-self "Retreating from arrow fire for a few meters.")
+	(up-target-point 0 action-move formation-box stance-no-attack)
+	(enable-timer T-RETREAT-FROM-PROJECTILES 7) ;10
+	(set-goal G-CAN-RETREAT-FROM-PROJECTILES NO)
+)
+
+;Reset the stance to aggressive after retreat
+(defrule
+	(timer-triggered T-RETREAT-FROM-PROJECTILES)
+	(goal G-CAN-RETREAT-FROM-PROJECTILES NO)
+=>
+	(up-reset-unit c: -1)
+	(up-set-attack-stance -1 c: stance-aggressive)
+	(set-goal G-CAN-RETREAT-FROM-PROJECTILES YES)
+)

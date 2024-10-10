@@ -84,6 +84,7 @@
 	(set-goal HUMAN-DIPLOMACY NO)
 	(set-goal MAIN-SHIP-BUILDER NOTICE)
 	(set-goal RUSH-ATTACK-STARTED NO)
+	(set-goal G-CAN-RETREAT-FROM-PROJECTILES YES)
 	(disable-self)
 )
 
@@ -1630,4 +1631,41 @@
 	(set-difficulty-parameter ability-to-maintain-distance maintain-distance)
 	(disable-self)
 )
+
+(defrule
+	(building-type-count town-center >= 1)
+=>
+	(up-full-reset-search)
+	(up-find-local c: town-center c: 1)
+	(up-set-target-object search-local c: 0)
+	(up-get-point position-object position-self-x)
+	;(up-get-point-zone position-self-x main-zone)
+	;(up-get-object-data object-data-id position-self-id)
+	;(up-modify-sn sn-safe-town-size s:= sn-maximum-town-size)
+	;(up-modify-sn sn-safe-town-size c:max 16); 14
+)
+
+;(up-get-point position-map-size temporary-point-x)
+;(up-modify-goal map-size g:= temporary-point-x)
+
+(defrule
+	(up-compare-goal starting-zone <= -1)
+	(up-compare-goal position-self-x >= 0)
+	(up-compare-goal position-self-y >= 0)
+	;(up-compare-goal position-self-x g:<= map-size)
+	;(up-compare-goal position-self-y g:<= map-size)
+=>
+	(up-get-point-zone position-self-x starting-zone)
+	(up-chat-data-to-self "starting-zone: %d" g: starting-zone)
+	(disable-self)
+)
+
+(defrule
+	(up-compare-goal position-self-x != -1)
+=>
+	(up-set-target-point position-self-x)
+	(up-copy-point retreatpoint-x position-self-x)
+	(disable-self)
+)
+
 ;=====ALL RIGHTS RESERVED============

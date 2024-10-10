@@ -307,6 +307,8 @@
 
 (defconst G-PRIMARY-AND-SECONDARY-UNIT-COUNT-DIFF 55)
 
+(defconst G-CAN-RETREAT-FROM-PROJECTILES 56)
+
 ;-------------------------------------
 
 (defconst T-TRIBUTE 1)
@@ -326,6 +328,7 @@
 (defconst T-MILITARY-PARITY 15)
 (defconst T-RETREAT 16)
 (defconst T-LUMBER-CAMP 17)
+(defconst T-RETREAT-FROM-PROJECTILES 18)
 
 ;---------------------------------------
 
@@ -2268,3 +2271,59 @@
 (defconst projectile-siege 5)
 (defconst projectile-fortification 6)
 (defconst projectile-any 7)
+
+(defconst unpacked-trebuchet 42)
+
+(defconst map-size 194)
+(defconst starting-zone 258)
+(defconst main-zone 227)
+
+(defconst position-self-x 478)
+(defconst position-self-y 479)
+
+(defconst retreatpoint-x 472)
+(defconst retreatpoint-y 473)
+
+
+;--------------------------------------
+; Define ActionId Constants
+;--------------------------------------
+(defconst actionid-attack 600)
+(defconst actionid-defend 601)
+(defconst actionid-build 602)
+(defconst actionid-heal 603)
+(defconst actionid-convert 604)
+(defconst actionid-explore 605)
+(defconst actionid-stop 606)
+(defconst actionid-runaway 607)
+(defconst actionid-retreat 608)
+(defconst actionid-gather 609)
+(defconst actionid-move 610)
+(defconst actionid-patrol 611)
+(defconst actionid-follow 612)
+(defconst actionid-hunt 613)
+(defconst actionid-transport 614)
+(defconst actionid-trade 615)
+(defconst actionid-evade 616)
+(defconst actionid-enter 617)
+(defconst actionid-repair 618)
+(defconst actionid-train 619)
+(defconst actionid-research 620)
+(defconst actionid-unload 621)
+(defconst actionid-relic 631)
+
+;--------------------------------------
+; Define Formation Constants
+;--------------------------------------
+(defconst formation-line 2)
+(defconst formation-box 4)
+(defconst formation-stagger 7)
+(defconst formation-flank 8)
+
+;--------------------------------------
+; Define AttackStance Constants
+;--------------------------------------
+(defconst stance-aggressive 0)
+(defconst stance-defensive 1)
+(defconst stance-stand-ground 2)
+(defconst stance-no-attack 3)
