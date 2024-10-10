@@ -1057,6 +1057,13 @@
  	(current-age == feudal-age)
  	(can-build farm)
 	(sheep-and-forage-too-far)
+	(or
+		(sheep-and-forage-too-far)
+		(or
+			(dropsite-min-distance food >= 10)
+			(dropsite-min-distance food <= -1)
+		)
+	)
 	(building-type-count-total lumber-camp > 0)
 	(or
 		(building-type-count-total farm < 10)
