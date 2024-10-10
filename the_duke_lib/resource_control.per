@@ -511,7 +511,7 @@
 (defrule 				;If
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
-	(building-type-count-total barracks < 3)
+	(building-type-count-total barracks < EAGLE-WARRIOR-RUSH-NUMBER-OF-BARRACKS)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
@@ -525,7 +525,7 @@
 (defrule 				;If
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
-	(building-type-count-total barracks >= 3)
+	(building-type-count-total barracks >= EAGLE-WARRIOR-RUSH-NUMBER-OF-BARRACKS)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)

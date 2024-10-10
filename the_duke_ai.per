@@ -853,12 +853,7 @@
 	(set-strategic-number sn-minimum-explore-group-size 1)
 	(set-strategic-number sn-maximum-explore-group-size 1)
 	(set-strategic-number sn-blot-exploration-map 0) ;0 = do not allow exploring previously explored areas
-	(disable-self)
-)
 
-(defrule
-	(true)
-=>
 	(set-strategic-number sn-minimum-boat-explore-group-size 1)
 	(set-strategic-number sn-maximum-boat-explore-group-size 1)
 	(set-strategic-number sn-number-boat-explore-groups 1)
@@ -867,8 +862,6 @@
 	(set-strategic-number sn-number-enemy-objects-required 2)
 	(disable-self)
 )
-
-
 
 (defrule
 	(or
@@ -882,15 +875,15 @@
 	(set-strategic-number sn-total-number-explorers 1)
 	(set-strategic-number sn-number-explore-groups 1)
 	(set-strategic-number sn-percent-civilian-explorers 0)
-	(set-strategic-number sn-percent-civilian-builders 15)
-	(set-strategic-number sn-percent-civilian-gatherers 85)
+	(set-strategic-number sn-percent-civilian-builders 30)
+	(set-strategic-number sn-percent-civilian-gatherers 70)
 	(disable-self)
 )
 
 #end-if
 
+#load-if-defined NOMAD-MAP
 (defrule
-	(map-type nomad)
 	(game-time < 90)
 =>
 	(set-strategic-number sn-minimum-civilian-explorers 6)
@@ -904,7 +897,6 @@
 )
 
 (defrule
-	(map-type nomad)
 	(game-time > 180)
 	(unit-type-count villager < 15)
 	(starting-resources < high-resources)
@@ -922,7 +914,6 @@
 )
 
 (defrule
-	(map-type nomad)
 	(game-time > 180)
 	(unit-type-count villager < 15)
 	(starting-resources == high-resources)
@@ -938,7 +929,7 @@
 	(set-strategic-number sn-percent-civilian-gatherers 15)
 	(disable-self)
 )
-
+#end-if
 
 
 (defrule
@@ -1442,19 +1433,14 @@
 	(set-strategic-number sn-relic-defend-priority 1)
 	(set-strategic-number sn-dock-defend-priority 1)
 	(set-strategic-number sn-defense-distance 3)
-	(set-strategic-number sn-sentry-distance 12)
+	(set-strategic-number sn-sentry-distance 6)
 	(set-strategic-number sn-sentry-distance-variation 0)
 	(set-strategic-number sn-defend-overlap-distance 1)
+	(set-strategic-number sn-gather-defense-units YES)
 	(disable-self)
 )
 
 
-
-(defrule
-	(true)
-=>
-	(set-strategic-number sn-gather-defense-units YES)
-)
 ;-----------------------------------
 
 

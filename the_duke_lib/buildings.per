@@ -1783,7 +1783,7 @@
 	(or
 		(and
 			(up-research-status c: castle-age >= research-pending)
-			(building-type-count-total barracks < 3)
+			(building-type-count-total barracks < EAGLE-WARRIOR-RUSH-NUMBER-OF-BARRACKS)
 		)
 		(and
 			(current-age >= castle-age)
@@ -1801,6 +1801,7 @@
 		(goal RUSH-CONTROL RUSHING)
 	)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(up-pending-objects c: barracks < 3)
 =>
  	(up-modify-sn sn-maximum-town-size g:= TOWN-SIZE-FOR-BUILDING)
 	(build barracks)
