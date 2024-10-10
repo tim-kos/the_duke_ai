@@ -1022,6 +1022,8 @@
  	(current-age == dark-age)
  	(can-build farm)
 	(sheep-and-forage-too-far)
+	(dropsite-min-distance live-boar > 32)
+	(dropsite-min-distance deer-hunting > 20)
 	(game-time > 300)
 	(building-type-count-total lumber-camp > 0)
 	(idle-farm-count < 2)
@@ -1035,6 +1037,8 @@
  	(current-age == feudal-age)
  	(can-build farm)
 	(sheep-and-forage-too-far)
+	(dropsite-min-distance live-boar > 32)
+	(dropsite-min-distance deer-hunting > 20)
 	(building-type-count-total lumber-camp > 0)
 	(idle-farm-count < 2)
 	(or
@@ -1057,13 +1061,8 @@
  	(current-age == feudal-age)
  	(can-build farm)
 	(sheep-and-forage-too-far)
-	(or
-		(sheep-and-forage-too-far)
-		(or
-			(dropsite-min-distance food >= 10)
-			(dropsite-min-distance food <= -1)
-		)
-	)
+	(dropsite-min-distance live-boar > 32)
+	(dropsite-min-distance deer-hunting > 20)
 	(building-type-count-total lumber-camp > 0)
 	(or
 		(building-type-count-total farm < 10)
@@ -1084,16 +1083,8 @@
 (defrule
  	(current-age >= castle-age)
  	(can-build farm)
- 	(or
-		(or
-			(sheep-and-forage-too-far)
-			(game-time > 1800)
-		)
-		(or
-			(dropsite-min-distance food >= 10)
-			(dropsite-min-distance food <= -1)
-		)
-	)
+	(dropsite-min-distance live-boar > 32)
+	(dropsite-min-distance deer-hunting > 20)
 	(building-type-count-total lumber-camp > 0)
 	(or
 		(idle-farm-count < 1)
