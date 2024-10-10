@@ -325,6 +325,7 @@
 	(food-amount < 300)
 	(gold-amount > 500)
 	(goal RUSH-CONTROL RUSHING)
+	(not (goal RUSH-ATTACK-STARTED YES))
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(can-buy-commodity food)
 =>
@@ -341,6 +342,7 @@
 	(research-completed ri-bow-saw)
 	(goal RUSH-CONTROL RUSHING)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
+	(not (goal RUSH-ATTACK-STARTED YES))
 	(can-sell-commodity wood)
 =>
 	(sell-commodity wood)

@@ -511,7 +511,7 @@
 (defrule 				;If
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
-	(building-type-count-total barracks < 4)
+	(building-type-count-total barracks < 3)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
@@ -525,7 +525,7 @@
 (defrule 				;If
 	(current-age == feudal-age)
 	(building-type-count mining-camp > 0)
-	(building-type-count-total barracks >= 4)
+	(building-type-count-total barracks >= 3)
 	(up-research-status c: castle-age >= research-pending)
 	(goal RUSH-CONTROL CASTLE)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
@@ -652,7 +652,10 @@
 	(goal RUSH-CONTROL RUSHING)
 	(building-type-count mining-camp > 0)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
-	(up-research-status c: ri-gold-shaft-mining < research-pending)
+	(or
+		(up-research-status c: ri-gold-shaft-mining < research-pending)
+		(up-research-status c: ri-hand-cart < research-pending)
+	)
 =>					;then
  	(set-strategic-number sn-food-gatherer-percentage 45)
  	(set-strategic-number sn-wood-gatherer-percentage 20)
@@ -666,10 +669,11 @@
 	(building-type-count mining-camp > 0)
 	(goal G-PRIMARY-UNIT eagle-warrior-line)
 	(up-research-status c: ri-gold-shaft-mining >= research-pending)
+	(up-research-status c: ri-hand-cart >= research-pending)
 =>					;then
- 	(set-strategic-number sn-food-gatherer-percentage 60)
+ 	(set-strategic-number sn-food-gatherer-percentage 50)
  	(set-strategic-number sn-wood-gatherer-percentage 15)
- 	(set-strategic-number sn-gold-gatherer-percentage 25)
+ 	(set-strategic-number sn-gold-gatherer-percentage 35)
  	(set-strategic-number sn-stone-gatherer-percentage 0)
 )
 
