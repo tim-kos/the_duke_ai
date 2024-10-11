@@ -242,7 +242,7 @@
 		(players-current-age any-computer >= castle-age)
 		(players-current-age any-human >= castle-age)
 	)
-	(food-amount > 760)
+	(food-amount > 720)
 	(gold-amount > 200)
 	(or
 		(or
@@ -269,7 +269,7 @@
 	(or
 		(or
 			(or
-				(food-amount <= 760)
+				(food-amount <= 720)
 				(gold-amount <= 200)
 			)
 			(building-type-count market == 0)
@@ -298,7 +298,7 @@
 		(players-current-age any-computer >= feudal-age)
 		(players-current-age any-human >= feudal-age)
 	)
-	(food-amount > 760)
+	(food-amount > 720)
 	(gold-amount > 200)
 	(or
 		(or
@@ -325,7 +325,7 @@
 	(or
 		(or
 			(or
-				(food-amount <= 760)
+				(food-amount <= 720)
 				(gold-amount <= 200)
 			)
 			(building-type-count market == 0)
@@ -350,7 +350,7 @@
 (defrule
 	(game-time > CASTLE-RESEARCH-TIME-MODERATE)
 	(current-age == feudal-age)
-	(food-amount > 760)
+	(food-amount > 720)
 	(gold-amount > 200)
 	(or
 		(or
@@ -372,7 +372,7 @@
 	(current-age == feudal-age)
 	(or
 		(or
-			(food-amount <= 760)
+			(food-amount <= 720)
 			(gold-amount <= 200)
 		)
 		(building-type-count blacksmith == 0)
@@ -407,21 +407,31 @@
 ;Rule11: when to train villagers in feudal age -HARD, HARDEST -fast castle
 
 (defrule
-	(goal RESEARCHING-CASTLE FAST-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE)
+	(or
+		(goal RESEARCHING-CASTLE FAST-CASTLE)
+		(or
+			(and
+				(goal RESEARCHING-CASTLE MIDDLE-CASTLE)
+				(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE)
+			)
+			(and
+				(goal RESEARCHING-CASTLE LATE-CASTLE)
+				(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE)
+			)
+		)
+	)
 	(current-age == feudal-age)
-	(goal RUSH-CONTROL CASTLE)
-	(food-amount > 650)
+	(food-amount > 700)
 	(gold-amount > 200)
 	(unit-type-count-total villager > 30)
 	(or
 		(or
-			(building-type-count market > 0)
-			(building-type-count stable > 0)
+			(building-type-count-total market > 0)
+			(building-type-count-total stable > 0)
 		)
-		(building-type-count archery-range > 0)
+		(building-type-count-total archery-range > 0)
 	)
-	(building-type-count blacksmith > 0)
+	(building-type-count-total blacksmith > 0)
 =>
 	(set-goal TRAIN-VILLAGERS NO)
 	(set-escrow-percentage food 100)
@@ -430,182 +440,39 @@
 
 (defrule
 	(goal TRAIN-VILLAGERS NO)
-	(goal RESEARCHING-CASTLE FAST-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE)
+	(or
+		(goal RESEARCHING-CASTLE FAST-CASTLE)
+		(or
+			(and
+				(goal RESEARCHING-CASTLE MIDDLE-CASTLE)
+				(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE)
+			)
+			(and
+				(goal RESEARCHING-CASTLE LATE-CASTLE)
+				(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE)
+			)
+		)
+	)
 	(current-age == feudal-age)
-	(goal RUSH-CONTROL CASTLE)
 	(or
 		(or
 			(or
-				(food-amount <= 650)
+				(food-amount <= 700)
 				(gold-amount <= 200)
 			)
-			(building-type-count blacksmith == 0)
+			(or
+				(building-type-count-total blacksmith == 0)
+				(and
+					(building-type-count-total market == 0)
+					(and
+						(building-type-count-total stable == 0)
+						(building-type-count-total archery-range == 0)
+					)
+				)
+			)
 		)
 		(unit-type-count-total villager <= 30)
 	)
-=>
-	(set-goal TRAIN-VILLAGERS YES)
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
-)
-
-(defrule
-	(goal RESEARCHING-CASTLE FAST-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE)
-	(current-age == feudal-age)
-	(food-amount > 750)
-	(gold-amount > 200)
-	(or
-		(or
-			(building-type-count market > 0)
-			(building-type-count stable > 0)
-		)
-		(building-type-count archery-range > 0)
-	)
-	(building-type-count blacksmith > 0)
-=>
-	(set-goal TRAIN-VILLAGERS NO)
-	(set-escrow-percentage food 100)
-	(set-escrow-percentage gold 100)
-)
-
-(defrule
-	(goal TRAIN-VILLAGERS NO)
-	(goal RESEARCHING-CASTLE FAST-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE)
-	(current-age == feudal-age)
-	(or
-		(or
-			(food-amount <= 750)
-			(gold-amount <= 200)
-		)
-		(building-type-count blacksmith == 0)
-	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
-=>
-	(set-goal TRAIN-VILLAGERS YES)
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
-)
-
-(defrule
-	(goal TRAIN-VILLAGERS NO)
-	(goal RESEARCHING-CASTLE FAST-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-FAST-CASTLE)
-	(current-age == feudal-age)
-	(building-type-count market == 0)
-	(building-type-count archery-range == 0)
-	(building-type-count stable == 0)
-	(goal ALL-ECONOMY-TECH-DONE YES)
-=>
-	(set-goal TRAIN-VILLAGERS YES)
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
-)
-
-(defrule
-	(goal RESEARCHING-CASTLE MIDDLE-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE)
-	(current-age == feudal-age)
-	(food-amount > 750)
-	(gold-amount > 200)
-	(or
-		(or
-			(building-type-count market > 0)
-			(building-type-count stable > 0)
-		)
-		(building-type-count archery-range > 0)
-	)
-	(building-type-count blacksmith > 0)
-=>
-	(set-goal TRAIN-VILLAGERS NO)
-	(set-escrow-percentage food 100)
-	(set-escrow-percentage gold 100)
-)
-
-(defrule
-	(goal TRAIN-VILLAGERS NO)
-	(goal RESEARCHING-CASTLE MIDDLE-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE)
-	(current-age == feudal-age)
-	(or
-		(or
-			(food-amount <= 750)
-			(gold-amount <= 200)
-		)
-		(building-type-count blacksmith == 0)
-	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
-=>
-	(set-goal TRAIN-VILLAGERS YES)
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
-)
-
-(defrule
-	(goal TRAIN-VILLAGERS NO)
-	(goal RESEARCHING-CASTLE MIDDLE-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-MIDDLE-CASTLE)
-	(current-age == feudal-age)
-	(building-type-count market == 0)
-	(building-type-count archery-range == 0)
-	(building-type-count stable == 0)
-	(goal ALL-ECONOMY-TECH-DONE YES)
-=>
-	(set-goal TRAIN-VILLAGERS YES)
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
-)
-
-(defrule
-	(goal RESEARCHING-CASTLE LATE-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE)
-	(current-age == feudal-age)
-	(food-amount > 750)
-	(gold-amount > 200)
-	(or
-		(or
-			(building-type-count market > 0)
-			(building-type-count stable > 0)
-		)
-		(building-type-count archery-range > 0)
-	)
-	(building-type-count blacksmith > 0)
-=>
-	(set-goal TRAIN-VILLAGERS NO)
-	(set-escrow-percentage food 100)
-	(set-escrow-percentage gold 100)
-)
-
-(defrule
-	(goal TRAIN-VILLAGERS NO)
-	(goal RESEARCHING-CASTLE LATE-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE)
-	(current-age == feudal-age)
-	(or
-		(or
-			(food-amount <= 750)
-			(gold-amount <= 200)
-		)
-		(building-type-count blacksmith == 0)
-	)
-	(goal ALL-ECONOMY-TECH-DONE YES)
-=>
-	(set-goal TRAIN-VILLAGERS YES)
-	(set-escrow-percentage food 0)
-	(set-escrow-percentage gold 0)
-)
-
-(defrule
-	(goal TRAIN-VILLAGERS NO)
-	(goal RESEARCHING-CASTLE LATE-CASTLE)
-	(game-time > CASTLE-RESEARCH-TIME-LATE-CASTLE)
-	(current-age == feudal-age)
-	(building-type-count market == 0)
-	(building-type-count archery-range == 0)
-	(building-type-count stable == 0)
-	(goal ALL-ECONOMY-TECH-DONE YES)
 =>
 	(set-goal TRAIN-VILLAGERS YES)
 	(set-escrow-percentage food 0)
